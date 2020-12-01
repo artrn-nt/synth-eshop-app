@@ -1,0 +1,237 @@
+@import '../config.scss';
+
+%input {
+  width: 100%;
+  height: 2.65rem;
+  padding: 0 42px 0 .8rem;
+  border: 1.4px solid transparent;
+  // border: none;
+  border-radius: 4px;
+  background-color: $bright;
+  font-family: $content-font;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: $main-theme;
+}
+
+%col-title {
+  position: relative;
+  margin-bottom: 2.1rem;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 2.1px;
+    background-color: brown;
+  }
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - (123px + 4.6rem));
+  // padding: 2.1rem 0;
+  padding: 2.1rem 0 3.15rem;
+  // background-color: cadetblue;
+
+  .profile-main-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    margin-top: 3.15rem;
+    // background-color: burlywood;
+
+    .profile-col-1 {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-grow: 1;
+      padding-right: 3.15rem;
+      width: 40%;
+      min-height: calc(758.4px - 39.6px - 4.2rem - 3.15rem);
+      border-right: 1px solid $bright;
+      color: $bright;
+      // flex-direction: column;
+
+      h3 {
+        @extend %col-title;
+      }
+
+      .profile-form-container {
+        width: 100%;
+        // display: flex;
+        // flex-direction: column;
+        // align-items: center;
+        // justify-content: flex-start;
+        // margin-top: 3.15rem;
+        // flex-grow: 1;
+        // width: 420px;
+        // color: $bright;
+        // opacity: 0;
+        // cursor: default;
+        // background-color: lightgrey;
+
+        form {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          // min-height: 245px;
+          // background-color: cadetblue;
+
+          .field-control {
+            display: flex;
+            flex-flow: column;
+            align-items: flex-start;
+            width: 100%;
+            min-height: 132.5px;
+            // min-height: 125px;
+            // background-color: burlywood;
+
+            &:nth-of-type(3) {
+
+              .password-input-wrap-profile {
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                width: 100%;
+                margin-bottom: 0.75rem;
+    
+                .styled-checkbox {
+                  position: absolute;
+                  top: 50%;
+                  // right: -3.3rem;
+                  right: 4px;
+                  transform: translateY(-50%);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 34px;
+                  height: 34px;
+                  // width: 2rem;
+                  // height: 2rem;
+                  // border: 1.4px solid $main-theme;
+                  border-radius: 50%;
+                  font-size: .95rem;
+                  color: $main-theme;
+                  background-color: $bright;
+                  cursor: pointer;
+                  transition: background-color 280ms ease-out, color 280ms ease-out;
+    
+                  &:hover {
+                    color: $bright;
+                    background-color: $main-theme;
+                    // border: 1.4px solid $main-theme;
+                  }
+    
+                }
+    
+                .styled-checkbox input[type='checkbox'],
+                .styled-checkbox .far.fa-eye-slash {
+                  display: none;
+                }
+    
+                .styled-checkbox input[type='checkbox']:checked ~ .far.fa-eye-slash {
+                  display: inline-block;
+                }
+    
+                .styled-checkbox input[type='checkbox']:checked ~ .far.fa-eye {
+                  display: none;
+                }
+              }
+            }
+    
+            &:nth-of-type(4) {
+              margin-bottom: 2.1rem;
+            }
+    
+            label:nth-child(1) {
+              margin-bottom: 0.75rem;
+              font-size: 1.1rem;
+              font-weight: 500;
+            }
+
+            #username,
+            #email,
+            #confirmationPassword {
+              @extend %input;
+              margin-bottom: 0.75rem;
+            }
+
+            #password {
+              @extend %input;
+            }
+
+            .form-err-msg {
+              width: 100%;
+              padding-left: 0.8rem;
+              font-size: 0.85rem;
+              font-weight: 600;
+              text-align: left;
+              color: brown;
+              animation: fadeIn 0.6s ease-in-out;
+            }
+          }
+
+          .btn-profile-form {
+            height: 3.15rem;
+            padding: 0 1.05rem;
+            background-color: transparent;
+            border: 1.2px solid;
+            border-radius: 4px;
+            color: $bright;
+            font-family: $content-font;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: transform 75ms ease-in, background-color 280ms ease-out;
+            cursor: pointer;
+    
+            &:hover {
+              background-color: brown;
+            }
+    
+            &:active {
+              -webkit-transform: scale(0.99);
+              transform: scale(0.99);
+            }
+          }
+        }
+      }
+    }
+
+    .profile-col-2 {
+      display: flex;
+      align-items: flex-start;
+      padding-left: 3.15rem;
+      width: 60%;
+      height: 100%;
+      flex-grow: 1;
+      min-height: calc(758.4px - 39.6px - 4.2rem - 3.15rem);
+      color: $bright;
+      // background-color: cornflowerblue;
+
+      h3 {
+        @extend %col-title;
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

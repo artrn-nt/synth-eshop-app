@@ -1,0 +1,34 @@
+@import '../config.scss';
+
+.shipping-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: calc(100vh - (139.6px + 4.6rem));
+    padding: 2.1rem 0;
+    // background-color: slateblue;
+
+    .shipping-form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 3.15rem;
+        flex-grow: 1;
+        width: 420px;
+        color: $bright;
+        // opacity: 0;
+        cursor: default;
+
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }   
+    to {
+        opacity: 1;
+    }
+}

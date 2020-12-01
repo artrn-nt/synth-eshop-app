@@ -13,12 +13,15 @@
 
 html {
   overflow-x: hidden;
+  overflow-y: scroll;
+  // overflow: hidden;
 }
 
 body {
   min-height: 100%;
   width: 100%;
-  background-color: $bg-color;
+  background-color: $main-theme;
+  font-family: $content-font;
   overflow-x: hidden;
   overscroll-behavior-y: none;
   -webkit-font-smoothing: antialiased;

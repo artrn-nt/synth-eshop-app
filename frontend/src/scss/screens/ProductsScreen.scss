@@ -1,0 +1,97 @@
+@import '../components/utilities/ScreenTitle.scss';
+
+.products-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  // min-height: calc(100vh - (123px + 4.6rem));
+  min-height: calc(100vh - (139.3px + 73.6px));
+  padding: 2.1rem 0;
+  // background-color: brown;
+
+  &.ctr {
+    justify-content: center;
+  }
+
+  &.str {
+    justify-content: flex-start;
+  }
+
+  .products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    column-gap: 1.6rem;
+    row-gap: 2rem;
+    width: 100%;
+    // margin-top: 2.1rem;
+    margin-top: 3.05rem;
+    // background-color: cadetblue;
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+
+      &:hover > .img-link img {
+        -webkit-transform: scale(1.02);
+        transform: scale(1.02);
+      }
+
+      &:hover > .title-link span:nth-of-type(1) {
+        background-color: brown;
+      }
+
+      .img-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // margin-bottom: 0.75rem;
+        margin-bottom: 0.3rem;
+        overflow: hidden;
+        border-radius: 3px;
+
+        img {
+          width: 100%;
+          backface-visibility: hidden;
+          transition: transform 300ms ease-out;
+        }
+      }
+
+      .title-link {
+        // width: 100%;
+        // background-color: teal;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 79px;
+
+        .card-title {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          color: $bright;
+
+          span:nth-of-type(1) {
+            position: relative;
+            padding: 0 0.35rem;
+            margin-bottom: 0.375rem;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 250ms ease-out;
+          }
+
+          span:nth-of-type(2) {
+            font-size: 1.05rem;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}

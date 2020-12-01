@@ -1,0 +1,206 @@
+@import '../config.scss';
+
+.product-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - (139.3px + 73.6px));
+  padding: 1.05rem 0 2.1rem;
+
+  &.ctr {
+    justify-content: center;
+  }
+
+  &.str {
+    justify-content: flex-start;
+  }
+
+  .main-row-product {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    margin: 3.05rem 0 0;
+    opacity: 0;
+    color: $greyish;
+
+    .col-1-product {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      // max-width: 650px;
+      // max-width: 475px;
+      width: 50%;
+      max-width: 790px;
+      cursor: default;
+      // background-color: green;
+
+      .img-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        margin-bottom: 2.1rem;
+        width: 100%;
+        border-radius: 3px;
+        overflow: hidden;
+        // max-width: 475px;
+        // background-color: lightsalmon;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .add-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 2.1rem;
+        // background-color: cadetblue;
+
+        .info-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-between;
+          // background-color: crimson;
+          color: $bright;
+          font-weight: 500;
+
+          .price,
+          .status {
+            margin-bottom: 0.375rem;
+          }
+        }
+
+        .btn-add-cart {
+          width: 145px;
+          height: 3.15rem;
+          background-color: transparent;
+          border: 1.2px solid;
+          border-radius: 4px;
+          font-family: $content-font;
+          font-size: 0.9rem;
+          font-weight: 500;
+          transition: transform 75ms ease-in, background-color 280ms ease-out;
+
+          &.active {
+            border-color: $bright;
+            color: $bright;
+            cursor: pointer;
+
+            &:hover {
+              background-color: brown;
+            }
+
+            &:active {
+              -webkit-transform: scale(0.99);
+              transform: scale(0.99);
+            }
+          }
+
+          &.disabled {
+            border-color: $greyish;
+            color: $greyish;
+            cursor: default;
+          }
+        }
+      }
+
+      .alert-row-product {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        min-height: calc(100px + 2.1rem);
+
+        &.ctr {
+          justify-content: center;
+        }
+
+        &.str {
+          justify-content: flex-start;
+        }
+
+        .add-cart-alert {
+          color: $greyish;
+          font-size: 1.1rem;
+          font-weight: 500;
+          text-align: center;
+          animation: fadeIn 400ms ease-out;
+
+          &.margin {
+            margin-bottom: 2.1rem;
+          }
+
+          a {
+            color: $bright;
+            transition: color 250ms ease-out;
+
+            &:hover {
+              color: brown;
+            }
+          }
+        }
+
+        .stock-alert-product,
+        .error-alert-add-cart {
+          width: 75%;
+          color: brown;
+          font-size: 1.1rem;
+          font-weight: 600;
+          text-align: center;
+          animation: fadeIn 400ms ease-out;
+          // background-color: seashell;
+        }
+      }
+    }
+
+    .col-2-product {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      width: 50%;
+      margin-left: 3.15rem;
+      // margin-left: 6.3rem;
+      // background-color: crimson;
+
+      .description-wrapper {
+        // background-color: lightpink;
+        display: flex;
+        flex-direction: column;
+
+        span {
+          font-size: 1.1rem;
+          font-weight: 500;
+          margin-bottom: 0.75rem;
+        }
+
+        li {
+          font-size: 0.9rem;
+          list-style: circle outside;
+          text-align: left;
+          margin-left: 0.825rem;
+
+          &:not(:last-of-type) {
+            margin-bottom: 0.1875rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
