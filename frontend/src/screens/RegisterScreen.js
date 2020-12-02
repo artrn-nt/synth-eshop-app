@@ -6,6 +6,8 @@ import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 import { register, registerReset } from '../actions/userActions'
 import ScreenTitle from '../components/utilities/ScreenTitle'
+import ShowPassword from '../components/utilities/ShowPassword'
+import ActionBtn from '../components/utilities/ActionBtn'
 import Spinner from '../components/utilities/Spinner'
 import Message from '../components/utilities/Message'
 import '../scss/screens/RegisterScreen.scss'
@@ -16,7 +18,7 @@ const RegisterScreen = ({ history, location }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const [inputType, setInputType] = useState(false)
+    const [show, setShow] = useState(false)
 
     const dispatch = useDispatch()
     const userRegister = useSelector(state => state.userRegister)
@@ -53,7 +55,7 @@ const RegisterScreen = ({ history, location }) => {
         <section className='register-section'>
             <ScreenTitle title='Sign-Up' />
             <Formik
-                initialValues={{ username: '', email: '', password: '', confirmationPassword: '', showPasswords: false }}
+                initialValues={{ username: '', email: '', password: '', confirmationPassword: '', showPassword: false }}
                 initialErrors={{ username: '', email: '', password: '', confirmationPassword: '' }}
                 validationSchema={yup.object({
                     username: yup.string()
@@ -132,7 +134,7 @@ const RegisterScreen = ({ history, location }) => {
                                 <div className='password-input-wrap-register'>
 
                                     <Field
-                                        type={inputType ? 'text' : 'password'}
+                                        type={show ? 'text' : 'password'}
                                         name='password'
                                         id='password'
                                         autoComplete='off'
@@ -144,17 +146,7 @@ const RegisterScreen = ({ history, location }) => {
                                         }}
                                     />
 
-                                    <label htmlFor='checkbox' className='styled-checkbox'>
-                                        <Field
-                                            type='checkbox'
-                                            name='showPasswords'
-                                            checked={values.showPasswords}
-                                            id='checkbox'
-                                            onClick={() => setInputType(prevState => !prevState)}
-                                        />
-                                        <i className='far fa-eye' />
-                                        <i className='far fa-eye-slash' />
-                                    </label>
+                                    <ShowPassword checked={values.showPassword} onClickHandler={() => setShow(prevState => !prevState)} />
 
                                 </div>
 
@@ -168,7 +160,7 @@ const RegisterScreen = ({ history, location }) => {
                             <div className='field-control'>
                                 <label htmlFor='confirmationPassword'>Confirm password</label>
                                 <Field
-                                    type={inputType ? 'text' : 'password'}
+                                    type={show ? 'text' : 'password'}
                                     name='confirmationPassword'
                                     id='confirmationPassword'
                                     autoComplete='off'
@@ -180,13 +172,7 @@ const RegisterScreen = ({ history, location }) => {
                                 />
                             </div>
 
-                            <button
-                                className='btn-register-form'
-                                type='submit'
-                                disabled={isSubmitting}
-                            >
-                                Sign-Up
-                            </button>
+                            <ActionBtn type='submit' className='submit-btn' disabled={isSubmitting} text='Sign-up' />
 
                         </Form>
 

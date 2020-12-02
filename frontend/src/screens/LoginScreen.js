@@ -6,15 +6,17 @@ import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, loginReset } from '../actions/userActions'
 import ScreenTitle from '../components/utilities/ScreenTitle'
+import ShowPassword from '../components/utilities/ShowPassword'
 import Spinner from '../components/utilities/Spinner'
 import Message from '../components/utilities/Message'
+import ActionBtn from '../components/utilities/ActionBtn'
 import '../scss/screens/LoginScreen.scss'
 
 const LoginScreen = ({ history, location }) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [inputType, setInputType] = useState(false)
+    const [show, setShow] = useState(false)
 
     const dispatch = useDispatch()
     const userLogin = useSelector(state => state.userLogin)
@@ -101,7 +103,7 @@ const LoginScreen = ({ history, location }) => {
                                 <div className='password-input-wrap-login'>
 
                                     <Field
-                                        type={inputType ? 'text' : 'password'}
+                                        type={show ? 'text' : 'password'}
                                         name='password'
                                         id='password'
                                         autoComplete='off'
@@ -113,32 +115,17 @@ const LoginScreen = ({ history, location }) => {
                                         }}
                                     />
 
-                                    <label htmlFor='checkbox' className='styled-checkbox'>
-                                        <Field
-                                            type='checkbox'
-                                            name='showPassword'
-                                            checked={values.showPassword}
-                                            id='checkbox'
-                                            onClick={() => setInputType(prevState => !prevState)}
-                                        />
-                                        <i className='far fa-eye' />
-                                        <i className='far fa-eye-slash' />
-                                    </label>
+                                    <ShowPassword checked={values.showPassword} onClickHandler={() => setShow(prevState => !prevState)} />
 
                                 </div>
+
                                 <ErrorMessage
                                     name='password'
                                     render={msg => <span className='form-err-msg'>{msg}</span>}
                                 />
                             </div>
 
-                            <button
-                                className='btn-login-form'
-                                type='submit'
-                                disabled={isSubmitting}
-                            >
-                                Sign-In
-                            </button>
+                            <ActionBtn type='submit' className='submit-btn' disabled={isSubmitting} text='Sign-in' />
 
                         </Form>
 

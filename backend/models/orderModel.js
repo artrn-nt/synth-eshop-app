@@ -12,18 +12,22 @@ const orderSchema = mongoose.Schema({
             qty: { type: Number, required: true },
             image: { type: String, required: true },
             price: { type: Number, required: true },
-            product: {
+            _id: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,
                 ref: 'Product'
             }
         }
     ],
-    shippingAddress: {
+    shippingInfo: {
+        firstName: { type: String },
+        lastName: { type: String, required: true },
         address: { type: String, required: true },
+        addressDetails: { type: String },
         zipCode: { type: String, required: true },
         city: { type: String, required: true },
-        country: { type: String, required: true }
+        country: { type: String, required: true },
+        phone: { type: String }
     },
     paymentMethod: {
         type: String,
@@ -35,12 +39,17 @@ const orderSchema = mongoose.Schema({
         update_time: { type: String },
         email_address: { type: String },
     },
-    taxPrice: {
+    itemsPrice: {
         type: Number,
         required: true,
         default: 0.0
     },
     shippingPrice: {
+        type: Number,
+        required: true,
+        default: 0.0
+    },
+    taxPrice: {
         type: Number,
         required: true,
         default: 0.0

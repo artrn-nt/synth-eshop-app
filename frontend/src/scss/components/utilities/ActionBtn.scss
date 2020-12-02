@@ -1,0 +1,43 @@
+@import '../../config.scss';
+
+%btn {
+    height: 3.15rem;
+    padding: 0 1.55rem;
+    // margin-bottom: 3.15rem;
+    background-color: transparent;
+    border: 1.2px solid;
+    border-radius: 4px;
+    color: $bright;
+    font-family: $content-font;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: transform 75ms ease-in, background-color 280ms ease-out;
+    cursor: pointer;
+
+    &:hover {
+        background-color: brown;
+    }
+
+    &:active {
+        -webkit-transform: scale(0.99);
+        transform: scale(0.99);
+    }
+
+}
+
+.btn {
+    @extend %btn;
+    min-width: 115px;
+}
+
+.submit-btn {
+    @extend %btn;
+    min-width: 115px;
+    margin-bottom: 2.1rem;
+}
+
+.submit-btn-checkout {
+    @extend %btn;
+    min-width: 238px;
+    margin-bottom: 2.1rem;
+}

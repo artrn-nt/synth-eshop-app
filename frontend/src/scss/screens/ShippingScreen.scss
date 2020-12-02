@@ -1,12 +1,28 @@
 @import '../config.scss';
 
+%input {
+    width: 100%;
+    height: 2.65rem;
+    padding: 0 .8rem;
+    margin-bottom: 0.75rem;
+    border: 1.4px solid transparent;
+    // border: none;
+    border-radius: 4px;
+    background-color: $bright;
+    font-family: $content-font;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: $main-theme;
+
+}
+
 .shipping-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     min-height: calc(100vh - (139.6px + 4.6rem));
-    padding: 2.1rem 0;
+    padding: 2.1rem 0 4.2rem;
     // background-color: slateblue;
 
     .shipping-form-container {
@@ -14,21 +30,80 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
+        // margin-top: 2.1rem;
         margin-top: 3.15rem;
         flex-grow: 1;
-        width: 420px;
+        // width: 420px;
+        width: 400px;
         color: $bright;
         // opacity: 0;
         cursor: default;
 
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            // min-height: 245px;
+            // background-color: cadetblue;
+      
+            .field-control {
+              display: flex;
+              flex-flow: column;
+              align-items: flex-start;
+              width: 100%;
+              min-height: 132.5px;
+              // background-color: burlywood;
+      
+              &:nth-of-type(8) {
+                margin-bottom: 2.1rem;
+              }
+
+              label {
+                margin-bottom: 0.75rem;
+                font-size: 1.1rem;
+                font-weight: 500;
+
+                span {
+                    margin-left: .5rem;
+                    font-size: .9rem;
+                    font-weight: 400;
+                    color: $greyish;
+                }
+              }
+      
+              #firstname,
+              #lastname,
+              #address,
+              #address-details,
+              #zipcode,
+              #city,
+              #country,
+              #phone {
+                @extend %input;
+                
+              }
+      
+              .form-alert {
+                width: 100%;
+                padding-left: 0.8rem;
+                font-size: 0.85rem;
+                font-weight: 600;
+                text-align: left;
+                color: brown;
+                animation: fadeIn 0.6s ease-in-out;
+              }
+            }
+        }
     }
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }   
-    to {
-        opacity: 1;
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
     }
 }

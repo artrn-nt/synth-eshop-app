@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { saveShippingInfo } from '../actions/cartActions'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
 import CheckOutSteps from '../components/utilities/CheckoutSteps'
 import ScreenTitle from '../components/utilities/ScreenTitle'
+import ActionBtn from '../components/utilities/ActionBtn'
+import BackToCartLink from '../components/utilities/BackToCartLink'
 import '../scss/screens/ShippingScreen.scss'
 
 const ShippingScreen = ({ history }) => {
@@ -20,10 +23,11 @@ const ShippingScreen = ({ history }) => {
     const [zipCode, setZipCode] = useState('')
     const [city, setCity] = useState('')
     const [country, setCountry] = useState('')
+    const [phone, setPhone] = useState('')
 
     useEffect(() => {
         if (Object.entries(shippingInfo).length !== 0 && shippingInfo.constructor === Object) {
-            console.log(shippingInfo)
+            // console.log(shippingInfo)
             setFirstName(shippingInfo.firstName)
             setLastName(shippingInfo.lastName)
             setAddress(shippingInfo.address)
@@ -31,6 +35,7 @@ const ShippingScreen = ({ history }) => {
             setZipCode(shippingInfo.zipCode)
             setCity(shippingInfo.city)
             setCountry(shippingInfo.country)
+            setPhone(shippingInfo.phone)
         }
     }, [shippingInfo])
 
@@ -41,12 +46,13 @@ const ShippingScreen = ({ history }) => {
             <Formik
                 initialValues={{
                     firstName,
-                    lastName,
-                    address,
+                    lastName: shippingInfo.lastName ? shippingInfo.lastName : '',
+                    address: shippingInfo.address ? shippingInfo.address : '',
                     addressDetails,
-                    zipCode,
-                    city,
-                    country
+                    zipCode: shippingInfo.zipCode ? shippingInfo.zipCode : '',
+                    city: shippingInfo.city ? shippingInfo.city : '',
+                    country: shippingInfo.country ? shippingInfo.country : '',
+                    phone
                 }}
                 initialErrors={{
                     lastName: '',
@@ -58,34 +64,52 @@ const ShippingScreen = ({ history }) => {
                 validationSchema={yup.object({
                     firstName: yup.string()
                         .trim()
-                        .matches(/^[A-Za-z0-9\s-]+$/, 'Address is not valid, special characters are not allowed'),
+                        .min(2, 'Seems a bit short don\'t you think?')
+                        .max(65, 'Seems a bit long don\'t you think?')
+                        .matches(/^[A-Za-z\s\-'éèàùç]+$/, 'First name is not valid'),
                     lastName: yup.string()
                         .trim()
-                        .matches(/^[A-Za-z0-9\s-]+$/, 'Address is not valid, special characters are not allowed')
-                        .required('Address is required'),
+                        .min(2, 'Seems a bit short don\'t you think?')
+                        .max(65, 'Seems a bit long don\'t you think?')
+                        .matches(/^[A-Za-z\s\-'éèàùç]+$/, 'Last name is not valid')
+                        .required('Last name is required'),
                     address: yup.string()
                         .trim()
-                        .matches(/^[A-Za-z0-9\s-]+$/, 'Address is not valid, special characters are not allowed')
+                        .min(2, 'Seems a bit short don\'t you think?')
+                        .max(97, 'Seems a bit long don\'t you think?')
+                        .matches(/^[A-Za-z0-9\s\-']+$/, 'Special characters are not allowed')
                         .required('Address is required'),
                     addressDetails: yup.string()
                         .trim()
-                        .matches(/^[A-Za-z0-9\s-]+$/, 'Address is not valid, special characters are not allowed')
-                        .required('Address is required'),
+                        .min(2, 'Seems a bit short don\'t you think?')
+                        .max(65, 'Seems a bit long don\'t you think?')
+                        .matches(/^[A-Za-z0-9\s\-']+$/, 'Special characters are not allowed'),
                     zipCode: yup.string()
                         .trim()
+                        .min(2, 'Seems a bit short don\'t you think?')
+                        .max(33, 'Seems a bit long don\'t you think?')
                         .matches(/^[A-Za-z0-9\s-]+$/, 'Zip code is not valid')
                         .required('Zip code is required'),
                     city: yup.string()
                         .trim()
-                        .matches(/^[A-Za-z\s-]+$/, 'City is not valid')
+                        .min(2, 'Seems a bit short don\'t you think?')
+                        .max(65, 'Seems a bit long don\'t you think?')
+                        .matches(/^[A-Za-z\s\-']+$/, 'Special characters are not allowed')
                         .required('City is required'),
                     country: yup.string()
                         .trim()
-                        .matches(/^[A-Za-z\s-]+$/, 'Country is not valid')
+                        .min(2, 'Seems a bit short don\'t you think?')
+                        .max(65, 'Seems a bit long don\'t you think?')
+                        .matches(/^[A-Za-z\s\-']+$/, 'Special characters are not allowed')
                         .required('Country is required'),
+                    phone: yup.string()
+                        .trim()
+                        .min(8, 'Seems a bit short don\'t you think?')
+                        .max(25, 'Seems a bit long don\'t you think?')
+                        .matches(/^[0-9+]+$/, 'Phone number is not valid')
                 })}
                 onSubmit={() => {
-                    dispatch(saveShippingInfo({ firstName, lastName, address, addressDetails, zipCode, city, country }))
+                    dispatch(saveShippingInfo({ firstName, lastName, address, addressDetails, zipCode, city, country, phone }))
                     history.push('/payment')
                 }}
 
@@ -103,7 +127,7 @@ const ShippingScreen = ({ history }) => {
                                 <Field
                                     type='text'
                                     name='firstName'
-                                    id='firstName'
+                                    id='firstname'
                                     autoComplete='off'
                                     placeholder='Enter your first name'
                                     value={firstName}
@@ -123,7 +147,7 @@ const ShippingScreen = ({ history }) => {
                                 <Field
                                     type='text'
                                     name='lastName'
-                                    id='lastName'
+                                    id='lastname'
                                     autoComplete='off'
                                     placeholder='Enter your last name'
                                     value={lastName}
@@ -163,7 +187,7 @@ const ShippingScreen = ({ history }) => {
                                 <Field
                                     type='text'
                                     name='addressDetails'
-                                    id='addressDetails'
+                                    id='address-details'
                                     autoComplete='off'
                                     placeholder='Enter your address details'
                                     value={addressDetails}
@@ -183,7 +207,7 @@ const ShippingScreen = ({ history }) => {
                                 <Field
                                     type='text'
                                     name='zipCode'
-                                    id='zipCode'
+                                    id='zipcode'
                                     autoComplete='off'
                                     placeholder='Enter your zip code'
                                     value={zipCode}
@@ -238,22 +262,38 @@ const ShippingScreen = ({ history }) => {
                                 />
                             </div>
 
+                            <div className='field-control'>
+                                <label htmlFor='phone'>Phone</label>
+                                <Field
+                                    type='text'
+                                    name='phone'
+                                    id='phone'
+                                    autoComplete='off'
+                                    placeholder='Enter your phone number'
+                                    value={phone}
+                                    onChange={ev => {
+                                        handleChange(ev)
+                                        setPhone(ev.target.value)
+                                    }}
+                                />
+                                <ErrorMessage
+                                    name='phone'
+                                    render={msg => <span className='form-alert'>{msg}</span>}
+                                />
+                            </div>
 
-
-                            <button
-                                className='btn-shipping-form'
-                                type='submit'
-                                disabled={isSubmitting}
-                            >
-                                Continue
-                            </button>
+                            <ActionBtn type='submit' className='submit-btn-checkout' disabled={isSubmitting} text='Continue to payment' />
 
                         </Form>
+
 
                     </div>
                 )}
 
             </Formik>
+
+            <BackToCartLink />
+
         </section>
     )
 }

@@ -9,7 +9,7 @@ import {
     CART_SAVE_PAYMENT_METHOD
 } from '../constants/cartConstants'
 
-export const cartReducer = (state = { cartItems: [], prevCartQty: 0, shippingInfo: {} }, action) => {
+export const cartReducer = (state = { cartItems: [], prevCartQty: 0, shippingInfo: {}, paymentMethod: '' }, action) => {
     switch (action.type) {
         case CART_ADD_REQUEST:
             return { ...state, loading: true }
@@ -23,6 +23,7 @@ export const cartReducer = (state = { cartItems: [], prevCartQty: 0, shippingInf
                     cartItems: state.cartItems.map(p => p._id === existItem._id ? { ...item, qty: p.qty + 1 } : p),
                     prevCartQty: state.cartItems.reduce((acc, p) => acc + p.qty, 0),
                     shippingInfo: state.shippingInfo,
+                    paymentMethod: state.paymentMethod,
                     error: false
                 }
             } else {
@@ -31,6 +32,7 @@ export const cartReducer = (state = { cartItems: [], prevCartQty: 0, shippingInf
                     cartItems: [...state.cartItems, item],
                     prevCartQty: state.cartItems.reduce((acc, p) => acc + p.qty, 0),
                     shippingInfo: state.shippingInfo,
+                    paymentMethod: state.paymentMethod,
                     error: false
                 }
             }
@@ -44,19 +46,22 @@ export const cartReducer = (state = { cartItems: [], prevCartQty: 0, shippingInf
             return {
                 cartItems: state.cartItems.map(p => p._id === action.payload ? { ...p, qty: p.qty !== 1 ? p.qty - 1 : 1 } : p),
                 prevCartQty: state.cartItems.reduce((acc, p) => acc + p.qty, 0),
-                shippingInfo: state.shippingInfo
+                shippingInfo: state.shippingInfo,
+                paymentMethod: state.paymentMethod
             }
         case CART_TRASH:
             return {
                 cartItems: state.cartItems.filter(p => p._id !== action.payload),
                 prevCartQty: state.cartItems.reduce((acc, p) => acc + p.qty, 0),
-                shippingInfo: state.shippingInfo
+                shippingInfo: state.shippingInfo,
+                paymentMethod: state.paymentMethod
             }
         case CART_ADD_RESET:
             return {
                 cartItems: state.cartItems,
                 prevCartQty: 0,
-                shippingInfo: state.shippingInfo
+                shippingInfo: state.shippingInfo,
+                paymentMethod: state.paymentMethod
             }
         case CART_SAVE_SHIPPING_INFO:
             return {

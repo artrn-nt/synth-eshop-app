@@ -1,91 +1,75 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { savePaymentMethod } from '../actions/cartActions'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import * as yup from 'yup'
+import { Formik, Form } from 'formik'
+// import * as yup from 'yup'
 import CheckOutSteps from '../components/utilities/CheckoutSteps'
 import ScreenTitle from '../components/utilities/ScreenTitle'
+import RadioInput from '../components/PaymentScreen/RadioInput'
+import ActionBtn from '../components/utilities/ActionBtn'
+import BackToCartLink from '../components/utilities/BackToCartLink'
 import '../scss/screens/PaymentScreen.scss'
 
 const PaymentScreen = ({ history }) => {
 
     const dispatch = useDispatch()
+
     const cart = useSelector(state => state.cart)
     const { shippingInfo } = cart
 
-    if (!shippingInfo) {
+    const [paymentMethod, setPaymentMethod] = useState('paypal')
+
+    if (Object.entries(shippingInfo).length === 0 || !shippingInfo) {
         history.push('/shipping')
     }
 
-    const [paymentMethod, setPaymentMethod] = useState('Paypal')
-
     return (
         <section className='payment-section'>
-            <ScreenTitle title='Payment' />
+            <ScreenTitle title='Payment method' />
             <CheckOutSteps step1 step2 />
-
             <Formik
-                initialValues={{ paymentMethod }}
-                // initialErrors={{ address: '', city: '', zipCode: '', country: '' }}
-                validationSchema={yup.object({
-                    paymentMethod: yup.string()
-                        .trim()
-                        // .matches(/^[A-Za-z0-9\s\-]+$/, 'Address is not valid, special characters are not allowed')
-                        .required('Payment method is required'),
-                    // city: yup.string()
-                    //     .trim()
-                    //     .matches(/^[A-Za-z\s\-]+$/, 'City is not valid')
-                    //     .required('City is required'),
-                    // zipCode: yup.string()
-                    //     .trim()
-                    //     .matches(/^[A-Za-z0-9\s\-]+$/, 'Zip code is not valid')
-                    //     .required('Zip code is required'),
-                    // country: yup.string()
-                    //     .trim()
-                    //     .matches(/^[A-Za-z\s\-]+$/, 'Country is not valid')
-                    //     .required('Country is required'),
-                })}
+                initialValues={{ paymentMethod: cart.paymentMethod ? cart.paymentMethod : paymentMethod }}
                 onSubmit={() => {
                     dispatch(savePaymentMethod(paymentMethod))
                     history.push('/placeorder')
                 }}
-
             >
-                {({ isSubmitting, handleChange, handleSubmit }) => (
-                    <div className='shipping-form-container'>
+                {({ isSubmitting, values, handleChange, handleSubmit }) => (
+                    <div className='payment-form-container'>
+                        <h3>Select your payment method</h3>
                         <Form
-                            name='shipping'
+                            name='payment'
                             method='post'
                             onSubmit={handleSubmit}
                         >
 
-                            <div className='field-control'>
-                                <label htmlFor='paymentMethod'>Payment method</label>
-                                <Field
-                                    type='text'
-                                    name='paymentMethod'
-                                    id='paymentMethod'
-                                    autoComplete='off'
-                                    placeholder='Enter your address'
-                                    value={paymentMethod}
-                                    onChange={ev => {
+                            <div className='payment-group'>
+
+                                <RadioInput
+                                    paymentMethod='paypal'
+                                    value='paypal'
+                                    checked={values.paymentMethod === 'paypal'}
+                                    onChangeHandler={ev => {
                                         handleChange(ev)
                                         setPaymentMethod(ev.target.value)
                                     }}
+                                    text='PayPal or credit card'
                                 />
-                                <ErrorMessage
-                                    name='paymentMethod'
-                                    render={msg => <span className='form-alert'>{msg}</span>}
+
+                                <RadioInput
+                                    paymentMethod='stripe'
+                                    value='stripe'
+                                    checked={values.paymentMethod === 'stripe'}
+                                    onChangeHandler={ev => {
+                                        handleChange(ev)
+                                        setPaymentMethod(ev.target.value)
+                                    }}
+                                    text='Stripe'
                                 />
+
                             </div>
 
-                            <button
-                                className='btn-shipping-form'
-                                type='submit'
-                                disabled={isSubmitting}
-                            >
-                                Continue
-                            </button>
+                            <ActionBtn type='submit' className='submit-btn-checkout' disabled={isSubmitting} text='Continue to order' />
 
                         </Form>
 
@@ -93,6 +77,9 @@ const PaymentScreen = ({ history }) => {
                 )}
 
             </Formik>
+
+            <BackToCartLink />
+
         </section>
     )
 }

@@ -21,7 +21,7 @@ const CheckoutTotal = ({ totalQty, totalPrice }) => {
     return (
         <>
             <h3 className='checkout-subtotal'>Subtotal ({qtyTotal}) items</h3>
-            <span className='checkout-total'>€{priceTotal}</span>
+            <span className='checkout-total'>€{priceTotal} <small>(VAT incl.)</small></span>
         </>
     )
 }

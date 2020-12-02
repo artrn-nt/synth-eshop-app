@@ -1,0 +1,29 @@
+@import '../../config.scss';
+
+.back-to-cart-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 239px;
+    height: 3.15rem;
+    padding: 0 1.55rem;
+    background-color: transparent;
+    border: 1.2px solid;
+    border-radius: 4px;
+    color: $bright;
+    font-family: $content-font;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: transform 75ms ease-in, background-color 280ms ease-out;
+    cursor: pointer;
+
+    &:hover {
+        background-color: brown;
+    }
+
+    i {
+        margin-right: .65rem;
+        font-size: .95rem;
+    }
+
+}

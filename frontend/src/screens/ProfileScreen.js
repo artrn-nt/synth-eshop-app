@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import ScreenTitle from '../components/utilities/ScreenTitle'
+import ShowPassword from '../components/utilities/ShowPassword'
 import Spinner from '../components/utilities/Spinner'
 import Message from '../components/utilities/Message'
 import '../scss/screens/ProfileScreen.scss'
@@ -14,7 +15,8 @@ const ProfileScreen = ({ history }) => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [inputType, setInputType] = useState('')
+
+    const [show, setShow] = useState(false)
     const [updateSuccess, setUpdateSuccess] = useState(null)
 
     const dispatch = useDispatch()
@@ -72,7 +74,7 @@ const ProfileScreen = ({ history }) => {
                                     email,
                                     password: '',
                                     confirmationPassword: '',
-                                    showPasswords: false
+                                    showPassword: false
                                 }}
                                 // initialErrors={{ username: '', email: '', password: '', confirmationPassword: '' }}
                                 validationSchema={yup.object({
@@ -152,7 +154,7 @@ const ProfileScreen = ({ history }) => {
                                             <div className='password-input-wrap-profile'>
 
                                                 <Field
-                                                    type={inputType ? 'text' : 'password'}
+                                                    type={show ? 'text' : 'password'}
                                                     name='password'
                                                     id='password'
                                                     autoComplete='off'
@@ -164,17 +166,7 @@ const ProfileScreen = ({ history }) => {
                                                     }}
                                                 />
 
-                                                <label htmlFor='checkbox' className='styled-checkbox'>
-                                                    <Field
-                                                        type='checkbox'
-                                                        name='showPasswords'
-                                                        checked={values.showPasswords}
-                                                        id='checkbox'
-                                                        onClick={() => setInputType(prevState => !prevState)}
-                                                    />
-                                                    <i className='far fa-eye' />
-                                                    <i className='far fa-eye-slash' />
-                                                </label>
+                                                <ShowPassword checked={values.showPassword} onClickHandler={() => setShow(prevState => !prevState)} />
 
                                             </div>
 
@@ -188,7 +180,7 @@ const ProfileScreen = ({ history }) => {
                                         <div className='field-control'>
                                             <label htmlFor='confirmationPassword'>Confirm password</label>
                                             <Field
-                                                type={inputType ? 'text' : 'password'}
+                                                type={show ? 'text' : 'password'}
                                                 name='confirmationPassword'
                                                 id='confirmationPassword'
                                                 autoComplete='off'

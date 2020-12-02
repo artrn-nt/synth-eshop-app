@@ -54,7 +54,7 @@ const CartScreen = ({ history }) => {
                 opacity: 1,
                 ease: 'power2.out'
             })
-        }   
+        }
     }, [cartItems, prevCartQty])
 
     const addToCartHandler = (id) => {
@@ -80,66 +80,68 @@ const CartScreen = ({ history }) => {
 
     return (
         <section className='cart-section'>
-            <ScreenTitle title={'Shopping Cart'}/>
-                {cartItems.length === 0 ?
-                    (<div className='cart-container empty'>
-                        <p className='empty-msg'>
-                            <span>Your cart is empty</span>
-                            <span>
-                                Sounds like a good time to
+            <ScreenTitle title={'Shopping Cart'} />
+            {cartItems.length === 0 ?
+                (<div className='cart-container empty'>
+                    <p className='empty-msg'>
+                        <span>Your cart is empty</span>
+                        <span>
+                            Sounds like a good time to
                                 <Link
-                                    className='start-shop'
-                                    to='/'
-                                >
-                                    start shopping
+                                className='start-shop'
+                                to='/'
+                            >
+                                start shopping
                                 </Link>
-                            </span>
-                        </p>
-                    </div>) :
-                    (<div className='cart-container full'>
+                        </span>
+                    </p>
+                </div>) :
+                (<div className='cart-container full'>
 
-                        <ul className='cart-items' ref={cartItemsListRef}>
-                            {cartItems.map(item => <CartItem 
-                                                        key={item._id}
-                                                        _id={item._id}
-                                                        image={item.image}
-                                                        name={item.name}
-                                                        description_m={item.description_m}
-                                                        price={item.price}
-                                                        qty={item.qty}
-                                                        countInStock={item.countInStock}
-                                                        addToCartHandler={addToCartHandler}
-                                                        removeFromCartHandler={removeFromCartHandler}
-                                                        trashFromCartHandler={trashFromCartHandler}/>
-                            )}
-                        </ul>
+                    <ul className='cart-items' ref={cartItemsListRef}>
+                        {cartItems.map(item => <CartItem
+                            key={item._id}
+                            _id={item._id}
+                            image={item.image}
+                            name={item.name}
+                            description_m={item.description_m}
+                            price={item.price}
+                            qty={item.qty}
+                            countInStock={item.countInStock}
+                            addToCartHandler={addToCartHandler}
+                            removeFromCartHandler={removeFromCartHandler}
+                            trashFromCartHandler={trashFromCartHandler} />
+                        )}
+                    </ul>
 
-                        <div className='checkout'>
-                            <CheckoutTotal 
-                                totalQty={cartItems.reduce((acc,item) => acc + item.qty, 0)} 
-                                totalPrice={cartItems.reduce((acc, item) => acc + (item.qty * item.price), 0).toFixed(2)}
-                            />
-                            <span>Shipping &amp; taxes calculated at checkout</span>
-                            <div className='checkout-btns'>
-                                <button
-                                    type='button'
-                                    className='btn-checkout-member'
-                                    onClick={checkoutMemberHandler}
-                                >
-                                    Checkout as member
-                                </button>
-                                <button
-                                    type='button'
-                                    className='btn-checkout-guest'
-                                    onClick={checkoutGuestHandler}
-                                >
-                                    Checkout as guest
-                                </button>
-                            </div>
+                    {/* <div className='checkout-col'> */}
+                    <div className='checkout'>
+                        <CheckoutTotal
+                            totalQty={cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                            totalPrice={cartItems.reduce((acc, item) => acc + (item.qty * item.price), 0).toFixed(2)}
+                        />
+                        <span>Shipping calculated at checkout</span>
+                        <div className='checkout-btns'>
+                            <button
+                                type='button'
+                                className='btn-checkout-member'
+                                onClick={checkoutMemberHandler}
+                            >
+                                Checkout as member
+                                    </button>
+                            <button
+                                type='button'
+                                className='btn-checkout-guest'
+                                onClick={checkoutGuestHandler}
+                            >
+                                Checkout as guest
+                                    </button>
                         </div>
+                    </div>
+                    {/* </div> */}
 
-                    </div>)
-                }
+                </div>)
+            }
         </section>
     )
 }
