@@ -22,7 +22,7 @@ const PlaceOrderScreen = ({ history }) => {
     const [totalPrice, setTotalPrice] = useState(0)
 
     const addDecimals = (nb) => {
-        return (Math.round(nb * 100) / 100).toFixed(2)
+        return Number((Math.round(nb * 100) / 100).toFixed(2))
     }
 
     useEffect(() => {
@@ -59,7 +59,7 @@ const PlaceOrderScreen = ({ history }) => {
 
     return (
         <section className='place-order-section'>
-            <ScreenTitle title='Order' />
+            <ScreenTitle title='Place order' />
             <CheckOutSteps step1 step2 step3 />
             <div className='place-order-main-row'>
 
