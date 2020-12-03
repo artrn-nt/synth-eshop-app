@@ -6,12 +6,9 @@ import User from '../models/userModel.js'
 // @route   POST /api/users/login 
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
-    const { email, password }  = req.body
+    const { email, password } = req.body
 
     const user = await User.findOne({ email })
-
-    // res.status(401)
-    // throw new Error('Invalid email or password')
 
     if (user && (await user.matchPassword(password))) {
         res.json({
@@ -31,13 +28,13 @@ const authUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users/ 
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password }  = req.body
+    const { name, email, password } = req.body
 
     const userExists = await User.findOne({ email })
 
     if (userExists) {
         // Bad request
-        res.status(400) 
+        res.status(400)
         throw new Error('User already exists')
     }
 
@@ -78,7 +75,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
         })
     } else {
         res.status(404)
-        throw new Error ('User not found')
+        throw new Error('User not found')
     }
 })
 
@@ -108,11 +105,11 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
     } else {
         res.status(404)
-        throw new Error ('User not found')
+        throw new Error('User not found')
     }
 })
 
-export { 
+export {
     authUser,
     registerUser,
     getUserProfile,

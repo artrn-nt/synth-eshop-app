@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
+import { listUserOrders } from '../actions/orderActions'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import ShowPassword from '../components/utilities/ShowPassword'
 import Spinner from '../components/utilities/Spinner'
@@ -27,10 +29,11 @@ const ProfileScreen = ({ history }) => {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
+    const orderList = useSelector(state => state.orderList)
+    const { loading: loadingOrders, error: errorOrders, orders } = orderList
+
     const userUpdateProfile = useSelector(state => state.userUpdateProfile)
     // const { success } = userUpdateProfile
-
-
 
     useEffect(() => {
         if (!userInfo) {
@@ -39,6 +42,7 @@ const ProfileScreen = ({ history }) => {
             // console.log(user)
             if (!user || !user.name) {
                 dispatch(getUserDetails('profile'))
+                dispatch(listUserOrders())
             } else {
                 setUsername(user.name)
                 setEmail(user.email)
@@ -210,6 +214,38 @@ const ProfileScreen = ({ history }) => {
 
                 <div className='profile-col-2'>
                     <h3>My orders</h3>
+                    {loadingOrders ? <Spinner /> : errorOrders ? <Message error={errorOrders} /> :
+                        <table className='my-orders-table'>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>DATE</th>
+                                    <th>TOTAL</th>
+                                    <th>PAID</th>
+                                    <th>DELIVERED</th>
+                                    <th></th>
+                                </tr>
+                                <tbody>
+                                    {orders.map(order => (
+                                        <tr key={order._id}>
+                                            <td>{order._id}</td>
+                                            <td>{order.createdAt.substring(0, 10)}</td>
+                                            <td>{order.totalPrice}</td>
+                                            <td>
+                                                {order.isPaid ? order.paidAt.substring(0, 10) :
+                                                    (<i className='fas fa-times' style={{ color: 'tomato' }} />)}
+                                            </td>
+                                            <td>
+                                                {order.isDelivered ? order.deliveredAt.substring(0, 10) :
+                                                    (<i className='fas fa-times' style={{ color: 'tomato' }} />)}
+                                            </td>
+                                            <td><Link to={`/orders/${order._id}`} /></td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </thead>
+                        </table>
+                    }
                 </div>
 
             </div>
