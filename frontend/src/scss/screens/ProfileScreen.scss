@@ -48,8 +48,7 @@
     width: 100%;
     height: 100%;
     margin-top: 3.15rem;
-    // background-color: burlywood;
-
+    
     .profile-col-1 {
       display: flex;
       flex-direction: column;
@@ -68,17 +67,19 @@
 
       .profile-form-container {
         width: 100%;
-        // display: flex;
-        // flex-direction: column;
-        // align-items: center;
-        // justify-content: flex-start;
-        // margin-top: 3.15rem;
-        // flex-grow: 1;
-        // width: 420px;
-        // color: $bright;
-        // opacity: 0;
-        // cursor: default;
-        // background-color: lightgrey;
+        flex-grow: 1;
+        display: flex;
+        
+        &.ctr {
+          align-items: center;
+          justify-content: center;
+        }
+
+        &.str {
+          align-items: flex-start;
+          justify-content: center;
+        }
+        // background-color: burlywood;
 
         form {
           display: flex;
@@ -169,17 +170,140 @@
 
     .profile-col-2 {
       display: flex;
+      flex-direction: column;
       align-items: flex-start;
-      padding-left: 3.15rem;
       width: 60%;
       height: 100%;
       flex-grow: 1;
       min-height: calc(758.4px - 39.6px - 4.2rem - 3.15rem);
       color: $bright;
-      // background-color: cornflowerblue;
 
       h3 {
         @extend %col-title;
+        margin-left: 3.15rem;
+      }
+
+      .table-container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-grow: 1;
+        width: 100%;
+        padding-left: 3.15rem;
+
+        &.ctr {
+          align-items: center;
+          justify-content: center;
+        }
+
+        &.str {
+          align-items: flex-start;
+          justify-content: center;
+        }
+
+        .my-orders-table {
+          width: 100%;
+          border-collapse: collapse;
+          border-radius: 2.5px;
+          overflow: hidden;
+          cursor: default;
+
+          thead {
+            height: 2.65rem;
+            background-color: lighten($greyish, 10.5%);
+
+            tr {
+              height: 100%;
+
+              th {
+                font-size: .925rem;
+                font-weight: 500;
+
+                &:nth-of-type(2), &:nth-of-type(3), &:nth-of-type(4), &:nth-of-type(5) {
+
+                  position: relative;
+                  &::before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    transform: translateY(-50%);
+                    width: 1.2px;
+                    height: 65%;
+                    background-color: $bright;
+                  }
+                }
+              }
+            }
+          }
+
+          tbody {
+
+            tr {
+              font-size: .9rem;
+              height: 2.65rem;
+              text-align: center;
+              vertical-align: center;
+              transition: background-color 280ms ease-out, color 280ms ease-out;
+
+            }
+
+            tr:nth-child(2n + 1) {
+              background-color: $bright;
+              color: $main-theme;
+
+              &:hover {
+                background-color: lighten($greyish, 32.5%);
+                color: $main-theme;
+              }
+
+              td:nth-of-type(1) {
+                a {
+                  width: 100%;
+                  height: 2.65rem;
+                  color: $main-theme;
+                  padding: .2rem .5rem;
+                  transition: color 280ms ease-out;
+
+                }
+
+                &:hover > a {
+                  color: brown;
+                }
+              }
+            }
+
+            tr:nth-child(2n) {
+              background-color: $main-theme;
+              color: $bright;
+
+              &:hover {
+                background-color: lighten($greyish, 32.5%);
+                color: $main-theme;
+              }
+
+              &:hover > td:nth-of-type(1) a {
+                color: $main-theme;
+              }
+
+              td:nth-of-type(1) {
+                a {
+                  width: 100%;
+                  height: 2.65rem;
+                  color: $bright;
+                  padding: .2rem .5rem;
+                  transition: color 280ms ease-out;
+
+                }
+
+                &:hover > a {
+                  color: brown;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
