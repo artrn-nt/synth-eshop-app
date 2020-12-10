@@ -7,6 +7,7 @@ import InfoScreen from './screens/InfoScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import UsersListScreen from './screens/UsersListScreen'
+import UserEditScreen from './screens/UserEditScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import CartScreen from './screens/CartScreen'
 import ShippingInfoScreen from './screens/ShippingInfoScreen'
@@ -24,8 +25,9 @@ const App = () => {
         <Switch>
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
-          <Route path='/admin/userslist' component={UsersListScreen} />
           <Route path='/profile' component={ProfileScreen} />
+          <Route path='/admin/userslist' component={UsersListScreen} />
+          <Route path='/admin/user/:id/edit' component={UserEditScreen} />
           <Route path='/info' component={InfoScreen} />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' component={CartScreen} />

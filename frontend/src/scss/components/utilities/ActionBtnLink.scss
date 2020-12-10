@@ -95,3 +95,8 @@
 .edit-user-link, .delete-user-btn {
     @extend %btn-link-admin;    
 }
+
+.confirm-btn-admin {
+    @extend %btn-link;
+    min-width: 160px;
+}

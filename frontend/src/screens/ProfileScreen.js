@@ -6,6 +6,7 @@ import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
+import { USER_DETAILS_RESET } from '../constants/userConstants'
 import { listUserOrders } from '../actions/orderActions'
 import { ORDER_USER_RESET } from '../constants/orderConstants'
 import ScreenTitle from '../components/utilities/ScreenTitle'
@@ -57,7 +58,7 @@ const ProfileScreen = ({ history }) => {
     }, [loadingDetails, errorDetails])
 
     useEffect(() => {
-        if (!loadingOrders && !errorOrders) {
+        if (orders && orders.length !== 0) {
             gsap.fromTo('.my-orders-table', {
                 opacity: 0,
                 y: 38
@@ -69,22 +70,25 @@ const ProfileScreen = ({ history }) => {
                 ease: 'power3.out'
             })
         }
-    }, [loadingOrders, errorOrders])
+    }, [orders])
 
     useEffect(() => {
         if (!userInfo) {
             history.push('/login')
         } else {
-            // console.log(user)
-            if (!user || !user.name) {
+            if (Object.entries(user).length === 0 && user.constructor === Object) {
                 dispatch(getUserDetails('profile'))
-            } else {
-                setUsername(user.name)
-                setEmail(user.email)
+                dispatch(listUserOrders())
             }
-            dispatch(listUserOrders())
         }
-    }, [userInfo, history, dispatch, user])
+    }, [userInfo, history, user, dispatch])
+
+    useEffect(() => {
+        if (Object.entries(user).length !== 0 && user.constructor === Object) {
+            setUsername(user.name)
+            setEmail(user.email)
+        }
+    }, [user])
 
     useEffect(() => {
         if (userUpdateProfile.success) {
@@ -111,7 +115,10 @@ const ProfileScreen = ({ history }) => {
     }, [userUpdateProfile, dispatch, updateSuccess])
 
     useEffect(() => {
-        return () => dispatch({ type: ORDER_USER_RESET })
+        return () => {
+            dispatch({ type: ORDER_USER_RESET })
+            dispatch({ type: USER_DETAILS_RESET })
+        }
     }, [dispatch])
 
     // const handleSubmit = (ev) => {

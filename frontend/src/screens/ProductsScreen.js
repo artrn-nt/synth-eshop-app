@@ -47,7 +47,7 @@ const ProductsScreen = () => {
             {loading ? <Spinner /> :
                 error ? <ErrorMsg message={error} /> :
                     (<>
-                        <Hero latestProducts={latestProducts} />
+                        {/* <Hero latestProducts={latestProducts} /> */}
                         <ScreenTitle title='All products' />
                         <div className='products' ref={productsRef}>
                             {products.sort((p1, p2) => {

@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 import gsap from 'gsap'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUsersList } from '../actions/userActions'
+import { USERS_LIST_RESET } from '../constants/userConstants'
+import { getUsersList, deleteUser } from '../actions/userActions'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import { ActionLink, ActionBtn } from '../components/utilities/ActionBtnLink'
 import Spinner from '../components/utilities/Spinner'
@@ -13,27 +11,51 @@ import '../scss/screens/UsersListScreen.scss'
 
 const UsersListScreen = ({ history }) => {
 
+    const [eraseUser, setEraseUser] = useState(null)
+    const [confirm, setConfirm] = useState(false)
+    const [cancel, setCancel] = useState(null)
+
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
-    console.log(userLogin)
+    // console.log(userLogin)
 
     const usersList = useSelector(state => state.usersList)
     const { loading, error, users } = usersList
 
+    const userDelete = useSelector(state => state.userDelete)
+    const { success: successDelete } = userDelete
+
     // console.log(users)
 
-    // useEffect(() => {
-    //     if (!userInfo || !userInfo.isAdmin) history.push('/')
-    // }, [userInfo, history])
+    useEffect(() => {
+        if (users && users.length !== 0)
+            gsap.fromTo('.users-list-table', {
+                opacity: 0,
+                y: 38
+            }, {
+                delay: .15,
+                duration: 1.1,
+                opacity: 1,
+                y: 0,
+                ease: 'power3.out'
+            })
+    }, [users])
 
     useEffect(() => {
-        dispatch(getUsersList())
-    }, [dispatch])
+        if (userInfo && userInfo.isAdmin) {
+            dispatch(getUsersList())
+        } else {
+            history.push('/login')
+        }
+
+        return () => dispatch({ type: USERS_LIST_RESET })
+    }, [userInfo, dispatch, history, successDelete])
 
     const deleteHandler = (id) => {
-        console.log('delete')
+        dispatch(deleteUser(id))
+        setEraseUser(null)
     }
 
     return (
@@ -41,7 +63,7 @@ const UsersListScreen = ({ history }) => {
 
             <ScreenTitle title='Users list' />
 
-            <div className={!userInfo || !userInfo.isAdmin || loading || error ? 'users-list-main-row ctr' : 'users-list-main-row str'}>
+            <div className={!userInfo && !userInfo.isAdmin || loading || error ? 'users-list-main-row ctr' : 'users-list-main-row str'}>
 
                 {loading ? <Spinner /> :
                     error ? <ErrorMsg message={error} /> : (
@@ -68,7 +90,7 @@ const UsersListScreen = ({ history }) => {
                                         </td>
                                         <td>
                                             <ActionLink
-                                                to={`/user/${user._id}/edit`}
+                                                path={`/admin/user/${user._id}/edit`}
                                                 className='edit-user-link'
                                             >
                                                 <i className='fas fa-edit' />
@@ -78,7 +100,11 @@ const UsersListScreen = ({ history }) => {
                                             <ActionBtn
                                                 type='button'
                                                 className='delete-user-btn'
-                                                onClickHandler={() => deleteHandler(user._id)}
+                                                // onClickHandler={() => deleteHandler(user._id)}
+                                                onClickHandler={() => {
+                                                    setEraseUser(user._id)
+                                                    setConfirm(true)
+                                                }}
                                             >
                                                 <i className='fas fa-trash' />
                                             </ActionBtn>
@@ -88,6 +114,41 @@ const UsersListScreen = ({ history }) => {
                             </tbody>
                         </table>
                     )}
+
+                {eraseUser && (
+                    <div
+                        className={confirm ? 'confirm-alert fade-in' : 'confirm-alert fade-out'}
+                        onAnimationEnd={() => {
+                            if (cancel !== null && cancel) {
+                                setCancel(null)
+                                setEraseUser(null)
+                            }
+                            else if (cancel !== null && !cancel) {
+                                setCancel(null)
+                                deleteHandler(eraseUser)
+                            }
+                        }}>
+                        <span>Are you sure?</span>
+                        <div className='btns-row'>
+                            <ActionBtn
+                                type='button'
+                                className='confirm-btn-admin'
+                                onClickHandler={() => {
+                                    setConfirm(false)
+                                    setCancel(true)
+                                }}
+                                text='Cancel' />
+                            <ActionBtn
+                                type='button'
+                                className='confirm-btn-admin'
+                                onClickHandler={() => {
+                                    setConfirm(false)
+                                    setCancel(false)
+                                }}
+                                text='Confirm' />
+                        </div>
+                    </div>
+                )}
 
             </div>
 

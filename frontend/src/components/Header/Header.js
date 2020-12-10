@@ -49,7 +49,7 @@ const Header = () => {
     return (
         <header>
             <h1>Synths Mini-Market</h1>
-            <nav className='menu'>
+            <nav className='menu' style={{ marginBottom: userInfo ? '.7875rem' : '.525rem' }}>
 
                 <div className='left-menu'>
                     <NavLink to='/' activeStyle={{ color: '#edf3f5' }} exact>PRODUCTS</NavLink>
