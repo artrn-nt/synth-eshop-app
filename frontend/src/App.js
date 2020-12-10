@@ -6,12 +6,14 @@ import ProductScreen from './screens/ProductScreen'
 import InfoScreen from './screens/InfoScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
+import UsersListScreen from './screens/UsersListScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import CartScreen from './screens/CartScreen'
-import ShippingScreen from './screens/ShippingScreen'
-import PaymentScreen from './screens/PaymentScreen'
+import ShippingInfoScreen from './screens/ShippingInfoScreen'
+import PaymentMethodScreen from './screens/PaymentMethodScreen'
 import PlaceOrderScreen from './screens/PlaceOrderScreen'
-import OrderScreen from './screens/OrderScreen'
+import OrderStatusScreen from './screens/OrderStatusScreen'
+import NotFoundScreen from './screens/NotFoundScreen'
 // import ContactScreen from './screens/ContactScreen'
 
 const App = () => {
@@ -22,15 +24,17 @@ const App = () => {
         <Switch>
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
+          <Route path='/admin/userslist' component={UsersListScreen} />
           <Route path='/profile' component={ProfileScreen} />
           <Route path='/info' component={InfoScreen} />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' component={CartScreen} />
-          <Route path='/shipping' component={ShippingScreen} />
-          <Route path='/payment' component={PaymentScreen} />
+          <Route path='/shipping' component={ShippingInfoScreen} />
+          <Route path='/payment' component={PaymentMethodScreen} />
           <Route path='/placeorder' component={PlaceOrderScreen} />
-          <Route path='/orders/:id' component={OrderScreen} />
+          <Route path='/orders/:id' component={OrderStatusScreen} />
           <Route path='/' component={ProductsScreen} exact />
+          <Route path='*' component={NotFoundScreen} exact={true} />
         </Switch>
       </Layout>
     </Router>

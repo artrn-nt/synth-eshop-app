@@ -8,8 +8,8 @@ import { login, loginReset } from '../actions/userActions'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import ShowPassword from '../components/utilities/ShowPassword'
 import Spinner from '../components/utilities/Spinner'
-import Message from '../components/utilities/Message'
-import ActionBtn from '../components/utilities/ActionBtn'
+import { ErrorMsg } from '../components/utilities/Messages'
+import { ActionBtn } from '../components/utilities/ActionBtnLink'
 import '../scss/screens/LoginScreen.scss'
 
 const LoginScreen = ({ history, location }) => {
@@ -125,7 +125,7 @@ const LoginScreen = ({ history, location }) => {
                                 />
                             </div>
 
-                            <ActionBtn type='submit' className='submit-btn' disabled={isSubmitting} text='Sign-in' />
+                            <ActionBtn type='submit' className='login-btn' disabled={isSubmitting} text='Sign-in' />
 
                         </Form>
 
@@ -137,11 +137,10 @@ const LoginScreen = ({ history, location }) => {
             <p className='register-link'>
                 New customer?
                 <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Register</Link>
-                {/* <Link to='/register'>Register</Link> */}
             </p>
 
             <div className='alert-row-login'>
-                {error && <Message error={error} />}
+                {error && <ErrorMsg message={error} />}
                 {loading && <Spinner />}
             </div>
 

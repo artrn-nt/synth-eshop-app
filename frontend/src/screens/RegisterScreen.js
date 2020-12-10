@@ -7,9 +7,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { register, registerReset } from '../actions/userActions'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import ShowPassword from '../components/utilities/ShowPassword'
-import ActionBtn from '../components/utilities/ActionBtn'
+import { ActionBtn } from '../components/utilities/ActionBtnLink'
 import Spinner from '../components/utilities/Spinner'
-import Message from '../components/utilities/Message'
+import { ErrorMsg } from '../components/utilities/Messages'
 import '../scss/screens/RegisterScreen.scss'
 
 const RegisterScreen = ({ history, location }) => {
@@ -172,7 +172,7 @@ const RegisterScreen = ({ history, location }) => {
                                 />
                             </div>
 
-                            <ActionBtn type='submit' className='submit-btn' disabled={isSubmitting} text='Sign-up' />
+                            <ActionBtn type='submit' className='register-btn' disabled={isSubmitting} text='Sign-up' />
 
                         </Form>
 
@@ -188,7 +188,7 @@ const RegisterScreen = ({ history, location }) => {
             </p>
 
             <div className='alert-row-register'>
-                {error && <Message error={error} />}
+                {error && <ErrorMsg message={error} />}
                 {loading && <Spinner />}
             </div>
 

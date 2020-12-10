@@ -81,11 +81,12 @@
         }
         // background-color: burlywood;
 
-        form {
+        .profile-form {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           width: 100%;
+          opacity: 0;
           // min-height: 245px;
           // background-color: cadetblue;
 
@@ -142,27 +143,13 @@
             }
           }
 
-          .btn-profile-form {
-            height: 3.15rem;
-            padding: 0 1.05rem;
-            background-color: transparent;
-            border: 1.2px solid;
-            border-radius: 4px;
-            color: $bright;
-            font-family: $content-font;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: transform 75ms ease-in, background-color 280ms ease-out;
-            cursor: pointer;
-    
-            &:hover {
-              background-color: brown;
-            }
-    
-            &:active {
-              -webkit-transform: scale(0.99);
-              transform: scale(0.99);
-            }
+          .bottom-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            // background-color: slateblue;
+
           }
         }
       }
@@ -201,16 +188,39 @@
           justify-content: center;
         }
 
+        p {
+          display: flex;
+          flex-flow: column;
+          align-items: center;
+          justify-content: center;
+          color: $greyish;
+          font-size: 1.15rem;
+          font-weight: 500;
+          cursor: default;
+    
+          .start-shop {
+            margin-left: 0.5rem;
+            color: $bright;
+            font-size: 1.25rem;
+            transition: color 250ms ease-out;
+    
+            &:hover {
+              color: brown;
+            }
+          }
+        }
+
         .my-orders-table {
           width: 100%;
           border-collapse: collapse;
           border-radius: 2.5px;
           overflow: hidden;
+          opacity: 0;
           cursor: default;
 
           thead {
             height: 2.65rem;
-            background-color: lighten($greyish, 10.5%);
+            background-color: lighten($greyish, 9%);
 
             tr {
               height: 100%;
@@ -220,8 +230,8 @@
                 font-weight: 500;
 
                 &:nth-of-type(2), &:nth-of-type(3), &:nth-of-type(4), &:nth-of-type(5) {
-
                   position: relative;
+
                   &::before {
                     content: '';
                     display: block;
@@ -253,8 +263,27 @@
               background-color: $bright;
               color: $main-theme;
 
-              &:hover {
-                background-color: lighten($greyish, 32.5%);
+              td:nth-of-type(1) {
+                a {
+                  width: 100%;
+                  height: 2.65rem;
+                  color: $main-theme;
+                  padding: .2rem .5rem;
+                  transition: color 280ms ease-out;
+
+                  &:hover {
+                    color: brown;
+                  }
+                }
+
+              }
+            }
+
+            tr:nth-child(2n) {
+              background-color: lighten($greyish, 31.5%);
+              color: $main-theme;
+
+              &:hover > td:nth-of-type(1) a {
                 color: $main-theme;
               }
 
@@ -266,39 +295,9 @@
                   padding: .2rem .5rem;
                   transition: color 280ms ease-out;
 
-                }
-
-                &:hover > a {
-                  color: brown;
-                }
-              }
-            }
-
-            tr:nth-child(2n) {
-              background-color: $main-theme;
-              color: $bright;
-
-              &:hover {
-                background-color: lighten($greyish, 32.5%);
-                color: $main-theme;
-              }
-
-              &:hover > td:nth-of-type(1) a {
-                color: $main-theme;
-              }
-
-              td:nth-of-type(1) {
-                a {
-                  width: 100%;
-                  height: 2.65rem;
-                  color: $bright;
-                  padding: .2rem .5rem;
-                  transition: color 280ms ease-out;
-
-                }
-
-                &:hover > a {
-                  color: brown;
+                  &:hover {
+                    color: brown;
+                  }
                 }
               }
             }

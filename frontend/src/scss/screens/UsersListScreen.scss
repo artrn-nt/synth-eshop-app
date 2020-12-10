@@ -1,0 +1,126 @@
+@import '../config.scss';
+
+.users-list-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: calc(100vh - (142.5px + 4.6rem));
+    // padding: 2.1rem 0;
+    padding: 2.1rem 0 3.15rem;
+    // background-color: cadetblue;
+
+    .users-list-main-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding: 0 3.15rem;
+        width: 100%;
+        flex-grow: 1;
+        margin-top: 3.15rem;
+        // background-color: orange;
+        
+        &.ctr {
+            align-items: center;
+        }
+
+        &.str {
+            align-items: flex-start;
+        }
+
+        .users-list-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 2.5px;
+            overflow: hidden;
+            // opacity: 0;
+            cursor: default;
+  
+            thead {
+              height: 3.15rem;
+              background-color: lighten($greyish, 9%);
+  
+                tr {
+                    color: $bright;
+
+                    th {
+                        font-size: 1rem;
+                        font-weight: 500;
+
+                        &:nth-of-type(2), &:nth-of-type(3), &:nth-of-type(4), &:nth-of-type(5) {
+                            position: relative;
+
+                            &::before {
+                                content: '';
+                                display: block;
+                                position: absolute;
+                                top: 50%;
+                                left: 0;
+                                transform: translateY(-50%);
+                                width: 1.2px;
+                                height: 65%;
+                                background-color: $bright;
+                            }
+                        }
+                    }
+                }
+            }
+  
+            tbody {
+  
+                tr {
+                    font-size: .95rem;
+                    height: 3.15rem;
+                    text-align: center;
+                    vertical-align: center;
+                    transition: background-color 280ms ease-out;
+
+                    td:nth-of-type(5) {
+                        height: 100%;
+                    }
+
+                }
+
+                tr:nth-child(2n + 1) {
+                    background-color: $bright;
+                    color: $main-theme;
+
+                    td:nth-of-type(3) {
+                        a {
+                            width: 100%;
+                            height: 2.65rem;
+                            color: $main-theme;
+                            padding: .2rem .5rem;
+                            transition: color 280ms ease-out;
+
+                            &:hover {
+                                color: brown;
+                            }
+                        }
+                    }
+                }
+
+                tr:nth-child(2n) {
+                    background-color: lighten($greyish, 31.5%);
+                    color: $main-theme;
+
+                    td:nth-of-type(3) {
+                        a {
+                            width: 100%;
+                            height: 2.65rem;
+                            color: $main-theme;
+                            padding: .2rem .5rem;
+                            transition: color 280ms ease-out;
+
+                            &:hover {
+                                color: brown;
+                            }
+                        }
+                    }
+                }
+
+                
+            }
+        }
+    }
+}

@@ -15,7 +15,10 @@ import {
     USER_DETAILS_RESET,
     USER_UPDATE_PROFILE_REQUEST,
     USER_UPDATE_PROFILE_SUCCESS,
-    USER_UPDATE_PROFILE_FAIL
+    USER_UPDATE_PROFILE_FAIL,
+    USERS_LIST_REQUEST,
+    USERS_LIST_SUCCESS,
+    USERS_LIST_FAIL
 } from '../constants/userConstants'
 import { ORDER_USER_RESET } from '../constants/orderConstants'
 
@@ -25,7 +28,7 @@ export const login = (email, password) => async (dispatch) => {
 
         const config = {
             headers: {
-                'Content-type': 'application/json'
+                'Content-Type': 'application/json'
             }
         }
 
@@ -71,7 +74,7 @@ export const register = (name, email, password) => async (dispatch) => {
 
         const config = {
             headers: {
-                'Content-type': 'application/json'
+                'Content-Type': 'application/json'
             }
         }
 
@@ -116,7 +119,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 
         const config = {
             headers: {
-                'Content-type': 'application/json',
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
@@ -147,7 +150,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 
         const config = {
             headers: {
-                'Content-type': 'application/json',
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
@@ -171,5 +174,50 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
                     error.response.data.message :
                     error.message
         })
+    }
+}
+
+export const getUsersList = () => async (dispatch, getState) => {
+    try {
+        dispatch({ type: USERS_LIST_REQUEST })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get('/api/users', config)
+
+        console.log(data)
+
+        dispatch({
+            type: USERS_LIST_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        // console.error(error)
+        dispatch({
+            type: USERS_LIST_FAIL,
+            payload:
+                error.response && error.response.data.message ?
+                    error.response.data.message :
+                    error.message
+        })
+
+        // const message = error.response && error.response.data.message ?
+        //     error.response.data.message :
+        //     error.message
+        // if (message === 'Not authorized, token failed') {
+        //     dispatch(logout())
+        // }
+        // dispatch({
+        //     type: USERS_LIST_FAIL,
+        //     payload: message,
+        // })
+
     }
 }

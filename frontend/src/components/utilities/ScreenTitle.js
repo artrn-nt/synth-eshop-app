@@ -1,7 +1,8 @@
 import React from 'react'
 import gsap from 'gsap'
+import '../../scss/components/utilities/ScreenTitle.scss'
 
-const ScreenTitle = ({ title }) => {
+const ScreenTitle = ({ title, subtitle }) => {
 
     // const titleRef = useRef() 
 

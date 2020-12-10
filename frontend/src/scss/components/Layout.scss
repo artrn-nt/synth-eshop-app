@@ -30,12 +30,15 @@
     }
 
     .menu {
+      position: relative;
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      margin-bottom: 1.05rem;
+      height: 2.1rem;
+      // margin-bottom: 1.05rem;
+      margin-bottom: .525rem;
 
       a {
         color: $greyish;
@@ -57,12 +60,21 @@
       }
 
       .right-menu {
+        position: absolute;
+        top: 0;
+        right: 0; 
         display: flex;
-        align-items: center;
-        position: relative;
+        // align-items: flex-start;
+        // align-items: center;
 
         .cart-link {
           position: relative;
+          display: flex;
+          align-items: center;
+          top: 1.05rem;
+          margin-right: 1.4rem;
+          min-height: 2.1rem;
+          transform: translateY(-50%);
 
           &:hover {
             .cart-indicator {
@@ -97,9 +109,9 @@
           }
         }
 
-        a:not(:last-of-type) {
-          margin-right: 1.4rem;
-        }
+        // a:not(:last-of-type) {
+        //   margin-right: 1.4rem;
+        // }
 
         .fas.fa-shopping-cart,
         .fas.fa-user-alt {
@@ -117,7 +129,6 @@
     min-height: 24px;
     margin-top: 1.05rem;
     opacity: 0;
-    // background-color: lightskyblue;
 
     span {
       color: $greyish;

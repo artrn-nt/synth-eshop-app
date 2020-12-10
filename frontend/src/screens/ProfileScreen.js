@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import gsap from 'gsap'
 import { Link } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
@@ -6,10 +7,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { listUserOrders } from '../actions/orderActions'
+import { ORDER_USER_RESET } from '../constants/orderConstants'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import ShowPassword from '../components/utilities/ShowPassword'
 import Spinner from '../components/utilities/Spinner'
-import Message from '../components/utilities/Message'
+import { Alert, ErrorMsg } from '../components/utilities/Messages'
+import { ActionBtn } from '../components/utilities/ActionBtnLink'
 import '../scss/screens/ProfileScreen.scss'
 
 const ProfileScreen = ({ history }) => {
@@ -20,6 +23,7 @@ const ProfileScreen = ({ history }) => {
 
     const [show, setShow] = useState(false)
     const [updateSuccess, setUpdateSuccess] = useState(null)
+    const [fadeOut, setFadeOut] = useState(null)
 
     const dispatch = useDispatch()
 
@@ -34,6 +38,39 @@ const ProfileScreen = ({ history }) => {
 
     const userUpdateProfile = useSelector(state => state.userUpdateProfile)
 
+    const timeOut1 = useRef(null)
+    const timeOut2 = useRef(null)
+
+    useEffect(() => {
+        if (!loadingDetails && !errorDetails) {
+            gsap.fromTo('.profile-form', {
+                opacity: 0,
+                y: 38
+            }, {
+                delay: .15,
+                duration: 1.1,
+                opacity: 1,
+                y: 0,
+                ease: 'power3.out'
+            })
+        }
+    }, [loadingDetails, errorDetails])
+
+    useEffect(() => {
+        if (!loadingOrders && !errorOrders) {
+            gsap.fromTo('.my-orders-table', {
+                opacity: 0,
+                y: 38
+            }, {
+                delay: .15,
+                duration: 1.1,
+                opacity: 1,
+                y: 0,
+                ease: 'power3.out'
+            })
+        }
+    }, [loadingOrders, errorOrders])
+
     useEffect(() => {
         if (!userInfo) {
             history.push('/login')
@@ -41,25 +78,48 @@ const ProfileScreen = ({ history }) => {
             // console.log(user)
             if (!user || !user.name) {
                 dispatch(getUserDetails('profile'))
-                dispatch(listUserOrders())
             } else {
                 setUsername(user.name)
                 setEmail(user.email)
             }
+            dispatch(listUserOrders())
         }
+    }, [userInfo, history, dispatch, user])
 
+    useEffect(() => {
         if (userUpdateProfile.success) {
             dispatch({ type: USER_UPDATE_PROFILE_RESET })
             dispatch(getUserDetails('profile'))
+            setFadeOut(null)
             setUpdateSuccess(true)
-            // setTimeout(() => {
-            //     setUpdateSuccess(false)
-            // }, 5000)
+            setPassword('')
+            timeOut1.current = setTimeout(() => {
+                setUpdateSuccess(false)
+            }, 9000)
+            timeOut2.current = setTimeout(() => {
+                setFadeOut(true)
+            }, 8050)
         }
 
-        // return () => clearTimeout()
+        if (updateSuccess) return () => {
+            clearTimeout(timeOut1.current)
+            timeOut1.current = null
+            clearTimeout(timeOut2.current)
+            timeOut2.current = null
+        }
 
-    }, [userInfo, history, dispatch, user, userUpdateProfile])
+    }, [userUpdateProfile, dispatch, updateSuccess])
+
+    useEffect(() => {
+        return () => dispatch({ type: ORDER_USER_RESET })
+    }, [dispatch])
+
+    // const handleSubmit = (ev) => {
+    //     ev.preventDefault()
+    //     dispatch(updateUserProfile({ id: user._id, name: username, email, password }))
+    // }
+
+    if (!userInfo) return null
 
     return (
         <section className='profile-section'>
@@ -74,7 +134,7 @@ const ProfileScreen = ({ history }) => {
                     <div className={loadingDetails || errorDetails ? 'profile-form-container ctr' : 'profile-form-container str'}>
                         {loadingDetails ?
                             <Spinner /> : errorDetails ?
-                                <Message error={errorDetails} /> :
+                                <ErrorMsg message={errorDetails} /> :
                                 <Formik
                                     initialValues={{
                                         username: user.name ? user.name : '',
@@ -107,13 +167,16 @@ const ProfileScreen = ({ history }) => {
                                             .oneOf([yup.ref('password'), null], 'Passwords must match')
                                             .required('Password is required'),
                                     })}
-                                    onSubmit={() => dispatch(updateUserProfile({ id: user._id, name: username, email, password }))}
+                                    onSubmit={() => {
+                                        dispatch(updateUserProfile({ id: user._id, name: username, email, password }))
+                                    }}
                                 >
                                     {({ isSubmitting, values, handleChange, handleSubmit }) => (
 
                                         <Form
                                             name='profile'
                                             method='post'
+                                            className='profile-form'
                                             onSubmit={handleSubmit}
                                         >
                                             <div className='field-control'>
@@ -199,13 +262,12 @@ const ProfileScreen = ({ history }) => {
                                                 />
                                             </div>
 
-                                            <button
-                                                className='btn-profile-form'
-                                                type='submit'
-                                                disabled={isSubmitting}
-                                            >
-                                                Update profile
-                                        </button>
+                                            <div className='bottom-row'>
+                                                <ActionBtn type='submit' className='btn-profile' disabled={isSubmitting} text='Update profile' />
+                                                {updateSuccess && <Alert className={!fadeOut ? 'alert-msg fade-in' : 'alert-msg fade-out'} message='Profile updated' />}
+                                            </div>
+
+
                                         </Form>
                                     )}
 
@@ -217,11 +279,11 @@ const ProfileScreen = ({ history }) => {
                 <div className='profile-col-2'>
                     <h3>My orders</h3>
 
-                    <div className={loadingOrders || errorOrders ? 'table-container ctr' : 'table-container str'}>
+                    <div className={loadingOrders || errorOrders || orders.length === 0 ? 'table-container ctr' : 'table-container str'}>
                         {loadingOrders ?
                             <Spinner /> : errorOrders ?
-                                <Message error={errorOrders} /> :
-                                <table className='my-orders-table'>
+                                <ErrorMsg message={errorOrders} /> :
+                                orders.length !== 0 ? <table className='my-orders-table'>
                                     <thead>
                                         <tr>
                                             <th scope='col' colSpan='1' width='37.5%'>ID</th>
@@ -242,22 +304,32 @@ const ProfileScreen = ({ history }) => {
                                                 <td>€{(order.totalPrice).toFixed(2)}</td>
                                                 <td>
                                                     {order.isPaid ? order.paidAt.substring(0, 10) :
-                                                        (<i className='fas fa-times' style={{ color: 'tomato' }} />)}
+                                                        (<i className='fas fa-times-circle' style={{ color: 'tomato' }} />)}
                                                 </td>
                                                 <td>
                                                     {order.isDelivered ? order.deliveredAt.substring(0, 10) :
-                                                        (<i className='fas fa-times' style={{ color: 'tomato' }} />)}
+                                                        (<i className='fas fa-times-circle' style={{ color: 'tomato' }} />)}
                                                 </td>
                                             </tr>
                                         ))}
                                     </tbody>
-                                </table>}
+                                </table> :
+                                    <p>
+                                        <span>You didn't make any order from us</span>
+                                        <span>
+                                            Sounds like a good time
+                                        <Link
+                                                className='start-shop'
+                                                to='/'
+                                            >
+                                                to make one
+                                        </Link>
+                                        </span>
+                                    </p>}
                     </div>
                 </div>
 
             </div>
-
-            {updateSuccess && <div className='profile-utils-row'><Message error='Profile updated' /></div>}
 
         </section>
     )

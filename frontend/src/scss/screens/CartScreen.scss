@@ -321,34 +321,6 @@
           align-items: center;
           justify-content: space-between;
   
-          .btn-checkout-member,
-          .btn-checkout-guest {
-            width: 220px;
-            height: 3.15rem;
-            background-color: transparent;
-            border: 1.2px solid;
-            border-radius: 4px;
-            font-family: $content-font;
-            font-size: 1rem;
-            font-weight: 500;
-            border-color: $bright;
-            color: $bright;
-            cursor: pointer;
-            transition: transform 75ms ease-in, background-color 280ms ease-out;
-  
-            &:first-of-type {
-              margin-bottom: 1.15rem;
-            }
-  
-            &:hover {
-              background-color: brown;
-            }
-  
-            &:active {
-              -webkit-transform: scale(0.99);
-              transform: scale(0.99);
-            }
-          }
         }
       }
     // }

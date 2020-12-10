@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react'
+import gsap from 'gsap'
 import { useDispatch, useSelector } from 'react-redux'
 import { createOrder } from '../actions/orderActions'
+import { CART_RESET } from '../constants/cartConstants'
 import CheckOutSteps from '../components/utilities/CheckoutSteps'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import OrderItem from '../components/PlaceOrderScreen/OrderItem'
-import ActionBtn from '../components/utilities/ActionBtn'
-import BackToCartLink from '../components/utilities/BackToCartLink'
-import Message from '../components/utilities/Message'
+import { ActionBtn, ActionLink } from '../components/utilities/ActionBtnLink'
+import { ErrorMsg } from '../components/utilities/Messages'
 import '../scss/screens/PlaceOrderScreen.scss'
 
 const PlaceOrderScreen = ({ history }) => {
 
     const dispatch = useDispatch()
+
     const cart = useSelector(state => state.cart)
+
     const orderCreate = useSelector(state => state.orderCreate)
     const { order, loading, success, error } = orderCreate
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
 
     const [itemsPrice, setItemsPrice] = useState(0)
     const [shippingPrice, setShippingPrice] = useState(0)
@@ -24,6 +30,25 @@ const PlaceOrderScreen = ({ history }) => {
     const addDecimals = (nb) => {
         return Number((Math.round(nb * 100) / 100).toFixed(2))
     }
+
+    useEffect(() => {
+        if (!loading && !error) {
+            gsap.fromTo('.place-order-main-row', {
+                opacity: 0,
+                y: 38
+            }, {
+                delay: .15,
+                duration: 1.1,
+                opacity: 1,
+                y: 0,
+                ease: 'power3.out'
+            })
+        }
+    }, [loading, error])
+
+    useEffect(() => {
+        if (!userInfo) history.push('/login')
+    }, [userInfo, history])
 
     useEffect(() => {
 
@@ -55,7 +80,10 @@ const PlaceOrderScreen = ({ history }) => {
             taxPrice,
             totalPrice
         }))
+        dispatch({ type: CART_RESET })
     }
+
+    if (!userInfo) return null
 
     return (
         <section className='place-order-section'>
@@ -122,16 +150,15 @@ const PlaceOrderScreen = ({ history }) => {
                         </div>
                         <ActionBtn
                             type='button'
-                            className='btn'
+                            className='btn-place-order'
                             disabled={cart.cartItems.length === 0}
                             onClickHandler={placeOrderHandler}
                             text='Place order'
                         />
+                        <ActionLink path='/cart' className='back-to-cart-link' text='Back to cart' />
                     </div>
 
-                    <BackToCartLink />
-
-                    {error && <Message error={error} />}
+                    {error && <ErrorMsg message={error} />}
 
                 </div>
 

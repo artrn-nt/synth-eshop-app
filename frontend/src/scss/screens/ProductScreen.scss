@@ -1,29 +1,32 @@
 @import '../config.scss';
 
-.product-container {
+.product-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: calc(100vh - (139.3px + 73.6px));
+  min-height: calc(100vh - (139.6px + 4.6rem));
   padding: 1.05rem 0 2.1rem;
-
-  &.ctr {
-    justify-content: center;
-  }
-
-  &.str {
-    justify-content: flex-start;
-  }
+  // padding: 2.1rem 0;
 
   .main-row-product {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+    flex-grow: 1;
     width: 100%;
-    margin: 3.05rem 0 0;
+    // margin: 3.05rem 0 0;
+    margin-top: 2.1rem;
     opacity: 0;
     color: $greyish;
+    
+    &.ctr {
+      align-items: center;
+      justify-content: center;
+    }
+    
+    &.str {
+      align-items: flex-start;
+      justify-content: space-between;
+    }
 
     .col-1-product {
       display: flex;

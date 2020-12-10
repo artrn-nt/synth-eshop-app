@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProducts, resetListProducts } from '../actions/productActions'
 import ScreenTitle from '../components/utilities/ScreenTitle'
+import Hero from '../components/ProductsScreen/Hero'
 import Spinner from '../components/utilities/Spinner'
-import Message from '../components/utilities/Message'
+import { ErrorMsg } from '../components/utilities/Messages'
 import ProductCard from '../components/ProductsScreen/ProductCard'
 import '../scss/screens/ProductsScreen.scss'
 
@@ -13,6 +14,8 @@ const ProductsScreen = () => {
     const dispatch = useDispatch()
     const productsList = useSelector(state => state.productsList)
     const { loading, error, products } = productsList
+
+    const [latestProducts, setLatestProducts] = useState([])
 
     const productsRef = useRef(null)
 
@@ -23,6 +26,7 @@ const ProductsScreen = () => {
 
     useEffect(() => {
         if (products && products.length !== 0) {
+            setLatestProducts(products.filter(p => p.brand === 'Moog'))
             const productCards = Object.values(productsRef.current.children)
             gsap.fromTo(productCards, {
                 opacity: 0,
@@ -37,19 +41,25 @@ const ProductsScreen = () => {
             })
         }
     }, [products])
-    
+
     return (
         <section className={`products-container ${loading || error ? 'ctr' : 'str'}`}>
-            {loading ? <Spinner /> :  
-                error ? <Message error={error} /> :
-                (<>
-                    <ScreenTitle title='products' />
-                    <div className='products' ref={productsRef}>
-                        {products.map((product) => (
-                            <ProductCard key={product._id} product={product} />
-                        ))}
-                    </div>
-                </>)}
+            {loading ? <Spinner /> :
+                error ? <ErrorMsg message={error} /> :
+                    (<>
+                        <Hero latestProducts={latestProducts} />
+                        <ScreenTitle title='All products' />
+                        <div className='products' ref={productsRef}>
+                            {products.sort((p1, p2) => {
+                                const product1Name = p1.name.toLowerCase(), product2Name = p2.name.toLowerCase()
+                                if (product1Name < product2Name) return -1
+                                if (product1Name > product2Name) return 1
+                                return 0
+                            }).map((product) => (
+                                <ProductCard key={product._id} product={product} />
+                            ))}
+                        </div>
+                    </>)}
         </section>
     )
 }

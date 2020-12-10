@@ -1,0 +1,97 @@
+@import '../../config.scss';
+
+%btn-link {
+    height: 3.15rem;
+    // padding: 0 1.55rem;
+    background-color: transparent;
+    border: 1.2px solid;
+    border-radius: 4px;
+    color: $bright;
+    font-family: $content-font;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: transform 75ms ease-in, background-color 280ms ease-out;
+    cursor: pointer;
+
+    &:hover {
+        background-color: brown;
+    }
+
+}
+
+%btn-link-admin {
+    font-size: 1rem;
+    border: none;
+    background-color: transparent;
+    // color: $main-theme;
+    // color: lighten($greyish, 9%);
+    color: lighten($main-theme, 10%);
+    transition: color 280ms ease-out;
+    cursor: pointer;
+
+    &:hover {
+        color: brown;
+    }
+    // border-radius: 50%;
+    // background-color: orange;
+
+}
+
+// .btn {
+//     @extend %btn-link;
+//     min-width: 115px;
+// }
+
+.btn-cart,
+.btn-place-order {
+    @extend %btn-link;
+    min-width: 200px;
+
+    &:active {
+        -webkit-transform: scale(0.99);
+        transform: scale(0.99);
+    }
+}
+
+.btn-checkout-step1,
+.btn-checkout-step2 {
+    @extend %btn-link;
+    margin-bottom: 2.1rem;
+    min-width: 200px;
+
+    &:active {
+        -webkit-transform: scale(0.99);
+        transform: scale(0.99);
+    }
+}
+
+.back-to-cart-link {
+    @extend %btn-link;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+
+    i {
+        margin-right: .65rem;
+        font-size: .95rem;
+    }
+}
+
+.login-btn,
+.register-btn {
+    @extend %btn-link;
+    min-width: 160px;
+    margin-bottom: 2.1rem;
+}
+
+.btn-profile,
+.btn-delete-user {
+    @extend %btn-link;
+    min-width: 165px;
+}
+
+// admin btn - link
+.edit-user-link, .delete-user-btn {
+    @extend %btn-link-admin;    
+}

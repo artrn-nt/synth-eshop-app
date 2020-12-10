@@ -18,14 +18,21 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    description_m: {
+    image_c: { // secondary - for carousel
+        type: String,
+        default: undefined
+    },
+    description_m: { // main
         type: String,
         required: true
     },
+    description_c: { // secondary - for carousel
+        type: String,
+        default: undefined
+    },
     features: {
         type: [String],
-        required: true,
-        default: undefined
+        required: true
     },
     brand: {
         type: String,

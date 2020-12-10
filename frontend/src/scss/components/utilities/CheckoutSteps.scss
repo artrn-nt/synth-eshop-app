@@ -7,6 +7,9 @@
     width: 100%;
     min-height: 2.1rem;
     margin-top: 2.1rem;
+    opacity: 0;
+    animation: fadeIn 1.1s ease-out forwards;
+    animation-delay: 0.15s;
     // background-color: cadetblue;
 
     ul {
@@ -94,5 +97,13 @@
             cursor: default;
         }
     }
+}
 
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
 }

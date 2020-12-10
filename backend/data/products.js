@@ -56,6 +56,34 @@ const products = [
     countInStock: 7
   },
   {
+    name: 'Behringer K-2',
+    category: 'Synthesizers',
+    image: '/images/behringer_k_2.jpg',
+    description_m: 'Analogue semi-modular synthesiser',
+    features: [
+      'Monophonic sound generation',
+      '2 VCOs with 4 waveforms and ring modulation',
+      'VCO Mixer',
+      'Resonant high-pass and low-pass filters',
+      'LFO with triangular, sawtooth and rectangular waveforms',
+      '2 Analogue envelopes for VCA and VCF',
+      'Signal processor with amplifier',
+      'High-pass and low-pass filters and envelope followers',
+      'Semi-modular design allows access to all components of the sound generation via 25 sockets (3.5 mm jack)',
+      'Can be used as a complete Eurorack synthesizer voice (width: 80 HP)',
+      'Poly-chain function for connecting up to 16 devices',
+      '2 Line outputs: 6.3 mm Jack and 3.5 mm jack',
+      'Stereo headphone output: 3.5 mm Jack',
+      'MIDI In/Thru and USB MIDI',
+      'Dimensions: 95 x 424 x 136 mm',
+      'Weight: 1.8 kg',
+      'Includes 12 V DC power supply unit'
+    ],
+    brand: 'Behringer',
+    price: 300,
+    countInStock: 3
+  },
+  {
     name: 'Behringer MonoPoly',
     category: 'Synthesizers',
     image: '/images/behringer_monopoly.jpg',
@@ -113,6 +141,34 @@ const products = [
     countInStock: 5
   },
   {
+    name: 'Behringer TD-3-SR',
+    category: 'Synthesizers',
+    image: '/images/behringer_td_3_sr.jpg',
+    description_m: 'Analogue Bass Line Synthesiser',
+    features: [
+      'Fully analog signal path from VCO, VCF and VCA',
+      'VCO switchable between sawtooth and rectangular waveform',
+      '4-Pole low-pass filter with resonance',
+      'VCF envelope intensity and envelope decay adjustable',
+      'Adjustable accent',
+      'Integrated distortion with tone control',
+      '16-Step sequencer with 250 pattern memory locations',
+      'Poly-chaining of up to 16 devices possible',
+      'Audio input for sound processing of external sources: 3.5 mm Jack',
+      'Sync In & CV/gate outputs: 3.5 mm Jack',
+      'Stereo headphone output: 3.5 mm Jack',
+      'Line output: 6.3 mm Jack',
+      'USB-MIDI and MIDI In/Out',
+      'Colour: Silver',
+      'Includes power supply (9 V DC)',
+      'Dimensions (H x W x D): 56 x 305 x 165 mm',
+      'Weight: 0.8 kg'
+    ],
+    brand: 'Behringer',
+    price: 125,
+    countInStock: 6
+  },
+  {
     name: 'Behringer Wasp Deluxe',
     category: 'Synthesizers',
     image: '/images/behringer_wasp.jpg',
@@ -143,7 +199,7 @@ const products = [
     category: 'Synthesizers',
     image: '/images/dreadbox_erebus.jpg',
     description_m: 'Analogue Desktop Synthesizer',
-    features : [
+    features: [
       'Fully analogue, two-part paraphone synth',
       '3 Oscillators',
       '2 Oscillators with individual glide',
@@ -410,7 +466,9 @@ const products = [
     name: 'Moog Mother-32',
     category: 'Synthesizers',
     image: '/images/moog_mother.jpg',
+    image_c: '/images/moog_mother_latest.jpg',
     description_m: 'Semi-Modular Analogue Desktop Synthesiser',
+    description_c: 'An intuitive and expandable semi-modular synthesizer that adds raw analog sound, powerful sequencing and extensive interconnectivity to any creative, electronic or modular ecosystem.',
     features: [
       'VC controlled 32-step sequencer with 64 sequence-locations',
       'Low pass & high pass moog ladder Filter (20Hz-20kHz) with VC controlled resonance',
@@ -432,7 +490,9 @@ const products = [
     name: 'Moog Subharmonicon',
     category: 'Synthesizers',
     image: '/images/moog_subharmonicon.jpg',
+    image_c: '/images/moog_subharmonicon_latest.jpg',
     description_m: 'Semi-Modular Analogue Desktop Synthesiser',
+    description_c: 'A semi-modular polyrhythmic analog synthesizer that employs a 6-tone sound engine and multi-layered clock generator to explore the world of subharmonics, polyrhythms, and the unique relationships they create.',
     features: [
       'Polytonal semi-modular synthesiser',
       'Two analogue oscillators, each with two tunable subharmonics',
@@ -451,6 +511,53 @@ const products = [
     brand: 'Moog',
     price: 790,
     countInStock: 6
+  },
+  {
+    name: 'Moog Werkstatt-01',
+    category: 'Synthesizers',
+    image: '/images/moog_werkstatt_01.jpg',
+    image_c: '/images/moog_werkstatt_latest.jpg',
+    description_m: 'Analog Synthesizer Kit including CV Expander',
+    description_c: 'A patchable and compact analog synthesizer - a must have for any “synth curious” musician who wants to learn first hand what synthesis is all about by building their very own analog synthesizer.',
+    features: [
+      'Oscillator: Sawtooth and square waveform',
+      'Filter section: Classic 4-Pole Moog Ladder Filter, switchable between envelope generator and LFO as a modulation source, polarity switch and controller for filter cutoff modulation',
+      'LFO section: switchable between envelope generator and ON (drone)',
+      '1-Octave keyboard with button',
+      'Connections: 12 grounded 3.5 mm jack sockets',
+      'Includes power supply'
+    ],
+    brand: 'Moog',
+    price: 210,
+    countInStock: 2
+  },
+  {
+    name: 'Sequential Prophet 10',
+    category: 'Synthesizers',
+    image: '/images/sequential_prophet_10.jpg',
+    description_m: '10-Voice Polyphonic Analog Synthesizer',
+    features: [
+      'Velocity sensitive 61-key Fatar keyboard with aftertouch',
+      '200 Factory programs',
+      '200 User memory locations in 5 banks with 40 programs each',
+      '2 CEM 3340 VCOs per voice',
+      'Simultaneously selectable waveforms of oscillators A and B.',
+      'Oscillator A: sawtooth, square',
+      'Oscillator B: sawtooth, triangle, rectangle',
+      'Pulse width per oscillator',
+      'Hard Sync: Oscillator 1 sync to oscillator 2',
+      'Four-pole, resonant low-pass filter per voice',
+      'Switchable between authentic versions of the filter Prophet-5 Rev1 / 2 and the filter Prophet-5 Rev3',
+      'Four-stage (ADSR) envelope generator',
+      'Vintage Knob for setting various Prophet 5 models - e.g. the behavior of oscillators, envelopes, amplifiers and other parameters',
+      'Pitch and modulation wheel',
+      'Direct program access including the Prophet 5-style 1-button access to 8 programs',
+      'Dimensions (W x H x D): 95.25 x 12.4 x 41.6 cm',
+      'Weight: 14.06 kg'
+    ],
+    brand: 'Sequential',
+    price: 4400,
+    countInStock: 1
   }
 ]
 

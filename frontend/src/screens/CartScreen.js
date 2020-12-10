@@ -6,6 +6,7 @@ import { addToCart, removeFromCart, trashFromCart, resetAddToCart } from '../act
 import CartItem from '../components/CartScreen/CartItem'
 import CheckoutTotal from '../components/CartScreen/CheckoutTotal'
 import ScreenTitle from '../components/utilities/ScreenTitle'
+import { ActionBtn } from '../components/utilities/ActionBtnLink'
 // import Message from '../components/utilities/Message'
 import '../scss/screens/CartScreen.scss'
 
@@ -70,12 +71,7 @@ const CartScreen = ({ history }) => {
     }
 
     const checkoutMemberHandler = () => {
-        console.log('checkout member')
         history.push('/login?redirect=shipping')
-    }
-
-    const checkoutGuestHandler = () => {
-        console.log('checkout guest')
     }
 
     return (
@@ -114,7 +110,6 @@ const CartScreen = ({ history }) => {
                         )}
                     </ul>
 
-                    {/* <div className='checkout-col'> */}
                     <div className='checkout'>
                         <CheckoutTotal
                             totalQty={cartItems.reduce((acc, item) => acc + item.qty, 0)}
@@ -122,24 +117,14 @@ const CartScreen = ({ history }) => {
                         />
                         <span>Shipping calculated at checkout</span>
                         <div className='checkout-btns'>
-                            <button
+                            <ActionBtn
                                 type='button'
-                                className='btn-checkout-member'
-                                onClick={checkoutMemberHandler}
-                            >
-                                Checkout as member
-                                    </button>
-                            <button
-                                type='button'
-                                className='btn-checkout-guest'
-                                onClick={checkoutGuestHandler}
-                            >
-                                Checkout as guest
-                                    </button>
+                                className='btn-cart'
+                                onClickHandler={checkoutMemberHandler}
+                                text='Checkout'
+                            />
                         </div>
                     </div>
-                    {/* </div> */}
-
                 </div>)
             }
         </section>
