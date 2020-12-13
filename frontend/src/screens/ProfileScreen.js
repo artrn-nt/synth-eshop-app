@@ -76,7 +76,8 @@ const ProfileScreen = ({ history }) => {
         if (!userInfo) {
             history.push('/login')
         } else {
-            if (Object.entries(user).length === 0 && user.constructor === Object) {
+            // if (Object.entries(user).length === 0 && user.constructor === Object) {
+            if (!user.name) {
                 dispatch(getUserDetails('profile'))
                 dispatch(listUserOrders())
             }
@@ -139,9 +140,8 @@ const ProfileScreen = ({ history }) => {
                     <h3>My info</h3>
 
                     <div className={loadingDetails || errorDetails ? 'profile-form-container ctr' : 'profile-form-container str'}>
-                        {loadingDetails ?
-                            <Spinner /> : errorDetails ?
-                                <ErrorMsg message={errorDetails} /> :
+                        {loadingDetails ? <Spinner /> :
+                            errorDetails ? <ErrorMsg message={errorDetails} /> :
                                 <Formik
                                     initialValues={{
                                         username: user.name ? user.name : '',

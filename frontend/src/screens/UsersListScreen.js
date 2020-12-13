@@ -47,7 +47,7 @@ const UsersListScreen = ({ history }) => {
         if (userInfo && userInfo.isAdmin) {
             dispatch(getUsersList())
         } else {
-            history.push('/login')
+            history.push('/')
         }
 
         return () => dispatch({ type: USERS_LIST_RESET })

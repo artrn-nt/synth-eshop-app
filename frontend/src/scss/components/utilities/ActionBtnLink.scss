@@ -91,12 +91,27 @@
     min-width: 165px;
 }
 
-// admin btn - link
+// Users list screen - Admin only
 .edit-user-link, .delete-user-btn {
     @extend %btn-link-admin;    
 }
 
 .confirm-btn-admin {
     @extend %btn-link;
+    min-width: 160px;
+}
+
+// Edit user screen - Admin only
+.edit-user-btn {
+    @extend %btn-link;
+    min-width: 160px;
+    margin-bottom: 2.1rem;
+}
+
+.go-back-link {
+    @extend %btn-link;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-width: 160px;
 }
