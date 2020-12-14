@@ -96,7 +96,7 @@
     @extend %btn-link-admin;    
 }
 
-.confirm-btn-admin {
+.confirm-btn-admin, .cancel-btn-admin {
     @extend %btn-link;
     min-width: 160px;
 }
@@ -114,4 +114,27 @@
     align-items: center;
     justify-content: center;
     min-width: 160px;
+}
+
+// Products list screen - Admin only
+
+.create-product-btn {
+    @extend %btn-link;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.25rem;
+
+    &:active {
+        -webkit-transform: scale(0.99);
+        transform: scale(0.99);
+    }
+    
+    i {
+        margin-right: .5rem;
+    }
+}
+
+.edit-product-link, .delete-product-btn {
+    @extend %btn-link-admin;    
 }

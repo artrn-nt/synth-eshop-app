@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { USERS_LIST_RESET } from '../constants/userConstants'
 import { getUsersList, deleteUser } from '../actions/userActions'
 import ScreenTitle from '../components/utilities/ScreenTitle'
+import DeleteConfirm from '../components/utilities/DeleteConfirm'
 import { ActionLink, ActionBtn } from '../components/utilities/ActionBtnLink'
 import Spinner from '../components/utilities/Spinner'
 import { ErrorMsg } from '../components/utilities/Messages'
@@ -11,9 +12,8 @@ import '../scss/screens/UsersListScreen.scss'
 
 const UsersListScreen = ({ history }) => {
 
-    const [eraseUser, setEraseUser] = useState(null)
+    const [eraseId, setEraseId] = useState(null)
     const [confirm, setConfirm] = useState(false)
-    const [cancel, setCancel] = useState(null)
 
     const dispatch = useDispatch()
 
@@ -23,11 +23,10 @@ const UsersListScreen = ({ history }) => {
 
     const usersList = useSelector(state => state.usersList)
     const { loading, error, users } = usersList
+    // console.log(users)
 
     const userDelete = useSelector(state => state.userDelete)
     const { success: successDelete } = userDelete
-
-    // console.log(users)
 
     useEffect(() => {
         if (users && users.length !== 0)
@@ -44,24 +43,29 @@ const UsersListScreen = ({ history }) => {
     }, [users])
 
     useEffect(() => {
-        if (userInfo && userInfo.isAdmin) {
-            dispatch(getUsersList())
-        } else {
-            history.push('/')
-        }
+        if (userInfo && userInfo.isAdmin) dispatch(getUsersList())
+        else history.push('/')
 
         return () => dispatch({ type: USERS_LIST_RESET })
     }, [userInfo, dispatch, history, successDelete])
 
+    const confirmHandler = (bool) => {
+        setConfirm(bool)
+    }
+
+    const eraseIdHandler = (id) => {
+        setEraseId(id)
+    }
+
     const deleteHandler = (id) => {
         dispatch(deleteUser(id))
-        setEraseUser(null)
+        setEraseId(null)
     }
 
     return (
         <section className='users-list-section'>
 
-            <ScreenTitle title='Users list' />
+            <ScreenTitle title='Admin: Users list' />
 
             <div className={!userInfo && !userInfo.isAdmin || loading || error ? 'users-list-main-row ctr' : 'users-list-main-row str'}>
 
@@ -100,10 +104,9 @@ const UsersListScreen = ({ history }) => {
                                             <ActionBtn
                                                 type='button'
                                                 className='delete-user-btn'
-                                                // onClickHandler={() => deleteHandler(user._id)}
                                                 onClickHandler={() => {
-                                                    setEraseUser(user._id)
-                                                    setConfirm(true)
+                                                    eraseIdHandler(user._id)
+                                                    confirmHandler(true)
                                                 }}
                                             >
                                                 <i className='fas fa-trash' />
@@ -115,40 +118,14 @@ const UsersListScreen = ({ history }) => {
                         </table>
                     )}
 
-                {eraseUser && (
-                    <div
-                        className={confirm ? 'confirm-alert fade-in' : 'confirm-alert fade-out'}
-                        onAnimationEnd={() => {
-                            if (cancel !== null && cancel) {
-                                setCancel(null)
-                                setEraseUser(null)
-                            }
-                            else if (cancel !== null && !cancel) {
-                                setCancel(null)
-                                deleteHandler(eraseUser)
-                            }
-                        }}>
-                        <span>Are you sure?</span>
-                        <div className='btns-row'>
-                            <ActionBtn
-                                type='button'
-                                className='confirm-btn-admin'
-                                onClickHandler={() => {
-                                    setConfirm(false)
-                                    setCancel(true)
-                                }}
-                                text='Cancel' />
-                            <ActionBtn
-                                type='button'
-                                className='confirm-btn-admin'
-                                onClickHandler={() => {
-                                    setConfirm(false)
-                                    setCancel(false)
-                                }}
-                                text='Confirm' />
-                        </div>
-                    </div>
-                )}
+                {eraseId && <DeleteConfirm
+                    eraseId={eraseId}
+                    confirm={confirm}
+                    eraseIdHandler={eraseIdHandler}
+                    confirmHandler={confirmHandler}
+                    deleteHandler={deleteHandler}
+                    text='Delete this user'
+                />}
 
             </div>
 

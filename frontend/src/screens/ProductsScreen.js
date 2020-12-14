@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { useDispatch, useSelector } from 'react-redux'
-import { listProducts, resetListProducts } from '../actions/productActions'
+import { listProducts } from '../actions/productActions'
+import { PRODUCTS_LIST_RESET } from '../constants/productConstants'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import Hero from '../components/ProductsScreen/Hero'
 import Spinner from '../components/utilities/Spinner'
@@ -21,7 +22,7 @@ const ProductsScreen = () => {
 
     useEffect(() => {
         dispatch(listProducts())
-        return () => dispatch(resetListProducts())
+        return () => dispatch({ type: PRODUCTS_LIST_RESET })
     }, [dispatch])
 
     useEffect(() => {

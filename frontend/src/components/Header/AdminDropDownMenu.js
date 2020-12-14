@@ -52,13 +52,13 @@ const AdminDropDownMenu = () => {
                 {state => (
                     <ul className='dropdown-list' style={{ ...transitionStyles[state] }}>
                         <li className='dropdown-list-item' onClick={() => setDrop(false)}>
-                            <Link to='/admin/usersList'>Users</Link>
+                            <Link to='/admin/userslist'>Users</Link>
                         </li>
                         <li className='dropdown-list-item' onClick={() => setDrop(false)}>
-                            <Link to='/admin/productsList'>Products</Link>
+                            <Link to='/admin/productslist'>Products</Link>
                         </li>
                         <li className='dropdown-list-item' onClick={() => setDrop(false)}>
-                            <Link to='/admin/ordersList'>Orders</Link>
+                            <Link to='/admin/orderslist'>Orders</Link>
                         </li>
                     </ul>
                 )}

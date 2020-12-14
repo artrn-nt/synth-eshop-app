@@ -8,6 +8,7 @@ import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import UsersListScreen from './screens/UsersListScreen'
 import UserEditScreen from './screens/UserEditScreen'
+import ProductsListScreen from './screens/ProductsListScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import CartScreen from './screens/CartScreen'
 import ShippingInfoScreen from './screens/ShippingInfoScreen'
@@ -28,6 +29,7 @@ const App = () => {
           <Route path='/profile' component={ProfileScreen} />
           <Route path='/admin/userslist' component={UsersListScreen} />
           <Route path='/admin/user/:id/edit' component={UserEditScreen} />
+          <Route path='/admin/productslist' component={ProductsListScreen} />
           <Route path='/info' component={InfoScreen} />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' component={CartScreen} />
@@ -36,7 +38,7 @@ const App = () => {
           <Route path='/placeorder' component={PlaceOrderScreen} />
           <Route path='/orders/:id' component={OrderStatusScreen} />
           <Route path='/' component={ProductsScreen} exact />
-          <Route path='*' component={NotFoundScreen} exact={true} />
+          <Route path='*' component={NotFoundScreen} exact />
         </Switch>
       </Layout>
     </Router>
