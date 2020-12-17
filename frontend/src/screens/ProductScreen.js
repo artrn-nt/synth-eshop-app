@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { useDispatch, useSelector } from 'react-redux'
-import { listProductDetails, resetProductDetails } from '../actions/productActions'
-import { addToCart, resetAddToCart } from '../actions/cartActions'
+import { listProductDetails } from '../actions/productActions'
+import { PRODUCT_DETAILS_RESET } from '../constants/productConstants'
+import { CART_ADD_RESET } from '../constants/cartConstants'
+import { addToCart } from '../actions/cartActions'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import Spinner from '../components/utilities/Spinner'
 import { ErrorMsg } from '../components/utilities/Messages'
@@ -28,9 +30,8 @@ const ProductScreen = ({ match }) => {
     useEffect(() => {
         dispatch(listProductDetails(match.params.id))
         return () => {
-            dispatch(resetProductDetails())
-            dispatch(resetAddToCart())
-            // console.log('unmount ?')
+            dispatch({ type: PRODUCT_DETAILS_RESET })
+            dispatch({ type: CART_ADD_RESET })
         }
     }, [dispatch, match])
 
@@ -66,7 +67,7 @@ const ProductScreen = ({ match }) => {
 
     // if (loading || loadingIds) return (<section className='product-container ctr'><Spinner /></section>)
     // else if (error || errorIds) return (<section className='product-container ctr'><ErrorMsg message={error || errorIds} /></section>)
-    if (product === undefined || Object.entries(product).length === 0 && product.constructor === Object) return null
+    if (product === undefined || (Object.entries(product).length === 0 && product.constructor === Object)) return null
 
     return (
         <section className='product-section'>

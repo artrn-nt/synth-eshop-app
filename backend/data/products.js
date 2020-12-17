@@ -1,8 +1,15 @@
 const products = [
   {
     name: 'ARP Odyssey Module Rev. 3',
-    category: 'Synthesizers',
-    image: '/images/arp_odyssey_rev3.jpg',
+    brand: 'ARP / Korg',
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 640,
+    countInStock: 3,
     description_m: 'Synthesizer Module',
     features: [
       'Monophonic, max. 2 votes for Duophonic',
@@ -23,14 +30,21 @@ const products = [
       'Colours: Black / Orange',
       'Incl. 9V DC power supply'
     ],
-    brand: 'ARP / Korg',
-    price: 640,
-    countInStock: 3
+    image: '/images/arp_odyssey_rev3.jpg',
+    isPublished: true
   },
   {
     name: 'Behringer Crave',
-    category: 'Synthesizers',
-    image: '/images/behringer_crave.jpg',
+    brand: 'Behringer',
+    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: true,
+      desktop: true
+    },
+    price: 155,
+    countInStock: 7,
     description_m: 'Semi-Modular Analogue Synthesiser',
     features: [
       'VCO based on CEM3340',
@@ -51,14 +65,21 @@ const products = [
       'Weight: 1.5 kg',
       'Includes 12 V DC power supply and 6 patch cables'
     ],
-    brand: 'Behringer',
-    price: 155,
-    countInStock: 7
+    image: '/images/behringer_crave.jpg',
+    isPublished: true
   },
   {
     name: 'Behringer K-2',
-    category: 'Synthesizers',
-    image: '/images/behringer_k_2.jpg',
+    brand: 'Behringer',
+    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: true,
+      desktop: true
+    },
+    price: 300,
+    countInStock: 3,
     description_m: 'Analogue semi-modular synthesiser',
     features: [
       'Monophonic sound generation',
@@ -79,14 +100,21 @@ const products = [
       'Weight: 1.8 kg',
       'Includes 12 V DC power supply unit'
     ],
-    brand: 'Behringer',
-    price: 300,
-    countInStock: 3
+    image: '/images/behringer_k_2.jpg',
+    isPublished: true
   },
   {
     name: 'Behringer MonoPoly',
-    category: 'Synthesizers',
-    image: '/images/behringer_monopoly.jpg',
+    brand: 'Behringer',
+    // categories: ['Analogue', 'mono'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: false
+    },
+    price: 660,
+    countInStock: 4,
     description_m: 'Four-Voice Analog Synthesizer',
     features: [
       '37 Velocity-sensitive full-size keys',
@@ -105,14 +133,21 @@ const products = [
       'Weight: 10.3 kg',
       'Includes external power supply unit (12 V DC)'
     ],
-    brand: 'Behringer',
-    price: 660,
-    countInStock: 4
+    image: '/images/behringer_monopoly.jpg',
+    isPublished: true
   },
   {
     name: 'Behringer Pro-1',
-    category: 'Synthesizers',
-    image: '/images/behringer_pro_1.jpg',
+    brand: 'Behringer',
+    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: true,
+      desktop: true
+    },
+    price: 300,
+    countInStock: 5,
     description_m: 'Analogue Synthesiser',
     features: [
       'Dual VCO design based on CEM3340',
@@ -136,14 +171,19 @@ const products = [
       'Weight: 1.8 kg',
       'Includes power supply (12 V DC)'
     ],
-    brand: 'Behringer',
-    price: 300,
-    countInStock: 5
+    image: '/images/behringer_pro_1.jpg',
+    isPublished: true
   },
   {
     name: 'Behringer TD-3-SR',
-    category: 'Synthesizers',
-    image: '/images/behringer_td_3_sr.jpg',
+    brand: 'Behringer',
+    // categories: ['desktop', 'analogue', 'mono'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
     description_m: 'Analogue Bass Line Synthesiser',
     features: [
       'Fully analog signal path from VCO, VCF and VCA',
@@ -164,14 +204,23 @@ const products = [
       'Dimensions (H x W x D): 56 x 305 x 165 mm',
       'Weight: 0.8 kg'
     ],
-    brand: 'Behringer',
     price: 125,
-    countInStock: 6
+    countInStock: 6,
+    image: '/images/behringer_td_3_sr.jpg',
+    isPublished: true
   },
   {
     name: 'Behringer Wasp Deluxe',
-    category: 'Synthesizers',
-    image: '/images/behringer_wasp.jpg',
+    brand: 'Behringer',
+    // categories: ['desktop', 'analogue', 'mono'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 266,
+    countInStock: 7,
     description_m: 'Monophonic Analogue Synthesiser',
     features: [
       'Authentic reproduction of the original "Wasp Deluxe" circuit with coordinated transistors and JFETs',
@@ -190,14 +239,53 @@ const products = [
       'Weight: 1.6 kg',
       'Power adapter included (12 V DC, 1000 mA)'
     ],
-    brand: 'Behringer',
-    price: 266,
-    countInStock: 7
+    image: '/images/behringer_wasp.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Doepfer Dark Energy III',
+    brand: 'Doepfer',
+    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: true,
+      desktop: true
+    },
+    price: 460,
+    countInStock: 4,
+    description_m: 'Monophonic analog synthesizer',
+    features: [
+      'Triangle-based analogue VCO without warm-up time and clean 1V / octave tracking over min. 8 octaves',
+      '12 dB multimode filter',
+      'VCA with linear characteristic',
+      'LFO 1 and LFO 2 switchable between triangle and rectangle',
+      'Reset input for both LFOs',
+      'ADSR envelope',
+      'USB / MIDI interface',
+      'Gate',
+      '1V / oct and control voltage for the VCF frequency',
+      'Metal case with wooden side parts',
+      'Dimensions: 185 x 145 x 75 mm',
+      'Weight: 1.2 kg',
+      'Includes power supply, USB cable, 3.5 mm to 6.3 mm (1.5 m) mono and 2 patch cords A-100 (50 cm)',
+
+    ],
+    image: '/images/doepfer_dark_energy_3.jpg',
+    isPublished: true
   },
   {
     name: 'Dreadbox Erebus V3',
-    category: 'Synthesizers',
-    image: '/images/dreadbox_erebus.jpg',
+    brand: 'Dreadbox',
+    // categories: ['desktop', 'analogue', 'para', 'semi-modular'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Paraphonic',
+      semiModular: true,
+      desktop: true
+    },
+    price: 585,
+    countInStock: 0,
     description_m: 'Analogue Desktop Synthesizer',
     features: [
       'Fully analogue, two-part paraphone synth',
@@ -214,14 +302,21 @@ const products = [
       'Weight: 2380 g',
       'Incl. 15 volt power supply'
     ],
-    brand: 'Dreadbox',
-    price: 585,
-    countInStock: 0
+    image: '/images/dreadbox_erebus.jpg',
+    isPublished: true
   },
   {
     name: 'Dreadbox Nyx V2',
-    category: 'Synthesizers',
-    image: '/images/dreadbox_nyx.jpg',
+    brand: 'Dreadbox',
+    // categories: ['desktop', 'analogue', 'para', 'semi-modular'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Paraphonic',
+      semiModular: true,
+      desktop: true
+    },
+    price: 585,
+    countInStock: 3,
     description_m: 'Semi-Modular Desktop Synthesiser',
     features: [
       'Analogue sound generation',
@@ -242,14 +337,21 @@ const products = [
       'Dimensions: 355 x 65 x 180 mm',
       'Weight: 1.9 kg'
     ],
-    brand: 'Dreadbox',
-    price: 585,
-    countInStock: 3
+    image: '/images/dreadbox_nyx.jpg',
+    isPublished: true
   },
   {
     name: 'Elektron Analog Four MKII',
-    category: 'Synthesizers',
-    image: '/images/elektron_analog_four.jpg',
+    brand: 'Elektron',
+    // categories: ['desktop', 'analogue', 'poly'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Polyphonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 1390,
+    countInStock: 3,
     description_m: 'Desktop Synthesiser',
     features: [
       'Fully analog signal path',
@@ -278,14 +380,21 @@ const products = [
       'Weight approx. 2.4 kg',
       'Colour: Black'
     ],
-    brand: 'Elektron',
-    price: 1390,
-    countInStock: 3
+    image: '/images/elektron_analog_four.jpg',
+    isPublished: true
   },
   {
     name: 'Korg Minilogue XD Module',
-    category: 'Synthesizers',
-    image: '/images/korg_minilogue_xd_module.jpg',
+    brand: 'Korg',
+    // categories: ['analogue', 'poly'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Polyphonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 550,
+    countInStock: 6,
     description_m: 'Hybrid Synthesiser',
     features: [
       '4 Voice Polyphony',
@@ -309,14 +418,21 @@ const products = [
       'Weight: 2.6 kg',
       'Includes power supply DC 9V (KA350)'
     ],
-    brand: 'Korg',
-    price: 550,
-    countInStock: 6
+    image: '/images/korg_minilogue_xd_module.jpg',
+    isPublished: true
   },
   {
-    name: 'Korg MS-20',
-    category: 'Synthesizers',
-    image: '/images/korg_ms_20.jpg',
+    name: 'Korg MS-20 FS',
+    brand: 'Korg',
+    // categories: ['analogue', 'mono', 'semi-modular'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: true,
+      desktop: false
+    },
+    price: 1200,
+    countInStock: 1,
     description_m: 'Semi-modular monophonic analogue synthesiser',
     features: [
       '37 Full-size buttons',
@@ -331,14 +447,21 @@ const products = [
       'Colour: Black',
       'Includes 12V power supply and 10 patch cables'
     ],
-    brand: 'Korg',
-    price: 1220,
-    countInStock: 1
+    image: '/images/korg_ms_20.jpg',
+    isPublished: true
   },
   {
     name: 'Korg NTS-1',
-    category: 'Synthesizers',
-    image: '/images/korg_nts_1.jpg',
+    brand: 'Korg',
+    // categories: ['desktop', 'digital', 'mono'],
+    categories: {
+      synthesis: 'Digital',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 98,
+    countInStock: 8,
     description_m: 'Digital DIY Synthesizer',
     features: [
       'Complete assembly kit can be easily assembled without soldering',
@@ -361,14 +484,21 @@ const products = [
       'Dimensions (W x D x H): 129 x 78 x 39 mm',
       'Weight: 124 g'
     ],
-    brand: 'Korg',
-    price: 98,
-    countInStock: 8
+    image: '/images/korg_nts_1.jpg',
+    isPublished: true
   },
   {
     name: 'Korg opsix',
-    category: 'Synthesizers',
-    image: '/images/korg_opsix.jpg',
+    brand: 'Korg',
+    // categories: ['FM', 'poly'],
+    categories: {
+      synthesis: 'FM',
+      voiceType: 'Polyphonic',
+      semiModular: false,
+      desktop: false
+    },
+    price: 770,
+    countInStock: 3,
     description_m: 'FM Synthesiser',
     features: [
       '37-Key keyboard',
@@ -393,14 +523,50 @@ const products = [
       'Weight: 2.9 kg',
       'Includes 12V DC power supply and Reason Lite'
     ],
+    image: '/images/korg_opsix.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Korg Volca FM',
     brand: 'Korg',
-    price: 770,
-    countInStock: 3
+    // categories: ['desktop', 'FM', 'mono'],
+    categories: {
+      synthesis: 'FM',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 125,
+    countInStock: 8,
+    description_m: 'Compact Digital FM Synthesiser',
+    features: [
+      '3-Voice polyphony',
+      'Fully compatible with the original',
+      'Automated step sequencer with 16 steps',
+      'With Warp Active Step, Arpeggiator and Pattern Chain',
+      'Chorus effect',
+      'Sync input and output: 3.5 mm mono mini jack',
+      'MIDI input',
+      'Headphone output: 3.5 mm mini-jack stereo',
+      'Power supply: 6 AA batteries or via optional power supply unit KA-350 (not included)',
+      'Dimensions (W x H x D): 193 × 115 × 40 mm',
+      'Weight: 360 g'
+    ],
+    image: '/images/korg_volca_fm.jpg',
+    isPublished: true
   },
   {
     name: 'Korg Volca Modular',
-    category: 'Synthesizers',
-    image: '/images/korg_volca_modular.jpg',
+    brand: 'Korg',
+    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: true,
+      desktop: true
+    },
+    price: 160,
+    countInStock: 6,
     description_m: 'Semi-Modular Synthesiser',
     features: [
       'Analogue sound generation modeled on the "West Coast Synthesis"',
@@ -422,14 +588,21 @@ const products = [
       'Dimensions (W x H x D): 193 x 115 x 45 mm',
       'Weight: 377 g'
     ],
-    brand: 'Korg',
-    price: 160,
-    countInStock: 6
+    image: '/images/korg_volca_modular.jpg',
+    isPublished: true
   },
   {
     name: 'Malekko Manther',
-    category: 'Synthesizers',
-    image: '/images/malekko_manther.jpg',
+    brand: 'Malekko Heavy Industry',
+    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: true,
+      desktop: true
+    },
+    price: 650,
+    countInStock: 1,
     description_m: 'Analogue Monophonic Synthesizer',
     features: [
       'VCO with Pulse (with PWM), Sawtooth, Triangle (with Waveshaper)',
@@ -458,15 +631,21 @@ const products = [
       'Weight: 1.8 kg',
       'Includes external power supply (9 V DC)'
     ],
-    brand: 'Malekko Heavy Industry',
-    price: 650,
-    countInStock: 1
+    image: '/images/malekko_manther.jpg',
+    isPublished: true
   },
   {
     name: 'Moog Mother-32',
-    category: 'Synthesizers',
-    image: '/images/moog_mother.jpg',
-    image_c: '/images/moog_mother_latest.jpg',
+    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
+    brand: 'Moog',
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: true,
+      desktop: true
+    },
+    price: 600,
+    countInStock: 3,
     description_m: 'Semi-Modular Analogue Desktop Synthesiser',
     description_c: 'An intuitive and expandable semi-modular synthesizer that adds raw analog sound, powerful sequencing and extensive interconnectivity to any creative, electronic or modular ecosystem.',
     features: [
@@ -482,15 +661,22 @@ const products = [
       'Dimensions (W x H x D): approx. 319 x 107 x 133 mm',
       'Weight: approx. 1.59 kg'
     ],
-    brand: 'Moog',
-    price: 600,
-    countInStock: 3
+    image: '/images/moog_mother.jpg',
+    image_c: '/images/moog_mother_latest.jpg',
+    isPublished: true
   },
   {
     name: 'Moog Subharmonicon',
-    category: 'Synthesizers',
-    image: '/images/moog_subharmonicon.jpg',
-    image_c: '/images/moog_subharmonicon_latest.jpg',
+    brand: 'Moog',
+    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: true,
+      desktop: true
+    },
+    price: 790,
+    countInStock: 6,
     description_m: 'Semi-Modular Analogue Desktop Synthesiser',
     description_c: 'A semi-modular polyrhythmic analog synthesizer that employs a 6-tone sound engine and multi-layered clock generator to explore the world of subharmonics, polyrhythms, and the unique relationships they create.',
     features: [
@@ -508,15 +694,22 @@ const products = [
       'Eurorack specifications: width: 60 HP, depth: 26 mm',
       'Includes power supply (12 V DC) and 6 patch cables'
     ],
-    brand: 'Moog',
-    price: 790,
-    countInStock: 6
+    image: '/images/moog_subharmonicon.jpg',
+    image_c: '/images/moog_subharmonicon_latest.jpg',
+    isPublished: true
   },
   {
     name: 'Moog Werkstatt-01',
-    category: 'Synthesizers',
-    image: '/images/moog_werkstatt_01.jpg',
-    image_c: '/images/moog_werkstatt_latest.jpg',
+    brand: 'Moog',
+    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: true,
+      desktop: true
+    },
+    price: 210,
+    countInStock: 2,
     description_m: 'Analog Synthesizer Kit including CV Expander',
     description_c: 'A patchable and compact analog synthesizer - a must have for any “synth curious” musician who wants to learn first hand what synthesis is all about by building their very own analog synthesizer.',
     features: [
@@ -527,14 +720,22 @@ const products = [
       'Connections: 12 grounded 3.5 mm jack sockets',
       'Includes power supply'
     ],
-    brand: 'Moog',
-    price: 210,
-    countInStock: 2
+    image: '/images/moog_werkstatt_01.jpg',
+    image_c: '/images/moog_werkstatt_latest.jpg',
+    isPublished: true
   },
   {
     name: 'Sequential Prophet 10',
-    category: 'Synthesizers',
-    image: '/images/sequential_prophet_10.jpg',
+    brand: 'Sequential',
+    // categories: ['analogue', 'poly'],
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Polyphonic',
+      semiModular: false,
+      desktop: false
+    },
+    price: 4400,
+    countInStock: 2,
     description_m: '10-Voice Polyphonic Analog Synthesizer',
     features: [
       'Velocity sensitive 61-key Fatar keyboard with aftertouch',
@@ -555,9 +756,8 @@ const products = [
       'Dimensions (W x H x D): 95.25 x 12.4 x 41.6 cm',
       'Weight: 14.06 kg'
     ],
-    brand: 'Sequential',
-    price: 4400,
-    countInStock: 1
+    image: '/images/sequential_prophet_10.jpg',
+    isPublished: true
   }
 ]
 

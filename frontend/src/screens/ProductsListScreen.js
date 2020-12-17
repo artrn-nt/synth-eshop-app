@@ -15,6 +15,8 @@ const ProductsListScreen = ({ history }) => {
     const [eraseId, setEraseId] = useState(null)
     const [confirm, setConfirm] = useState(false)
 
+    const [showWarning, setShowWarning] = useState(false)
+
     const dispatch = useDispatch()
 
     const userLogin = useSelector(state => state.userLogin)
@@ -26,33 +28,30 @@ const ProductsListScreen = ({ history }) => {
     const productDelete = useSelector(state => state.productDelete)
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
 
-    // console.log(products)
-
     useEffect(() => {
         return () => dispatch({ type: PRODUCTS_LIST_RESET })
     }, [dispatch])
 
     useEffect(() => {
-        if (!userInfo || !userInfo.isAdmin) {
-            history.push('/login')
-        } else {
-            dispatch(listProducts())
-        }
+        if (!userInfo || !userInfo.isAdmin) history.push('/login')
+
+        dispatch(listProducts())
+
     }, [dispatch, history, userInfo, successDelete])
 
-    // useEffect(() => {
-    //     if (users && users.length !== 0)
-    //         gsap.fromTo('.users-list-table', {
-    //             opacity: 0,
-    //             y: 38
-    //         }, {
-    //             delay: .15,
-    //             duration: 1.1,
-    //             opacity: 1,
-    //             y: 0,
-    //             ease: 'power3.out'
-    //         })
-    // }, [users])
+    useEffect(() => {
+        if (!loading && !error && products && products.length !== 0)
+            gsap.fromTo(['.create-link-row', '.products-list-table'], {
+                opacity: 0,
+                y: 38
+            }, {
+                delay: .15,
+                duration: 1.1,
+                opacity: 1,
+                y: 0,
+                ease: 'power3.out'
+            })
+    }, [loading, error, products])
 
     const confirmHandler = (bool) => {
         setConfirm(bool)
@@ -67,44 +66,54 @@ const ProductsListScreen = ({ history }) => {
         setEraseId(null)
     }
 
-    const createHandler = () => {
-        // CREATE PRODUCT
-    }
-
     return (
         <section className='products-list-section'>
 
             <ScreenTitle title='Admin - Products list' />
 
-            <div className={!userInfo && !userInfo.isAdmin || loading || error ? 'products-list-main-col ctr' : 'products-list-main-col str'}>
+            <div className={!userInfo || !userInfo.isAdmin ||
+                loading || loadingDelete || error || errorDelete ? 'products-list-main-col ctr' : 'products-list-main-col str'}>
 
-                {loading ? <Spinner /> :
-                    error ? <ErrorMsg message={error} /> :
+                {loading || loadingDelete ? <Spinner /> :
+                    error || errorDelete ? <ErrorMsg message={error || errorDelete} /> :
 
                         <>
 
-                            <div className='create-btn-row'>
-                                <ActionBtn
-                                    type='button'
-                                    className='create-product-btn'
-                                    onClickHandler={createHandler}
-                                    text='Create product'
+                            <div className='create-link-row'>
+                                <ActionLink
+                                    path={`/admin/product/create`}
+                                    className='create-product-link'
                                 >
                                     <i className='fas fa-plus-circle' />
-                                </ActionBtn>
+                                    Create product
+                                </ActionLink>
                             </div>
 
                             <table className='products-list-table'>
                                 <thead>
                                     <tr>
-                                        <th scope='col' colSpan='1' width='22%'>ID</th>
-                                        <th scope='col' colSpan='1' width='22%'>NAME</th>
-                                        <th scope='col' colSpan='1' width='12.5%'>PRICE</th>
-                                        <th scope='col' colSpan='1' width='12.5%'>CATEGORY</th>
-                                        <th scope='col' colSpan='1' width='12.5%'>BRAND</th>
-                                        <th scope='col' colSpan='1' width='7.5%'>Stock</th>
-                                        <th scope='col' colSpan='1' width='5.5%'>Edit</th>
-                                        <th scope='col' colSpan='1' width='5.5%'>Del</th>
+                                        <th scope='col' width='18%'>ID</th>
+                                        <th scope='col' width='18%'>NAME</th>
+                                        <th scope='col' width='10.833%'>BRAND</th>
+                                        <th scope='col' width='10.833%'>CATEGORIES</th>
+                                        <th scope='col' width='10.833%'>PRICE</th>
+                                        <th scope='col' width='10.5%'>
+                                            {products.some(p => p.countInStock === 0) ?
+                                                <>
+                                                    <span className='stock-warn' onClick={() => setShowWarning(prevState => !prevState)}>
+                                                        STOCK
+                                                        <i className='fas fa-exclamation-circle' />
+                                                    </span>
+                                                    {showWarning && <ul className='out-of-stock-products'>
+                                                        <span>Out of stock</span>
+                                                        {products.map(product => product.countInStock === 0 && <li key={product._id}>{product.name}</li>)}
+                                                    </ul>}
+                                                </> :
+                                                'STOCK'}
+                                        </th>
+                                        <th scope='col' width='10.5%'>PUBLISHED</th>
+                                        <th scope='col' width='5.25%'>EDIT</th>
+                                        <th scope='col' width='5.25%'>DEL</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -112,9 +121,16 @@ const ProductsListScreen = ({ history }) => {
                                         <tr key={product._id}>
                                             <td>{product._id}</td>
                                             <td>{product.name}</td>
-                                            <td>€{product.price.toFixed(2)}</td>
-                                            <td>{product.category}</td>
                                             <td>{product.brand}</td>
+                                            <td>
+                                                <ul>
+                                                    <li>{product.categories.synthesis}</li>
+                                                    <li>{product.categories.voiceType}</li>
+                                                    {product.categories.semiModular && <li>Semi-modular</li>}
+                                                    {product.categories.desktop && <li>Desktop</li>}
+                                                </ul>
+                                            </td>
+                                            <td>€{product.price.toFixed(2)}</td>
                                             <td
                                                 style={{
                                                     color: product.countInStock <= 3 && 'brown',
@@ -123,6 +139,10 @@ const ProductsListScreen = ({ history }) => {
                                             >
                                                 {product.countInStock}
                                             </td>
+                                            <td>{product.isPublished ?
+                                                (<i className='fas fa-check-circle' style={{ color: 'seagreen' }} />) :
+                                                (<i className='fas fa-times-circle' style={{ color: 'tomato' }} />)
+                                            }</td>
                                             <td>
                                                 <ActionLink
                                                     path={`/admin/product/${product._id}/edit`}

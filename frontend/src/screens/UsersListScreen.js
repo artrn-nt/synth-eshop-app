@@ -65,21 +65,21 @@ const UsersListScreen = ({ history }) => {
     return (
         <section className='users-list-section'>
 
-            <ScreenTitle title='Admin: Users list' />
+            <ScreenTitle title='Admin - Users list' />
 
-            <div className={!userInfo && !userInfo.isAdmin || loading || error ? 'users-list-main-row ctr' : 'users-list-main-row str'}>
+            <div className={!userInfo || !userInfo.isAdmin || loading || error ? 'users-list-main-row ctr' : 'users-list-main-row str'}>
 
                 {loading ? <Spinner /> :
                     error ? <ErrorMsg message={error} /> : (
                         <table className='users-list-table'>
                             <thead>
                                 <tr>
-                                    <th scope='col' colSpan='1' width='21.875%'>ID</th>
-                                    <th scope='col' colSpan='1' width='21.875%'>NAME</th>
-                                    <th scope='col' colSpan='1' width='21.875%'>EMAIL</th>
-                                    <th scope='col' colSpan='1' width='21.875%'>ADMIN</th>
-                                    <th scope='col' colSpan='1' width='6.25%'>Edit</th>
-                                    <th scope='col' colSpan='1' width='6.25%'>Del</th>
+                                    <th scope='col' colSpan='1' width='25.667%'>ID</th>
+                                    <th scope='col' colSpan='1' width='25.667%'>NAME</th>
+                                    <th scope='col' colSpan='1' width='25.667%'>EMAIL</th>
+                                    <th scope='col' colSpan='1' width='11.5%'>ADMIN</th>
+                                    <th scope='col' colSpan='1' width='5.75%'>Edit</th>
+                                    <th scope='col' colSpan='1' width='5.75%'>Del</th>
                                 </tr>
                             </thead>
                             <tbody>

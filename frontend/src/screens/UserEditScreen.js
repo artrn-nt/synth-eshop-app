@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUserDetails, updateUser } from '../actions/userActions'
 import { USER_DETAILS_RESET, USER_UPDATE_RESET } from '../constants/userConstants'
 import ScreenTitle from '../components/utilities/ScreenTitle'
+import SingleCheckboxField from '../components/utilities/SingleCheckboxField'
 import Spinner from '../components/utilities/Spinner'
 import { ErrorMsg } from '../components/utilities/Messages'
 import { ActionBtn, ActionLink } from '../components/utilities/ActionBtnLink'
@@ -40,12 +41,14 @@ const UserEditScreen = ({ match, history }) => {
     }, [dispatch, history, match, userInfo])
 
     useEffect(() => {
-        if (user.constructor === Object && Object.entries(user).length !== 0) {
-            setUsername(user.name)
-            setEmail(user.email)
-            setIsAdmin(user.isAdmin)
+        if (!loadingDetails && !errorDetails) {
+            if (user.constructor === Object && Object.entries(user).length !== 0) {
+                setUsername(user.name)
+                setEmail(user.email)
+                setIsAdmin(user.isAdmin)
+            }
         }
-    }, [user])
+    }, [loadingDetails, errorDetails, user])
 
     useEffect(() => {
         if (!loadingDetails && !errorDetails) {
@@ -69,15 +72,20 @@ const UserEditScreen = ({ match, history }) => {
         }
     }, [dispatch, history, successUpdate])
 
+    const onClickHandler = (prevState, values) => {
+        setIsAdmin(!values.isAdmin)
+        return !prevState
+    }
+
     return (
         <section className='user-edit-section'>
 
             <ScreenTitle title='User edit' />
 
-            <div className={loadingDetails || errorDetails ? 'user-edit-main-col ctr' : 'user-edit-main-col str'}>
+            <div className={loadingDetails || loadingUpdate || errorDetails || errorUpdate ? 'user-edit-main-col ctr' : 'user-edit-main-col str'}>
 
-                {loadingDetails ? <Spinner /> :
-                    errorDetails ? <ErrorMsg error={errorDetails} /> :
+                {loadingDetails || loadingUpdate ? <Spinner /> :
+                    errorDetails || errorUpdate ? <ErrorMsg message={errorDetails || errorUpdate} /> :
                         <Formik
                             initialValues={{
                                 username: user.name ? user.name : '',
@@ -147,7 +155,7 @@ const UserEditScreen = ({ match, history }) => {
                                             />
                                         </div>
 
-                                        <div className='field-control'>
+                                        {/* <div className='field-control'>
                                             <div className='checkbox-wrapper'>
                                                 <label htmlFor='isAdmin'>
                                                     <Field
@@ -164,7 +172,16 @@ const UserEditScreen = ({ match, history }) => {
                                                 </label>
                                                 <span className='checkbox-text'>{values.isAdmin ? 'Admin' : 'Not admin'}</span>
                                             </div>
-                                        </div>
+                                        </div> */}
+
+                                        <SingleCheckboxField
+                                            valueName='isAdmin'
+                                            currentValue={values.isAdmin}
+                                            onClickHandler={(prevState) => onClickHandler(prevState, values)}
+                                            textTrue='Admin'
+                                            textFalse='Not admin'
+                                        />
+
 
                                         <ActionBtn
                                             type='submit'
@@ -185,9 +202,6 @@ const UserEditScreen = ({ match, history }) => {
                             )}
 
                         </Formik>}
-
-                {loadingUpdate && <div className='update-status-row'><Spinner /></div>}
-                {errorUpdate && <div className='update-status-row'><ErrorMsg error={errorUpdate} /></div>}
 
             </div>
 

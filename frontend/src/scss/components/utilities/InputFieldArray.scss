@@ -1,0 +1,118 @@
+@import '../../config.scss';
+
+%input {
+    flex: 1;
+    height: 2.65rem;
+    padding: 0 .8rem;
+    border: 1.4px solid transparent;
+    border-radius: 4px;
+    background-color: $bright;
+    font-family: $content-font;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: $main-theme;
+}
+
+.field-array-control {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: .75rem;
+
+    label {
+        position: relative;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        font-weight: 500;
+        
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -2.1px;
+            left: 0;
+            display: block;
+            height: 1.4px;
+            width: 70%;
+            background-color: brown;
+        }
+    }
+
+    ol {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        li {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 2.65rem;
+            margin-bottom: 1.15rem;
+
+            span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 1.9rem;
+                width: 1.9rem;
+                background-color: brown;
+                font-weight: 600;
+            }
+
+            input {
+                @extend %input;
+                margin-left: .95rem;
+            }
+        }
+    }
+
+    .btns-row {
+        display: flex;
+        align-self: center;
+        justify-content: flex-start;
+        width: 100%;
+        min-height: .95rem;
+        padding-left: calc(1.9rem + .95rem);
+        margin-bottom: .75rem;
+
+        .add-item, .remove-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            font-size: 1.175rem;
+            height: .95rem;
+            color: $bright;
+            background: transparent;
+            transition: color 280ms ease-out;
+            cursor: pointer;
+            margin-right: 1.15rem; 
+
+            &:hover {
+                color: brown;
+            }
+        }
+    }
+
+    .form-err-msg-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        height: 40px;
+        width: 100%;
+        padding-left: calc(1.9rem + .95rem);
+        // background-color: steelblue;
+
+        .form-err-msg, span {
+            width: 100%;
+            // padding-left: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: left;
+            color: brown;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+    }
+}

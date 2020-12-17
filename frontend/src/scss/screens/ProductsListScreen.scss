@@ -14,7 +14,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 0 3.15rem;
+        // padding: 0 3.15rem;
         width: 100%;
         flex-grow: 1;
         margin-top: 3.15rem;
@@ -28,19 +28,22 @@
             justify-content: flex-start;
         }
 
-        .create-btn-row {
+        .create-link-row {
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 3.15rem;
+            opacity: 0;
         }
 
         .products-list-table {
             width: 100%;
             border-collapse: collapse;
             border-radius: 2.5px;
+            // border-radius: 50px;
             overflow: hidden;
-            // opacity: 0;
+            // overflow: visible;
+            opacity: 0;
             cursor: default;
   
             thead {
@@ -59,7 +62,8 @@
                         &:nth-of-type(4),
                         &:nth-of-type(5),
                         &:nth-of-type(6),
-                        &:nth-of-type(7) {
+                        &:nth-of-type(7),
+                        &:nth-of-type(8) {
                             position: relative;
 
                             &::before {
@@ -74,6 +78,76 @@
                                 background-color: $bright;
                             }
                         }
+
+                        &:nth-of-type(6) {
+                            position: relative;
+                            overflow: visible;
+
+                            .out-of-stock-products {
+                                position: absolute;
+                                top: 0;
+                                right: 50%;
+                                transform: translate3d(50%, -115%, 0);
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                justify-content: flex-start;
+                                width: calc(100% - 6px);
+                                // min-width: 200px;
+                                // min-height: 135px;
+                                max-height: 135px;
+                                border-radius: 3px;
+                                border-radius: 2.5px;
+                                border: 1.2px solid $bright;
+                                background-color: $main-theme;
+                                box-shadow: 2.25px 2.25px 2.5px $greyish;
+                                font-size: .875rem;
+                                overflow-y: auto;
+                                animation: fadeIn 280ms ease-out;
+
+                                span {
+                                    width: 100%;
+                                    padding: .2rem .4rem;
+                                    margin-bottom: .5rem;
+                                    background-color: $bright;
+                                    color: brown;
+                                    font-weight: 500;
+                                }
+
+                                li {
+                                    width: 100%;
+                                    padding: 0 .4rem;
+                                }
+
+                                li:last-of-type {
+                                    padding-bottom: .5rem;
+                                }
+
+                                li:not(:last-of-type) {
+                                    margin-bottom: .3rem;
+                                }
+                            }
+
+                            .stock-warn {
+                                position: relative;
+                                padding: .175rem .375rem;
+                                transition: color 280ms ease-out;
+                                cursor: pointer;
+
+                                &:hover, &:hover > .fas.fa-exclamation-circle {
+                                    color: brown;
+                                }
+
+                                .fas.fa-exclamation-circle {
+                                    font-size: .8rem;
+                                    position: absolute;
+                                    top: 0;
+                                    right: 0;
+                                    transform: translate3d(75%, -25%, 0);
+                                    transition: color 280ms ease-out;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -82,10 +156,22 @@
   
                 tr {
                     font-size: .95rem;
-                    height: 3.15rem;
+                    // height: 3.15rem;
+                    height: 90px;
+                    // min-height: 90px;
                     text-align: center;
                     vertical-align: center;
                     transition: background-color 280ms ease-out;
+
+                    td:nth-of-type(1), 
+                    td:nth-of-type(2) {
+                        padding: 0 .95rem;
+                    }
+
+                    td:nth-of-type(4),
+                    td:nth-of-type(5) {
+                        font-size: .85rem;
+                    }
 
                     td:nth-of-type(6) {
                         height: 100%;
@@ -103,55 +189,6 @@
                     color: $main-theme;
                 }
             }
-        }
-
-        .confirm-alert {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate3d(-50%, -50%, 0);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-width: 420px;
-            height: 195px;
-            border-radius: 2.5px;
-            border: 1.2px solid $main-theme;
-            background-color: $main-theme;
-            color: brown;
-            box-shadow: 2.25px 2.25px 2.5px $greyish;
-
-            &.fade-in {
-                animation: fadeIn 400ms cubic-bezier(.53,.94,.25,1.02);
-            }
-
-            &.fade-out {
-                animation: fadeOut 400ms cubic-bezier(.53,.94,.25,1.02);
-            }
-
-            span {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex: 1;
-                width: 100%;
-                font-size: 1.4rem;
-                font-weight: 500;
-                background-color: $bright;
-                border-bottom: 1.2px solid $bright;
-            }
-
-            .btns-row {
-                display: flex;
-                align-items: center;
-                justify-content: space-evenly;
-                // background-color: $bright;
-
-                width: 100%;
-                flex: 2.5;
-            }
-
         }
     }
 }

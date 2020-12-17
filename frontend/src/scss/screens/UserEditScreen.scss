@@ -85,86 +85,76 @@
                     }
                 }
 
-                .field-control:nth-of-type(3) {
-                    display: flex;
-                    align-items: center;
-                    width: 100%;
-                    margin-bottom: 3.15rem;
-                    // margin-bottom: 2.1rem;
+                // .field-control:nth-of-type(3) {
+                //     display: flex;
+                //     align-items: center;
+                //     width: 100%;
+                //     margin-bottom: 3.15rem;
+                //     // margin-bottom: 2.1rem;
 
-                    .checkbox-wrapper {
-                        display: flex;
-                        align-items: center;
+                //     .checkbox-wrapper {
+                //         display: flex;
+                //         align-items: center;
                     
-                        label {
-                            display: flex;
-                            align-items: center;
-                            position: relative;
-                            height: 100%;
-                            width: 1rem;
-                            color: $bright;
-                            cursor: pointer;
+                //         label {
+                //             display: flex;
+                //             align-items: center;
+                //             position: relative;
+                //             height: 100%;
+                //             width: 1rem;
+                //             color: $bright;
+                //             cursor: pointer;
                             
                         
-                            input[type='checkbox'] {
-                                display: none;
-                            }
+                //             input[type='checkbox'] {
+                //                 display: none;
+                //             }
                         
-                            .circle {
-                                position: absolute;
-                                left: 50%;
-                                top: 50%;
-                                transform: translate(-50%, -50%);
-                                display: inline-block;
-                                width: 1rem;
-                                height: 1rem;
-                                background-color: $main-theme;
-                                border: 1.2px solid $bright;
-                                border-radius: 50%;
-                                transition: background-color 280ms ease-in-out, border-color 280ms ease-in-out;
+                //             .circle {
+                //                 position: absolute;
+                //                 left: 50%;
+                //                 top: 50%;
+                //                 transform: translate(-50%, -50%);
+                //                 display: inline-block;
+                //                 width: 1rem;
+                //                 height: 1rem;
+                //                 background-color: $main-theme;
+                //                 border: 1.2px solid $bright;
+                //                 border-radius: 50%;
+                //                 transition: background-color 280ms ease-in-out, border-color 280ms ease-in-out;
                                 
-                            }
+                //             }
                         
-                            &:hover .circle {
-                                background-color: brown;
-                            }
+                //             &:hover .circle {
+                //                 background-color: brown;
+                //             }
                         
-                            input:checked + .circle {
-                                background-color: brown;;
-                                border: 1.2px solid brown;
-                            }
+                //             input:checked + .circle {
+                //                 background-color: brown;;
+                //                 border: 1.2px solid brown;
+                //             }
                         
-                            input:checked + .circle::after {
-                                content: '';
-                                position: absolute;
-                                top: 50%;
-                                left: 50%;
-                                transform: translate(-50%, -50%);
-                                height: 5.75px;
-                                width: 5.75px;
-                                background-color: $bright;
-                                border-radius: 50%;
-                            }
-                        }
+                //             input:checked + .circle::after {
+                //                 content: '';
+                //                 position: absolute;
+                //                 top: 50%;
+                //                 left: 50%;
+                //                 transform: translate(-50%, -50%);
+                //                 height: 5.75px;
+                //                 width: 5.75px;
+                //                 background-color: $bright;
+                //                 border-radius: 50%;
+                //             }
+                //         }
 
-                        .checkbox-text {
-                            margin-left: .75rem;
-                        }
+                //         .checkbox-text {
+                //             margin-left: .75rem;
+                //         }
 
-                    }
-                }
+                //     }
+                // }
             }
         }
-
-        .update-status-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 420px;
-            min-height: 110px;
-            margin-top: 2.1rem;
-        }
-
     }
 }
 

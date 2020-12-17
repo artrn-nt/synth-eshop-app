@@ -56,9 +56,7 @@ const ProductsScreen = () => {
                                 if (product1Name < product2Name) return -1
                                 if (product1Name > product2Name) return 1
                                 return 0
-                            }).map((product) => (
-                                <ProductCard key={product._id} product={product} />
-                            ))}
+                            }).map((product) => product.isPublished && <ProductCard key={product._id} product={product} />)}
                         </div>
                     </>)}
         </section>

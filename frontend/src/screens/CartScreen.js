@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart, removeFromCart, trashFromCart, resetAddToCart } from '../actions/cartActions'
+import { addToCart, removeFromCart, trashFromCart } from '../actions/cartActions'
+import { CART_ADD_RESET } from '../constants/cartConstants'
 import CartItem from '../components/CartScreen/CartItem'
 import CheckoutTotal from '../components/CartScreen/CheckoutTotal'
 import ScreenTitle from '../components/utilities/ScreenTitle'
@@ -20,7 +21,7 @@ const CartScreen = ({ history }) => {
     const tl = useRef(null)
 
     useEffect(() => {
-        return () => dispatch(resetAddToCart())
+        return () => dispatch({ type: CART_ADD_RESET })
     }, [dispatch])
 
     useEffect(() => {

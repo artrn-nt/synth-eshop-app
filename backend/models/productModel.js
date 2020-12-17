@@ -10,17 +10,45 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    category: {
+    brand: {
         type: String,
         required: true
     },
-    image: {
-        type: String,
-        required: true
+    categories: {
+        type: Object,
+        required: ['synthesis', 'voiceType', 'semiModular', 'desktop'],
+        properties: {
+            synthesis: {
+                type: String,
+                default: 'Analogue'
+            },
+            voiceType: {
+                type: String,
+                default: 'Monophonic'
+            },
+            semiModular: {
+                type: Boolean,
+                default: false
+            },
+            desktop: {
+                type: Boolean,
+                default: false
+            }
+        }
     },
-    image_c: { // secondary - for carousel
-        type: String,
-        default: undefined
+    // categories: {
+    //     type: [String],
+    //     required: true
+    // },
+    price: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    countInStock: {
+        type: Number,
+        required: true,
+        default: 0
     },
     description_m: { // main
         type: String,
@@ -34,19 +62,18 @@ const productSchema = mongoose.Schema({
         type: [String],
         required: true
     },
-    brand: {
+    image: { // main
         type: String,
         required: true
     },
-    price: {
-        type: Number,
-        required: true,
-        default: 0
+    image_c: { // secondary - for carousel
+        type: String,
+        default: undefined
     },
-    countInStock: {
-        type: Number,
-        required: true,
-        default: 0
+    isPublished: {
+        type: Boolean,
+        default: true,
+        required: true
     }
 }, {
     timestamps: true

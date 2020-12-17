@@ -91,50 +91,85 @@
     min-width: 165px;
 }
 
-// Users list screen - Admin only
-.edit-user-link, .delete-user-btn {
+// .edit-user-link, .delete-user-btn {
+    //     @extend %btn-link-admin;    
+    // }
+    
+// Users list screen and products list screen - Admin only
+.edit-user-link, 
+.delete-user-btn, 
+.edit-product-link, 
+.delete-product-btn {
     @extend %btn-link-admin;    
 }
 
-.confirm-btn-admin, .cancel-btn-admin {
-    @extend %btn-link;
-    min-width: 160px;
-}
-
-// Edit user screen - Admin only
-.edit-user-btn {
-    @extend %btn-link;
-    min-width: 160px;
-    margin-bottom: 2.1rem;
-}
-
-.go-back-link {
-    @extend %btn-link;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 160px;
-}
-
-// Products list screen - Admin only
-
-.create-product-btn {
+.create-product-link {
     @extend %btn-link;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 1.25rem;
 
-    &:active {
-        -webkit-transform: scale(0.99);
-        transform: scale(0.99);
-    }
-    
     i {
         margin-right: .5rem;
     }
 }
 
-.edit-product-link, .delete-product-btn {
-    @extend %btn-link-admin;    
+.confirm-btn-admin, 
+.cancel-btn-admin {
+    @extend %btn-link;
+    min-width: 160px;
 }
+
+// Edit user screen and edit product screen - Admin only
+// .edit-user-btn, .edit-product-btn {
+//     @extend %btn-link;
+//     min-width: 160px;
+//     margin-bottom: 2.1rem;
+// }
+
+// .go-back-link {
+//     @extend %btn-link;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     min-width: 160px;
+// }
+
+// Create product screen, edit product screen and edit user screen - Admin only
+.edit-user-btn, 
+.edit-product-btn, 
+.create-product-btn {
+    @extend %btn-link;
+    min-width: 175px;
+    margin: 3.15rem 0 2.1rem;
+}
+
+.cancel-link {
+    @extend %btn-link;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 175px;
+}
+
+// Products list screen - Admin only
+// .create-product-btn {
+//     @extend %btn-link;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     padding: 0 1.25rem;
+
+//     &:active {
+//         -webkit-transform: scale(0.99);
+//         transform: scale(0.99);
+//     }
+    
+//     i {
+//         margin-right: .5rem;
+//     }
+// }
+
+
+

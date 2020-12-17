@@ -6,8 +6,7 @@ import {
     CART_REMOVE,
     CART_TRASH,
     CART_SAVE_SHIPPING_INFO,
-    CART_SAVE_PAYMENT_METHOD,
-    CART_ADD_RESET
+    CART_SAVE_PAYMENT_METHOD
 } from '../constants/cartConstants'
 
 export const addToCart = (id) => async (dispatch, getState) => {
@@ -40,10 +39,6 @@ export const addToCart = (id) => async (dispatch, getState) => {
     }
 
     localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
-}
-
-export const resetAddToCart = () => async (dispatch) => {
-    dispatch({ type: CART_ADD_RESET })
 }
 
 export const removeFromCart = (id) => async (dispatch, getState) => {

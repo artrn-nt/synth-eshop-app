@@ -40,7 +40,7 @@ const DeleteConfirm = ({ eraseId, confirm, eraseIdHandler, confirmHandler, delet
                 }
             })
         }
-    }, [cancel])
+    }, [cancel, eraseId, eraseIdHandler, deleteHandler])
 
     return (
         <div className={confirm ? 'delete-confirm fade-in' : 'delete-confirm fade-out'}>
