@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import gsap from 'gsap'
 // import axios from 'axios'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-import * as yup from 'yup'
+// import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 import { createProduct } from '../actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
@@ -231,7 +231,7 @@ const ProductCreateScreen = ({ history }) => {
                                 image: state.imageURL
                             }))}
                         >
-                            {({ isSubmitting, values, errors, touched, handleChange, handleSubmit, setFieldValue }) => (
+                            {({ isSubmitting, values, errors, touched, handleChange, handleSubmit }) => (
                                 <div className='product-create-form-container'>
                                     <Form
                                         name='product-create'
@@ -450,8 +450,8 @@ const ProductCreateScreen = ({ history }) => {
                                                                 }))
                                                                 return !val
                                                             }}
-                                                            textTrue='Semi'
-                                                            textFalse='Not semi'
+                                                            textTrue='Yes'
+                                                            textFalse='No'
                                                         />
                                                     </div>
                                                 </div>
@@ -474,8 +474,8 @@ const ProductCreateScreen = ({ history }) => {
                                                                 }))
                                                                 return !val
                                                             }}
-                                                            textTrue='Desktop'
-                                                            textFalse='Not desktop'
+                                                            textTrue='Yes'
+                                                            textFalse='No'
                                                         />
                                                     </div>
                                                 </div>

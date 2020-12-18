@@ -3,8 +3,8 @@
 %input {
     width: 100%;
     height: 2.65rem;
-    padding: 0 42px 0 .8rem;
-    border: 1.4px solid transparent;
+    padding: 0 .8rem;
+    border: none;
     border-radius: 4px;
     background-color: $bright;
     font-family: $content-font;
@@ -19,7 +19,7 @@
     align-items: center;
     width: 100%;
     min-height: calc(100vh - (142.5px + 4.6rem));
-    padding: 2.1rem 0;
+    padding: 2.1rem 0 3.15rem;
 
     .product-edit-main-col {
         display: flex;
@@ -55,23 +55,34 @@
                 width: 100%;
            
                 .field-control {
-                  display: flex;
-                  flex-flow: column;
-                  align-items: flex-start;
-                  width: 100%;
-                  min-height: 132.5px;
+                    display: flex;
+                    flex-flow: column;
+                    align-items: flex-start;
+                    width: 100%;
+                    margin-bottom: .75rem;
           
-                  label {
-                    margin-bottom: 0.75rem;
-                    font-size: 1.1rem;
-                    font-weight: 500;
-                  }
+                    label {
+                        position: relative;
+                        margin-bottom: 1rem;
+                        font-size: 1.1rem;
+                        font-weight: 500;
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            bottom: -2.1px;
+                            left: 0;
+                            display: block;
+                            height: 1.4px;
+                            width: 70%;
+                            background-color: brown;
+                        }
+                    }
           
-                    #userId,
+                    #userID,
                     #name,
-                    #price,
-                    #category,
                     #brand,
+                    #price,
                     #countInStock,
                     #description_m,
                     #imageURL {
@@ -79,14 +90,77 @@
                         margin-bottom: 0.75rem;
                     }
 
-                    .form-err-msg {
+                    .form-err-msg-wrap {
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: flex-start;
+                        height: 25px;
                         width: 100%;
-                        padding-left: 0.8rem;
-                        font-size: 0.85rem;
-                        font-weight: 600;
-                        text-align: left;
-                        color: brown;
-                        animation: fadeIn 0.6s ease-in-out;
+                        // background-color: steelblue;
+
+                        .form-err-msg {
+                            width: 100%;
+                            font-size: 0.85rem;
+                            font-weight: 600;
+                            text-align: left;
+                            color: brown;
+                            animation: fadeIn 0.6s ease-in-out;
+                        }
+                    }
+                }
+
+                .form-group {
+                    display: flex;
+                    flex-flow: column;
+                    align-items: flex-start;
+                    width: 100%;
+                    margin-bottom: calc(.75rem * 2 + 25px);
+
+                    .form-group-label {
+                        position: relative;
+                        margin-bottom: 1rem;
+                        font-size: 1.1rem;
+                        font-weight: 500;
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            bottom: -2.1px;
+                            left: 0;
+                            display: block;
+                            height: 1.4px;
+                            width: 70%;
+                            background-color: brown;
+                        }
+                    }
+
+                    .form-group-row {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        width: 100%;
+                        // background-color: steelblue;
+
+                        &:nth-of-type(1) {
+                            margin-bottom: 1rem;
+                        }
+
+                        .form-group-sub-col {
+                            display: flex;
+                            flex-direction: column;
+                            width: 50%;
+                            // background-color: cadetblue;
+
+                            .col-title {
+                                margin-bottom: .25rem;
+                                font-size: 1.1rem;
+                                font-weight: 500;
+                            }
+
+                            .checkbox-wrap {
+                                padding-left: 1.5rem;
+                            }
+                        }
                     }
                 }
             }
