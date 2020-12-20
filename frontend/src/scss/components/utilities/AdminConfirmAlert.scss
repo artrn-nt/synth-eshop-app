@@ -1,6 +1,6 @@
 @import '../../config.scss';
 
-.delete-confirm {
+.confirm-alert {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -17,6 +17,7 @@
     color: brown;
     box-shadow: 2.25px 2.25px 2.5px $greyish;
     opacity: 0;
+    overflow: hidden;
 
     span {
         display: flex;

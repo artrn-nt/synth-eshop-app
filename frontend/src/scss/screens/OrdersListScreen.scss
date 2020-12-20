@@ -1,0 +1,124 @@
+@import '../config.scss';
+
+.orders-list-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: calc(100vh - (142.5px + 4.6rem));
+    padding: 2.1rem 0 3.15rem;
+    // padding: 2.1rem 0;
+
+    .orders-list-main-row {
+        // position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        // padding: 0 3.15rem;
+        width: 100%;
+        flex-grow: 1;
+        margin-top: 3.15rem;
+        // background-color: orange;
+        
+        &.ctr {
+            align-items: center;
+        }
+
+        &.str {
+            align-items: flex-start;
+        }
+
+        .orders-list-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 2.5px;
+            overflow: hidden;
+            table-layout: fixed;
+            opacity: 0;
+            cursor: default;
+  
+            thead {
+              height: 3.15rem;
+              background-color: lighten($greyish, 9%);
+  
+                tr {
+                    color: $bright;
+
+                    th {
+                        font-size: 1rem;
+                        font-weight: 500;
+
+                        &:nth-of-type(2), 
+                        &:nth-of-type(3),
+                        &:nth-of-type(4),
+                        &:nth-of-type(5),
+                        &:nth-of-type(6), 
+                        &:nth-of-type(7),
+                        &:nth-of-type(8) {
+                            position: relative;
+
+                            &::before {
+                                content: '';
+                                display: block;
+                                position: absolute;
+                                top: 50%;
+                                left: 0;
+                                transform: translateY(-50%);
+                                width: 1.2px;
+                                height: 65%;
+                                background-color: $bright;
+                            }
+                        }
+                    }
+                }
+            }
+  
+            tbody {
+  
+                tr {
+                    padding: 1rem 0;
+                    font-size: .925rem;
+                    height: 3.15rem;
+                    text-align: center;
+                    vertical-align: center;
+                    transition: background-color 280ms ease-out;
+
+                    td {
+                        padding: .6rem .75rem;
+                    }
+                    
+                    td:nth-of-type(1),
+                    td:nth-of-type(3),
+                    td:nth-of-type(4),
+                    td:nth-of-type(5) {
+                        word-wrap: break-word;
+                        overflow-wrap: break-word;
+                    }
+                }
+
+                tr:nth-child(2n + 1) {
+                    background-color: $bright;
+                    color: $main-theme;
+                }
+
+                tr:nth-child(2n) {
+                    background-color: lighten($greyish, 31.5%);
+                    color: $main-theme;
+                }
+            }
+        }
+
+        p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            font-weight: 500;
+            text-align: center;
+            color: $greyish;
+            // flex-grow: 1;
+            cursor: default;
+            // background-color: cadetblue;
+        }
+    }
+}

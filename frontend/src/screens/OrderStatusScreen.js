@@ -132,9 +132,9 @@ const OrderStatusScreen = ({ match, history }) => {
                                             </>
                                         )}
 
-                                        {order.isDelivered ?
-                                            <span className='delivered-status'><i className='fas fa-check-circle' />Delivered on {order.deliveredAt.substring(0, 10)}</span> :
-                                            <span className='undelivered-status'><i className='fas fa-times-circle' />Not delivered yet</span>}
+                                        {order.isShipped ?
+                                            <span className='shipped-status'><i className='fas fa-check-circle' />Shipped on {order.shippedAt.substring(0, 10)}</span> :
+                                            <span className='unshipped-status'><i className='fas fa-times-circle' />Not shipped yet</span>}
                                     </div>
                                 </div>
 

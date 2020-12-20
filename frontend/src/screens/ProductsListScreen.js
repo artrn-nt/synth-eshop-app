@@ -4,18 +4,60 @@ import { useDispatch, useSelector } from 'react-redux'
 import { listProducts, deleteProduct } from '../actions/productActions'
 import { PRODUCTS_LIST_RESET } from '../constants/productConstants'
 import ScreenTitle from '../components/utilities/ScreenTitle'
-import DeleteConfirm from '../components/utilities/DeleteConfirm'
+import AdminConfirmAlert from '../components/utilities/AdminConfirmAlert'
 import { ActionLink, ActionBtn } from '../components/utilities/ActionBtnLink'
 import Spinner from '../components/utilities/Spinner'
 import { ErrorMsg } from '../components/utilities/Messages'
 import '../scss/screens/ProductsListScreen.scss'
 
+// const StockWarning = ({ setShowWarning }) => {
+//     return (
+//         <div className='stock-warning-list'>
+//             <span className='stock-warn' onClick={() => setShowWarning(prevState => !prevState)}>
+//                 STOCK
+//                 <i className='fas fa-exclamation-circle' />
+//             </span>
+//             {showWarning && <ul className='out-of-stock-products'>
+//                 <span>Out of stock</span>
+//                 {products.map(product => product.countInStock === 0 && <li key={product._id}>{product.name}</li>)}
+//             </ul>}
+//         </div> 
+//     )
+// }
+
+const FilterList = ({ title, showFilterListHandler, showFilterList, items }) => {
+    return (
+        <>
+            <span className={`th-${title.toLowerCase()}-title`} onClick={showFilterListHandler}>
+                {title}
+                <i className='fas fa-filter' />
+            </span>
+            {showFilterList && <div className='filter-list-container'>
+                <ul>
+                    {items.map((item, index) => <li key={index} className='filter-item'>{item}</li>)}
+                </ul>
+            </div>}
+        </>
+    )
+}
+
 const ProductsListScreen = ({ history }) => {
 
-    const [eraseId, setEraseId] = useState(null)
+    const [objectID, setObjectID] = useState(null)
     const [confirm, setConfirm] = useState(false)
 
     const [showWarning, setShowWarning] = useState(false)
+
+    const [brandFilterList, setBrandFilterList] = useState({
+        isActive: false,
+        items: []
+    })
+    const [categoriesFilterList, setCategoriesFilterList] = useState({
+        isActive: false,
+        items: []
+    })
+    console.log(brandFilterList)
+    // console.log(categoriesFilterList)
 
     const dispatch = useDispatch()
 
@@ -40,7 +82,7 @@ const ProductsListScreen = ({ history }) => {
     }, [dispatch, history, userInfo, successDelete])
 
     useEffect(() => {
-        if (!loading && !error && products && products.length !== 0)
+        if (!loading && !error && products && products.length !== 0) {
             gsap.fromTo(['.create-link-row', '.products-list-table'], {
                 opacity: 0,
                 y: 38
@@ -51,19 +93,47 @@ const ProductsListScreen = ({ history }) => {
                 y: 0,
                 ease: 'power3.out'
             })
+
+            const brandArr = []
+            // const categoriesArrTemp = []
+            // const categoriesArr = []
+
+            for (let p of products) {
+                brandArr.push(Object.entries(p).filter(entry => entry[0] === 'brand').flat()[1])
+                // categoriesArrTemp.push(Object.entries(Object.entries(p).filter(entry => entry[0] === 'categories').flat()[1])
+                //     .filter((entry, index) => index === 0 || index === 1).flat()
+                //     .filter((item, index) => index % 2))
+            }
+
+            // for (let arr of categoriesArrTemp) {
+            //     arr.forEach(str => categoriesArr.push(str))
+            // }
+
+            setBrandFilterList({
+                isActive: false,
+                items: [...new Set(brandArr)]
+            })
+
+            // setCategoriesFilterList({
+            //     isActive: false,
+            //     items: [...new Set(categoriesArr)]
+            // })
+
+        }
     }, [loading, error, products])
 
+    // Delete product handlers - confirm alert
     const confirmHandler = (bool) => {
         setConfirm(bool)
     }
 
-    const eraseIdHandler = (id) => {
-        setEraseId(id)
+    const objectIDHandler = (ID) => {
+        setObjectID(ID)
     }
 
-    const deleteHandler = (id) => {
-        dispatch(deleteProduct(id))
-        setEraseId(null)
+    const actionHandler = (ID) => {
+        dispatch(deleteProduct(ID))
+        setObjectID(null)
     }
 
     return (
@@ -92,10 +162,30 @@ const ProductsListScreen = ({ history }) => {
                             <table className='products-list-table'>
                                 <thead>
                                     <tr>
-                                        <th scope='col' width='18%'>ID</th>
+                                        <th scope='col' width='18%'>PRODUCT ID</th>
                                         <th scope='col' width='18%'>NAME</th>
-                                        <th scope='col' width='10.833%'>BRAND</th>
-                                        <th scope='col' width='10.833%'>CATEGORIES</th>
+                                        <th scope='col' width='10.833%'>
+                                            <FilterList
+                                                title='BRAND'
+                                                showFilterListHandler={() => setBrandFilterList(prevState => ({
+                                                    ...prevState,
+                                                    isActive: !prevState.isActive
+                                                }))}
+                                                showFilterList={brandFilterList.isActive}
+                                                items={brandFilterList.items}
+                                            />
+                                        </th>
+                                        <th scope='col' width='10.833%'>
+                                            {/* <FilterList
+                                                title='CATEGORIES'
+                                                showFilterListHandler={() => setCategoriesFilterList(prevState => ({
+                                                    ...prevState,
+                                                    isActive: !prevState
+                                                }))}
+                                                showFilterList={categoriesFilterList.isActive}
+                                                items={categoriesFilterList.items}
+                                            /> */}
+                                        </th>
                                         <th scope='col' width='10.833%'>PRICE</th>
                                         <th scope='col' width='10.5%'>
                                             {products.some(p => p.countInStock === 0) ?
@@ -156,7 +246,7 @@ const ProductsListScreen = ({ history }) => {
                                                     type='button'
                                                     className='delete-product-btn'
                                                     onClickHandler={() => {
-                                                        eraseIdHandler(product._id)
+                                                        objectIDHandler(product._id)
                                                         confirmHandler(true)
                                                     }}
                                                 >
@@ -169,13 +259,13 @@ const ProductsListScreen = ({ history }) => {
                             </table>
                         </>}
 
-                {eraseId && <DeleteConfirm
-                    eraseId={eraseId}
+                {objectID && <AdminConfirmAlert
+                    objectID={objectID}
                     confirm={confirm}
-                    eraseIdHandler={eraseIdHandler}
+                    objectIDHandler={objectIDHandler}
                     confirmHandler={confirmHandler}
-                    deleteHandler={deleteHandler}
-                    text='Delete this product'
+                    actionHandler={actionHandler}
+                    text='Delete product'
                 />}
 
             </div>

@@ -1,5 +1,29 @@
 @import '../config.scss';
 
+%table-head-list {
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    // transform: translate3d(50%, -115%, 0);
+    transform: translate3d(50%, 107.5%, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: calc(100% - 6px);
+    // min-width: 200px;
+    // min-height: 135px;
+    max-height: 135px;
+    border-radius: 3px;
+    border-radius: 2.5px;
+    border: 1.2px solid $main-theme;
+    background-color: $main-theme;
+    box-shadow: 2.25px 2.25px 2.5px $greyish;
+    font-size: .83rem;
+    overflow-y: auto;
+    animation: fadeIn 280ms ease-out;
+}
+
 .products-list-section {
     display: flex;
     flex-direction: column;
@@ -79,37 +103,51 @@
                             }
                         }
 
+                        &:nth-of-type(3) {
+                            position: relative;
+                            .th-brand-title {
+                                transition: color 280ms ease-out;
+                                cursor: pointer;
+
+                                &:hover {
+                                    color: $main-theme;
+                                }
+                                
+                                i {
+                                    margin-left: .35rem;
+                                    font-size: .8rem;
+                                }
+                            }
+                            .filter-list-container{
+                                @extend %table-head-list;
+
+                                ul {
+                                    li {
+                                        padding: .45rem 0;
+                                        cursor: pointer;
+                                        transition: background-color 280ms ease-out;
+
+                                        &:hover {
+                                            background-color: brown;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         &:nth-of-type(6) {
                             position: relative;
                             overflow: visible;
 
                             .out-of-stock-products {
-                                position: absolute;
-                                top: 0;
-                                right: 50%;
-                                transform: translate3d(50%, -115%, 0);
-                                display: flex;
-                                flex-direction: column;
-                                align-items: center;
-                                justify-content: flex-start;
-                                width: calc(100% - 6px);
-                                // min-width: 200px;
-                                // min-height: 135px;
-                                max-height: 135px;
-                                border-radius: 3px;
-                                border-radius: 2.5px;
-                                border: 1.2px solid $bright;
-                                background-color: $main-theme;
-                                box-shadow: 2.25px 2.25px 2.5px $greyish;
-                                font-size: .875rem;
-                                overflow-y: auto;
-                                animation: fadeIn 280ms ease-out;
+                                @extend %table-head-list;
 
                                 span {
                                     width: 100%;
                                     padding: .2rem .4rem;
                                     margin-bottom: .5rem;
                                     background-color: $bright;
+                                    border-bottom: 1.2px solid $bright;
                                     color: brown;
                                     font-weight: 500;
                                 }

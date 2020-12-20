@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import gsap from 'gsap'
 import { ActionBtn } from './ActionBtnLink'
-import '../../scss/components/utilities/DeleteConfirm.scss'
+import '../../scss/components/utilities/AdminConfirmAlert.scss'
 
-const DeleteConfirm = ({ eraseId, confirm, eraseIdHandler, confirmHandler, deleteHandler, text }) => {
+const AdminConfirmAlert = ({ objectID, confirm, objectIDHandler, confirmHandler, actionHandler, text }) => {
 
     const [cancel, setCancel] = useState(null)
 
     useEffect(() => {
-        gsap.fromTo('.delete-confirm.fade-in', {
+        gsap.fromTo('.confirm-alert.fade-in', {
             yPercent: -30,
             opacity: 0
         }, {
@@ -21,7 +21,7 @@ const DeleteConfirm = ({ eraseId, confirm, eraseIdHandler, confirmHandler, delet
 
     useEffect(() => {
         if (cancel !== null) {
-            gsap.fromTo('.delete-confirm.fade-out', {
+            gsap.fromTo('.confirm-alert.fade-out', {
                 yPercent: -50,
                 opacity: 1
             }, {
@@ -32,18 +32,18 @@ const DeleteConfirm = ({ eraseId, confirm, eraseIdHandler, confirmHandler, delet
                 onComplete: () => {
                     if (cancel) {
                         setCancel(null)
-                        eraseIdHandler(null)
+                        objectIDHandler(null)
                     } else {
                         setCancel(null)
-                        deleteHandler(eraseId)
+                        actionHandler(objectID)
                     }
                 }
             })
         }
-    }, [cancel, eraseId, eraseIdHandler, deleteHandler])
+    }, [cancel, objectID, objectIDHandler, actionHandler])
 
     return (
-        <div className={confirm ? 'delete-confirm fade-in' : 'delete-confirm fade-out'}>
+        <div className={confirm ? 'confirm-alert fade-in' : 'confirm-alert fade-out'}>
             <span>{text}?</span>
             <div className='btns-row'>
                 <ActionBtn
@@ -67,4 +67,4 @@ const DeleteConfirm = ({ eraseId, confirm, eraseIdHandler, confirmHandler, delet
     )
 }
 
-export default DeleteConfirm
+export default AdminConfirmAlert

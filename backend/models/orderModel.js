@@ -8,19 +8,19 @@ const orderSchema = mongoose.Schema({
     },
     orderItems: [
         {
-            name: { type: String, required: true },
-            qty: { type: Number, required: true },
-            image: { type: String, required: true },
-            price: { type: Number, required: true },
             _id: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,
                 ref: 'Product'
-            }
+            },
+            name: { type: String, required: true },
+            price: { type: Number, required: true },
+            qty: { type: Number, required: true },
+            image: { type: String, required: true }
         }
     ],
     shippingInfo: {
-        firstName: { type: String },
+        firstName: { type: String, required: true },
         lastName: { type: String, required: true },
         address: { type: String, required: true },
         addressDetails: { type: String },
@@ -67,12 +67,12 @@ const orderSchema = mongoose.Schema({
     paidAt: {
         type: Date
     },
-    isDelivered: {
+    isShipped: {
         type: Boolean,
         required: true,
         default: false
     },
-    deliveredAt: {
+    shippedAt: {
         type: Date
     }
 }, {

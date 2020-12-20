@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { USERS_LIST_RESET } from '../constants/userConstants'
 import { getUsersList, deleteUser } from '../actions/userActions'
 import ScreenTitle from '../components/utilities/ScreenTitle'
-import DeleteConfirm from '../components/utilities/DeleteConfirm'
+import AdminConfirmAlert from '../components/utilities/AdminConfirmAlert'
 import { ActionLink, ActionBtn } from '../components/utilities/ActionBtnLink'
 import Spinner from '../components/utilities/Spinner'
 import { ErrorMsg } from '../components/utilities/Messages'
@@ -12,7 +12,7 @@ import '../scss/screens/UsersListScreen.scss'
 
 const UsersListScreen = ({ history }) => {
 
-    const [eraseId, setEraseId] = useState(null)
+    const [objectID, setObjectID] = useState(null)
     const [confirm, setConfirm] = useState(false)
 
     const dispatch = useDispatch()
@@ -44,22 +44,23 @@ const UsersListScreen = ({ history }) => {
 
     useEffect(() => {
         if (userInfo && userInfo.isAdmin) dispatch(getUsersList())
-        else history.push('/')
+        else history.push('/login')
 
         return () => dispatch({ type: USERS_LIST_RESET })
     }, [userInfo, dispatch, history, successDelete])
 
+    // Delete user handlers - confirm alert
     const confirmHandler = (bool) => {
         setConfirm(bool)
     }
 
-    const eraseIdHandler = (id) => {
-        setEraseId(id)
+    const objectIDHandler = (ID) => {
+        setObjectID(ID)
     }
 
-    const deleteHandler = (id) => {
-        dispatch(deleteUser(id))
-        setEraseId(null)
+    const actionHandler = (ID) => {
+        dispatch(deleteUser(ID))
+        setObjectID(null)
     }
 
     return (
@@ -74,12 +75,12 @@ const UsersListScreen = ({ history }) => {
                         <table className='users-list-table'>
                             <thead>
                                 <tr>
-                                    <th scope='col' colSpan='1' width='25.667%'>ID</th>
-                                    <th scope='col' colSpan='1' width='25.667%'>NAME</th>
-                                    <th scope='col' colSpan='1' width='25.667%'>EMAIL</th>
-                                    <th scope='col' colSpan='1' width='11.5%'>ADMIN</th>
-                                    <th scope='col' colSpan='1' width='5.75%'>Edit</th>
-                                    <th scope='col' colSpan='1' width='5.75%'>Del</th>
+                                    <th scope='col' width='25.667%'>USER ID</th>
+                                    <th scope='col' width='25.667%'>NAME</th>
+                                    <th scope='col' width='25.667%'>EMAIL</th>
+                                    <th scope='col' width='11.5%'>ADMIN</th>
+                                    <th scope='col' width='5.75%'>EDIT</th>
+                                    <th scope='col' width='5.75%'>DEL</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -105,7 +106,7 @@ const UsersListScreen = ({ history }) => {
                                                 type='button'
                                                 className='delete-user-btn'
                                                 onClickHandler={() => {
-                                                    eraseIdHandler(user._id)
+                                                    objectIDHandler(user._id)
                                                     confirmHandler(true)
                                                 }}
                                             >
@@ -118,13 +119,13 @@ const UsersListScreen = ({ history }) => {
                         </table>
                     )}
 
-                {eraseId && <DeleteConfirm
-                    eraseId={eraseId}
+                {objectID && <AdminConfirmAlert
+                    objectID={objectID}
                     confirm={confirm}
-                    eraseIdHandler={eraseIdHandler}
+                    objectIDHandler={objectIDHandler}
                     confirmHandler={confirmHandler}
-                    deleteHandler={deleteHandler}
-                    text='Delete this user'
+                    actionHandler={actionHandler}
+                    text='Delete user'
                 />}
 
             </div>
