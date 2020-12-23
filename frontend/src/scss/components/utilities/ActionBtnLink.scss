@@ -113,7 +113,7 @@
 
 // Create product screen, edit product screen and edit user screen - Admin only
 .edit-user-btn, 
-.edit-product-btn, 
+.edit-product-btn,
 .create-product-btn {
     @extend %btn-link;
     min-width: 175px;

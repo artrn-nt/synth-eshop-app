@@ -52,179 +52,145 @@
             justify-content: flex-start;
         }
 
-        .create-link-row {
+        .products-list-container {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 3.15rem;
-            opacity: 0;
-        }
-
-        .products-list-table {
+            flex-direction: column;
             width: 100%;
-            border-collapse: collapse;
-            border-radius: 2.5px;
-            // border-radius: 50px;
-            overflow: hidden;
-            // overflow: visible;
             opacity: 0;
-            cursor: default;
-  
-            thead {
-              height: 3.15rem;
-              background-color: lighten($greyish, 9%);
-  
-                tr {
-                    color: $bright;
 
-                    th {
-                        font-size: 1rem;
-                        font-weight: 500;
+            .create-link-row {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                // margin-bottom: 3.15rem;
+            }
 
-                        &:nth-of-type(2), 
-                        &:nth-of-type(3),
-                        &:nth-of-type(4),
-                        &:nth-of-type(5),
-                        &:nth-of-type(6),
-                        &:nth-of-type(7),
-                        &:nth-of-type(8) {
+            .no-product-filter {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 3.15rem;
+                color: $bright;
+                font-weight: 400;
+                font-size: 1.1rem;
+                opacity: 0;
+                cursor: default;
+            }
+                
+            .products-list-table {
+                width: 100%;
+                // border-spacing: 0;
+                border-radius: 2.5px;
+                border-collapse: collapse;
+                overflow: hidden;
+                opacity: 0;
+                cursor: default;
+        
+                thead {
+                    height: 3.15rem;
+                    background-color: lighten($greyish, 9%);
+                
+                    tr {
+                        color: $bright;
+    
+                        th {
+                            font-size: 1rem;
+                            font-weight: 500;
+
+    
+                            &:nth-of-type(2), 
+                            &:nth-of-type(3),
+                            &:nth-of-type(4),
+                            &:nth-of-type(5),
+                            &:nth-of-type(6),
+                            &:nth-of-type(7),
+                            &:nth-of-type(8) {
+                                position: relative;
+    
+                                &::before {
+                                    content: '';
+                                    display: block;
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 0;
+                                    transform: translateY(-50%);
+                                    width: 1.2px;
+                                    height: 65%;
+                                    background-color: $bright;
+                                }
+                            }
+                        }
+                    }
+                }
+        
+                tbody {
+                    
+                    tr {
+                        // padding: 1rem 0;
+                        font-size: .925rem;
+                        height: 96px;
+                        text-align: center;
+                        vertical-align: center;
+                        transition: background-color 280ms ease-out;
+
+                        td {
+                            padding: .6rem .75rem;
+                        }
+
+                        // td:nth-of-type(1) {
+                        //     max-width: 134.8px;
+                        // }
+
+                        td:nth-of-type(1),
+                        td:nth-of-type(2),
+                        td:nth-of-type(3),
+                        td:nth-of-type(6) {
+                            word-wrap: break-word;
+                            overflow-wrap: break-word;
+                        }
+    
+                        td:nth-of-type(2) {
                             position: relative;
+                            padding: 0 .75rem;
+                            min-width: 196px;
+                            transition: color 280ms ease-out;
 
-                            &::before {
-                                content: '';
-                                display: block;
+                            .product-pic {
                                 position: absolute;
                                 top: 50%;
-                                left: 0;
-                                transform: translateY(-50%);
-                                width: 1.2px;
-                                height: 65%;
-                                background-color: $bright;
-                            }
-                        }
+                                left: 50%;
+                                transform: translate3d(-50%, -50%, 0);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 85px;
+                                height: 100%;
+                                pointer-events: none;
+                                z-index: 1;
 
-                        &:nth-of-type(3) {
-                            position: relative;
-                            .th-brand-title {
-                                transition: color 280ms ease-out;
-                                cursor: pointer;
-
-                                &:hover {
-                                    color: $main-theme;
-                                }
-                                
-                                i {
-                                    margin-left: .35rem;
-                                    font-size: .8rem;
-                                }
-                            }
-                            .filter-list-container{
-                                @extend %table-head-list;
-
-                                ul {
-                                    li {
-                                        padding: .45rem 0;
-                                        cursor: pointer;
-                                        transition: background-color 280ms ease-out;
-
-                                        &:hover {
-                                            background-color: brown;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        &:nth-of-type(6) {
-                            position: relative;
-                            overflow: visible;
-
-                            .out-of-stock-products {
-                                @extend %table-head-list;
-
-                                span {
+                                img {
                                     width: 100%;
-                                    padding: .2rem .4rem;
-                                    margin-bottom: .5rem;
-                                    background-color: $bright;
-                                    border-bottom: 1.2px solid $bright;
-                                    color: brown;
-                                    font-weight: 500;
-                                }
-
-                                li {
-                                    width: 100%;
-                                    padding: 0 .4rem;
-                                }
-
-                                li:last-of-type {
-                                    padding-bottom: .5rem;
-                                }
-
-                                li:not(:last-of-type) {
-                                    margin-bottom: .3rem;
-                                }
-                            }
-
-                            .stock-warn {
-                                position: relative;
-                                padding: .175rem .375rem;
-                                transition: color 280ms ease-out;
-                                cursor: pointer;
-
-                                &:hover, &:hover > .fas.fa-exclamation-circle {
-                                    color: brown;
-                                }
-
-                                .fas.fa-exclamation-circle {
-                                    font-size: .8rem;
-                                    position: absolute;
-                                    top: 0;
-                                    right: 0;
-                                    transform: translate3d(75%, -25%, 0);
-                                    transition: color 280ms ease-out;
+                                    border-radius: 2.5px;
+                                    border: 1.2px solid $main-theme;
                                 }
                             }
                         }
+    
+                        td:nth-of-type(4) {
+                            font-size: .85rem;
+                        }
                     }
-                }
-            }
-  
-            tbody {
-  
-                tr {
-                    font-size: .95rem;
-                    // height: 3.15rem;
-                    height: 90px;
-                    // min-height: 90px;
-                    text-align: center;
-                    vertical-align: center;
-                    transition: background-color 280ms ease-out;
-
-                    td:nth-of-type(1), 
-                    td:nth-of-type(2) {
-                        padding: 0 .95rem;
+    
+                    tr:nth-child(2n + 1) {
+                        background-color: $bright;
+                        color: $main-theme;
                     }
-
-                    td:nth-of-type(4),
-                    td:nth-of-type(5) {
-                        font-size: .85rem;
+    
+                    tr:nth-child(2n) {
+                        background-color: lighten($greyish, 31.5%);
+                        color: $main-theme;
                     }
-
-                    td:nth-of-type(6) {
-                        height: 100%;
-                    }
-
-                }
-
-                tr:nth-child(2n + 1) {
-                    background-color: $bright;
-                    color: $main-theme;
-                }
-
-                tr:nth-child(2n) {
-                    background-color: lighten($greyish, 31.5%);
-                    color: $main-theme;
                 }
             }
         }

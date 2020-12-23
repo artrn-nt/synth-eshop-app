@@ -1,0 +1,208 @@
+@import '../../config.scss';
+
+.filter-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 2.1rem;
+    margin: 3.15rem 0;
+    
+    p {
+        position: relative;
+        color: $bright;
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin-right: 1.4rem;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -2.1px;
+            left: 0;
+            display: block;
+            height: 1.4px;
+            width: 70%;
+            background-color: brown;
+        }
+    }
+
+    .filter-main-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 2.1rem;
+        flex: 1;
+
+        .filter-sub-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+
+            .filter-select-container,
+            .brand-select-container,
+            .categories-select-container {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                min-width: 210px;
+                max-width: 210px;
+                height: 2.1rem;
+                background-color: $main-theme;
+                border: 1px solid $greyish;
+                border-radius: 4px;
+                overflow: hidden;
+                transition: background-color 280ms ease-out;
+                cursor: pointer;
+                z-index: 1;
+        
+                &:hover {
+                    background-color: $bright;
+                }
+        
+                &:hover > .filter-indicator-wrapper {
+                    color: $main-theme;
+                }
+        
+                &.active {
+                    background-color: $bright;
+        
+                    & > .filter-indicator-wrapper {
+                        color: $main-theme;
+                    }
+                }
+
+                &:nth-of-type(1) {
+                    margin-right: 1.4rem;
+                }
+        
+                .filter-type-wrapper,
+                .brand-wrapper,
+                .categories-wrapper {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                    min-height: 2.1rem;
+                    padding: 0 0.75rem;
+                    color: $greyish;
+                    transition: color 280ms ease-out;
+                    white-space: nowrap;
+                    font-weight: 500;
+                
+                    .fas.fa-caret-down {
+                    display: flex;
+                    align-items: center;
+                    min-height: 2.1rem;
+                    font-size: 1.05rem;
+                    transition: transform 280ms ease-out;
+                    }
+                }
+        
+                .filter-type-dropdown,
+                .brand-dropdown {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    font-weight: 500;
+                    color: $main-theme;
+                    opacity: 0;
+                    transition: opacity 250ms ease-in-out;
+                
+                    .filter-type-dropdown-item,
+                    .brand-dropdown-item {
+                        display: flex;
+                        align-items: center;
+                        width: 100%;
+                        height: 2.1rem;
+                        padding-left: 0.75rem;
+                        transition: background-color 280ms ease-out, color 280ms ease-in-out;
+        
+                        &:hover {
+                            background-color: brown;
+                            color: $bright;
+                        }     
+                    }
+                }
+
+                .categories-dropdown  {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    font-weight: 500;
+                    color: $main-theme;
+                    opacity: 0;
+                    transition: opacity 250ms ease-in-out;
+
+                    .cat-wrapper {
+
+                        span {
+                            position: relative;
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-start;;
+                            height: 2.1rem;
+                            width: 100%;
+                            padding-left: .75rem;
+                            background-color: lighten($greyish, 31.5%);
+
+                        }
+                    
+                        .cat-item {
+                            display: flex;
+                            align-items: center;
+                            width: 100%;
+                            height: 2.1rem;
+                            padding-left: 1.25rem;
+                            transition: background-color 280ms ease-out, color 280ms ease-in-out;
+    
+                            &:hover {
+                                background-color: brown;
+                                color: $bright;
+                            } 
+    
+                            &:hover > .cat-chip {
+                                border-color: $bright;
+                            } 
+
+                            &:hover > .cat-chip.active {
+                                background-color: $bright;
+                                border-color: $bright;
+                            } 
+
+                            .cat-chip {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: .6rem;
+                                height: .6rem;
+                                margin-right: .5rem;
+                                border: 1px solid $main-theme;
+                                border-radius: 50%;
+                                transition: background-color 280ms ease-out, border-color 280ms ease-out;
+
+                                &.active {
+                                    background-color: brown;
+                                    border-color: brown;
+                                }
+                            }    
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+                        
