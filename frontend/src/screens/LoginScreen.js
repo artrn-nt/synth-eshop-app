@@ -23,12 +23,6 @@ const LoginScreen = ({ history, location }) => {
     const { loading, error, userInfo } = userLogin
 
     const redirect = location.search ? location.search.split('=')[1] : '/'
-    // console.log(location)
-    // console.log(location.search)
-    // console.log(location.search ? true : false)
-    // console.log(redirect)
-    // console.log(redirect ? true : false)
-
 
     useEffect(() => {
         gsap.fromTo(['.login-form-container', '.register-link'], {
@@ -36,7 +30,7 @@ const LoginScreen = ({ history, location }) => {
             y: 38
         }, {
             delay: .15,
-            duration: 1.1,
+            duration: 1,
             opacity: 1,
             y: 0,
             ease: 'power3.out'
@@ -92,10 +86,12 @@ const LoginScreen = ({ history, location }) => {
                                         setEmail(ev.target.value)
                                     }}
                                 />
-                                <ErrorMessage
-                                    name='email'
-                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                />
+                                <div className='form-err-msg-wrap'>
+                                    <ErrorMessage
+                                        name='email'
+                                        render={msg => <span className='form-err-msg'>{msg}</span>}
+                                    />
+                                </div>
                             </div>
 
                             <div className='field-control'>
@@ -118,11 +114,12 @@ const LoginScreen = ({ history, location }) => {
                                     <ShowPassword checked={values.showPassword} onClickHandler={() => setShow(prevState => !prevState)} />
 
                                 </div>
-
-                                <ErrorMessage
-                                    name='password'
-                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                />
+                                <div className='form-err-msg-wrap'>
+                                    <ErrorMessage
+                                        name='password'
+                                        render={msg => <span className='form-err-msg'>{msg}</span>}
+                                    />
+                                </div>
                             </div>
 
                             <ActionBtn type='submit' className='login-btn' disabled={isSubmitting} text='Sign-in' />

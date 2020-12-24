@@ -120,12 +120,6 @@ const ProductsListScreen = ({ history }) => {
             setBrands([...new Set(brandArr)])
             setProducts(allProducts)
 
-        }
-    }, [loading, error, allProducts])
-
-    useEffect(() => {
-        if (products.length !== 0 && touchedFilter === null) {
-
             gsap.fromTo('.products-list-container', {
                 opacity: 0,
                 y: 38
@@ -146,9 +140,13 @@ const ProductsListScreen = ({ history }) => {
                 ease: 'power3.out'
             })
 
-            if (productsListContainerRef.current !== null) {
-                setProductsListContainerHeight(productsListContainerRef.current.clientHeight)
-            }
+        }
+    }, [loading, error, allProducts])
+
+    useEffect(() => {
+        if (products.length !== 0 && touchedFilter === null && productsListContainerRef.current !== null) {
+
+            setProductsListContainerHeight(productsListContainerRef.current.clientHeight)
 
         } else if (products.length !== 0 && touchedFilter) {
 

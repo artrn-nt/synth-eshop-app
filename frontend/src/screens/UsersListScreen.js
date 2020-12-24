@@ -35,7 +35,7 @@ const UsersListScreen = ({ history }) => {
                 y: 38
             }, {
                 delay: .15,
-                duration: 1.1,
+                duration: 1,
                 opacity: 1,
                 y: 0,
                 ease: 'power3.out'

@@ -18,7 +18,7 @@
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    margin-bottom: .75rem;
+    margin-bottom: calc(.75rem + 25px);
 
     label {
         position: relative;
@@ -34,7 +34,7 @@
             display: block;
             height: 1.4px;
             width: 70%;
-            background-color: brown;
+            background-color: $sub-theme;
         }
     }
 
@@ -56,7 +56,7 @@
                 justify-content: center;
                 height: 1.9rem;
                 width: 1.9rem;
-                background-color: brown;
+                background-color: $sub-theme;
                 font-weight: 600;
             }
 
@@ -90,29 +90,8 @@
             margin-right: 1.15rem; 
 
             &:hover {
-                color: brown;
+                color: $sub-theme;
             }
-        }
-    }
-
-    .form-err-msg-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        height: 40px;
-        width: 100%;
-        padding-left: calc(1.9rem + .95rem);
-        // background-color: steelblue;
-
-        .form-err-msg, span {
-            width: 100%;
-            // padding-left: 0.8rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-align: left;
-            color: brown;
-            animation: fadeIn 0.6s ease-in-out;
         }
     }
 }

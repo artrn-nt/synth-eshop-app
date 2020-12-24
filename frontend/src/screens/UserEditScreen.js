@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import gsap from 'gsap'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import * as yup from 'yup'
+import { Formik, Form, Field } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserDetails, updateUser } from '../actions/userActions'
 import { USER_DETAILS_RESET, USER_UPDATE_RESET } from '../constants/userConstants'
@@ -42,28 +41,26 @@ const UserEditScreen = ({ match, history }) => {
 
     useEffect(() => {
         if (!loadingDetails && !errorDetails) {
+
             if (user.constructor === Object && Object.entries(user).length !== 0) {
                 setUsername(user.name)
                 setEmail(user.email)
                 setIsAdmin(user.isAdmin)
             }
-        }
-    }, [loadingDetails, errorDetails, user])
 
-    useEffect(() => {
-        if (!loadingDetails && !errorDetails) {
             gsap.fromTo('.user-edit-form-container', {
                 opacity: 0,
                 y: 38
             }, {
                 delay: .15,
-                duration: 1.1,
+                duration: 1,
                 opacity: 1,
                 y: 0,
                 ease: 'power3.out'
             })
+
         }
-    }, [loadingDetails, errorDetails])
+    }, [loadingDetails, errorDetails, user])
 
     useEffect(() => {
         if (successUpdate) {
@@ -71,11 +68,6 @@ const UserEditScreen = ({ match, history }) => {
             history.push('/admin/userslist')
         }
     }, [dispatch, history, successUpdate])
-
-    const onClickHandler = (prevState, values) => {
-        setIsAdmin(!values.isAdmin)
-        return !prevState
-    }
 
     return (
         <section className='user-edit-section'>
@@ -92,20 +84,6 @@ const UserEditScreen = ({ match, history }) => {
                                 email: user.email ? user.email : '',
                                 isAdmin: user.isAdmin ? user.isAdmin : false
                             }}
-                            initialErrors={{ username: '', email: '' }}
-                            validationSchema={yup.object({
-                                username: yup.string()
-                                    .trim()
-                                    .min(5, 'Username must be at least 5 characters long')
-                                    .max(24, 'Username must be less than 25 characters long')
-                                    .matches(/^[A-Za-z0-9\-_]+$/, 'Username is not valid, special characters (except hyphen and underscore) and spaces are not allowed')
-                                    .required('Username is required'),
-                                email: yup.string()
-                                    .trim()
-                                    .lowercase()
-                                    .email('Invalid email address')
-                                    .required('Email is required'),
-                            })}
                             onSubmit={() => dispatch(updateUser({ _id: userId, name: username, email, isAdmin }))}
                         >
                             {({ isSubmitting, values, handleChange, handleSubmit }) => (
@@ -129,10 +107,6 @@ const UserEditScreen = ({ match, history }) => {
                                                     setUsername(ev.target.value)
                                                 }}
                                             />
-                                            <ErrorMessage
-                                                name='username'
-                                                render={msg => <span className='form-err-msg'>{msg}</span>}
-                                            />
                                         </div>
 
                                         <div className='field-control'>
@@ -149,35 +123,15 @@ const UserEditScreen = ({ match, history }) => {
                                                     setEmail(ev.target.value)
                                                 }}
                                             />
-                                            <ErrorMessage
-                                                name='email'
-                                                render={msg => <span className='form-err-msg'>{msg}</span>}
-                                            />
                                         </div>
 
-                                        {/* <div className='field-control'>
-                                            <div className='checkbox-wrapper'>
-                                                <label htmlFor='isAdmin'>
-                                                    <Field
-                                                        type='checkbox'
-                                                        name='isAdmin'
-                                                        id='isAdmin'
-                                                        checked={values.isAdmin}
-                                                        onClick={prevState => {
-                                                            setIsAdmin(!values.isAdmin)
-                                                            return !prevState
-                                                        }}
-                                                    />
-                                                    <span className='circle' />
-                                                </label>
-                                                <span className='checkbox-text'>{values.isAdmin ? 'Admin' : 'Not admin'}</span>
-                                            </div>
-                                        </div> */}
-
                                         <SingleCheckboxField
-                                            valueName='isAdmin'
-                                            currentValue={values.isAdmin}
-                                            onClickHandler={(prevState) => onClickHandler(prevState, values)}
+                                            value='isAdmin'
+                                            checked={values.isAdmin}
+                                            onClickHandler={(val) => {
+                                                setIsAdmin(!values.isAdmin)
+                                                return !val
+                                            }}
                                             textTrue='Admin'
                                             textFalse='Not admin'
                                         />
@@ -187,16 +141,18 @@ const UserEditScreen = ({ match, history }) => {
                                             type='submit'
                                             className='edit-user-btn'
                                             disabled={isSubmitting}
-                                            text='Edit user'
-                                        />
+                                        >
+                                            Edit user
+                                        </ActionBtn>
 
                                     </Form>
 
                                     <ActionLink
                                         path='/admin/userslist'
-                                        className='go-back-link'
-                                        text='Go back'
-                                    />
+                                        className='cancel-link'
+                                    >
+                                        Cancel
+                                    </ActionLink>
 
                                 </div>
                             )}

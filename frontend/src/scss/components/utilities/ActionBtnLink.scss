@@ -14,23 +14,44 @@
     cursor: pointer;
 
     &:hover {
-        background-color: brown;
+        background-color: $sub-theme;
     }
 
 }
 
-%btn-link-admin {
-    font-size: 1rem;
-    border: none;
+.btn-add-cart {
+    width: 150px;
+    height: 3.15rem;
     background-color: transparent;
-    color: lighten($main-theme, 10%);
-    transition: color 280ms ease-out;
+    border: 1.2px solid;
+    border-radius: 4px;
+    color: $bright;
+    font-family: $content-font;
+    font-size: .95rem;
+    font-weight: 500;
+    transition: transform 75ms ease-in, background-color 280ms ease-out;
     cursor: pointer;
 
-    &:hover {
-        color: brown;
+    &.active {
+      border-color: $bright;
+      color: $bright;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $sub-theme;
+      }
+
+      &:active {
+        -webkit-transform: scale(0.99);
+        transform: scale(0.99);
+      }
     }
 
+    &.disabled {
+      border-color: $greyish;
+      color: $greyish;
+      cursor: default;
+    }
 }
 
 .btn-cart,
@@ -83,6 +104,18 @@
 }
 
 // ADMIN
+%btn-link-admin {
+    font-size: 1rem;
+    border: none;
+    background-color: transparent;
+    color: lighten($main-theme, 10%);
+    transition: color 280ms ease-out;
+    cursor: pointer;
+
+    &:hover {
+        color: $sub-theme;
+    }
+}
     
 // Users list screen, products list screen, orders list screen - Admin only
 .edit-user-link, 
@@ -134,7 +167,7 @@
     transition: color 280ms ease-out;
 
     &:hover {
-        color: brown;
+        color: $sub-theme;
     }
 }
 

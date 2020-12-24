@@ -55,69 +55,13 @@
                 width: 100%;
            
                 .field-control {
-                  display: flex;
-                  flex-flow: column;
-                  align-items: flex-start;
-                  width: 100%;
-                  margin-bottom: .75rem;
-                //   min-height: 132.5px;
+                    display: flex;
+                    flex-flow: column;
+                    align-items: flex-start;
+                    width: 100%;
+                    min-height: 120px;
 
-                  label {
-                    position: relative;
-                    margin-bottom: 1rem;
-                    font-size: 1.1rem;
-                    font-weight: 500;
-
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        bottom: -2.1px;
-                        left: 0;
-                        display: block;
-                        height: 1.4px;
-                        width: 70%;
-                        background-color: brown;
-                    }
-                  }
-          
-                    #userID,
-                    #name,
-                    #brand,
-                    #price,
-                    #countInStock,
-                    #description_m,
-                    #imageURL {
-                        @extend %input;
-                        margin-bottom: 0.75rem;
-                    }
-
-                    .form-err-msg-wrap {
-                        display: flex;
-                        align-items: flex-start;
-                        justify-content: flex-start;
-                        height: 25px;
-                        width: 100%;
-                        // background-color: steelblue;
-
-                        .form-err-msg {
-                            width: 100%;
-                            font-size: 0.85rem;
-                            font-weight: 600;
-                            text-align: left;
-                            color: brown;
-                            animation: fadeIn 0.6s ease-in-out;
-                        }
-                    }
-                }
-
-                .form-group {
-                  display: flex;
-                  flex-flow: column;
-                  align-items: flex-start;
-                  width: 100%;
-                  margin-bottom: calc(.75rem * 2 + 25px);
-
-                    .form-group-label {
+                    label {
                         position: relative;
                         margin-bottom: 1rem;
                         font-size: 1.1rem;
@@ -131,7 +75,43 @@
                             display: block;
                             height: 1.4px;
                             width: 70%;
-                            background-color: brown;
+                            background-color: $sub-theme;
+                        }
+                    }
+          
+                    #userID,
+                    #name,
+                    #brand,
+                    #price,
+                    #countInStock,
+                    #description_m,
+                    #imageURL {
+                        @extend %input;
+                    }
+                }
+
+                .form-group {
+                    display: flex;
+                    flex-flow: column;
+                    align-items: flex-start;
+                    width: 100%;
+                    margin-bottom: calc(.75rem + 25px);
+
+                    .form-group-label {
+                        position: relative;
+                        margin-bottom: .75rem;
+                        font-size: 1.1rem;
+                        font-weight: 500;
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            bottom: -2.1px;
+                            left: 0;
+                            display: block;
+                            height: 1.4px;
+                            width: 70%;
+                            background-color: $sub-theme;
                         }
                     }
 

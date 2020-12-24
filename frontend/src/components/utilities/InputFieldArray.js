@@ -107,14 +107,6 @@ const InputFieldArray = ({ valuesName, currentValues, valueName, handleChange, o
                     </>
                 )}
             />
-            <div className='form-err-msg-wrap'>
-                {/* {alert.show && <span>{alert.text}</span>}
-                {emptyField ? <span>Each field must be fulfilled</span> : null} */}
-                {/* <ErrorMessage
-                    name={valueName}
-                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                /> */}
-            </div>
         </div>
     )
 }

@@ -25,11 +25,6 @@ const RegisterScreen = ({ history, location }) => {
     const { loading, error, userInfo } = userRegister
 
     const redirect = location.search ? location.search.split('=')[1] : '/'
-    // console.log(location)
-    // console.log(location.search)
-    // console.log(location.search ? true : false)
-    // console.log(redirect)
-    // console.log(redirect ? true : false)
 
     useEffect(() => {
         gsap.fromTo(['.register-form-container', '.login-link'], {
@@ -37,7 +32,7 @@ const RegisterScreen = ({ history, location }) => {
             y: 38
         }, {
             delay: .15,
-            duration: 1.1,
+            duration: 1,
             opacity: 1,
             y: 0,
             ease: 'power3.out'
@@ -103,10 +98,12 @@ const RegisterScreen = ({ history, location }) => {
                                         setUsername(ev.target.value)
                                     }}
                                 />
-                                <ErrorMessage
-                                    name='username'
-                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                />
+                                <div className='form-err-msg-wrap'>
+                                    <ErrorMessage
+                                        name='username'
+                                        render={msg => <span className='form-err-msg'>{msg}</span>}
+                                    />
+                                </div>
                             </div>
 
                             <div className='field-control'>
@@ -123,10 +120,12 @@ const RegisterScreen = ({ history, location }) => {
                                         setEmail(ev.target.value)
                                     }}
                                 />
-                                <ErrorMessage
-                                    name='email'
-                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                />
+                                <div className='form-err-msg-wrap'>
+                                    <ErrorMessage
+                                        name='email'
+                                        render={msg => <span className='form-err-msg'>{msg}</span>}
+                                    />
+                                </div>
                             </div>
 
                             <div className='field-control'>
@@ -149,12 +148,12 @@ const RegisterScreen = ({ history, location }) => {
                                     <ShowPassword checked={values.showPassword} onClickHandler={() => setShow(prevState => !prevState)} />
 
                                 </div>
-
-                                <ErrorMessage
-                                    name='password'
-                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                />
-
+                                <div className='form-err-msg-wrap'>
+                                    <ErrorMessage
+                                        name='password'
+                                        render={msg => <span className='form-err-msg'>{msg}</span>}
+                                    />
+                                </div>
                             </div>
 
                             <div className='field-control'>
@@ -166,10 +165,12 @@ const RegisterScreen = ({ history, location }) => {
                                     autoComplete='off'
                                     placeholder='Confirm your password'
                                 />
-                                <ErrorMessage
-                                    name='confirmationPassword'
-                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                />
+                                <div className='form-err-msg-wrap'>
+                                    <ErrorMessage
+                                        name='confirmationPassword'
+                                        render={msg => <span className='form-err-msg'>{msg}</span>}
+                                    />
+                                </div>
                             </div>
 
                             <ActionBtn type='submit' className='register-btn' disabled={isSubmitting} text='Sign-up' />
@@ -184,7 +185,6 @@ const RegisterScreen = ({ history, location }) => {
             <p className='login-link'>
                 Already have an account?
                 <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>Login</Link>
-                {/* <Link to='/login'>Login</Link> */}
             </p>
 
             <div className='alert-row-register'>

@@ -16,18 +16,6 @@ const ActionBtn = ({ children, type, className, disabled, onClickHandler, text }
     )
 }
 
-// const ActionLink = ({ children, path, className, text }) => {
-//     return (
-//         <Link
-//             to={path}
-//             className={className}
-//         >
-//             {path === '/cart' && <i className='fas fa-shopping-cart' />}
-//             <span>{text || children}</span>
-//         </Link>
-//     )
-// }
-
 const ActionLink = ({ children, path, className }) => {
     return (
         <Link

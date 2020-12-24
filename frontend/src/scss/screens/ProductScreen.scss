@@ -7,13 +7,11 @@
   width: 100%;
   min-height: calc(100vh - (139.6px + 4.6rem));
   padding: 1.05rem 0 2.1rem;
-  // padding: 2.1rem 0;
 
   .main-row-product {
     display: flex;
     flex-grow: 1;
     width: 100%;
-    // margin: 3.05rem 0 0;
     margin-top: 2.1rem;
     opacity: 0;
     color: $greyish;
@@ -33,12 +31,9 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      // max-width: 650px;
-      // max-width: 475px;
       width: 50%;
       max-width: 790px;
       cursor: default;
-      // background-color: green;
 
       .img-wrapper {
         display: flex;
@@ -49,8 +44,6 @@
         width: 100%;
         border-radius: 3px;
         overflow: hidden;
-        // max-width: 475px;
-        // background-color: lightsalmon;
 
         img {
           width: 100%;
@@ -63,53 +56,18 @@
         justify-content: space-between;
         width: 100%;
         margin-bottom: 2.1rem;
-        // background-color: cadetblue;
 
         .info-wrapper {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           justify-content: space-between;
-          // background-color: crimson;
           color: $bright;
           font-weight: 500;
 
           .price,
           .status {
             margin-bottom: 0.375rem;
-          }
-        }
-
-        .btn-add-cart {
-          width: 145px;
-          height: 3.15rem;
-          background-color: transparent;
-          border: 1.2px solid;
-          border-radius: 4px;
-          font-family: $content-font;
-          font-size: 0.9rem;
-          font-weight: 500;
-          transition: transform 75ms ease-in, background-color 280ms ease-out;
-
-          &.active {
-            border-color: $bright;
-            color: $bright;
-            cursor: pointer;
-
-            &:hover {
-              background-color: brown;
-            }
-
-            &:active {
-              -webkit-transform: scale(0.99);
-              transform: scale(0.99);
-            }
-          }
-
-          &.disabled {
-            border-color: $greyish;
-            color: $greyish;
-            cursor: default;
           }
         }
       }
@@ -145,7 +103,7 @@
             transition: color 250ms ease-out;
 
             &:hover {
-              color: brown;
+              color: $sub-theme;
             }
           }
         }
@@ -153,12 +111,11 @@
         .stock-alert-product,
         .error-alert-add-cart {
           width: 75%;
-          color: brown;
+          color: $sub-theme;
           font-size: 1.1rem;
           font-weight: 600;
           text-align: center;
           animation: fadeIn 400ms ease-out;
-          // background-color: seashell;
         }
       }
     }
@@ -170,11 +127,9 @@
       justify-content: flex-start;
       width: 50%;
       margin-left: 3.15rem;
-      // margin-left: 6.3rem;
-      // background-color: crimson;
+      cursor: default;
 
       .description-wrapper {
-        // background-color: lightpink;
         display: flex;
         flex-direction: column;
 
@@ -182,6 +137,7 @@
           font-size: 1.1rem;
           font-weight: 500;
           margin-bottom: 0.75rem;
+          width: fit-content;
         }
 
         li {

@@ -72,7 +72,7 @@ const productSchema = mongoose.Schema({
     },
     isPublished: {
         type: Boolean,
-        default: true,
+        default: false,
         required: true
     }
 }, {

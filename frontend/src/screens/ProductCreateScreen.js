@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import gsap from 'gsap'
 // import axios from 'axios'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-// import * as yup from 'yup'
+import { Formik, Form, Field } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { createProduct } from '../actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
@@ -58,7 +57,7 @@ const ProductCreateScreen = ({ history }) => {
             y: 38
         }, {
             delay: .15,
-            duration: 1.1,
+            duration: 1,
             opacity: 1,
             y: 0,
             ease: 'power3.out'
@@ -73,7 +72,7 @@ const ProductCreateScreen = ({ history }) => {
         }
     }, [successCreate, dispatch, history])
 
-    // product features handlers
+    // Product features handlers
     const onChangeHandler = (ev, index) => {
         setState(prevState => {
             let featuresCopy = prevState.features
@@ -168,57 +167,8 @@ const ProductCreateScreen = ({ history }) => {
                                 // features: state.features,
                                 // feature: '',
                                 imageURL: '',
-                                isPublished: false
+                                isPublished: state.isPublished
                             }}
-                            initialErrors={{
-                                userID: '',
-                                name: '',
-                                price: '',
-                                brand: '',
-                                countInStock: '',
-                                description_m: '',
-                                // features: ['', '', '', '', ''],
-                                // features: Array(state.features.length).fill(''),
-                                // feature: '',
-                                // imageURL: ''
-                            }}
-                            // validationSchema={yup.object({
-                            // userID: yup.string()
-                            //     .trim()
-                            //     .min(24, 'User ID must be at least 24 characters long')
-                            //     .max(24, 'User ID can have a maximum of 24 characters')
-                            //     .matches(/^[A-Za-z0-9]+$/, 'User ID is not valid')
-                            //     .required('User ID is required'),
-                            // name: yup.string()
-                            //     .trim()
-                            //     .required('Product name is required'),
-                            // price: yup.string()
-                            //     .trim()
-                            //     .matches(/^[0-9]+$/, 'Price is not valid')
-                            //     .required('Product price is required'),
-                            // brand: yup.string()
-                            //     .trim()
-                            //     .matches(/^[A-Za-z0-9-]+$/, 'Product brand is not valid')
-                            //     .required('Product brand is required'),
-                            // // categories: yup.string()
-                            // countInStock: yup.string()
-                            //     .trim()
-                            //     .matches(/^[0-9]+$/, 'Product quantity is not valid')
-                            //     .required('Product quantity is required'),
-                            // description_m: yup.string()
-                            //     .trim()
-                            //     .required('Product description is required'),
-                            // image: yup.string()
-                            //     .trim()
-                            //     .required('Product image is required'),
-                            // features: yup.array()
-                            //     .of(yup.string().required('Each field must be fulfilled'))
-                            //     .min(5)
-                            //     .max(32),
-                            // feature: yup.string()
-                            //     .required('required')
-                            // })}
-                            // onSubmit={() => console.log('submitted')}
                             onSubmit={() => dispatch(createProduct({
                                 user: state.userID,
                                 name: state.name,
@@ -228,7 +178,8 @@ const ProductCreateScreen = ({ history }) => {
                                 countInStock: state.countInStock,
                                 description_m: state.description_m,
                                 features: state.features,
-                                image: state.imageURL
+                                image: state.imageURL,
+                                isPublished: state.isPublished
                             }))}
                         >
                             {({ isSubmitting, values, errors, touched, handleChange, handleSubmit }) => (
@@ -248,12 +199,6 @@ const ProductCreateScreen = ({ history }) => {
                                                 placeholder='Enter your user ID'
                                                 value={state.userID}
                                             />
-                                            <div className='form-err-msg-wrap'>
-                                                <ErrorMessage
-                                                    name='userID'
-                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                                />
-                                            </div>
                                         </div>
 
                                         <div className='field-control'>
@@ -273,12 +218,6 @@ const ProductCreateScreen = ({ history }) => {
                                                     }))
                                                 }}
                                             />
-                                            <div className='form-err-msg-wrap'>
-                                                <ErrorMessage
-                                                    name='name'
-                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                                />
-                                            </div>
                                         </div>
 
                                         <div className='field-control'>
@@ -298,12 +237,6 @@ const ProductCreateScreen = ({ history }) => {
                                                     }))
                                                 }}
                                             />
-                                            <div className='form-err-msg-wrap'>
-                                                <ErrorMessage
-                                                    name='brand'
-                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                                />
-                                            </div>
                                         </div>
 
                                         <div className='form-group'>
@@ -331,9 +264,9 @@ const ProductCreateScreen = ({ history }) => {
                                                     />
 
                                                     <RadioInputField
-                                                        value='FM'
+                                                        value='FM / Digital'
                                                         name='synthesis'
-                                                        checked={values.synthesis === 'FM'}
+                                                        checked={values.synthesis === 'FM / Digital'}
                                                         onChangeHandler={(ev) => {
                                                             handleChange(ev)
                                                             setState(prevState => ({
@@ -346,13 +279,13 @@ const ProductCreateScreen = ({ history }) => {
                                                                 }
                                                             }))
                                                         }}
-                                                        text='FM'
+                                                        text='FM / Digital'
                                                     />
 
                                                     <RadioInputField
-                                                        value='Digital'
+                                                        value='Hybrid'
                                                         name='synthesis'
-                                                        checked={values.synthesis === 'Digital'}
+                                                        checked={values.synthesis === 'Hybrid'}
                                                         onChangeHandler={(ev) => {
                                                             handleChange(ev)
                                                             setState(prevState => ({
@@ -365,7 +298,7 @@ const ProductCreateScreen = ({ history }) => {
                                                                 }
                                                             }))
                                                         }}
-                                                        text='Digital'
+                                                        text='Hybrid'
                                                     />
                                                 </div>
 
@@ -499,12 +432,6 @@ const ProductCreateScreen = ({ history }) => {
                                                     }))
                                                 }}
                                             />
-                                            <div className='form-err-msg-wrap'>
-                                                <ErrorMessage
-                                                    name='price'
-                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                                />
-                                            </div>
                                         </div>
 
                                         <div className='field-control'>
@@ -524,12 +451,6 @@ const ProductCreateScreen = ({ history }) => {
                                                     }))
                                                 }}
                                             />
-                                            <div className='form-err-msg-wrap'>
-                                                <ErrorMessage
-                                                    name='countInStock'
-                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                                />
-                                            </div>
                                         </div>
 
                                         <div className='field-control'>
@@ -549,12 +470,6 @@ const ProductCreateScreen = ({ history }) => {
                                                     }))
                                                 }}
                                             />
-                                            <div className='form-err-msg-wrap'>
-                                                <ErrorMessage
-                                                    name='description_m'
-                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                                />
-                                            </div>
                                         </div>
 
                                         <InputFieldArray
@@ -586,12 +501,6 @@ const ProductCreateScreen = ({ history }) => {
                                                     }))
                                                 }}
                                             />
-                                            <div className='form-err-msg-wrap'>
-                                                <ErrorMessage
-                                                    name='imageURL'
-                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                                />
-                                            </div>
                                         </div>
 
                                         {/* <div className='field-control'>

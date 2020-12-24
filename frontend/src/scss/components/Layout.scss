@@ -10,7 +10,6 @@
   height: 100%;
   margin: 0 auto;
   padding: 0 2.9rem;
-  //   background-color: cadetblue;
 
   header {
     display: flex;
@@ -22,7 +21,8 @@
     border-bottom: 1px solid $bright;
 
     h1 {
-      margin-bottom: 1.75rem;
+      // margin-bottom: 1.75rem;
+      margin-bottom: 2.625rem;
       font-family: $title-font;
       color: $bright;
       letter-spacing: 0.08rem;
@@ -44,7 +44,7 @@
         transition: color 250ms ease-out;
 
         &:hover {
-          color: brown;
+          color: $sub-theme;
         }
       }
 
@@ -74,7 +74,7 @@
 
           &:hover {
             .cart-indicator {
-              background-color: brown;
+              background-color: $sub-theme;
             }
           }
 
@@ -99,15 +99,11 @@
 
           &.active {
             .cart-indicator {
-              background-color: brown;
+              background-color: $sub-theme;
               color: $bright;
             }
           }
         }
-
-        // a:not(:last-of-type) {
-        //   margin-right: 1.4rem;
-        // }
 
         .fas.fa-shopping-cart,
         .fas.fa-user-alt {
@@ -146,7 +142,7 @@
       }
 
       &:hover {
-        color: brown;
+        color: $sub-theme;
       }
     }
   }

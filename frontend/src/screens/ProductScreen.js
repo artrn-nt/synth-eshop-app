@@ -7,6 +7,7 @@ import { PRODUCT_DETAILS_RESET } from '../constants/productConstants'
 import { CART_ADD_RESET } from '../constants/cartConstants'
 import { addToCart } from '../actions/cartActions'
 import ScreenTitle from '../components/utilities/ScreenTitle'
+import { ActionBtn } from '../components/utilities/ActionBtnLink'
 import Spinner from '../components/utilities/Spinner'
 import { ErrorMsg } from '../components/utilities/Messages'
 import '../scss/screens/ProductScreen.scss'
@@ -20,7 +21,6 @@ const ProductScreen = ({ match }) => {
 
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
-    // console.log(cart)
 
     const idsList = useSelector(state => state.idsList)
     const { loading: loadingIds, error: errorIds } = idsList
@@ -36,8 +36,7 @@ const ProductScreen = ({ match }) => {
     }, [dispatch, match])
 
     useEffect(() => {
-        if (product && Object.keys(product).length !== 0 && product.constructor === Object) {
-
+        if (!loading && !error && product) {
             gsap.fromTo('.main-row-product', {
                 opacity: 0,
                 y: 38
@@ -49,7 +48,7 @@ const ProductScreen = ({ match }) => {
                 ease: 'power3.out'
             })
         }
-    }, [product])
+    }, [loading, error, product])
 
     useEffect(() => {
         if (cart.error !== undefined) {
@@ -65,8 +64,6 @@ const ProductScreen = ({ match }) => {
 
     const addToCartHandler = () => dispatch(addToCart(match.params.id))
 
-    // if (loading || loadingIds) return (<section className='product-container ctr'><Spinner /></section>)
-    // else if (error || errorIds) return (<section className='product-container ctr'><ErrorMsg message={error || errorIds} /></section>)
     if (product === undefined || (Object.entries(product).length === 0 && product.constructor === Object)) return null
 
     return (
@@ -91,8 +88,10 @@ const ProductScreen = ({ match }) => {
                                         <span className='status'>Status: {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}</span>
                                         {product.countInStock > 0 && <span className='count-in-stock'>{product.countInStock} remaining</span>}
                                     </div>
-                                    <button
-                                        onClick={() => {
+                                    <ActionBtn
+                                        type='button'
+                                        className={product.countInStock === 0 || compareStockToCartQtyHandler() ? 'btn-add-cart disabled' : 'btn-add-cart active'}
+                                        onClickHandler={() => {
                                             if (product.countInStock > 0) {
                                                 if (cartItems.length === 0) addToCartHandler()
                                                 else {
@@ -105,11 +104,9 @@ const ProductScreen = ({ match }) => {
                                                 }
                                             }
                                         }}
-                                        className={product.countInStock === 0 || compareStockToCartQtyHandler() ? 'btn-add-cart disabled' : 'btn-add-cart active'}
-                                        type='button'
                                     >
                                         Add To Cart
-                            </button>
+                                    </ActionBtn>
                                 </div>
                                 <div className={cart.loading || cart.error ? 'alert-row-product ctr' : 'alert-row-product str'}>
                                     {cart.loading && <Spinner />}
