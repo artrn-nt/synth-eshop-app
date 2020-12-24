@@ -8,7 +8,7 @@
     min-height: 2.1rem;
     margin: 3.15rem 0;
     
-    p {
+    .filter-text {
         position: relative;
         color: $bright;
         font-size: 1.1rem;
@@ -49,8 +49,8 @@
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
-                min-width: 210px;
-                max-width: 210px;
+                min-width: 225px;
+                max-width: 225px;
                 height: 2.1rem;
                 background-color: $main-theme;
                 border: 1px solid $greyish;
@@ -96,6 +96,7 @@
                     transition: color 280ms ease-out;
                     white-space: nowrap;
                     font-weight: 500;
+                    font-size: .95rem;
                 
                     .fas.fa-caret-down {
                     display: flex;
@@ -113,11 +114,40 @@
                     left: 0;
                     width: 100%;
                     font-weight: 500;
+                    font-size: .95rem;
                     color: $main-theme;
                     opacity: 0;
                     transition: opacity 250ms ease-in-out;
                 
-                    .filter-type-dropdown-item,
+                    // .filter-type-dropdown-item {
+                    //     display: flex;
+                    //     align-items: center;
+                    //     width: 100%;
+                    //     height: 2.1rem;
+                    //     padding-left: 0.75rem;
+                    //     // background-color: cadetblue;
+                    //     transition: background-color 280ms ease-out, color 280ms ease-in-out;
+        
+                    //     &:hover {
+                    //         background-color: brown;
+                    //         color: $bright;
+                    //     }
+
+                    //     p {
+                    //         display: flex;
+                    //         align-items: flex-end;
+                    //         // background-color: yellow;
+
+                    //         span {
+                    //             margin-left: .15rem;
+                    //             font-size: .835rem;
+                    //             white-space: nowrap;
+                    //             // background-color: seagreen;
+                    //         }
+                    //     }
+                    // }
+
+                    .filter-type-dropdown-item, 
                     .brand-dropdown-item {
                         display: flex;
                         align-items: center;
@@ -129,7 +159,7 @@
                         &:hover {
                             background-color: brown;
                             color: $bright;
-                        }     
+                        }
                     }
                 }
 

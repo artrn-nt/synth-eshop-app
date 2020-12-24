@@ -162,14 +162,14 @@ const CategoriesSelector = ({ drop, dropHandler, productsFilterHandler }) => {
                                 text='Analogue'
                             />
                             <CategoriesItem
-                                onClickHandler={() => onClickHandler('synthesis', 'FM')}
-                                active={categories.synthesis === 'FM'}
-                                text='FM'
+                                onClickHandler={() => onClickHandler('synthesis', 'FM / Digital')}
+                                active={categories.synthesis === 'FM / Digital'}
+                                text='FM / Digital'
                             />
                             <CategoriesItem
-                                onClickHandler={() => onClickHandler('synthesis', 'Digital')}
-                                active={categories.synthesis === 'Digital'}
-                                text='Digital'
+                                onClickHandler={() => onClickHandler('synthesis', 'Hybrid')}
+                                active={categories.synthesis === 'Hybrid'}
+                                text='Hybrid'
                             />
                         </div>
 
@@ -264,7 +264,7 @@ const ProductsFilter = ({ brands, productsFilterHandler, outOfStock, price }) =>
 
     return (
         <div className='filter-row'>
-            <p>Sort products by:</p>
+            <p className='filter-text'>Sort products by:</p>
             <div className='filter-main-container'>
                 <div className='filter-sub-container'>
 
@@ -326,7 +326,7 @@ const ProductsFilter = ({ brands, productsFilterHandler, outOfStock, price }) =>
                                             }}
                                         >
                                             Price (from cheapest)
-                                    </li>}
+                                        </li>}
                                     {outOfStock &&
                                         <li
                                             className='filter-type-dropdown-item'
@@ -340,7 +340,7 @@ const ProductsFilter = ({ brands, productsFilterHandler, outOfStock, price }) =>
                                             }}
                                         >
                                             Out of stock
-                                    </li>}
+                                        </li>}
                                     <li
                                         className='filter-type-dropdown-item'
                                         onClick={() => {

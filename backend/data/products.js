@@ -1,49 +1,58 @@
 const products = [
   {
-    name: 'ARP Odyssey Module Rev. 3',
-    brand: 'ARP / Korg',
+    name: 'ASM Hydrasynth',
+    brand: 'ASM',
     categories: {
-      synthesis: 'Analogue',
-      voiceType: 'Monophonic',
+      synthesis: 'FM / Digital',
+      voiceType: 'Polyphonic',
       semiModular: false,
-      desktop: true
+      desktop: false
     },
-    price: 640,
-    countInStock: 3,
-    description_m: 'Synthesizer Module',
+    price: 1350,
+    countInStock: 1,
+    description_m: 'Digital Wave-Morphing Synthesizer',
     features: [
-      'Monophonic, max. 2 votes for Duophonic',
-      'Controller: Octave / -, pitch and modulation',
-      'White and Pink Noise Generator',
-      'VCO, VCF, VCA, ring modulator, sample',
-      'ADSR Envelope Generator',
-      'AR Envelope Generator',
-      'Line Out: XLR and 6.3 mm jack',
-      'Audio input: 6.3 mm jack',
-      'CV, gate and trigger input and output: 3.5 mm minijack',
-      'Headphone output: 6.3 mm stereo jack',
-      'Foot pedal and footswitch input',
-      'MIDI In',
-      'USB',
-      'Dimensions: 496 x 265 x 89 mm',
-      'Weight: 3.7 kg',
-      'Colours: Black / Orange',
-      'Incl. 9V DC power supply'
+      '49 Velocity-sensitive keys with aftertouch',
+      '8 Voice polyphony - monotimbral',
+      'Fully polyphonic aftertouch',
+      'Arpeggiator includes Ratchet, Chance, Gate and Swing (8 modes in total)',
+      '3 Oscillators with 219 single-cycle waveforms',
+      'WaveScan parameters for modulating via wavetables',
+      'Wavelist mode for blending up to 8 wavetables',
+      '8 Custom Wavelists per oscillator',
+      'Mixer includes Noise Generator and Ring Modulator',
+      '2 Filters: series or parallel',
+      'Filter 1 includes 11 different filter models (12 & 24 dB Ladder, Ladder Vintage, HP, LP, Vocal, i.a.)',
+      'Filter 2: 12 dB (SEM-style) per octave, includes continuous sweep from lowpass, bandpass, up to highpass)',
+      '4 Octave ribbon controller (67 cm), featuring Theremin mode',
+      'Modulation matrix',
+      '5 DAHDSR envelopes',
+      '5 LFOs',
+      'LFOs include: delay, fade in, 3 triggering modes, smoothing, start phase, one-shot mode',
+      '5 Banks with 128 patches each - 256 of those are factory patches',
+      'CV-Gate inputs and outputs',
+      'Supports all common CV/GATE standards',
+      'Clock input and output',
+      '8 High-resolution encoders, including LED rings',
+      'USB (USB MIDI In/Out)',
+      'MIDI: In/Out/Thru',
+      'Pre- and post effects for unique sound editing possibilites',
+      'Dimensions: 800 x 350 x 103 mm',
+      'Weight: 10 kg'
     ],
-    image: '/images/arp_odyssey_rev3.jpg',
+    image: '/images/asm_hydrasynth.jpg',
     isPublished: true
   },
   {
     name: 'Behringer Crave',
     brand: 'Behringer',
-    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Monophonic',
       semiModular: true,
       desktop: true
     },
-    price: 155,
+    price: 150,
     countInStock: 7,
     description_m: 'Semi-Modular Analogue Synthesiser',
     features: [
@@ -71,7 +80,6 @@ const products = [
   {
     name: 'Behringer K-2',
     brand: 'Behringer',
-    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Monophonic',
@@ -80,7 +88,7 @@ const products = [
     },
     price: 300,
     countInStock: 3,
-    description_m: 'Analogue semi-modular synthesiser',
+    description_m: 'Analogue Semi-Modular Synthesiser',
     features: [
       'Monophonic sound generation',
       '2 VCOs with 4 waveforms and ring modulation',
@@ -106,7 +114,6 @@ const products = [
   {
     name: 'Behringer MonoPoly',
     brand: 'Behringer',
-    // categories: ['Analogue', 'mono'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Monophonic',
@@ -115,7 +122,7 @@ const products = [
     },
     price: 660,
     countInStock: 4,
-    description_m: 'Four-Voice Analog Synthesizer',
+    description_m: '4-Voice Analogue Synthesizer',
     features: [
       '37 Velocity-sensitive full-size keys',
       '4 Oscillators, each with triangle, sawtooth and pulse waveforms (including pulse width modulation), octave selector switch, controls for fine tuning and volume',
@@ -139,7 +146,6 @@ const products = [
   {
     name: 'Behringer Pro-1',
     brand: 'Behringer',
-    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Monophonic',
@@ -177,7 +183,6 @@ const products = [
   {
     name: 'Behringer TD-3-SR',
     brand: 'Behringer',
-    // categories: ['desktop', 'analogue', 'mono'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Monophonic',
@@ -212,7 +217,6 @@ const products = [
   {
     name: 'Behringer Wasp Deluxe',
     brand: 'Behringer',
-    // categories: ['desktop', 'analogue', 'mono'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Monophonic',
@@ -245,16 +249,15 @@ const products = [
   {
     name: 'Doepfer Dark Energy III',
     brand: 'Doepfer',
-    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Monophonic',
       semiModular: true,
       desktop: true
     },
-    price: 460,
+    price: 450,
     countInStock: 4,
-    description_m: 'Monophonic analog synthesizer',
+    description_m: 'Monophonic Analog Synthesizer',
     features: [
       'Triangle-based analogue VCO without warm-up time and clean 1V / octave tracking over min. 8 octaves',
       '12 dB multimode filter',
@@ -277,14 +280,13 @@ const products = [
   {
     name: 'Dreadbox Erebus V3',
     brand: 'Dreadbox',
-    // categories: ['desktop', 'analogue', 'para', 'semi-modular'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Paraphonic',
       semiModular: true,
       desktop: true
     },
-    price: 585,
+    price: 580,
     countInStock: 0,
     description_m: 'Analogue Desktop Synthesizer',
     features: [
@@ -308,14 +310,13 @@ const products = [
   {
     name: 'Dreadbox Nyx V2',
     brand: 'Dreadbox',
-    // categories: ['desktop', 'analogue', 'para', 'semi-modular'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Paraphonic',
       semiModular: true,
       desktop: true
     },
-    price: 585,
+    price: 580,
     countInStock: 3,
     description_m: 'Semi-Modular Desktop Synthesiser',
     features: [
@@ -341,16 +342,85 @@ const products = [
     isPublished: true
   },
   {
+    name: 'Elektron Digitone Keys',
+    brand: 'Elektron',
+    categories: {
+      synthesis: 'FM / Digital',
+      voiceType: 'Polyphonic',
+      semiModular: false,
+      desktop: false
+    },
+    price: 975,
+    countInStock: 2,
+    description_m: '8-Voice Polyphonic Synthesizer',
+    features: [
+      '37 Semi-weighted and velocity-sensitive keys with aftertouch',
+      '8-Voice polyphonic (4-part multitimbral)',
+      'Multiple FM algorithms',
+      '2× Assignable LFO per voice',
+      'Assignable pitch and modulation wheels',
+      '8 Freely assignable performance controllers',
+      '5 Dedicated buttons for direct access to the following functions/menus: Portamento, Arp Menu, Map Setup, Ext. Setup, Add/Chord',
+      'Multi Map mode',
+      'Each voice with: 1 x Multi-mode filter, 1 x base/width filter, 1 x overdrive',
+      'Sequencer with 4 synth tracks and 4 MIDI tracks',
+      'Arpeggiator per synthtrack',
+      'Individual track length',
+      'Parameter Locks, Micro Timing, Trig Conditions, Sound per Step',
+      'Change',
+      'Send & Master effects',
+      '48 kHz / 24 Bit D/A and A/D converter',
+      'Dimensions (W x D x H): 868 x 185 x 90 mm',
+      'Weight: 6 kg'
+    ],
+    image: '/images/elektron_digitone_keys.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Erica Synths Bassline DB-01',
+    brand: 'Erica Synths',
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 540,
+    countInStock: 2,
+    description_m: 'Analogue Bass Synthesiser',
+    features: [
+      'Rectangular, sawtooth and triangular waveform oscillators',
+      'Sub oscillator',
+      'Aggressive low pass / band pass filter from the Erica Synths Acidbox',
+      'BBD detune effect for particularly dense sounds',
+      'Noise generator',
+      'Synchronisable LFO for FM and VCF',
+      'Adjustable overdrive',
+      'Envelope intensity for pitch, VCF and VCA separately adjustable',
+      'Intuitive step sequencer with up to 64 steps per pattern',
+      'Automation track for filter cutoff',
+      'Pattern transposition',
+      'Random generator',
+      'Arpeggiator',
+      'Memory for 64 patterns',
+      'CV / gate inputs & outputs',
+      'Clock inputs & outputs',
+      'MIDI In & Thru',
+      'Solid aluminium housing'
+    ],
+    image: '/images/erica_synths_db01.jpg',
+    isPublished: true
+  },
+  {
     name: 'Elektron Analog Four MKII',
     brand: 'Elektron',
-    // categories: ['desktop', 'analogue', 'poly'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Polyphonic',
       semiModular: false,
       desktop: true
     },
-    price: 1390,
+    price: 1380,
     countInStock: 3,
     description_m: 'Desktop Synthesiser',
     features: [
@@ -384,11 +454,44 @@ const products = [
     isPublished: true
   },
   {
-    name: 'Korg Minilogue XD Module',
+    name: 'ARP Odyssey Module Rev. 3',
     brand: 'Korg',
-    // categories: ['analogue', 'poly'],
     categories: {
       synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 640,
+    countInStock: 3,
+    description_m: 'Synthesizer Module',
+    features: [
+      'Monophonic, max. 2 votes for Duophonic',
+      'Controller: Octave / -, pitch and modulation',
+      'White and Pink Noise Generator',
+      'VCO, VCF, VCA, ring modulator, sample',
+      'ADSR Envelope Generator',
+      'AR Envelope Generator',
+      'Line Out: XLR and 6.3 mm jack',
+      'Audio input: 6.3 mm jack',
+      'CV, gate and trigger input and output: 3.5 mm minijack',
+      'Headphone output: 6.3 mm stereo jack',
+      'Foot pedal and footswitch input',
+      'MIDI In',
+      'USB',
+      'Dimensions: 496 x 265 x 89 mm',
+      'Weight: 3.7 kg',
+      'Colours: Black / Orange',
+      'Incl. 9V DC power supply'
+    ],
+    image: '/images/korg_arp_odyssey_rev3.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Korg Minilogue XD Module',
+    brand: 'Korg',
+    categories: {
+      synthesis: 'Hybrid',
       voiceType: 'Polyphonic',
       semiModular: false,
       desktop: true
@@ -422,9 +525,40 @@ const products = [
     isPublished: true
   },
   {
+    name: 'Korg Monologue BK',
+    brand: 'Korg',
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: false
+    },
+    price: 240,
+    countInStock: 5,
+    description_m: 'Analog Synthesizer',
+    features: [
+      '1 Voice',
+      '25 Key keyboard',
+      'Monophonic 16-Step sequencer (notes and up to 4 parameters can be automated)',
+      '100 Program memory locations: 80 presets + 20 user made programs',
+      'Display with presets, sequencers and waveforms',
+      'Powered by 6 AA batteries or external power supply (not included)',
+      'USB',
+      'MIDI In/Out',
+      'Sync In / Out: 3.5 mm mini jack',
+      '1 Line-Input: 6.3 mm jack',
+      '1 Line output: 6.3 mm jack',
+      'Headphone output: 6.3 mm jack',
+      'Colour: Black',
+      'Suitable power supply: Korg KA-350',
+
+    ],
+    image: '/images/korg_monologue_bk.jpg',
+    isPublished: true
+  },
+  {
     name: 'Korg MS-20 FS',
     brand: 'Korg',
-    // categories: ['analogue', 'mono', 'semi-modular'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Monophonic',
@@ -433,7 +567,7 @@ const products = [
     },
     price: 1200,
     countInStock: 1,
-    description_m: 'Semi-modular monophonic analogue synthesiser',
+    description_m: 'Semi-Modular Monophonic Analogue Synthesiser',
     features: [
       '37 Full-size buttons',
       'Two different filter types (early and later model series)',
@@ -453,9 +587,8 @@ const products = [
   {
     name: 'Korg NTS-1',
     brand: 'Korg',
-    // categories: ['desktop', 'digital', 'mono'],
     categories: {
-      synthesis: 'Digital',
+      synthesis: 'FM / Digital',
       voiceType: 'Monophonic',
       semiModular: false,
       desktop: true
@@ -490,9 +623,8 @@ const products = [
   {
     name: 'Korg opsix',
     brand: 'Korg',
-    // categories: ['FM', 'poly'],
     categories: {
-      synthesis: 'FM',
+      synthesis: 'FM / Digital',
       voiceType: 'Polyphonic',
       semiModular: false,
       desktop: false
@@ -529,9 +661,8 @@ const products = [
   {
     name: 'Korg Volca FM',
     brand: 'Korg',
-    // categories: ['desktop', 'FM', 'mono'],
     categories: {
-      synthesis: 'FM',
+      synthesis: 'FM / Digital',
       voiceType: 'Monophonic',
       semiModular: false,
       desktop: true
@@ -558,7 +689,6 @@ const products = [
   {
     name: 'Korg Volca Modular',
     brand: 'Korg',
-    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Monophonic',
@@ -592,9 +722,39 @@ const products = [
     isPublished: true
   },
   {
+    name: 'Korg Volca Nubass',
+    brand: 'Korg',
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 150,
+    countInStock: 8,
+    description_m: 'Analog Bass Synthesizer',
+    features: [
+      'With tube oscillator and sub-oscillator',
+      'Analog drive circuit with tube distortion',
+      'Classic ladder filter design for typical acid sounds',
+      '16-Step sequencer with motion sequencing and pattern chain function',
+      'Accent, slide and transpose functions',
+      'Multitouch keyboard / Step keys',
+      'LED display',
+      'Built-in speaker',
+      'Sync I/O: 3.5 mm Mini jack sockets Mono',
+      'MIDI In',
+      'Headphone output: 3.5 mm Mini stereo jack',
+      'Power supply: 6x AA battery or mains adapter KA-350 (mains adapter not included)',
+      'Dimensions (W x H x D): 193 x 115 x 46 mm',
+      'Weight: 370 g'
+    ],
+    image: '/images/korg_volca_nubass.jpg',
+    isPublished: true
+  },
+  {
     name: 'Malekko Manther',
     brand: 'Malekko Heavy Industry',
-    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Monophonic',
@@ -636,7 +796,6 @@ const products = [
   },
   {
     name: 'Moog Mother-32',
-    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
     brand: 'Moog',
     categories: {
       synthesis: 'Analogue',
@@ -668,7 +827,6 @@ const products = [
   {
     name: 'Moog Subharmonicon',
     brand: 'Moog',
-    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Monophonic',
@@ -701,7 +859,6 @@ const products = [
   {
     name: 'Moog Werkstatt-01',
     brand: 'Moog',
-    // categories: ['desktop', 'analogue', 'mono', 'semi-modular'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Monophonic',
@@ -725,9 +882,43 @@ const products = [
     isPublished: true
   },
   {
+    name: 'Novation Peak',
+    brand: 'Novation',
+    categories: {
+      synthesis: 'Hybrid',
+      voiceType: 'Polyphonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 1240,
+    countInStock: 2,
+    description_m: 'Hybrid Desktop Synthesizer',
+    features: [
+      '8-Note polyphony',
+      '3 New Oxford oscillators per voice',
+      'Pre-filter and post-filter distortion per voice plus additional global distortion',
+      'Polyphonic aftertouch and linear FM',
+      'High-quality reverb, delay and chorus effects',
+      'Integrated arpeggiator',
+      'Modulation system with 16-slot modulation matrix and 16 direct assignments',
+      'Three ADSR envelopes and two LFOs per voice plus animate buttons',
+      'CV Modulation input for integration into modular systems',
+      '2 Line outputs: 6.3 mm jack',
+      'Stereo headphone output: 6.3 mm jack',
+      'MIDI In / Out / Thru',
+      'USB',
+      'Two pedal inputs',
+      '2 Foot switch inputs',
+      'Scope of delivery: USB cable & power supply',
+      'Dimensions (W x D x H): 464 x 233 x 70.5 mm',
+      'Weight: 4.9 kg'
+    ],
+    image: '/images/novation_peak.jpg',
+    isPublished: true
+  },
+  {
     name: 'Sequential Prophet 10',
     brand: 'Sequential',
-    // categories: ['analogue', 'poly'],
     categories: {
       synthesis: 'Analogue',
       voiceType: 'Polyphonic',

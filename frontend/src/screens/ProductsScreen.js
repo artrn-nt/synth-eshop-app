@@ -15,7 +15,7 @@ const ProductsScreen = () => {
 
     const [products, setProducts] = useState([])
     const [brands, setBrands] = useState([])
-    const [touchedFilter, setTouchedFilter] = useState(null)
+    const [touched, setTouched] = useState(null)
     const [productsContainerHeight, setProductsContainerHeight] = useState(null)
 
     const dispatch = useDispatch()
@@ -27,6 +27,25 @@ const ProductsScreen = () => {
 
     const productsContainerRef = useRef(null)
     const productsGridRef = useRef(null)
+
+    const sortProductsByName = (productsArr) => {
+        const productsArrCopy = [...productsArr]
+        return productsArrCopy.sort((p1, p2) => {
+            const p1Name = p1.name.toLowerCase(), p2Name = p2.name.toLowerCase()
+            if (p1Name < p2Name) return -1
+            if (p1Name > p2Name) return 1
+            return 0
+        })
+    }
+    const sortProductsByPrice = (productsArr) => {
+        const productsArrCopy = [...productsArr]
+        return productsArrCopy.sort((p1, p2) => {
+            const p1Price = p1.price, p2Price = p2.price
+            if (p1Price < p2Price) return -1
+            if (p1Price > p2Price) return 1
+            return 0
+        })
+    }
 
     useEffect(() => {
         dispatch(listProducts())
@@ -44,7 +63,7 @@ const ProductsScreen = () => {
             }
 
             setBrands([...new Set(brandArr)])
-            setProducts(allProducts)
+            setProducts(sortProductsByName(allProducts))
 
         }
     }, [loading, error, allProducts])
@@ -54,7 +73,7 @@ const ProductsScreen = () => {
         if (productsGridRef.current !== null) {
             const productCards = Object.values(productsGridRef.current.children)
 
-            if (products.length !== 0 && touchedFilter === null) {
+            if (products.length !== 0 && touched === null) {
                 gsap.fromTo(productCards, {
                     opacity: 0,
                     yPercent: 7
@@ -71,7 +90,7 @@ const ProductsScreen = () => {
                     setProductsContainerHeight(productsContainerRef.current.clientHeight)
                 }
 
-            } else if (products.length !== 0 && touchedFilter) {
+            } else if (products.length !== 0 && touched) {
 
                 gsap.fromTo(productCards, {
                     opacity: 0
@@ -84,7 +103,7 @@ const ProductsScreen = () => {
             }
         }
 
-        if (products.length === 0 && touchedFilter) {
+        if (products.length === 0 && touched) {
 
             gsap.fromTo('.no-product-filter', {
                 opacity: 0,
@@ -98,13 +117,13 @@ const ProductsScreen = () => {
             })
 
         }
-    }, [products, touchedFilter])
+    }, [products, touched])
 
     // Filter products handler
     const productsFilterHandler = useCallback((type, criteria) => {
-        setTouchedFilter(true)
+        setTouched(true)
         if (type === 'Indifferent') {
-            setProducts(allProducts)
+            setProducts(sortProductsByName(allProducts))
         } else if (type === 'Brand') {
             setProducts(allProducts.filter(p => p.brand === criteria))
         } else if (type === 'Categories') {
@@ -136,6 +155,8 @@ const ProductsScreen = () => {
                 } else return null
 
             }))
+        } else if (type === 'Price') {
+            setProducts(sortProductsByPrice(allProducts))
         }
     }, [allProducts])
 
@@ -151,15 +172,10 @@ const ProductsScreen = () => {
                             price
                             productsFilterHandler={productsFilterHandler}
                         />
-                        {products.length === 0 && touchedFilter ?
+                        {products.length === 0 && touched ?
                             <p className='no-product-filter'>- No product found matching your filter criterias -</p> :
                             <div className='products-grid' ref={productsGridRef}>
-                                {products.sort((p1, p2) => {
-                                    const product1Name = p1.name.toLowerCase(), product2Name = p2.name.toLowerCase()
-                                    if (product1Name < product2Name) return -1
-                                    if (product1Name > product2Name) return 1
-                                    return 0
-                                }).map((product) => product.isPublished && <ProductCard key={product._id} product={product} />)}
+                                {products.map((product) => product.isPublished && <ProductCard key={product._id} product={product} />)}
                             </div>}
                     </div>}
         </section>
