@@ -2,9 +2,12 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Transition } from 'react-transition-group'
 import gsap from 'gsap'
+import useWindowSize from '../../utils/useWindowSize'
 import '../../scss/components/Header/UserDropDownMenu.scss'
 
-const UserDropDownMenu = ({ username, logout }) => {
+const UserDropDownMenu = ({ admin, username, logout }) => {
+
+    const size = useWindowSize()
 
     const [drop, setDrop] = useState(false)
     const selectContainerRef = useRef(null)
@@ -39,7 +42,11 @@ const UserDropDownMenu = ({ username, logout }) => {
     }
 
     return (
-        <div className={drop ? 'user-select-container active' : 'user-select-container'} ref={selectContainerRef}>
+        <div
+            className={drop ? 'user-select-container active' : 'user-select-container'}
+            style={{ marginBottom: size.width > 790 ? 'unset' : admin ? '.7875rem' : 'unset' }}
+            ref={selectContainerRef}
+        >
             <div className='username-wrapper' onClick={() => setDrop(prevState => !prevState)}>
                 <span ref={usernameSpanRef}>{username}</span>
                 <i

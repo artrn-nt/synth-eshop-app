@@ -5,7 +5,7 @@ import { createOrder } from '../actions/orderActions'
 import { CART_RESET } from '../constants/cartConstants'
 import CheckOutSteps from '../components/utilities/CheckoutSteps'
 import ScreenTitle from '../components/utilities/ScreenTitle'
-import OrderItem from '../components/PlaceOrderScreen/OrderItem'
+import OrderItem from '../components/utilities/OrderItem'
 import { ActionBtn, ActionLink } from '../components/utilities/ActionBtnLink'
 import { ErrorMsg } from '../components/utilities/Messages'
 import '../scss/screens/PlaceOrderScreen.scss'
@@ -122,7 +122,7 @@ const PlaceOrderScreen = ({ history }) => {
                     </div>
 
                     <div className='place-order-row'>
-                        <h3>Order items</h3>
+                        <h3>Order item(s)</h3>
                         <ul className='order-items'>
                             {cart.cartItems.map(item => <OrderItem
                                 key={item._id}
@@ -138,31 +138,35 @@ const PlaceOrderScreen = ({ history }) => {
 
                 </div>
 
-                <div className='place-order-col-2'>
 
-                    <div className='place-order'>
-                        <h3>Order summary</h3>
-                        <div className='place-order-infos'>
-                            <p><span>Items <small>(incl. VAT)</small>:</span><span>€{itemsPrice}</span></p>
-                            <p>Shipping:<span>€{shippingPrice}</span></p>
-                            <p><span>VAT <small>(tax)</small>:</span><span>€{taxPrice}</span></p>
-                            <p>Total:<span>€{totalPrice}</span></p>
-                        </div>
-                        <ActionBtn
-                            type='button'
-                            className='btn-place-order'
-                            disabled={cart.cartItems.length === 0}
-                            onClickHandler={placeOrderHandler}
-                            text='Place order'
-                        />
-                        <ActionLink path='/cart' className='back-to-cart-link' text='Back to cart' />
+                <div className='order-summary'>
+                    <h3>Order summary</h3>
+                    <div className='place-order-infos'>
+                        <p><span>Items <small>(incl. VAT)</small>:</span><span>€{itemsPrice}</span></p>
+                        <p>Shipping:<span>€{shippingPrice}</span></p>
+                        <p><span>VAT <small>(tax)</small>:</span><span>€{taxPrice}</span></p>
+                        <p>Total:<span>€{totalPrice}</span></p>
                     </div>
+                    <ActionBtn
+                        type='button'
+                        className='btn-place-order'
+                        disabled={cart.cartItems.length === 0}
+                        onClickHandler={placeOrderHandler}
+                        text='Place order'
+                    >
+                        Place order
+                    </ActionBtn>
 
                     {error && <ErrorMsg message={error} />}
 
                 </div>
 
             </div>
+
+            <ActionLink path='/cart' className='back-to-cart-link'>
+                <i className='fas fa-shopping-cart' />
+                Back to cart
+            </ActionLink>
 
         </section>
     )

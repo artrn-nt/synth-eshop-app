@@ -173,7 +173,7 @@ const RegisterScreen = ({ history, location }) => {
                                 </div>
                             </div>
 
-                            <ActionBtn type='submit' className='register-btn' disabled={isSubmitting} text='Sign-up' />
+                            <ActionBtn type='submit' className='register-btn' disabled={isSubmitting}>Sign-up</ActionBtn>
 
                         </Form>
 

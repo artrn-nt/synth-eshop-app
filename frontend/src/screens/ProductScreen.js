@@ -12,12 +12,15 @@ import Spinner from '../components/utilities/Spinner'
 import { ErrorMsg } from '../components/utilities/Messages'
 import '../scss/screens/ProductScreen.scss'
 
+import * as colors from '../scss/config.module.scss'
+
 const ProductScreen = ({ match }) => {
 
     const dispatch = useDispatch()
 
     const productDetails = useSelector(state => state.productDetails)
     const { loading, error, product } = productDetails
+    console.log(colors)
 
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
@@ -37,7 +40,7 @@ const ProductScreen = ({ match }) => {
 
     useEffect(() => {
         if (!loading && !error && product) {
-            gsap.fromTo('.main-row-product', {
+            gsap.fromTo('.product-main-row', {
                 opacity: 0,
                 y: 38
             }, {
@@ -71,14 +74,14 @@ const ProductScreen = ({ match }) => {
 
             <ScreenTitle title={product.name} />
 
-            <div className={loading || loadingIds || error || errorIds ? 'main-row-product ctr' : 'main-row-product str'}>
+            <div className={loading || loadingIds || error || errorIds ? 'product-main-row ctr' : 'product-main-row str'}>
 
                 {loading || loadingIds ? <Spinner /> :
                     error || errorIds ? <ErrorMsg message={error || errorIds} /> :
 
                         <>
 
-                            <div className='col-1-product'>
+                            <div className='product-col-1'>
                                 <div className='img-wrapper'>
                                     <img src={product.image} alt={product.name} />
                                 </div>
@@ -121,7 +124,7 @@ const ProductScreen = ({ match }) => {
                                 </div>
                             </div>
 
-                            <div className='col-2-product'>
+                            <div className='product-col-2'>
                                 <div className='description-wrapper'>
                                     <span>{product.description_m}</span>
                                     <ul className='details-list-wrapper'>

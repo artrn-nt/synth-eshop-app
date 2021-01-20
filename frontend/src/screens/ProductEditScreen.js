@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import gsap from 'gsap'
+import * as yup from 'yup'
 // import axios from 'axios'
-import { Formik, Form, Field } from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProductDetails, updateProduct } from '../actions/productActions'
 import { PRODUCT_DETAILS_RESET, PRODUCT_UPDATE_RESET } from '../constants/productConstants'
@@ -31,12 +32,12 @@ const ProductEditScreen = ({ match, history }) => {
         price: 0,
         countInStock: 0,
         description_m: '',
-        features: [],
+        features: new Array(5).fill(''),
         imageURL: '',
         isPublished: false,
         uploading: false
     })
-    console.log(state)
+    // console.log(state)
 
     const dispatch = useDispatch()
 
@@ -187,10 +188,28 @@ const ProductEditScreen = ({ match, history }) => {
                                 price: product.price ? product.price : 0,
                                 countInStock: product.countInStock ? product.countInStock : 0,
                                 description_m: product.description_m ? product.description_m : '',
-                                features: product.features ? product.features : [],
+                                features: product.features ? product.features : new Array(5).fill(''),
                                 imageURL: product.image ? product.image : '',
                                 isPublished: product.isPublished ? product.isPublished : false
                             }}
+                            validationSchema={yup.object().shape({
+                                // userID: yup.string()
+                                //     .required('User ID is required'),
+                                name: yup.string()
+                                    .required('Product name is required'),
+                                brand: yup.string()
+                                    .required('Product brand is required'),
+                                price: yup.number()
+                                    .required('Product price is required'),
+                                countInStock: yup.number()
+                                    .required('Product stock quantity is required'),
+                                description_m: yup.string()
+                                    .required('Product main description is required'),
+                                features: yup.array()
+                                    .of(yup.string().required()),
+                                imageURL: yup.string()
+                                    .required('Product image url is required')
+                            })}
                             onSubmit={() => dispatch(updateProduct({
                                 _id: productID,
                                 user: state.userID,
@@ -205,7 +224,7 @@ const ProductEditScreen = ({ match, history }) => {
                                 isPublished: state.isPublished
                             }))}
                         >
-                            {({ isSubmitting, values, errors, touched, handleChange, handleSubmit }) => (
+                            {({ isSubmitting, values, touched, errors, handleChange, handleSubmit }) => (
                                 <div className='product-edit-form-container'>
                                     <Form
                                         name='product-edit'
@@ -222,6 +241,12 @@ const ProductEditScreen = ({ match, history }) => {
                                                 placeholder='Enter your user ID'
                                                 value={state.userID}
                                             />
+                                            <div className='form-err-msg-wrap'>
+                                                <ErrorMessage
+                                                    name='userID'
+                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
+                                                />
+                                            </div>
                                         </div>
 
                                         <div className='field-control'>
@@ -241,6 +266,12 @@ const ProductEditScreen = ({ match, history }) => {
                                                     }))
                                                 }}
                                             />
+                                            <div className='form-err-msg-wrap'>
+                                                <ErrorMessage
+                                                    name='name'
+                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
+                                                />
+                                            </div>
                                         </div>
 
                                         <div className='field-control'>
@@ -260,6 +291,12 @@ const ProductEditScreen = ({ match, history }) => {
                                                     }))
                                                 }}
                                             />
+                                            <div className='form-err-msg-wrap'>
+                                                <ErrorMessage
+                                                    name='brand'
+                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
+                                                />
+                                            </div>
                                         </div>
 
                                         <div className='form-group'>
@@ -455,6 +492,12 @@ const ProductEditScreen = ({ match, history }) => {
                                                     }))
                                                 }}
                                             />
+                                            <div className='form-err-msg-wrap'>
+                                                <ErrorMessage
+                                                    name='price'
+                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
+                                                />
+                                            </div>
                                         </div>
 
                                         <div className='field-control'>
@@ -474,6 +517,12 @@ const ProductEditScreen = ({ match, history }) => {
                                                     }))
                                                 }}
                                             />
+                                            <div className='form-err-msg-wrap'>
+                                                <ErrorMessage
+                                                    name='countInStock'
+                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
+                                                />
+                                            </div>
                                         </div>
 
                                         <div className='field-control'>
@@ -493,18 +542,24 @@ const ProductEditScreen = ({ match, history }) => {
                                                     }))
                                                 }}
                                             />
+                                            <div className='form-err-msg-wrap'>
+                                                <ErrorMessage
+                                                    name='description_m'
+                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
+                                                />
+                                            </div>
                                         </div>
 
                                         <InputFieldArray
-                                            valuesName='features'
-                                            currentValues={state.features}
-                                            valueName='feature'
+                                            value='features'
+                                            currentValue={state.features}
                                             handleChange={handleChange}
                                             onChangeHandler={onChangeHandler}
-                                            touched={touched.feature}
-                                            errors={[errors.features, errors.feature]}
                                             onClickHandlerAddItem={onClickHandlerAddItem}
                                             onClickHandlerRemoveItem={onClickHandlerRemoveItem}
+                                            touched={touched.features}
+                                            errors={errors.features}
+                                            errorMsg='Each feature must be fullfilled'
                                         />
 
                                         <div className='field-control'>
@@ -524,6 +579,12 @@ const ProductEditScreen = ({ match, history }) => {
                                                     }))
                                                 }}
                                             />
+                                            <div className='form-err-msg-wrap'>
+                                                <ErrorMessage
+                                                    name='imageURL'
+                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
+                                                />
+                                            </div>
                                         </div>
 
                                         {/* <div className='field-control'>
@@ -560,8 +621,9 @@ const ProductEditScreen = ({ match, history }) => {
                                             type='submit'
                                             className='edit-product-btn'
                                             disabled={isSubmitting}
-                                            text='Edit product'
-                                        />
+                                        >
+                                            Edit product
+                                        </ActionBtn>
 
                                     </Form>
 

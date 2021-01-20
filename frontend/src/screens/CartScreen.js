@@ -8,10 +8,13 @@ import CartItem from '../components/CartScreen/CartItem'
 import CheckoutTotal from '../components/CartScreen/CheckoutTotal'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import { ActionBtn } from '../components/utilities/ActionBtnLink'
+import useWindowSize from '../utils/useWindowSize'
 // import Message from '../components/utilities/Message'
 import '../scss/screens/CartScreen.scss'
 
 const CartScreen = ({ history }) => {
+
+    const size = useWindowSize()
 
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
@@ -31,7 +34,7 @@ const CartScreen = ({ history }) => {
                     duration: 0,
                     x: 22
                 })
-                .fromTo('.cart-container.full', {
+                .fromTo('.cart-container.filled', {
                     opacity: 0,
                     y: 38
                 }, {
@@ -93,38 +96,47 @@ const CartScreen = ({ history }) => {
                         </span>
                     </p>
                 </div>) :
-                (<div className='cart-container full'>
+                (<div className='cart-container filled'>
 
-                    <ul className='cart-items' ref={cartItemsListRef}>
-                        {cartItems.map(item => <CartItem
-                            key={item._id}
-                            _id={item._id}
-                            image={item.image}
-                            name={item.name}
-                            description_m={item.description_m}
-                            price={item.price}
-                            qty={item.qty}
-                            countInStock={item.countInStock}
-                            addToCartHandler={addToCartHandler}
-                            removeFromCartHandler={removeFromCartHandler}
-                            trashFromCartHandler={trashFromCartHandler} />
-                        )}
-                    </ul>
+                    <div className='customer-selection'>
+                        <span className='cart-header'>Your selection:</span>
+                        <ul className='cart-items' ref={cartItemsListRef}>
+                            {size.width > 790 && <div className='items-header'>
+                                <p>Product / Price per product</p>
+                                <p>
+                                    <span>Quantity</span>
+                                    <span>Total per product</span>
+                                </p>
+                            </div>}
+                            {cartItems.map(item => <CartItem
+                                key={item._id}
+                                _id={item._id}
+                                image={item.image}
+                                name={item.name}
+                                description_m={item.description_m}
+                                price={item.price}
+                                qty={item.qty}
+                                countInStock={item.countInStock}
+                                addToCartHandler={addToCartHandler}
+                                removeFromCartHandler={removeFromCartHandler}
+                                trashFromCartHandler={trashFromCartHandler} />
+                            )}
+                        </ul>
+                    </div>
 
-                    <div className='checkout'>
+                    <div className='subtotal-container'>
                         <CheckoutTotal
                             totalQty={cartItems.reduce((acc, item) => acc + item.qty, 0)}
                             totalPrice={cartItems.reduce((acc, item) => acc + (item.qty * item.price), 0).toFixed(2)}
                         />
                         <span>Shipping calculated at checkout</span>
-                        <div className='checkout-btns'>
-                            <ActionBtn
-                                type='button'
-                                className='btn-cart'
-                                onClickHandler={checkoutMemberHandler}
-                                text='Checkout'
-                            />
-                        </div>
+                        <ActionBtn
+                            type='button'
+                            className='btn-cart'
+                            onClickHandler={checkoutMemberHandler}
+                        >
+                            Checkout
+                        </ActionBtn>
                     </div>
                 </div>)
             }

@@ -1,34 +1,41 @@
-@import '../components//utilities/ScreenTitle.scss';
+@import '../config.module.scss';
+@import '../media-queries.module.scss';
 
-.info-container {
+.info-section {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  padding: 2.1rem 0;
+  // padding: 2.15rem 0;
+  padding: $padding-screen;
+  cursor: default;
 
   .info-content {
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: 2.1rem;
-    color: $greyish;
+    margin-top: 2.15rem;
+    font-size: 1.05rem;
+    color: $bright;
     opacity: 0;
 
-    p {
-      text-align: justify;
-      font-size: 1.05rem;
+    @include sm-screen {
+      font-size: .975rem;
     }
 
-    .clients {
+    p {
+      text-align: justify;     
+    }
+
+    .partners {
       display: flex;
       flex-direction: column;
-      margin-top: 2.1rem;
-      font-size: 1.05rem;
+      margin-top: 2.15rem;
 
       span {
-        margin-bottom: 0.7rem;
+        margin-bottom: 0.7875rem;
       }
 
       ul {
@@ -38,17 +45,20 @@
         justify-content: center;
         width: 100%;
 
-        a {
-          color: $greyish;
-          font-weight: 500;
-          transition: color 250ms ease-out;
+        li {
 
-          &:hover {
-            color: brown;
+          a {
+            color: $greyish;
+            font-weight: 500;
+            transition: color 250ms ease-out;
+  
+            &:hover {
+              color: $sub-theme;
+            }
           }
 
           &:not(:first-of-type) {
-            margin-top: 0.35rem;
+            margin-top: 0.4rem;
           }
         }
       }

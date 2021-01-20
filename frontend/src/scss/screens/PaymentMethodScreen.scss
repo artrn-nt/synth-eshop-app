@@ -1,20 +1,19 @@
-@import '../config.scss';
+@import '../config.module.scss';
+@import '../media-queries.module.scss';
 
 .payment-section {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     align-items: center;
     width: 100%;
-    min-height: calc(100vh - (139.6px + 4.6rem));
-    padding: 2.1rem 0 4.2rem;
-    // background-color: slateblue;
+    padding: $padding-screen;
 
     .payment-form-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        // margin-top: 2.1rem;
         margin-top: 3.15rem;
         flex-grow: 1;
         width: 420px;
@@ -23,13 +22,22 @@
         cursor: default;
         // background-color: slategray;
 
+        @include md-screen {
+            width: 100%;
+            max-width: 420px;
+          }
+
         h3 {
             width: 100%;
-            // margin-bottom: 2.1rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 3.15rem;
             font-size: 1.1rem;
             font-weight: 500;
+            text-align: center;
             // background-color: green;
+
+            @include sm-screen {
+                font-size: 1.025rem;
+            }
         }
 
         form {
@@ -37,10 +45,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            justify-content: space-between;
             width: 100%;
             flex-grow: 1;
-            // background-color: gray;
 
             .payment-group {
                 display: flex;
@@ -48,7 +54,7 @@
                 align-items: center;
                 justify-content: center;
                 width: 100%;
-                margin-bottom: 4.2rem;
+                margin-bottom: 3.15rem;
             }
         }
     }

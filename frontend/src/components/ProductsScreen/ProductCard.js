@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import '../../scss/components/ProductsScreen/ProductCard.scss'
 
 const ProductCard = ({ product }) => {
 
@@ -9,7 +10,7 @@ const ProductCard = ({ product }) => {
                 <img src={product.image} alt={product.name} />
             </Link>
 
-            <Link className='title-link' to={`/product/${product._id}`}>
+            <Link className='card-title-link' to={`/product/${product._id}`}>
                 <h4 className='card-title'>
                     <span>{product.name}</span>
                     <span>€{product.price.toFixed(2)}</span>

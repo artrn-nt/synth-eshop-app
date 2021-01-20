@@ -7,7 +7,7 @@ const CheckoutTotal = ({ totalQty, totalPrice }) => {
     const [priceTotal, setPriceTotal] = useState(0)
 
     useEffect(() => {
-        gsap.fromTo(['.checkout-subtotal', '.checkout-total'], {
+        gsap.fromTo(['.subtotal', '.total'], {
             opacity: 0
         }, {
             duration: .9,
@@ -20,8 +20,8 @@ const CheckoutTotal = ({ totalQty, totalPrice }) => {
 
     return (
         <>
-            <h3 className='checkout-subtotal'>Subtotal ({qtyTotal}) items</h3>
-            <span className='checkout-total'>€{priceTotal} <small>(VAT incl.)</small></span>
+            <span className='subtotal'>Subtotal ({qtyTotal}) items</span>
+            <span className='total'>€{priceTotal} <small>(VAT incl.)</small></span>
         </>
     )
 }

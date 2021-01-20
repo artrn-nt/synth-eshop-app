@@ -1,11 +1,13 @@
-@import '../../config.scss';
+@import '../../config.module.scss';
+@import '../../media-queries.module.scss';
 
 .lds-spinner {
-  color: official;
+  color: $bright;
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
+
 }
 
 .lds-spinner div {

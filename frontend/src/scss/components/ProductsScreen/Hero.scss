@@ -1,0 +1,293 @@
+@import '../../config.module.scss';
+@import '../../media-queries.module.scss';
+
+%carousel-title {
+  position: absolute;
+  top: 8.4px;
+  left: -12.6px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  z-index: 3;
+  cursor: default;
+
+  span:nth-of-type(1) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40.8px;
+    min-width: 200px;
+    padding: 0 16.8px;
+    margin-bottom: 6.4px; // 0.4rem
+    font-size: 17.2px; // 1.075rem
+    font-weight: 500;
+    text-align: center;
+    background-color: $sub-theme;
+    color: $bright;
+    border-radius: 2.5px 0 0 2.5px;
+
+    @include md-screen {
+      font-size: 16.4px; // 1.025rem
+    }
+  }
+
+  span:nth-of-type(2) {
+    display: flex;
+    align-items: center;
+    min-width: 265px;
+    min-height: 41.8px;
+    padding: 0 16.8px;
+    margin-left: calc(12.6px * 2);
+    background-color: $bright;
+    border-bottom-right-radius: 2.5px;
+    border-top-right-radius: 2.5px;
+    font-size: 18px; // 1.125rem
+
+    &:hover > .carousel-link {
+      color: $sub-theme;
+    }
+
+    @include md-screen {
+      font-size: 17.2px; // 1.075rem
+    }
+
+    .carousel-link {
+      display: block;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      color: $main-theme;
+      font-weight: 500;
+      transition: color 280ms ease-out;
+      opacity: 0;
+    }
+  }
+}
+
+%img-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+%img {
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  opacity: 0;
+  -moz-transform-origin: center;
+  -webkit-transform-origin: center;
+  transform-origin: center;
+}
+
+%carousel-btn {
+  position: absolute;
+  bottom: 12.6px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  // font-size: 0.85rem;
+  font-size: 13.6px;
+  background-color: $sub-theme;
+  color: $bright;
+  border: none;
+  transition: background-color 280ms ease-out, color 280ms ease-out;
+  cursor: pointer;
+}
+
+%carousel-btn-left {
+  @extend %carousel-btn;
+  left: -12.6px;
+  padding-right: 0.125rem;
+  border-top-left-radius: 2.5px;
+  border-bottom-left-radius: 2.5px;
+
+  i {
+    animation: chevron-anim-left 1.1s linear forwards infinite;
+  }
+}
+
+%carousel-btn-right {
+  @extend %carousel-btn;
+  right: -0.7875rem;
+  padding-left: 2px; // 0.125rem
+  border-top-right-radius: 2.5px;
+  border-bottom-right-radius: 2.5px;
+
+  i {
+    animation: chevron-anim-right 1.1s linear forwards infinite;
+  }
+}
+
+.products-hero {
+  position: relative;
+  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: $md-vertical-space;
+
+  @include sm-screen {
+    display: none;
+  }
+
+  .products-hero-inner {
+    position: relative;
+    width: 100%;
+    max-width: 684.4px; // 790px - 2 * 40px - 2 * 12.6px
+    min-height: calc(684.4px / 1.499);
+
+    .carousel-title {
+      @extend %carousel-title;
+    }
+
+    .carousel-btn-left {
+      @extend %carousel-btn-left;
+    }
+
+    .carousel-btn-right {
+      @extend %carousel-btn-right;
+    }
+
+    .products-carousel-outer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 3px;
+
+      .products-carousel {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 684.4px;
+        min-width: 684.4px;
+        min-height: calc(684.4px / 1.499);
+        background-color: rgba($color: $bright, $alpha: 0.015);
+
+        .products-carousel-inner {
+          display: block;
+          width: 100%;
+          min-height: inherit;
+
+          ol {
+            display: block;
+            width: 100%;
+            min-height: inherit;
+
+            .img-item-1,
+            .img-item-2,
+            .img-item-3 {
+              @extend %img-item;
+            }
+
+            .img-item-1 {
+              z-index: 2;
+            }
+
+            .img-item-2 {
+              z-index: 1;
+            }
+
+            .img-item-3 {
+              z-index: 0;
+            }
+
+            .img-1,
+            .img-2,
+            .img-3 {
+              @extend %img;
+            }
+          }
+        }
+
+        .dot-indicators {
+          position: absolute;
+          bottom: 12.6px;
+          left: 50%;
+          transform: translate3d(-50%, 0, 0);
+          z-index: 4;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          min-width: 75px;
+          padding: 4px;
+          overflow: visible;
+          // background-color: teal;
+
+          .dot {
+            display: block;
+            border: 1.2px solid $bright;
+            width: 11.2px;
+            height: 11.2px;
+            border-radius: 50%;
+            transform-origin: 'center center';
+            transition: background-color 280ms ease-out,
+              transform 280ms ease-out;
+
+            &.active {
+              background-color: $sub-theme;
+              -moz-transform: scale(1.15);
+              -webkit-transform: scale(1.15);
+              transform: scale(1.15);
+            }
+
+            &.inactive {
+              background-color: rgba($color: $main-theme, $alpha: 0.3875);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes chevron-anim-left {
+  0% {
+    transform: translateX(0%);
+  }
+  25% {
+    transform: translateX(-7.5%);
+  }
+  50% {
+    transform: translateX(-15%);
+  }
+  75% {
+    transform: translateX(7.5%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes chevron-anim-right {
+  0% {
+    transform: translateX(0%);
+  }
+  25% {
+    transform: translateX(7.5%);
+  }
+  50% {
+    transform: translateX(15%);
+  }
+  75% {
+    transform: translateX(-7.5%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}

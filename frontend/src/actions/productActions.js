@@ -21,6 +21,7 @@ import {
     PRODUCT_UPDATE_FAIL
 } from '../constants/productConstants'
 
+// Get all products
 export const listProducts = () => async (dispatch) => {
     try {
         dispatch({ type: PRODUCTS_LIST_REQUEST })

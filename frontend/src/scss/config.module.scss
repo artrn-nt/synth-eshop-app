@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap');
+
+// colors - theme
+$main-theme: #292d2f;
+$sub-theme: #a52a2a;
+$bright: #edf3f5;
+$greyish: #8c8c8c;
+
+$title-font: 'Cinzel Decorative', cursive;
+$content-font: 'Cinzel', serif;
+
+// font-sizes - abs
+$sm-font-size: 14.8px; // .925rem small screens
+$md-font-size: 16px; // 1rem
+
+// global app min-width
+$app-min-width: 320px;
+
+$xs-space: 12.6px; // .7875rem
+$md-vertical-space: 34.4px; // 2.15rem
+$md-space: 34.4px; // 2.15rem
+$lg-vertical-space: 68.8px; // 4.3rem
+$lg-space: 68.8px; // 4.3rem
+$sm-space: 12.6px; // .7875rem
+
+// 100vh - header height + footer height
+$min-height-screen: calc(100vh - (258.2px + 67.8px)); // logged
+// $min-height-screen: calc(100vh - (254px + 67.8px)); // not logged
+// $padding-screen: 2.15rem 0 4.3rem;
+$padding-screen: 34.4px 0 68.8px;
+
+// layout padding left right
+$sm-layout-padding: 1.6125rem;
+$md-layout-padding: 40px; // 2.5rem
+$default-layout-padding: 40px; // 2.5rem
+
+// carousel
+// img ratio
+$carousel-img-ratio: 1.499;
+// carousel btns offset
+$sm-carousel-btns-offset: 0.7875rem;
+$default-carousel-btns-offset: 0.7875rem;
+
+:export {
+  // colors -theme
+  mainTheme: $main-theme;
+  subTheme: $sub-theme;
+  bright: $bright;
+  greyish: $greyish;
+
+  // global app min-width
+  appMinWidth: $app-min-width;
+
+  // layout padding
+  smLayoutPadding: $sm-layout-padding;
+  defaultLayoutPadding: $default-layout-padding;
+
+  // carousel img size ratio
+  ratio: $carousel-img-ratio;
+}

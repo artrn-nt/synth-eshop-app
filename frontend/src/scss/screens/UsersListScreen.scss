@@ -1,24 +1,21 @@
-@import '../config.scss';
+@import '../config.module.scss';
+@import '../media-queries.module.scss';
 
 .users-list-section {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     align-items: center;
     width: 100%;
-    min-height: calc(100vh - (142.5px + 4.6rem));
-    padding: 2.1rem 0 3.15rem;
-    // padding: 2.1rem 0;
+    padding: $padding-screen;
 
     .users-list-main-row {
-        // position: relative;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
-        // padding: 0 3.15rem;
         width: 100%;
         flex-grow: 1;
-        margin-top: 3.15rem;
-        // background-color: orange;
+        margin-top: 2.15rem;
         
         &.ctr {
             align-items: center;
@@ -28,6 +25,40 @@
             align-items: flex-start;
         }
 
+        .stats-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 1rem 0;
+            margin-bottom: 2.15rem;
+            opacity: 0;
+            
+            .stats-card {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: .925rem;
+                border: 1.2px solid $bright;
+                border-radius: 4px;
+                color: $bright;
+                font-size: 1.05rem;
+                font-weight: 500;
+                text-align: center;
+                cursor: default;
+
+                @include sm-screen {
+                    padding: .775rem;
+                    max-width: calc(320px - 2 * 1.6125rem);
+                    font-size: .975rem;
+                }
+
+                i {
+                    margin-right: .625rem;
+                }
+            }
+        }
+
         .users-list-table {
             width: 100%;
             border-collapse: collapse;
@@ -35,10 +66,18 @@
             overflow: hidden;
             opacity: 0;
             cursor: default;
+
+            @include lg-screen {
+                display: block;
+            }
   
             thead {
               height: 3.15rem;
               background-color: lighten($greyish, 9%);
+
+              @include lg-screen {
+                  display: none;
+              }
   
                 tr {
                     color: $bright;
@@ -47,7 +86,10 @@
                         font-size: 1rem;
                         font-weight: 500;
 
-                        &:nth-of-type(2), &:nth-of-type(3), &:nth-of-type(4), &:nth-of-type(5) {
+                        &:nth-of-type(2), 
+                        &:nth-of-type(3),
+                        &:nth-of-type(4),
+                        &:nth-of-type(5) {
                             position: relative;
 
                             &::before {
@@ -67,6 +109,9 @@
             }
   
             tbody {
+                @include lg-screen {
+                    display: block;
+                }
   
                 tr {
                     font-size: .95rem;
@@ -74,6 +119,73 @@
                     text-align: center;
                     vertical-align: center;
                     transition: background-color 280ms ease-out;
+
+                    @include lg-screen {
+                        display: block;
+                        height: auto;
+                        padding: .7875rem;
+                    }
+
+                    @include sm-screen {
+                        font-size: .875rem;
+                    }
+
+                    td {
+                        @include lg-screen {
+                            display: block;
+                            position: relative;
+                            padding-left: 50%; 
+                            line-height: 20px;
+                          
+                            &:not(:last-of-type) {
+                                margin-bottom: .7875rem;
+                            }
+            
+                            &::before {
+                                position: absolute;
+                                top: 0;
+                                left: 25%;
+                                height: 20px;
+                                transform: translateX(-50%);
+                                font-weight: 500;
+                                color: $greyish;
+            
+                                @include md-screen {
+                                    left: 0;
+                                    transform: unset;
+                                }
+                            }
+        
+                            &:nth-of-type(1)::before { content: 'USER ID'; }
+                            &:nth-of-type(2)::before { content: 'NAME'; }
+                            &:nth-of-type(3)::before { content: 'EMAIL'; }
+                            &:nth-of-type(4)::before { content: 'ADMIN'; }
+                            &:nth-of-type(5)::before { content: 'EDIT'; }
+                            &:nth-of-type(6)::before { content: 'DEL'; }
+                        }
+                    }
+
+                    td:nth-of-type(1),
+                    td:nth-of-type(2) {
+                        word-wrap: break-word;
+                        overflow-wrap: break-word;
+                    }
+
+                    td:nth-of-type(3) {
+                        a {
+                            word-wrap: break-word;
+                            overflow-wrap: break-word;
+                            width: 100%;
+                            height: 2.65rem;
+                            color: $main-theme;
+                            // padding: .2rem .5rem;
+                            transition: color 280ms ease-out;
+
+                            &:hover {
+                                color: $sub-theme;
+                            }
+                        }
+                    }
 
                     td:nth-of-type(5) {
                         height: 100%;
@@ -84,39 +196,11 @@
                 tr:nth-child(2n + 1) {
                     background-color: $bright;
                     color: $main-theme;
-
-                    td:nth-of-type(3) {
-                        a {
-                            width: 100%;
-                            height: 2.65rem;
-                            color: $main-theme;
-                            padding: .2rem .5rem;
-                            transition: color 280ms ease-out;
-
-                            &:hover {
-                                color: brown;
-                            }
-                        }
-                    }
                 }
 
                 tr:nth-child(2n) {
                     background-color: lighten($greyish, 31.5%);
                     color: $main-theme;
-
-                    td:nth-of-type(3) {
-                        a {
-                            width: 100%;
-                            height: 2.65rem;
-                            color: $main-theme;
-                            padding: .2rem .5rem;
-                            transition: color 280ms ease-out;
-
-                            &:hover {
-                                color: brown;
-                            }
-                        }
-                    }
                 }
             }
         }

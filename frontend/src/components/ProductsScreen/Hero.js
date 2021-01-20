@@ -1,201 +1,293 @@
 import React, { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import { CSSTransition } from 'react-transition-group'
 import { Link } from 'react-router-dom'
+import '../../scss/components/ProductsScreen/Hero.scss'
+import config from '../../scss/config.module.scss'
 
-const Hero = ({ latestProducts }) => {
+const CarouselTitle = ({ count, mod, state, carouselProducts, countInit, delayInit }) => {
 
+    const elClassName = 'carousel-link'
+    const tl = useRef(null)
+
+    useEffect(() => {
+        tl.current = gsap.timeline()
+            .fromTo(`.${elClassName}`, {
+                autoAlpha: 0,
+            }, {
+                autoAlpha: 1,
+                duration: delayInit,
+                ease: 'power1.in'
+            })
+            .fromTo(`.${elClassName}`, {
+                autoAlpha: 1,
+            }, {
+                autoAlpha: 0,
+                delay: countInit - delayInit,
+                duration: delayInit,
+                ease: 'power1.out'
+            })
+
+        return () => {
+            tl.current.kill()
+            tl.current = null
+        }
+
+    }, [state, countInit, delayInit])
+
+    return (
+        <h3 className='carousel-title'>
+            <span>Latest arrivals</span>
+            <span>
+                <Link
+                    className='carousel-link'
+                    to={count === null ?
+                        `/product/${carouselProducts[0]._id}` : mod === null ?
+                            `/product/${carouselProducts[1]._id}` : `/product/${carouselProducts[mod]._id}`}
+                >
+                    {count === null ? carouselProducts[0].name : mod === null ?
+                        carouselProducts[1].name : carouselProducts[mod].name}
+                </Link>
+            </span>
+        </h3>
+    )
+}
+
+const CarouselBtn = ({ btnClassName, iClassName, clickHandler, disabled }) => {
+
+    const [entered, setEntered] = useState(false)
+
+    return (
+        <button
+            className={btnClassName}
+            onClick={() => {
+                if (!disabled) clickHandler()
+            }}
+            onMouseEnter={() => setEntered(true)}
+            onMouseLeave={() => setEntered(false)}
+            style={{
+                backgroundColor: entered ? config.bright : config.subTheme,
+                color: entered ? config.mainTheme : config.bright
+            }}
+        >
+            <i
+                className={iClassName}
+                style={{ animationPlayState: entered ? 'running' : 'paused' }}
+            />
+        </button>
+    )
+}
+
+const Hero = ({ carouselProducts, mounted }) => {
+
+    const [count, setCount] = useState(null)
+    const [mod, setMod] = useState(null)
     const [state, setState] = useState({
-        isActive1: true,
-        isActive2: false,
-        isActive3: false
+        isActive1: null,
+        isActive2: null,
+        isActive3: null
     })
 
-    const [latest, setLatest] = useState(false)
+    const [forwards, setForwards] = useState(null)
+    const [disabled, setDisabled] = useState(false)
 
-    useEffect(() => {
-        if (latestProducts.length !== 0) setLatest(true)
-    }, [latestProducts])
+    const imgRef = useRef([])
+    const interval = useRef(null), timeOut_1 = useRef(null), timeOut_2 = useRef(null)
 
-    useEffect(() => {
-        console.log(latest)
-        if (latest) {
-            setState({
-                isActive1: true,
-                isActive2: false,
-                isActive3: false
-            })
-        }
-    }, [latest, latestProducts])
-
-    const countInit = 8.5
-    const [count, setCount] = useState(0)
-    const [mod, setMod] = useState(0)
-    const [entered, setEntered] = useState(null)
-
-    const interval = useRef(null), timeout = useRef(null)
+    const countInit = 7.5
+    const delayInit = .85
 
     useEffect(() => {
 
-        if (entered === null) {
-
+        if (carouselProducts.length !== 0 && typeof carouselProducts !== 'undefined') {
             interval.current = setInterval(() => {
                 setCount(prevState => ++prevState)
             }, countInit * 1000)
 
-        } if (entered) {
-
-            clearInterval(interval.current)
-            interval.current = null
-
-            gsap.fromTo(['.link-wrap-1, .link-wrap-2, .link-wrap-3'], {
-                y: '100%'
-            }, {
-                y: 0,
-                duration: .6,
-                ease: 'power4.out'
-            })
-
-        } else if (!entered && entered !== null) {
-
-            setTimeout(() => {
-                setCount(prevState => ++prevState)
-                interval.current = setInterval(() => {
-                    setCount(prevState => ++prevState)
-                }, countInit * 1000)
-
-            }, 2500)
-
-            gsap.fromTo(['.link-wrap-1, .link-wrap-2, .link-wrap-3'], {
-                y: 0
-            }, {
-                y: '100%',
-                duration: .6,
-                ease: 'power4.out'
-            })
-
+            timeOut_2.current = setTimeout(() => {
+                mounted()
+            }, 200)
         }
 
         return () => {
             clearInterval(interval.current)
             interval.current = null
-            clearTimeout(timeout.current)
-            timeout.current = null
+            clearTimeout(timeOut_1.current)
+            timeOut_1.current = null
+            clearTimeout(timeOut_2.current)
+            timeOut_2.current = null
         }
 
-    }, [entered])
+    }, [carouselProducts])
 
     useEffect(() => {
-        setMod(count % 3)
+        if (count !== null) {
+            setMod(count % 3)
+        }
     }, [count])
 
     useEffect(() => {
-        setState({
-            isActive1: mod === 0 ? true : false,
-            isActive2: mod === 1 ? true : false,
-            isActive3: mod === 2 ? true : false
-        })
+        if (mod !== null) {
+            setState({
+                isActive1: mod === 0 ? true : false,
+                isActive2: mod === 1 ? true : false,
+                isActive3: mod === 2 ? true : false
+            })
+        }
     }, [mod])
 
-    if (!latest) return null
+    const fadeIn = (item) => {
+        gsap.fromTo(item, {
+            autoAlpha: 0,
+            delay: delayInit
+        }, {
+            autoAlpha: 1,
+            duration: delayInit,
+            ease: 'power1.in'
+        })
+    }
+
+    const fadeOut = (item, setForwards) => {
+        gsap.fromTo(item, {
+            autoAlpha: 1
+        }, {
+            autoAlpha: 0,
+            duration: delayInit,
+            ease: 'power1.out',
+            onComplete: setForwards ? () => setForwards : null
+        })
+    }
+
+    const onClickHandler = (direction) => {
+
+        setDisabled(true)
+
+        clearInterval(interval.current)
+        interval.current = null
+
+        interval.current = setInterval(() => {
+            setCount(prevState => ++prevState)
+        }, countInit * 1000)
+
+        timeOut_1.current = setTimeout(() => {
+            setDisabled(false)
+        }, delayInit * 1000)
+
+        if (direction === 'right') {
+            setForwards(true)
+            setCount(prevState => ++prevState)
+        } else {
+            setForwards(false)
+            setCount(prevState => prevState === 0 ? carouselProducts.length : --prevState)
+        }
+    }
+
+    useEffect(() => {
+        if (carouselProducts.length !== 0 && typeof carouselProducts !== 'undefined' && state.isActive1 !== null) {
+
+            if (imgRef.current.some(img => img.className.includes('forward'))) {
+                if (state.isActive1) {
+                    fadeOut('.img-3.forwards')
+                    fadeIn('.img-1.forwards')
+                    gsap.set('.img-2.forwards', { autoAlpha: 0 })
+                } else if (state.isActive2) {
+                    fadeOut('.img-1.forwards')
+                    fadeIn('.img-2.forwards')
+                    gsap.set('.img-3.forwards', { autoAlpha: 0 })
+                } else if (state.isActive3) {
+                    fadeOut('.img-2.forwards')
+                    fadeIn('.img-3.forwards')
+                    gsap.set('.img-1.forwards', { autoAlpha: 0 })
+                }
+            } else {
+                if (state.isActive1) {
+                    fadeOut('.img-2.backwards', setForwards(true))
+                    fadeIn('.img-1.backwards')
+                    gsap.set('.img-3.backwards', { autoAlpha: 0 })
+                } else if (state.isActive2) {
+                    fadeOut('.img-3.backwards', setForwards(true))
+                    fadeIn('.img-2.backwards')
+                    gsap.set('.img-1.backwards', { autoAlpha: 0 })
+                } else if (state.isActive3) {
+                    fadeOut('.img-1.backwards', setForwards(true))
+                    fadeIn('.img-3.backwards')
+                    gsap.set('.img-2.backwards', { autoAlpha: 0 })
+                }
+            }
+
+        } else if (carouselProducts.length !== 0 && typeof carouselProducts !== 'undefined' && state.isActive1 === null) {
+            fadeIn('.img-1')
+        }
+    }, [carouselProducts, state])
+
+    if (carouselProducts.length === 0 || typeof carouselProducts === 'undefined') return null
 
     return (
         <div className='products-hero'>
-            <div
-                className='products-carousel-wrapper'
-                onMouseEnter={() => setEntered(prevState => !prevState)}
-                onMouseLeave={() => setEntered(prevState => !prevState)}
-            >
-                <h3 className='carousel-title'><span>Latest arrivals:</span> Moog semi-modular synthesizers</h3>
-                <div className='products-carousel'>
-                    {latestProducts.map((product, index) => (
-                        <CSSTransition
-                            key={product._id}
-                            in={Object.values(state)[index]}
-                            timeout={1500}
-                            classNames={`img-wrapper-${index + 1}`}>
-                            <div
-                                className={`img-wrapper-${index + 1}`}
-                                style={{
-                                    right: Object.values(state)[index] ? 'unset' : 0,
-                                    opacity: Object.values(state)[index] ? 1 : 0
-                                }}>
-                                <img
-                                    src={product.image_c}
-                                    alt={product.name}
+
+            <div className='products-hero-inner'>
+
+                <CarouselTitle
+                    count={count}
+                    mod={mod}
+                    state={state}
+                    carouselProducts={carouselProducts}
+                    countInit={countInit}
+                    delayInit={delayInit}
+                />
+
+                <div className='products-carousel-outer'>
+
+                    <div className='products-carousel'>
+
+                        <div className='products-carousel-inner'>
+                            <ol>
+                                {carouselProducts.map((product, index) => (
+                                    <li
+                                        key={product._id}
+                                        className={`img-item-${index + 1}`}
+                                    >
+                                        <img
+                                            className={forwards || forwards === null ? `img-${index + 1} forwards` : `img-${index + 1} backwards`}
+                                            src={product.image_c}
+                                            alt={product.name}
+                                            ref={el => imgRef.current[index] = el}
+                                        />
+                                    </li>
+                                ))}
+                            </ol>
+                        </div>
+
+                        <div className='dot-indicators'>
+                            {carouselProducts.map((product, index) => (
+                                <span
+                                    key={product._id}
+                                    className={index === 0 && Object.values(state)[index] === null ?
+                                        'dot active' : Object.values(state)[index] ?
+                                            'dot active' : 'dot inactive'}
                                 />
-                            </div>
-                        </CSSTransition>
-                    ))}
-
-                    {latestProducts.map((product, index) => (
-                        <div
-                            className={`link-wrap-${index + 1}`}
-                            key={product._id}
-                            style={{ display: Object.values(state)[index] ? 'flex' : 'none' }}>
-                            <Link
-                                to={`/product/${product._id}`}
-                                className='carousel-link'
-                            >
-                                <h4>{product.name}</h4>
-                                <p>{product.description_c}</p>
-                            </Link>
+                            ))}
                         </div>
-                    ))}
 
-                    {/* <CSSTransition in={state.isActive1} timeout={1500} classNames='img-wrapper-1'>
-                        <div
-                            className='img-wrapper-1'
-                            style={{
-                                right: state.isActive1 ? 'unset' : 0,
-                                opacity: state.isActive1 ? 1 : 0,
-                                // opacity: 1,
-                                // left: 0
-                            }}>
-                            <img
-                                src='images/latest_moog_subharmonicon_2.jpg'
-                                // alt={latestProducts[0].name}
-                                // src='images/latest_moog_subharmonicon_2.jpg'
-                                alt='Moog'
-                            />
-                        </div>
-                    </CSSTransition>
-
-                    <CSSTransition in={state.isActive2} timeout={1500} classNames='img-wrapper-2'>
-                        <div
-                            className='img-wrapper-2'
-                            style={{
-                                right: state.isActive2 ? 'unset' : 0,
-                                opacity: state.isActive2 ? 1 : 0
-                            }}>
-                            <img
-                                src='images/latest_moog_werkstatt_2.jpg'
-                                alt='moog'
-                            />
-                        </div>
-                    </CSSTransition>
-
-                    <CSSTransition in={state.isActive3} timeout={1500} classNames='img-wrapper-3'>
-                        <div
-                            className='img-wrapper-2'
-                            style={{
-                                right: state.isActive3 ? 'unset' : 0,
-                                opacity: state.isActive3 ? 1 : 0
-                            }}>
-                            <img
-                                src='images/latest_moog_mother.jpg'
-                                alt='moog'
-                            />
-                        </div>
-                    </CSSTransition> */}
+                    </div>
 
                 </div>
-                <div className='dot-indicators'>
-                    {latestProducts.map((product, index) => (
-                        <span key={product._id} className={Object.values(state)[index] ? 'dot active' : 'dot inactive'} />
-                    ))}
-                </div>
+
+                <CarouselBtn
+                    btnClassName='carousel-btn-left'
+                    iClassName='fas fa-chevron-left'
+                    clickHandler={() => onClickHandler('left')}
+                    disabled={disabled}
+                />
+
+                <CarouselBtn
+                    btnClassName='carousel-btn-right'
+                    iClassName='fas fa-chevron-right'
+                    clickHandler={() => onClickHandler('right')}
+                    disabled={disabled}
+                />
+
             </div>
+
         </div>
     )
 }

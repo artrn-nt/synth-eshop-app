@@ -1,9 +1,10 @@
-@import '../config.scss';
+@import '../config.module.scss';
+@import '../media-queries.module.scss';
 
 %input {
     width: 100%;
     height: 2.65rem;
-    padding: 0 42px 0 .8rem;
+    padding: 0 .8rem;
     border: 1.4px solid transparent;
     border-radius: 4px;
     background-color: $bright;
@@ -11,15 +12,19 @@
     font-size: 0.95rem;
     font-weight: 500;
     color: $main-theme;
+
+    @include sm-screen {
+        font-size: .875rem;
+    }
 }
 
 .user-edit-section {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     align-items: center;
     width: 100%;
-    min-height: calc(100vh - (142.5px + 4.6rem));
-    padding: 2.1rem 0 3.15rem;
+    padding: $padding-screen;
 
     .user-edit-main-col {
         display: flex;
@@ -46,6 +51,11 @@
             color: $bright;
             opacity: 0;
             cursor: default;
+
+            @include md-screen {
+                width: 100%;
+                max-width: 420px;
+            }
 
             form {
                 display: flex;
@@ -77,6 +87,10 @@
                             height: 1.4px;
                             width: 70%;
                             background-color: $sub-theme;
+                        }
+
+                        @include sm-screen {
+                            font-size: .925rem;
                         }
                     }
           

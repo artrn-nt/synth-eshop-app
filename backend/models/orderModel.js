@@ -14,6 +14,7 @@ const orderSchema = mongoose.Schema({
                 ref: 'Product'
             },
             name: { type: String, required: true },
+            description_m: { type: String, required: true },
             price: { type: Number, required: true },
             qty: { type: Number, required: true },
             image: { type: String, required: true }

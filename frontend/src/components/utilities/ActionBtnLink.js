@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import '../../scss/components/utilities/ActionBtnLink.scss'
 
-const ActionBtn = ({ children, type, className, disabled, onClickHandler, text }) => {
+const ActionBtn = ({ children, type, className, disabled, onClickHandler }) => {
     return (
         <button
             type={type}
@@ -11,7 +11,6 @@ const ActionBtn = ({ children, type, className, disabled, onClickHandler, text }
             onClick={onClickHandler}
         >
             {children}
-            {text}
         </button>
     )
 }

@@ -5,7 +5,7 @@ import { PayPalButton } from 'react-paypal-button-v2'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOrderDetails, payOrder } from '../actions/orderActions'
 import { ORDER_PAY_RESET, ORDER_CREATE_RESET } from '../constants/orderConstants'
-import OrderItem from '../components/PlaceOrderScreen/OrderItem'
+import OrderItem from '../components/utilities/OrderItem'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import CheckoutSteps from '../components/utilities/CheckoutSteps'
 import { ErrorMsg } from '../components/utilities/Messages'
@@ -166,27 +166,23 @@ const OrderStatusScreen = ({ match, history }) => {
 
                             </div>
 
-                            <div className='order-status-col-2'>
-
-                                <div className='order-status'>
-                                    <h3>Order summary</h3>
-                                    <div className='order-status-infos'>
-                                        <p><span>Items <small>(incl. VAT)</small>:</span><span>€{order.itemsPrice}</span></p>
-                                        <p>Shipping:<span>€{order.shippingPrice}</span></p>
-                                        <p><span>VAT <small>(tax)</small>:</span><span>€{order.taxPrice}</span></p>
-                                        <p>Total:<span>€{order.totalPrice}</span></p>
-                                    </div>
-
-                                    {!order.isPaid && (
-                                        <>
-                                            {loadingPay && <Spinner />}
-                                            {!sdkReady ?
-                                                <Spinner /> :
-                                                <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} />}
-                                        </>
-                                    )}
-
+                            <div className='order-status-summary'>
+                                <h3>Order summary</h3>
+                                <div className='order-status-infos'>
+                                    <p><span>Items <small>(incl. VAT)</small>:</span><span>€{order.itemsPrice}</span></p>
+                                    <p>Shipping:<span>€{order.shippingPrice}</span></p>
+                                    <p><span>VAT <small>(tax)</small>:</span><span>€{order.taxPrice}</span></p>
+                                    <p>Total:<span>€{order.totalPrice}</span></p>
                                 </div>
+
+                                {!order.isPaid && (
+                                    <div className='payment-btn-wrap' style={{ backgroundColor: loadingPay || !sdkReady ? '#292d2f' : '#edf3f5' }}>
+                                        {loadingPay && <Spinner />}
+                                        {!sdkReady ?
+                                            <Spinner /> :
+                                            <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} />}
+                                    </div>
+                                )}
 
                             </div>
 

@@ -1,0 +1,123 @@
+@import '../config.module.scss';
+@import '../media-queries.module.scss';
+
+%input {
+  width: 100%;
+  height: 2.65rem;
+  padding: 0 .8rem;
+  margin-bottom: .75rem;
+  border: 1.4px solid transparent;
+  border-radius: 4px;
+  background-color: $bright;
+  font-family: $content-font;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: $main-theme;
+  
+  @include sm-screen {
+    font-size: .875rem;
+  }
+}
+
+.shipping-section {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  width: 100%;
+  padding: $padding-screen;
+
+  .shipping-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 3.15rem;
+    flex-grow: 1;
+    width: 420px;
+    color: $bright;
+    opacity: 0;
+    cursor: default;
+
+    @include md-screen {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+
+      .field-control {
+        display: flex;
+        flex-flow: column;
+        align-items: flex-start;
+        width: 100%;
+        min-height: 132.5px;
+        // background-color: burlywood;
+
+        &:nth-of-type(8) {
+          margin-bottom: 2.1rem;
+        }
+
+        label {
+          margin-bottom: 0.75rem;
+          font-size: 1.1rem;
+          font-weight: 500;
+
+          @include sm-screen {
+            font-size: 1.025rem;
+          }
+
+          span {
+            margin-left: .5rem;
+            font-size: .9rem;
+            font-weight: 400;
+            color: $greyish;
+
+            @include sm-screen {
+              font-size: .825rem;
+            }
+          }
+        }
+
+        #firstname,
+        #lastname,
+        #address,
+        #address-details,
+        #zipcode,
+        #city,
+        #country,
+        #phone {
+          @extend %input;
+        }
+
+        .form-alert {
+          width: 100%;
+          padding-left: .8rem;
+          font-size: .85rem;
+          font-weight: 600;
+          text-align: left;
+          color: $sub-theme;
+          animation: fadeIn .6s ease-in-out;
+
+          @include sm-screen {
+            font-size: .775rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

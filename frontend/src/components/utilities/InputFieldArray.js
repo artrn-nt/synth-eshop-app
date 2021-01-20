@@ -1,57 +1,39 @@
-import React, { useState, useEffect } from 'react'
-import { Field, FieldArray, ErrorMessage } from 'formik'
+import React, { useState } from 'react'
+import { Field, FieldArray } from 'formik'
 import '../../scss/components/utilities/InputFieldArray.scss'
 
-const InputFieldArray = ({ valuesName, currentValues, valueName, handleChange, onChangeHandler, errors, touched, onClickHandlerAddItem, onClickHandlerRemoveItem }) => {
+const InputFieldArray = ({ value, currentValue, handleChange, onChangeHandler, onClickHandlerAddItem, onClickHandlerRemoveItem, touched, errors, errorMsg }) => {
 
     const [alert, setAlert] = useState({
         show: false,
         text: ''
     })
 
-    const [emptyField, setEmptyField] = useState(null)
-
-    // useEffect(() => {
-    //     console.log('mounted')
-    // }, [errors])
-
-    useEffect(() => {
-        // if (typeof errors[0] === 'undefined' && typeof errors[1] === 'undefined' && typeof touched !== 'undefined') setEmptyField(false)
-        // else if ((typeof errors[0] !== 'undefined' && typeof errors[1] === 'undefined' && typeof touched !== 'undefined') || (errors[1] && typeof touched !== 'undefined')) setEmptyField(true)
-        if (typeof errors[0] === 'undefined' && typeof touched !== 'undefined') setEmptyField(false)
-        else if (typeof errors[0] !== 'undefined' && typeof touched !== 'undefined') setEmptyField(true)
-    }, [errors, touched])
-
-    // useEffect(() => {
-    //     console.log(currentValues)
-    //     console.log(errors[0])
-    // }, [currentValues, errors])
-
-    // console.log(currentValues)
-    // console.log(errors[0])
-    // console.log('touched: ' + touched)
-    // console.log(emptyField)
+    // console.log(errors)
+    // console.log(touched)
 
     return (
         <div className='field-array-control'>
-            <label htmlFor={valuesName}>{valuesName[0].toUpperCase() + valuesName.slice(1)}</label>
+            <label htmlFor={value}>{value[0].toUpperCase() + value.slice(1)}</label>
             <FieldArray
-                name={valuesName}
-                id={valuesName}
+                name={value}
+                id={value}
                 render={arrayHelpers => (
                     <>
-                        {currentValues && currentValues.length > 0 && (
+                        {currentValue && currentValue.length > 0 && (
                             <ol>
-                                {currentValues.map((values, index) => (
+                                {currentValue.map((val, index) => (
                                     <li key={index}>
                                         <span>{index + 1}</span>
                                         <Field
                                             type='text'
-                                            name={valueName}
-                                            id={valueName}
+                                            // name={`${value}[${index}]`}
+                                            name={`${value}.${index}`}
+                                            // id={`${value}[${index}]`}
+                                            id={`${value}.${index}`}
                                             autoComplete='off'
-                                            placeholder={`Enter product ${valueName}`}
-                                            value={currentValues[index]}
+                                            placeholder='Enter product feature'
+                                            value={currentValue[index]}
                                             onChange={ev => {
                                                 handleChange(ev)
                                                 onChangeHandler(ev, index)
@@ -68,14 +50,15 @@ const InputFieldArray = ({ valuesName, currentValues, valueName, handleChange, o
                                 type='button'
                                 className='add-item'
                                 onClick={() => {
-                                    if (currentValues.length < 32) {
+                                    if (currentValue.length < 32) {
                                         setAlert({ show: false })
-                                        arrayHelpers.insert(currentValues.length - 1, '')
+                                        // arrayHelpers.insert(currentValue.length - 1, '')
+                                        arrayHelpers.push('')
                                         onClickHandlerAddItem()
                                     } else {
                                         setAlert({
                                             show: true,
-                                            text: 'A maximum of 32 features can be entered'
+                                            text: `A maximum of 32 ${value} can be entered`
                                         })
                                     }
                                 }}
@@ -87,14 +70,14 @@ const InputFieldArray = ({ valuesName, currentValues, valueName, handleChange, o
                                 type='button'
                                 className='remove-item'
                                 onClick={() => {
-                                    if (currentValues.length > 5) {
+                                    if (currentValue.length > 5) {
                                         setAlert({ show: false })
-                                        arrayHelpers.remove(currentValues.length - 1)
+                                        arrayHelpers.remove(currentValue.length - 1)
                                         onClickHandlerRemoveItem()
                                     } else {
                                         setAlert({
                                             show: true,
-                                            text: 'A minimum of 5 features must be entered'
+                                            text: `A minimum of 5 ${value} must be entered`
                                         })
                                     }
                                 }}
@@ -107,6 +90,13 @@ const InputFieldArray = ({ valuesName, currentValues, valueName, handleChange, o
                     </>
                 )}
             />
+
+            <div className='form-err-msg-wrap'>
+                {/* {typeof errors !== 'undefined' && <span className='form-err-msg'>{errorMsg}</span>} */}
+                {typeof errors !== 'undefined' && typeof touched !== 'undefined' && <span className='form-err-msg'>{errorMsg}</span>}
+                {alert.show && <span className='length-err-msg'>{alert.text}</span>}
+            </div>
+
         </div>
     )
 }

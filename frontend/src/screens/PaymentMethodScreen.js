@@ -90,8 +90,11 @@ const PaymentMethodScreen = ({ history }) => {
 
                             </div>
 
-                            <ActionBtn type='submit' className='btn-checkout-step2' disabled={isSubmitting} text='Continue' />
-                            <ActionLink path='/cart' className='back-to-cart-link' text='Back to cart' />
+                            <ActionBtn type='submit' className='btn-checkout-step' disabled={isSubmitting}>Continue</ActionBtn>
+                            <ActionLink path='/cart' className='back-to-cart-link'>
+                                <i className='fas fa-shopping-cart' />
+                                Back to cart
+                            </ActionLink>
 
                         </Form>
 

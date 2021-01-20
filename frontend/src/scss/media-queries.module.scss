@@ -1,0 +1,43 @@
+$xs-screen: 375px;
+$sm-screen: 490px;
+$md-screen: 790px;
+$lg-screen: 1280px;
+// $lg-screen: 1024px;
+// $xl-screen: 1280px;
+
+@mixin xs-screen {
+    @media only screen and (max-width: #{$xs-screen}) {
+        @content;
+    }
+}
+
+@mixin sm-screen {
+    @media only screen and (max-width: #{$sm-screen}) {
+        @content;
+    }
+}
+
+@mixin md-screen {
+    @media only screen and (max-width: #{$md-screen}) {
+        @content;
+    }
+}
+
+@mixin lg-screen {
+    @media only screen and (max-width: #{$lg-screen}) {
+        @content;
+    }
+}
+
+// @mixin breakpoint {
+//     @media only screen and (max-width: #{$breakpoint}) {
+//         @content;
+//     }
+// }
+
+:export {
+    xsScreen: $xs-screen;
+    smScreen: $sm-screen;
+    mdScreen: $md-screen;
+    lgScreen: $lg-screen;
+}

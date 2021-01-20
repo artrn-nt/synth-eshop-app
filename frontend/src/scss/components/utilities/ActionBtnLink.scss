@@ -1,174 +1,180 @@
-@import '../../config.scss';
+@import '../../config.module.scss';
+@import '../../media-queries.module.scss';
 
 %btn-link {
-    height: 3.15rem;
-    // padding: 0 1.55rem;
-    background-color: transparent;
-    border: 1.2px solid;
-    border-radius: 4px;
-    color: $bright;
-    font-family: $content-font;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: transform 75ms ease-in, background-color 280ms ease-out;
-    cursor: pointer;
+  height: 50.4px; // 3.15rem
+  width: auto;
+  padding: 0 15.2px; // .95rem
+  background-color: transparent;
+  border: 1.2px solid;
+  border-radius: 4px;
+  color: $bright;
+  font-family: $content-font;
+  font-size: 15.2px;
+  font-weight: 500;
+  transition: transform 75ms ease-in, background-color 280ms ease-out;
+  cursor: pointer;
 
-    &:hover {
-        background-color: $sub-theme;
-    }
+  &:hover {
+    background-color: $sub-theme;
+  }
 
+  @include sm-screen {
+    font-size: 14px; // .875rem
+  }
 }
 
-.btn-add-cart {
-    width: 150px;
-    height: 3.15rem;
-    background-color: transparent;
-    border: 1.2px solid;
-    border-radius: 4px;
-    color: $bright;
-    font-family: $content-font;
-    font-size: .95rem;
-    font-weight: 500;
-    transition: transform 75ms ease-in, background-color 280ms ease-out;
-    cursor: pointer;
-
-    &.active {
-      border-color: $bright;
-      color: $bright;
-      cursor: pointer;
-
-      &:hover {
-        background-color: $sub-theme;
-      }
-
-      &:active {
-        -webkit-transform: scale(0.99);
-        transform: scale(0.99);
-      }
-    }
-
-    &.disabled {
-      border-color: $greyish;
-      color: $greyish;
-      cursor: default;
-    }
-}
-
-.btn-cart,
-.btn-place-order {
-    @extend %btn-link;
-    min-width: 200px;
-
-    &:active {
-        -webkit-transform: scale(0.99);
-        transform: scale(0.99);
-    }
-}
-
-.btn-checkout-step1,
-.btn-checkout-step2 {
-    @extend %btn-link;
-    margin-bottom: 2.1rem;
-    min-width: 200px;
-
-    &:active {
-        -webkit-transform: scale(0.99);
-        transform: scale(0.99);
-    }
-}
-
-.back-to-cart-link {
-    @extend %btn-link;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 200px;
-
-    i {
-        margin-right: .65rem;
-        font-size: .95rem;
-    }
-}
-
+// Login and register screens
 .login-btn,
 .register-btn {
-    @extend %btn-link;
-    min-width: 160px;
-    margin-bottom: 2.1rem;
+  @extend %btn-link;
+  min-width: 150px;
+  margin-bottom: 33.6px;
+
+  @include sm-screen {
+    min-width: unset;
+  }
 }
 
-.btn-profile,
+// Product screen
+.btn-add-cart {
+  @extend %btn-link;
+  min-width: 150px;
+
+  &.active {
+    border-color: $bright;
+    color: $bright;
+    cursor: pointer;
+
+    &:active {
+      -webkit-transform: scale(0.99);
+      transform: scale(0.99);
+    }
+  }
+
+  &.disabled {
+    border-color: $greyish;
+    color: $greyish;
+    cursor: default;
+    transition: unset;
+
+    &:hover {
+      background-color: $main-theme;
+    }
+  }
+
+  @include sm-screen {
+    min-width: unset;
+  }
+}
+
+// Cart screen
+.btn-cart,
+.btn-place-order {
+  @extend %btn-link;
+  min-width: 150px;
+
+  &:active {
+    -webkit-transform: scale(0.99);
+    transform: scale(0.99);
+  }
+}
+
+// Checkout steps 1 and 2
+.btn-checkout-step {
+  @extend %btn-link;
+  min-width: 170px;
+  margin-bottom: 33.6px;
+
+  &:active {
+    -webkit-transform: scale(0.99);
+    transform: scale(0.99);
+  }
+}
+
+// Checkout steps 1, 2 and 3
+.back-to-cart-link {
+  @extend %btn-link;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 170px;
+  max-width: 170px;
+
+  i {
+    margin-right: 10.4px;
+    font-size: 14.4px;
+  }
+}
+
+// Profile screen
+.btn-update,
 .btn-delete-user {
-    @extend %btn-link;
-    min-width: 165px;
+  @extend %btn-link;
+  width: 170px;
 }
 
 // ADMIN
-%btn-link-admin {
-    font-size: 1rem;
-    border: none;
-    background-color: transparent;
-    color: lighten($main-theme, 10%);
-    transition: color 280ms ease-out;
-    cursor: pointer;
 
-    &:hover {
-        color: $sub-theme;
-    }
+// Small icons
+%btn-link-admin {
+  font-size: $md-font-size;
+  border: none;
+  background-color: transparent;
+  color: lighten($main-theme, 10%);
+  transition: color 280ms ease-out;
+  cursor: pointer;
+
+  &:hover {
+    color: $sub-theme;
+  }
+
+  @include sm-screen {
+    font-size: $sm-font-size;
+  }
 }
-    
+
 // Users list screen, products list screen, orders list screen - Admin only
-.edit-user-link, 
-.delete-user-btn, 
-.edit-product-link, 
+.edit-user-link,
+.delete-user-btn,
+.edit-product-link,
 .delete-product-btn,
 .shipped-order-btn {
-    @extend %btn-link-admin;    
+  @extend %btn-link-admin;
 }
 
 .create-product-link {
-    @extend %btn-link;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 1.25rem;
+  @extend %btn-link;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  margin-bottom: 16px;
 
-    i {
-        margin-right: .5rem;
-    }
+  i {
+    margin-right: 8px;
+  }
 }
 
-.confirm-btn-admin, 
+.confirm-btn-admin,
 .cancel-btn-admin {
-    @extend %btn-link;
-    min-width: 160px;
+  @extend %btn-link;
+  min-width: 160px;
 }
 
 // Create product screen, edit product screen and edit user screen - Admin only
-.edit-user-btn, 
+.edit-user-btn,
 .edit-product-btn,
 .create-product-btn {
-    @extend %btn-link;
-    min-width: 175px;
-    margin: 3.15rem 0 2.1rem;
+  @extend %btn-link;
+  min-width: 170px;
+  margin: 50.4px 0 34.4px;
 }
 
 .cancel-link {
-    @extend %btn-link;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 175px;
+  @extend %btn-link;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 170px;
 }
-
-// Orders list - Admin only
-.order-details-link {
-    color: $main-theme;
-    transition: color 280ms ease-out;
-
-    &:hover {
-        color: $sub-theme;
-    }
-}
-
-

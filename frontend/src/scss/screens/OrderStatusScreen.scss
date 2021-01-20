@@ -1,17 +1,19 @@
-@import '../config.scss';
+@import '../config.module.scss';
+@import '../media-queries.module.scss';
 
 .order-status-section {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
     width: 100%;
-    min-height: calc(100vh - (139.6px + 4.6rem));
-    padding: 2.1rem 0;
+    padding: $padding-screen;
 
     .order-status-main-row {
         display: flex;
         flex: 1;
         width: 100%;
-        margin-top: 2.1rem;
+        margin: 3.15rem 0 4.3rem;
         
         &.ctr {
             align-items: center;
@@ -22,6 +24,12 @@
             align-items: flex-start;
             justify-content: space-between;
             opacity: 0;
+
+            @include lg-screen {
+                flex-direction: column-reverse;
+                align-items: center;
+                justify-content: flex-start;
+            }
         }
         
         .order-status-col-1 {
@@ -29,9 +37,11 @@
             flex-direction: column;
             align-items: flex-start;
             justify-content: center;
-            width: 64%;
-            // min-width: 610px;
-            min-width: 500px;
+
+            @include md-screen {
+                width: 100%;
+                max-width: 375px;
+            }
             
             .order-status-row {
                 display: flex;
@@ -39,27 +49,38 @@
                 align-items: flex-start;
                 justify-content: center;
                 width: 100%;
-                margin-bottom: 1.35rem;
                 color: $bright;
 
                 &:nth-of-type(1) {
                     h3 {
-                        padding: 0 0.35rem;
-                        margin-bottom: 1.05rem;
-                        font-size: 1.125rem;
-                        font-weight: 500;
-                        color: brown;
-                        background-color: $bright;   
+                        margin-bottom: 1.6125rem;
+                        text-align: center;
+                        background-color: $bright;  
+                        color: $sub-theme;
+
+                        @include md-screen {
+                            margin: 0 auto 1.6125rem auto;
+                        }
                     }
                 }
 
+                &:nth-of-type(2), 
+                &:nth-of-type(3),
+                &:nth-of-type(4) {
+                    margin-bottom: 1.6125rem;
+                }
+
                 h3 {
-                    padding: 0 0.35rem;
-                    margin-bottom: 1.05rem;
-                    font-size: 1.125rem;
+                    padding: 0 .35rem;
+                    margin-bottom: 1.6125rem;
+                    font-size: 1.15rem;
                     font-weight: 500;
-                    background-color: brown;
+                    background-color: $sub-theme;
                     cursor: default;
+
+                    @include sm-screen {
+                        font-size: 1.075rem;
+                    }
                 }
 
                 .data {
@@ -67,17 +88,24 @@
                     flex-direction: column;
                     align-items: flex-start;
                     justify-content: center;
-                    width: 100%;
                     padding-left: 1.05rem;
 
                     h4 {
                         margin-bottom: .75rem;
                         font-weight: 500;
                         font-size: 1rem;
+
+                        @include sm-screen {
+                            font-size: .925rem;
+                        }
                     }
 
                     span {
                         margin-bottom: .75rem;
+
+                        @include sm-screen {
+                            font-size: .925rem;
+                        }
                     }
 
                     a {
@@ -85,7 +113,7 @@
                         transition: color 280ms ease-out;
 
                         &:hover {
-                            color: brown;
+                            color: $sub-theme;
                         }
                     }
 
@@ -95,235 +123,139 @@
                     .unpaid-status {
                         display: flex;
                         align-items: center;
-                        padding: .5rem .7rem;
-                        border-radius: 2.5px;
+                        justify-content: center;
+                        min-width: 200px;
+                        padding: .55rem .725rem;
+                        margin: .8625rem 0 0 0;
+                        border-radius: 4px;
+                        border: 1.1px solid $bright;
                         font-size: 1.05rem;
                         font-weight: 500;
-                        color: $main-theme;
-                        background-color: $bright;
+                        color: $bright;
+                        background-color: $main-theme;
                         cursor: default;
-                        
-                        .fas.fa-times-circle {
-                            color: tomato;
-                            margin-right: .7rem;
-                        }
 
+                        @include sm-screen {
+                            font-size: .975rem;
+                        }
+                        
+                        .fas.fa-times-circle, 
                         .fas.fa-check-circle {
-                            color: green;
+                            color: $bright;
                             margin-right: .7rem;
                         }
                     }
-
                 }
 
                 .order-items {
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
+                    align-items: flex-start;
+                    justify-content: flex-start;
                     padding-left: 1.05rem;
-                    width: 100%;
                     cursor: default;
-
-                    .order-item {
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
+            
+                    @include md-screen {
+                        padding-left: unset;
                         width: 100%;
-                        height: 110px;
-                        padding: .75rem 0;
-                        border-top: 0.8px solid $greyish;
-                        color: $bright;
-
-                        &:last-of-type {
-                            border-bottom: 0.8px solid $greyish;
-                        }
-
-                        .col-1-it-order {
-                            display: flex;
-                            align-items: flex-start;
-                            justify-content: flex-start;
-                            width: 420px;
-                            height: 100%;
-
-                            .img-wrapper {
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                max-width: 95px;
-                                height: 100%;
-                                border-radius: 4px;
-                                overflow: hidden;
-
-                                &:hover + .item-infos .o-i-name {
-                                    background-color: $bright;
-                                    color: brown;
-                                }
-
-                                img {
-                                    width: 100%;
-                                }
-                            }
-
-                            .item-infos {
-                                display: flex;
-                                flex-direction: column;
-                                align-items: flex-start;
-                                justify-content: center;
-                                margin-left: 1rem;
-                    
-                                a {
-                                  color: $bright;
-                                  margin-bottom: 0.3rem;
-                    
-                                  &:hover > .o-i-name {
-                                    background-color: $bright;
-                                    color: brown;
-                                  }
-                    
-                                  .o-i-name {
-                                    font-size: 1rem;
-                                    position: relative;
-                                    padding: 0 0.35rem;
-                                    font-weight: 500;
-                                    background-color: brown;
-                                    transition: background-color 250ms ease-out, color 250ms ease-out;
-                                  }
-                                }
-                    
-                                .o-i-description_m {
-                                  margin-bottom: 0.15rem;
-                                  font-size: .975rem;
-                                  font-weight: 400;
-                                }
-                            }
-                        }
-
-                        .col-2-it-order {
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            flex: 1;
-                            height: 100%;
-                            margin-left: 1rem;
-
-                            .it-order-values {
-                                display: flex;
-
-                                span:nth-of-type(1) {
-                                    font-size: .925rem;
-                                }
-
-                                span:nth-of-type(2) {
-                                    display: flex;
-                                    align-items: center;
-                                    margin: 0 .5rem;
-                                    font-size: .775rem;
-
-                                }
-
-                                span:nth-of-type(3) {
-                                    position: relative;
-                                    margin-right: .5rem;
-                                    font-size: .925rem;
-                                }
-                            }
-
-                            .it-order-total {
-                                position: relative;
-                                margin-left: .5rem;
-                                font-size: .925rem;
-
-                                &::after {
-                                    content: '';
-                                    position: absolute;
-                                    bottom: -3.5px;
-                                    left: 0;
-                                    display: block;
-                                    width: 100%;
-                                    height: 2px;
-                                    background-color: brown;
-                                }
-                            }
-                        }
+                        min-width: calc(320px - 1.6125rem * 2);
+                        max-width: 375px;
                     }
                 }
             }
         }
 
-        .order-status-col-2 {
+        .order-status-summary {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            width: 30%;
+            justify-content: space-around;
+            min-width: 375px;
+            min-height: 425px;
+            padding: 1.05rem 2.1rem;
+            border: 1px solid $bright;
+            border-radius: 4px;
+            color: $bright;
+            cursor: default;
 
-            .order-status {
+            @include lg-screen {
+                width: 100%;
+                min-width: calc(320px - 1.6125rem * 2);
+                max-width: 375px;
+                margin-bottom: 3.15rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+                font-weight: 600;
+                padding-bottom: 0.175rem;
+                border-bottom: 1px solid $bright;
+
+                @include sm-screen {
+                    font-size: 1.125rem;
+                }
+            }
+
+            .order-status-infos {
                 display: flex;
                 flex-direction: column;
-                align-items: center;
-                justify-content: space-around;
+                align-items: flex-start;
+                justify-content: center;
                 width: 100%;
-                min-height: 300px;
-                min-height: 375px;
-                padding: 1.05rem 2.1rem;
-                margin-bottom: 2.1rem;
-                border: 1px solid $bright;
-                border-radius: 4px;
-                color: $bright;
-                cursor: default;
-    
-                h3 {
-                    font-size: 1.25rem;
-                    font-weight: 600;
-                    padding-bottom: 0.175rem;
-                    border-bottom: 1px solid $bright;
-                }
-    
-                .order-status-infos {
+
+                p {
                     display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    justify-content: center;
+                    align-items: center;
+                    justify-content: space-between;
                     width: 100%;
-    
-                    p {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        width: 100%;
-                        padding: .6rem 0;
-                        font-size: 1rem;
-                        font-weight: 600;
-    
-                        small {
-                            font-size: .8rem;
-                            font-weight: 500;
+                    padding: .6rem 0;
+                    font-size: 1rem;
+                    font-weight: 600;
+
+                    @include sm-screen {
+                        font-size: .925rem;
+                    }
+
+                    small {
+                        font-size: .8rem;
+                        font-weight: 500;
+
+                        @include sm-screen {
+                            font-size: .725rem;
                         }
                     }
-    
-                    p:not(:last-of-type) {
-                        border-bottom: 1px solid $bright;
-                    }
-    
-                    p:last-of-type {
-                        span {
-                            position: relative;
-    
-                            &::after {
-                                content: '';
-                                position: absolute;
-                                bottom: -3.5px;
-                                left: 0;
-                                display: block;
-                                width: 100%;
-                                height: 2px;
-                                background-color: brown;
-                            }
+                }
+
+                p:not(:last-of-type) {
+                    border-bottom: 1px solid $bright;
+                }
+
+                p:last-of-type {
+                    span {
+                        position: relative;
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            bottom: -2.5px;
+                            left: 0;
+                            display: block;
+                            width: 100%;
+                            height: 2px;
+                            background-color: $sub-theme;
                         }
                     }
                 }
             }
-        }
 
+            .payment-btn-wrap {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 156px;
+                padding: 1.05rem;
+                border-radius: 4px;
+            }
+        }
     }
 }

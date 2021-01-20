@@ -1,4 +1,5 @@
-@import '../../config.scss';
+@import '../../config.module.scss';
+@import '../../media-queries.module.scss';
 
 .radio-wrapper {
     display: flex;
@@ -20,7 +21,7 @@
             display: none;
         }
     
-        .circle {
+        .radio-circle {
             position: absolute;
             left: 50%;
             top: 50%;
@@ -32,33 +33,43 @@
             border: 1.2px solid $bright;
             border-radius: 50%;
             transition: background-color 280ms ease-in-out, border-color 280ms ease-in-out;
+
+            @include sm-screen {
+                width: .925rem;
+                height: .925rem;
+            }
             
         }
     
-        &:hover .circle {
-            background-color: brown;
+        &:hover .radio-circle {
+            background-color: $sub-theme;
         }
     
-        input:checked + .circle {
-            background-color: brown;;
-            border: 1.2px solid brown;
+        input:checked + .radio-circle {
+            background-color: $sub-theme;;
+            border: 1.2px solid $sub-theme;
         }
     
-        input:checked + .circle::after {
+        input:checked + .radio-circle::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            height: 5.75px;
             width: 5.75px;
+            height: 5.75px;
             background-color: $bright;
             border-radius: 50%;
+
+            @include sm-screen {
+                width: 5px;
+                height: 5px;
+            }
         }
 
     }
 
-    .radio-text {
+    .radio-txt {
         display: flex;
         align-items: center;
         width: 100%;
@@ -66,5 +77,10 @@
         padding-left: .75rem;
         font-weight: 500;
         font-size: 1.05rem;
+
+        @include sm-screen {
+            font-size: .975rem;
+        }
+
     }
 }

@@ -14,9 +14,9 @@ const RadioInput = ({ value, name, checked, onChangeHandler, text }) => {
                     checked={checked}
                     onChange={onChangeHandler}
                 />
-                <span className='circle' />
+                <span className='radio-circle' />
             </label>
-            <span className='radio-text'>{text}</span>
+            <span className='radio-txt'>{text}</span>
         </div>
     )
 }

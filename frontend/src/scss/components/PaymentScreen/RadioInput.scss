@@ -1,16 +1,17 @@
-@import '../../config.scss';
+@import '../../config.module.scss';
+@import '../../media-queries.module.scss';
 
 .radio-wrapper {
     display: flex;
-    height: 2.1rem;
     width: 100%;
+    height: 2.1rem;
 
     label {
         display: flex;
         align-items: center;
         position: relative;
-        height: 100%;
         width: 1rem;
+        height: 100%;
         color: $bright;
         cursor: pointer;
         
@@ -32,15 +33,19 @@
             border-radius: 50%;
             transition: background-color 280ms ease-in-out, border-color 280ms ease-in-out;
             
+            @include sm-screen {
+                width: .925rem;
+                height: .925rem;
+            }
         }
     
         &:hover .circle {
-            background-color: brown;
+            background-color: $sub-theme;
         }
     
         input:checked + .circle {
-            background-color: brown;;
-            border: 1.2px solid brown;
+            background-color: $sub-theme;;
+            border: 1.2px solid $sub-theme;
         }
     
         input:checked + .circle::after {
@@ -53,6 +58,11 @@
             width: 5.75px;
             background-color: $bright;
             border-radius: 50%;
+
+            @include sm-screen {
+                width: 5px;
+                height: 5px;
+            }
         }
 
     }
@@ -63,7 +73,11 @@
         width: 100%;
         height: 100%;
         padding-left: .75rem;
-        font-weight: 500;
         font-size: 1.05rem;
+        font-weight: 500;
+
+        @include sm-screen {
+            font-size: .975rem;
+        }
     }
 }

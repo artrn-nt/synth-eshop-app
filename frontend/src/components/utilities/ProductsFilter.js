@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Transition } from 'react-transition-group'
 import gsap from 'gsap'
+import useWindowSize from '../../utils/useWindowSize'
 import '../../scss/components/utilities/ProductsFilter.scss'
 
 const transitionStyles = {
@@ -224,6 +225,8 @@ const CategoriesSelector = ({ drop, dropHandler, productsFilterHandler }) => {
 
 const ProductsFilter = ({ brands, productsFilterHandler, outOfStock, price }) => {
 
+    const size = useWindowSize()
+
     const [drop, setDrop] = useState({
         isActive1: false,
         isActive2: false
@@ -265,7 +268,14 @@ const ProductsFilter = ({ brands, productsFilterHandler, outOfStock, price }) =>
     return (
         <div className='filter-row'>
             <p className='filter-text'>Sort products by:</p>
-            <div className='filter-main-container'>
+            <div
+                className='filter-main-container'
+                style={{
+                    minHeight: size.width <= 790 ?
+                        filterType === 'Brand' || filterType === 'Categories' ?
+                            `${4.2 + .7875}rem` : '2.1rem' : '2.1rem'
+                }}
+            >
                 <div className='filter-sub-container'>
 
                     <div className={drop.isActive1 ? 'filter-select-container active' : 'filter-select-container'}>
@@ -359,22 +369,38 @@ const ProductsFilter = ({ brands, productsFilterHandler, outOfStock, price }) =>
                         </Transition>
                     </div>
 
-                    {filterType === 'Brand' &&
+                    {filterType === 'Brand' ? size.width > 790 ?
                         <BrandSelector
                             drop={drop.isActive2}
                             dropHandler={dropHandler}
                             shutHandler={shutHandler}
                             brands={brands}
                             productsFilterHandler={productsFilterHandler}
-                        />
+                        /> :
+                        <div className='filter-sub-wrapper'>
+                            <BrandSelector
+                                drop={drop.isActive2}
+                                dropHandler={dropHandler}
+                                shutHandler={shutHandler}
+                                brands={brands}
+                                productsFilterHandler={productsFilterHandler}
+                            />
+                        </div> : null
                     }
 
-                    {filterType === 'Categories' &&
+                    {filterType === 'Categories' ? size.width > 790 ?
                         <CategoriesSelector
                             drop={drop.isActive2}
                             dropHandler={dropHandler}
                             productsFilterHandler={productsFilterHandler}
-                        />
+                        /> :
+                        <div className='filter-sub-wrapper'>
+                            <CategoriesSelector
+                                drop={drop.isActive2}
+                                dropHandler={dropHandler}
+                                productsFilterHandler={productsFilterHandler}
+                            />
+                        </div> : null
                     }
 
                 </div>

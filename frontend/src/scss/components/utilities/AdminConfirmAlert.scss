@@ -1,4 +1,5 @@
-@import '../../config.scss';
+@import '../../config.module.scss';
+@import '../../media-queries.module.scss';
 
 .confirm-alert {
     position: fixed;
@@ -11,13 +12,21 @@
     justify-content: center;
     min-width: 420px;
     height: 195px;
-    border-radius: 2.5px;
-    border: 1.2px solid $main-theme;
+    border: 1.2px solid $bright;
+    border-radius: 4px;
     background-color: $main-theme;
-    color: brown;
-    box-shadow: 2.25px 2.25px 2.5px $greyish;
+    color: $sub-theme;
+    // box-shadow: 2.75px 2.75px 2px $greyish;
+    box-shadow: 3.5px 3.5px 2px rgba($greyish, .8);
     opacity: 0;
     overflow: hidden;
+    z-index: 999;
+
+    @include sm-screen {
+        width: calc(320px - 2 * 1.6125rem);
+        height: 225px;
+        min-width: unset;
+    }
 
     span {
         display: flex;
@@ -25,20 +34,28 @@
         justify-content: center;
         flex: 1;
         width: 100%;
-        font-size: 1.4rem;
+        font-size: 1.325rem;
         font-weight: 500;
         background-color: $bright;
         border-bottom: 1.2px solid $bright;
+
+        @include sm-screen {
+            font-size: 1.25rem;
+            max-height: 55.85px;
+            white-space: nowrap;
+        }
     }
 
     .btns-row {
         display: flex;
         align-items: center;
         justify-content: space-evenly;
-        // background-color: $bright;
-
         width: 100%;
         flex: 2.5;
+
+        @include sm-screen {
+            flex-direction: column-reverse;
+        }
     }
 
 }

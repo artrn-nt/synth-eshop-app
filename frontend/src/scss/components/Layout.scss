@@ -1,4 +1,5 @@
-@import '../config.scss';
+@import '../config.module.scss';
+@import '../media-queries.module.scss';
 
 .container {
   display: flex;
@@ -6,27 +7,63 @@
   align-items: center;
   flex-shrink: 0;
   width: 100%;
-  max-width: 1440px;
+  min-width: $app-min-width;
   height: 100%;
   margin: 0 auto;
-  padding: 0 2.9rem;
 
   header {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding-top: 1.75rem;
-    border-bottom: 1px solid $bright;
+    max-width: 1440px;
+    padding: 28px 40px 0 40px;
+
+    &::after {
+      content: '';
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 1px;
+      background-color: $bright;
+    }
+
+    @include sm-screen {
+      padding: 28px 25.8px 0 25.8px;
+    }
 
     h1 {
-      // margin-bottom: 1.75rem;
-      margin-bottom: 2.625rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: $md-vertical-space;
       font-family: $title-font;
       color: $bright;
-      letter-spacing: 0.08rem;
+      letter-spacing: 1.28px;
+      font-size: 41.6px;
+      text-align: center;
       cursor: default;
+
+      @include sm-screen {
+        font-size: 33.6px; // 2.1rem
+      }
+
+      span:last-of-type {
+        font-family: $content-font;
+        font-size: $md-font-size;
+        letter-spacing: 0.8px;
+        font-weight: 600;
+        background-color: $sub-theme;
+        width: fit-content;
+        margin: 12.6px auto 0 auto;
+        padding: 0 5.6px; // .35rem
+
+        @include sm-screen {
+          font-size: 14.8px;
+        }
+      }
     }
 
     .menu {
@@ -36,7 +73,15 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      height: 2.1rem;
+      height: 34.4px; // 2.15rem
+      font-size: $md-font-size;
+      z-index: 4;
+      // background-color: orange;
+
+      @include md-screen {
+        flex-direction: column;
+        height: auto;
+      }
 
       a {
         color: $greyish;
@@ -48,34 +93,68 @@
         }
       }
 
-      .left-menu {
+      .nav-menu {
         display: flex;
         align-items: center;
 
-        a:not(:first-of-type):not(:last-of-type) {
-          margin: 0 1.4rem;
+        @include md-screen {
+          flex-direction: column;
+          margin-bottom: $sm-space;
+        }
+
+        @include sm-screen {
+          font-size: $sm-font-size; // 0.925rem
+        }
+
+        a:first-of-type {
+          margin-right: 22.4px; // 1.4rem
+
+          @include md-screen {
+            margin-right: unset;
+            margin-bottom: 12.6px;
+          }
         }
       }
 
-      .right-menu {
+      .utils-menu {
         position: absolute;
         top: 0;
-        right: 0; 
+        right: 0;
         display: flex;
+        // background-color: orangered;
+
+        @include md-screen {
+          position: relative;
+          top: unset;
+          right: unset;
+          flex-direction: column;
+        }
+
+        @include sm-screen {
+          font-size: $sm-font-size;
+        }
 
         .cart-link {
           position: relative;
           display: flex;
           align-items: center;
-          top: 1.05rem;
-          margin-right: 1.4rem;
-          min-height: 2.1rem;
+          top: calc(34.4px / 2);
+          margin-right: 22.4px; // 1.4rem
+          min-height: 34.4px; // 2.15rem
           transform: translateY(-50%);
 
           &:hover {
             .cart-indicator {
               background-color: $sub-theme;
             }
+          }
+
+          @include md-screen {
+            top: unset;
+            margin-right: unset;
+            min-height: unset;
+            transform: unset;
+            margin-bottom: 12.6px;
           }
 
           .cart-indicator {
@@ -86,15 +165,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 1.1rem;
-            height: 1.1rem;
+            width: 17.6px;
+            height: 17.6px;
             border-radius: 50%;
             color: $main-theme;
-            font-size: 0.65rem;
+            font-size: 10.4px; // .65rem
             font-weight: 500;
             background-color: $greyish;
             opacity: 0;
             transition: background-color 250ms ease-out, color 250ms ease-out;
+
+            @include sm-screen {
+              width: 16.4px; // 1.025rem
+              height: 16.4px;
+              font-size: 9.2px;
+            }
           }
 
           &.active {
@@ -107,42 +192,12 @@
 
         .fas.fa-shopping-cart,
         .fas.fa-user-alt {
-          margin-right: 0.525rem;
+          margin-right: 8.4px;
+
+          @include sm-screen {
+            margin-right: 7.2px;
+          }
         }
-      }
-    }
-  }
-
-  .links-row {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 100%;
-    min-height: 24px;
-    margin-top: 1.05rem;
-    opacity: 0;
-
-    span {
-      color: $greyish;
-      font-weight: 500;
-      cursor: default;
-    }
-
-    a {
-      color: $greyish;
-      font-size: 0.9rem;
-      transition: color 250ms ease-out;
-
-      &:first-child {
-        margin-right: 0.5rem;
-      }
-
-      &:last-child {
-        margin-left: 0.5rem;
-      }
-
-      &:hover {
-        color: $sub-theme;
       }
     }
   }
@@ -153,7 +208,14 @@
     align-items: center;
     flex-grow: 1;
     width: 100%;
-    min-height: calc(100vh - (123px + 4.6rem + 22px + 1.05rem));
+    max-width: 1440px;
+    min-height: $min-height-screen;
+    padding: $default-layout-padding;
+    // background-color: cadetblue;
+
+    @include sm-screen {
+      padding: $sm-layout-padding;
+    }
   }
 
   footer {
@@ -162,17 +224,32 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 4.6rem;
-    border-top: 1px solid $greyish;
-    color: $greyish;
-    font-weight: 500;
-    opacity: 0;
+    max-width: 1440px;
+    padding: 22.4px 0; // 1.4rem
+    border-top: 1.4px solid $bright;
+    background-color: $sub-theme;
+    color: $bright;
+    font-weight: 600;
+    cursor: default;
 
-    span {
+    @include md-screen {
+      flex-direction: column;
+    }
+
+    p {
       display: flex;
       align-items: center;
       justify-content: center;
       flex-grow: 1;
+      font-size: $md-font-size;
+
+      @include md-screen {
+        margin-bottom: 12.6px;
+      }
+
+      @include sm-screen {
+        font-size: $sm-font-size;
+      }
     }
 
     .logos-wrapper {
@@ -182,11 +259,25 @@
       display: block;
       transform: translate(0, -50%);
 
-      i {
-        font-size: 2.1rem;
+      @include md-screen {
+        position: relative;
+        top: unset;
+        right: unset;
+        transform: unset;
+      }
 
-        &:first-of-type {
-          margin-right: 1.05rem;
+      i {
+        font-size: 33.6px; // 2.1rem
+        margin-right: 16.8px;
+
+        @include md-screen {
+          &:last-of-type {
+            margin-right: unset;
+          }
+        }
+
+        @include sm-screen {
+          font-size: 32.4px; // 2.025rem
         }
       }
     }

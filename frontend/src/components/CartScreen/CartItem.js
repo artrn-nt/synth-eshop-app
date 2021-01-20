@@ -13,11 +13,10 @@ const CartItem = (props) => {
     useEffect(() => {
         if (props.countInStock === props.qty) setQtyUnavailable(true)
         else setQtyUnavailable(false)
-        // return () => console.log(`unmount ${props._id}, ${props.name}`)
     }, [props])
 
     useEffect(() => {
-        if (trash) {    
+        if (trash) {
             gsap.to(cartItemRef.current, {
                 duration: .6,
                 opacity: 0,
@@ -29,7 +28,7 @@ const CartItem = (props) => {
 
     return (
         <li key={props._id} className='cart-item' ref={cartItemRef}>
-            <div className='col-1-it-cart'>
+            <div className='cart-it-col-1'>
                 <Link
                     to={`/product/${props._id}`}
                     className='img-wrapper'
@@ -45,42 +44,48 @@ const CartItem = (props) => {
                 </div>
             </div>
 
-            <div className='col-2-it-cart'>
-                <div className='row-1-it-cart'>
+            <div className='cart-it-col-2'>
+                <div className='cart-it-row-1'>
 
                     <div className='qty-wrap'>
-                        <button
-                            className='qty-btn'
-                            type='button'
-                            onClick={() => props.removeFromCartHandler(props._id)}
-                            disabled={props.qty === 1}
-                        >
-                            -
-                        </button>
+                        <div className='qty-sub-wrap'>
+                            <button
+                                className='qty-btn'
+                                type='button'
+                                onClick={() => props.removeFromCartHandler(props._id)}
+                                disabled={props.qty === 1}
+                            >
+                                -
+                            </button>
 
-                        <CartItemValue elClassName='qty' value={props.qty} />
-                        
-                        <button
-                            className='qty-btn' 
-                            type='button'
-                            onClick={() => {
-                                if (props.countInStock !== props.qty) props.addToCartHandler(props._id) 
-                            }}
+                            <CartItemValue elClassName='qty' value={props.qty} />
+
+                            <button
+                                className='qty-btn'
+                                type='button'
+                                onClick={() => {
+                                    if (props.countInStock !== props.qty) props.addToCartHandler(props._id)
+                                }}
                             // disabled={countInStock === qty}
-                        >
-                            +
-                        </button>
+                            >
+                                +
+                            </button>
+                        </div>
                     </div>
 
-                    <CartItemValue elClassName='it-total-price' value={`€${(props.qty * props.price).toFixed(2)}`} />
+                    <div className='it-total-wrap'>
+                        <CartItemValue elClassName='it-total' value={`€${(props.qty * props.price).toFixed(2)}`} />
+                    </div>
 
-                    <i 
-                        className='fas fa-trash'
-                        onClick={() => setTrash(true)}
-                    />
+                    <div className='trash-wrap'>
+                        <i
+                            className='fas fa-trash'
+                            onClick={() => setTrash(true)}
+                        />
+                    </div>
 
                 </div>
-                
+
                 {qtyUnavailable && <span className='stock-alert-cs'>Not enough stock to add more</span>}
 
             </div>

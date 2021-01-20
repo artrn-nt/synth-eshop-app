@@ -1,4 +1,5 @@
-@import '../../config.scss';
+@import '../../config.module.scss';
+@import '../../media-queries.module.scss';
 
 .title-wrapper {
   display: flex;
@@ -14,13 +15,23 @@
     color: $bright;
     font-weight: 600;
     letter-spacing: 0.04rem;
+    text-align: center;
+    font-size: 24px;
+
+    @include md-screen {
+      font-size: 22.4px;
+    }
+
+    @include sm-screen {
+      font-size: 20px;
+    }
   }
 
   &::after {
     content: '';
     display: block;
     height: 1px;
-    margin-top: 0.35rem;
+    margin-top: 5.6px;
     background-color: $bright;
     animation: expand 350ms ease-out forwards;
     animation-delay: 0.5s;

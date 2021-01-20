@@ -1,0 +1,83 @@
+@import '../../config.module.scss';
+@import '../../media-queries.module.scss';
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 152.5px;
+    opacity: 0;
+    -moz-transform-origin: 'center';
+    -webkit-transform-origin: 'center';
+    transform-origin: 'center';
+
+    @include md-screen {
+      min-width: 122.5px;
+    }
+
+    &:hover > .img-link img {
+        -moz-transform: scale(1.02);
+        -webkit-transform: scale(1.02);
+        transform: scale(1.02);
+    }
+
+    &:hover > .card-title-link span:nth-of-type(1) {
+        background-color: $sub-theme;
+    }
+
+    .img-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: .375rem;
+        overflow: hidden;
+        border-radius: 3px;
+
+        img {
+            width: 100%;
+            backface-visibility: hidden;
+            transition: transform 300ms ease-out;
+        }
+    }
+
+    .card-title-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 80px;
+        min-width: 100%;
+        padding: .35rem 0;
+
+        .card-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: $bright;
+
+            span:nth-of-type(1) {
+                position: relative;
+                padding: 0 0.35rem;
+                margin-bottom: 0.375rem;
+                text-align: center;
+                font-size: 1.1rem;
+                font-weight: 600;
+                transition: background-color 250ms ease-out;
+
+                @include md-screen {
+                    font-size: 1.025rem;
+                }
+            }
+
+            span:nth-of-type(2) {
+                font-size: 1.05rem;
+                font-weight: 500;
+
+                @include md-screen {
+                    font-size: .975rem;
+                }
+            }
+        }
+    }
+}

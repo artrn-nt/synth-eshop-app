@@ -1,238 +1,274 @@
-@import '../../config.scss';
+@import '../../config.module.scss';
+@import '../../media-queries.module.scss';
 
 .filter-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 34.4px;
+  margin: $md-vertical-space 0;
+  //   opacity: 0;
+
+  @include md-screen {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filter-text {
+    position: relative;
+    color: $bright;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-right: 1.4rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2.1px;
+      left: 0;
+      display: block;
+      height: 1.4px;
+      width: 70%;
+      background-color: $sub-theme;
+    }
+
+    @include md-screen {
+      margin-bottom: 0.7875rem;
+      margin-right: unset;
+    }
+
+    @include sm-screen {
+      font-size: 1.025rem;
+    }
+  }
+
+  .filter-main-container {
     position: relative;
     display: flex;
     align-items: center;
-    width: 100%;
     min-height: 2.1rem;
-    margin: 3.15rem 0;
-    
-    .filter-text {
-        position: relative;
-        color: $bright;
-        font-size: 1.1rem;
-        font-weight: 500;
-        margin-right: 1.4rem;
+    flex: 1;
 
-        &::after {
-            content: '';
-            position: absolute;
-            bottom: -2.1px;
-            left: 0;
-            display: block;
-            height: 1.4px;
-            width: 70%;
-            background-color: brown;
-        }
+    @include md-screen {
+      width: 100%;
     }
 
-    .filter-main-container {
+    .filter-sub-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+
+      @include md-screen {
+        flex-direction: column;
+        min-height: calc(4.2rem + 0.7875rem);
+      }
+
+      .filter-select-container,
+      .brand-select-container,
+      .categories-select-container {
         position: relative;
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 225px;
+        max-width: 225px;
         height: 2.1rem;
-        flex: 1;
+        background-color: $main-theme;
+        border: 1px solid $greyish;
+        border-radius: 4px;
+        overflow: hidden;
+        transition: background-color 280ms ease-out;
+        cursor: pointer;
+        z-index: 1;
 
-        .filter-sub-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-
-            .filter-select-container,
-            .brand-select-container,
-            .categories-select-container {
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                min-width: 225px;
-                max-width: 225px;
-                height: 2.1rem;
-                background-color: $main-theme;
-                border: 1px solid $greyish;
-                border-radius: 4px;
-                overflow: hidden;
-                transition: background-color 280ms ease-out;
-                cursor: pointer;
-                z-index: 1;
-        
-                &:hover {
-                    background-color: $bright;
-                }
-        
-                &:hover > .filter-indicator-wrapper {
-                    color: $main-theme;
-                }
-        
-                &.active {
-                    background-color: $bright;
-        
-                    & > .filter-indicator-wrapper {
-                        color: $main-theme;
-                    }
-                }
-
-                &:nth-of-type(1) {
-                    margin-right: 1.4rem;
-                }
-        
-                .filter-type-wrapper,
-                .brand-wrapper,
-                .categories-wrapper {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    width: 100%;
-                    min-height: 2.1rem;
-                    padding: 0 0.75rem;
-                    color: $greyish;
-                    transition: color 280ms ease-out;
-                    white-space: nowrap;
-                    font-weight: 500;
-                    font-size: .95rem;
-                
-                    .fas.fa-caret-down {
-                    display: flex;
-                    align-items: center;
-                    min-height: 2.1rem;
-                    font-size: 1.05rem;
-                    transition: transform 280ms ease-out;
-                    }
-                }
-        
-                .filter-type-dropdown,
-                .brand-dropdown {
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    width: 100%;
-                    font-weight: 500;
-                    font-size: .95rem;
-                    color: $main-theme;
-                    opacity: 0;
-                    transition: opacity 250ms ease-in-out;
-                
-                    // .filter-type-dropdown-item {
-                    //     display: flex;
-                    //     align-items: center;
-                    //     width: 100%;
-                    //     height: 2.1rem;
-                    //     padding-left: 0.75rem;
-                    //     // background-color: cadetblue;
-                    //     transition: background-color 280ms ease-out, color 280ms ease-in-out;
-        
-                    //     &:hover {
-                    //         background-color: brown;
-                    //         color: $bright;
-                    //     }
-
-                    //     p {
-                    //         display: flex;
-                    //         align-items: flex-end;
-                    //         // background-color: yellow;
-
-                    //         span {
-                    //             margin-left: .15rem;
-                    //             font-size: .835rem;
-                    //             white-space: nowrap;
-                    //             // background-color: seagreen;
-                    //         }
-                    //     }
-                    // }
-
-                    .filter-type-dropdown-item, 
-                    .brand-dropdown-item {
-                        display: flex;
-                        align-items: center;
-                        width: 100%;
-                        height: 2.1rem;
-                        padding-left: 0.75rem;
-                        transition: background-color 280ms ease-out, color 280ms ease-in-out;
-        
-                        &:hover {
-                            background-color: brown;
-                            color: $bright;
-                        }
-                    }
-                }
-
-                .categories-dropdown  {
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    width: 100%;
-                    font-weight: 500;
-                    color: $main-theme;
-                    opacity: 0;
-                    transition: opacity 250ms ease-in-out;
-
-                    .cat-wrapper {
-
-                        span {
-                            position: relative;
-                            display: flex;
-                            align-items: center;
-                            justify-content: flex-start;;
-                            height: 2.1rem;
-                            width: 100%;
-                            padding-left: .75rem;
-                            background-color: lighten($greyish, 31.5%);
-
-                        }
-                    
-                        .cat-item {
-                            display: flex;
-                            align-items: center;
-                            width: 100%;
-                            height: 2.1rem;
-                            padding-left: 1.25rem;
-                            transition: background-color 280ms ease-out, color 280ms ease-in-out;
-    
-                            &:hover {
-                                background-color: brown;
-                                color: $bright;
-                            } 
-    
-                            &:hover > .cat-chip {
-                                border-color: $bright;
-                            } 
-
-                            &:hover > .cat-chip.active {
-                                background-color: $bright;
-                                border-color: $bright;
-                            } 
-
-                            .cat-chip {
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                width: .6rem;
-                                height: .6rem;
-                                margin-right: .5rem;
-                                border: 1px solid $main-theme;
-                                border-radius: 50%;
-                                transition: background-color 280ms ease-out, border-color 280ms ease-out;
-
-                                &.active {
-                                    background-color: brown;
-                                    border-color: brown;
-                                }
-                            }    
-                        }
-                    }
-                }
-            }
+        &:hover {
+          background-color: $bright;
         }
+
+        &:hover > .filter-indicator-wrapper {
+          color: $main-theme;
+        }
+
+        &.active {
+          background-color: $bright;
+
+          & > .filter-indicator-wrapper {
+            color: $main-theme;
+          }
+        }
+
+        &:nth-of-type(1) {
+          margin-right: 1.4rem;
+
+          @include md-screen {
+            margin-right: unset;
+          }
+        }
+
+        @include sm-screen {
+          min-width: 212.5px;
+        }
+
+        .filter-type-wrapper,
+        .brand-wrapper,
+        .categories-wrapper {
+          position: absolute;
+          top: 0;
+          left: 0;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          min-height: 2.1rem;
+          padding: 0 0.75rem;
+          color: $greyish;
+          transition: color 280ms ease-out;
+          white-space: nowrap;
+          font-weight: 500;
+          font-size: 0.95rem;
+
+          @include sm-screen {
+            font-size: 0.875rem;
+          }
+
+          .fas.fa-caret-down {
+            display: flex;
+            align-items: center;
+            min-height: 2.1rem;
+            font-size: 1.05rem;
+            transition: transform 280ms ease-out;
+
+            @include sm-screen {
+              font-size: 0.975rem;
+            }
+          }
+        }
+
+        .filter-type-dropdown,
+        .brand-dropdown {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          font-weight: 500;
+          font-size: 0.95rem;
+          color: $main-theme;
+          opacity: 0;
+          transition: opacity 250ms ease-in-out;
+
+          @include sm-screen {
+            font-size: 0.875rem;
+          }
+
+          .filter-type-dropdown-item,
+          .brand-dropdown-item {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 2.1rem;
+            padding-left: 0.75rem;
+            transition: background-color 280ms ease-out, color 280ms ease-in-out;
+
+            &:hover {
+              background-color: $sub-theme;
+              color: $bright;
+            }
+          }
+        }
+
+        .categories-dropdown {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          font-weight: 500;
+          color: $main-theme;
+          opacity: 0;
+          transition: opacity 250ms ease-in-out;
+
+          .cat-wrapper {
+            span {
+              position: relative;
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+              height: 2.1rem;
+              width: 100%;
+              padding-left: 0.75rem;
+              background-color: lighten($greyish, 31.5%);
+            }
+
+            .cat-item {
+              display: flex;
+              align-items: center;
+              width: 100%;
+              height: 2.1rem;
+              padding-left: 1.25rem;
+              transition: background-color 280ms ease-out,
+                color 280ms ease-in-out;
+
+              &:hover {
+                background-color: $sub-theme;
+                color: $bright;
+              }
+
+              &:hover > .cat-chip {
+                border-color: $bright;
+              }
+
+              &:hover > .cat-chip.active {
+                background-color: $bright;
+                border-color: $bright;
+              }
+
+              .cat-chip {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 0.6rem;
+                height: 0.6rem;
+                margin-right: 0.5rem;
+                border: 1px solid $main-theme;
+                border-radius: 50%;
+                transition: background-color 280ms ease-out,
+                  border-color 280ms ease-out;
+
+                &.active {
+                  background-color: $sub-theme;
+                  border-color: $sub-theme;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .filter-select-container {
+        @include md-screen {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 2;
+        }
+      }
+
+      .filter-sub-wrapper {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        min-height: 2.1rem;
+
+        .brand-select-container,
+        .categories-select-container {
+          @include md-screen {
+            position: absolute;
+          }
+        }
+      }
     }
+  }
 }
-
-
-
-                        

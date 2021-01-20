@@ -1,0 +1,168 @@
+@import '../../config.module.scss';
+@import '../../media-queries.module.scss';
+
+.order-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 1.05rem .525rem;
+    border-top: .8px solid $greyish;
+    color: $bright;
+
+    &:last-of-type {
+        border-bottom: 0.8px solid $greyish;
+    }
+
+    @include md-screen {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .col-1-it-order {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        height: 100%;
+        margin-right: calc(2.15rem + 1.075rem);
+
+        @include md-screen {
+            flex-direction: column;
+            align-items: center;
+            margin-right: unset;
+            margin-bottom: 1.05rem;
+            width: 100%;
+        }
+
+        .img-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 95px;
+            height: 100%;
+            margin-right: 1rem;
+            border-radius: 4px;
+            overflow: hidden;
+
+            &:hover + .item-infos .o-i-name {
+                background-color: $bright;
+                color: $sub-theme;
+            }
+
+            @include md-screen {
+                margin-bottom: 1.05rem;
+                margin-right: unset;
+            }
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .item-infos {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+
+            @include md-screen {
+                align-items: center;
+                justify-content: flex-start;
+                text-align: center;
+            }
+
+            a {
+                color: $bright;
+                margin-bottom: 0.3rem;
+
+                &:hover > .o-i-name {
+                    background-color: $bright;
+                    color: $sub-theme;
+                }
+
+                .o-i-name {
+                    font-size: 1rem;
+                    position: relative;
+                    padding: 0 0.35rem;
+                    font-weight: 500;
+                    background-color: $sub-theme;
+                    transition: background-color 250ms ease-out, color 250ms ease-out;
+
+                    @include sm-screen {
+                        font-size: .925rem;
+                    }
+                }
+            }
+
+            .o-i-description_m {
+                font-size: .975rem;
+                font-weight: 400;
+
+                @include sm-screen {
+                    font-size: .9rem;
+                }
+            }
+        }
+    }
+
+    .col-2-it-order {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .it-order-values {
+            display: flex;
+
+            span:nth-of-type(1) {
+                font-size: .95rem;
+
+                @include sm-screen {
+                    font-size: .875rem;
+                }
+            }
+
+            span:nth-of-type(2) {
+                display: flex;
+                align-items: center;
+                margin: 0 .5rem;
+                font-size: .8rem;
+
+                @include sm-screen {
+                    font-size: .825rem;
+                }
+
+            }
+
+            span:nth-of-type(3) {
+                position: relative;
+                margin-right: .5rem;
+                font-size: .95rem;
+
+                @include sm-screen {
+                    font-size: .875rem;
+                }
+            }
+        }
+
+        .it-order-total {
+            position: relative;
+            margin-left: .5rem;
+            font-size: .95rem;
+
+            @include sm-screen {
+                font-size: .875rem;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -2.5px;
+                left: 0;
+                display: block;
+                width: 100%;
+                height: 2px;
+                background-color: $sub-theme;
+            }
+        }
+    }
+}

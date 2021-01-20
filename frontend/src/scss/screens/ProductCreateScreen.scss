@@ -1,4 +1,5 @@
-@import '../config.scss';
+@import '../config.module.scss';
+@import '../media-queries.module.scss';
 
 %input {
     width: 100%;
@@ -8,18 +9,22 @@
     border-radius: 4px;
     background-color: $bright;
     font-family: $content-font;
-    font-size: 0.95rem;
+    font-size: .95rem;
     font-weight: 500;
     color: $main-theme;
+
+    @include sm-screen {
+        font-size: 0.875rem;
+    }
 }
 
 .product-create-section {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     align-items: center;
     width: 100%;
-    min-height: calc(100vh - (142.5px + 4.6rem));
-    padding: 2.1rem 0 3.15rem;
+    padding: $padding-screen;
 
     .product-create-main-col {
         display: flex;
@@ -47,6 +52,11 @@
             opacity: 0;
             cursor: default;
 
+            @include md-screen {
+                width: 100%;
+                max-width: 420px;
+            }
+
             form {
                 display: flex;
                 flex-direction: column;
@@ -60,6 +70,7 @@
                     align-items: flex-start;
                     width: 100%;
                     min-height: 120px;
+                    margin-bottom: 1rem;
 
                     label {
                         position: relative;
@@ -77,6 +88,10 @@
                             width: 70%;
                             background-color: $sub-theme;
                         }
+
+                        @include sm-screen {
+                            font-size: 1.025rem;
+                        }
                     }
           
                     #userID,
@@ -87,6 +102,28 @@
                     #description_m,
                     #imageURL {
                         @extend %input;
+                        margin-bottom: .75rem;
+                    }
+
+                    .form-err-msg-wrap {
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: flex-start;
+                        height: 25px;
+                        width: 100%;
+              
+                        .form-err-msg {
+                            width: 100%;
+                            font-size: .85rem;
+                            font-weight: 600;
+                            text-align: left;
+                            color: $sub-theme;
+                            animation: fadeIn 0.6s ease-in-out;
+
+                            @include sm-screen {
+                                font-size: .775rem;
+                            }
+                        }
                     }
                 }
 
@@ -113,6 +150,10 @@
                             width: 70%;
                             background-color: $sub-theme;
                         }
+
+                        @include sm-screen {
+                            font-size: 1.025rem;
+                        }
                     }
 
                     .form-group-row {
@@ -120,22 +161,37 @@
                         align-items: center;
                         justify-content: space-between;
                         width: 100%;
-                        // background-color: steelblue;
 
                         &:nth-of-type(1) {
                             margin-bottom: 1rem;
+                        }
+
+                        @include sm-screen {
+                            flex-direction: column;
+                            align-items: flex-start;
                         }
 
                         .form-group-sub-col {
                             display: flex;
                             flex-direction: column;
                             width: 50%;
-                            // background-color: cadetblue;
+
+                            @include sm-screen {
+                                width: 100%;
+                                
+                                &:nth-child(2n + 1) {
+                                    margin-bottom: .75rem;
+                                }
+                            }
 
                             .col-title {
                                 margin-bottom: .25rem;
                                 font-size: 1.1rem;
                                 font-weight: 500;
+
+                                @include sm-screen {
+                                    font-size: 1.025rem;
+                                }
                             }
 
                             .checkbox-wrap {

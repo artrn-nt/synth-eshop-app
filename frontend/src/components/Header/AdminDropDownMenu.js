@@ -9,10 +9,6 @@ const AdminDropDownMenu = () => {
     const [drop, setDrop] = useState(false)
     const selectContainerRef = useRef(null)
 
-    // useEffect(() => {
-    //     selectContainerRef.current.style.width = `${usernameSpanRef.current.clientWidth + 70}px`
-    // }, [])
-
     useEffect(() => {
         if (drop) {
             gsap.to(selectContainerRef.current, {

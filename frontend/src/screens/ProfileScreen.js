@@ -30,12 +30,14 @@ const ProfileScreen = ({ history }) => {
 
     const userDetails = useSelector(state => state.userDetails)
     const { loading: loadingDetails, error: errorDetails, user } = userDetails
+    // console.log(user)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
     const orderList = useSelector(state => state.orderList)
     const { loading: loadingOrders, error: errorOrders, orders } = orderList
+    // console.log(orders)
 
     const userUpdateProfile = useSelector(state => state.userUpdateProfile)
 
@@ -58,7 +60,7 @@ const ProfileScreen = ({ history }) => {
     }, [loadingDetails, errorDetails])
 
     useEffect(() => {
-        if (orders && orders.length !== 0) {
+        if (!loadingOrders && !errorOrders && orders.length !== 0) {
             gsap.fromTo('.my-orders-table', {
                 opacity: 0,
                 y: 38
@@ -70,26 +72,25 @@ const ProfileScreen = ({ history }) => {
                 ease: 'power3.out'
             })
         }
-    }, [orders])
+    }, [loadingOrders, errorOrders, orders])
 
     useEffect(() => {
         if (!userInfo) {
             history.push('/login')
         } else {
-            // if (Object.entries(user).length === 0 && user.constructor === Object) {
-            if (!user.name) {
+            if (!loadingDetails && !errorDetails && !user.name) {
                 dispatch(getUserDetails('profile'))
                 dispatch(listUserOrders())
             }
         }
-    }, [userInfo, history, user, dispatch])
+    }, [userInfo, history, loadingDetails, errorDetails, user, dispatch])
 
     useEffect(() => {
-        if (Object.entries(user).length !== 0 && user.constructor === Object) {
+        if (!loadingDetails && !errorDetails && Object.entries(user).length !== 0 && user.constructor === Object) {
             setUsername(user.name)
             setEmail(user.email)
         }
-    }, [user])
+    }, [loadingDetails, errorDetails, user])
 
     useEffect(() => {
         if (userUpdateProfile.success) {
@@ -117,8 +118,8 @@ const ProfileScreen = ({ history }) => {
 
     useEffect(() => {
         return () => {
-            dispatch({ type: ORDER_USER_RESET })
             dispatch({ type: USER_DETAILS_RESET })
+            dispatch({ type: ORDER_USER_RESET })
         }
     }, [dispatch])
 
@@ -193,7 +194,7 @@ const ProfileScreen = ({ history }) => {
                                                     name='username'
                                                     id='username'
                                                     autoComplete='off'
-                                                    placeholder='Enter your username'
+                                                    placeholder='Enter your (new) username'
                                                     value={username}
                                                     onChange={ev => {
                                                         handleChange(ev)
@@ -213,7 +214,7 @@ const ProfileScreen = ({ history }) => {
                                                     name='email'
                                                     id='email'
                                                     autoComplete='off'
-                                                    placeholder='Enter your email'
+                                                    placeholder='Enter your (new) email'
                                                     value={email}
                                                     onChange={ev => {
                                                         handleChange(ev)
@@ -235,7 +236,7 @@ const ProfileScreen = ({ history }) => {
                                                         name='password'
                                                         id='password'
                                                         autoComplete='off'
-                                                        placeholder='Enter your password'
+                                                        placeholder='Enter your (new) password'
                                                         value={password}
                                                         onChange={ev => {
                                                             handleChange(ev)
@@ -261,7 +262,7 @@ const ProfileScreen = ({ history }) => {
                                                     name='confirmationPassword'
                                                     id='confirmationPassword'
                                                     autoComplete='off'
-                                                    placeholder='Confirm your password'
+                                                    placeholder='Confirm your (new) password'
                                                 />
                                                 <ErrorMessage
                                                     name='confirmationPassword'
@@ -270,8 +271,8 @@ const ProfileScreen = ({ history }) => {
                                             </div>
 
                                             <div className='bottom-row'>
-                                                <ActionBtn type='submit' className='btn-profile' disabled={isSubmitting} text='Update profile' />
-                                                {updateSuccess && <Alert className={!fadeOut ? 'alert-msg fade-in' : 'alert-msg fade-out'} message='Profile updated' />}
+                                                <ActionBtn type='submit' className='btn-update' disabled={isSubmitting}>Update profile</ActionBtn>
+                                                {updateSuccess && <Alert className={!fadeOut ? 'alert-update fade-in' : 'alert-update fade-out'} message='Profile updated' />}
                                             </div>
 
 
@@ -293,11 +294,11 @@ const ProfileScreen = ({ history }) => {
                                 orders.length !== 0 ? <table className='my-orders-table'>
                                     <thead>
                                         <tr>
-                                            <th scope='col' colSpan='1' width='37.5%'>ID</th>
-                                            <th scope='col' colSpan='1' width='15.625%'>DATE</th>
-                                            <th scope='col' colSpan='1' width='15.625%'>TOTAL</th>
-                                            <th scope='col' colSpan='1' width='15.625%'>PAID</th>
-                                            <th scope='col' colSpan='1' width='15.625%'>DELIVERED</th>
+                                            <th scope='col' width='37.5%'>ID</th>
+                                            <th scope='col' width='15.625%'>DATE</th>
+                                            <th scope='col' width='15.625%'>TOTAL</th>
+                                            <th scope='col' width='15.625%'>PAID</th>
+                                            <th scope='col' width='15.625%'>SHIPPED</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -314,7 +315,7 @@ const ProfileScreen = ({ history }) => {
                                                         (<i className='fas fa-times-circle' style={{ color: 'tomato' }} />)}
                                                 </td>
                                                 <td>
-                                                    {order.isDelivered ? order.deliveredAt.substring(0, 10) :
+                                                    {order.isShipped ? order.shippedAt.substring(0, 10) :
                                                         (<i className='fas fa-times-circle' style={{ color: 'tomato' }} />)}
                                                 </td>
                                             </tr>

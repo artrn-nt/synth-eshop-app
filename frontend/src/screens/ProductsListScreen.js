@@ -9,20 +9,23 @@ import AdminConfirmAlert from '../components/utilities/AdminConfirmAlert'
 import { ActionBtn, ActionLink } from '../components/utilities/ActionBtnLink'
 import Spinner from '../components/utilities/Spinner'
 import { ErrorMsg } from '../components/utilities/Messages'
+import useWindowSize from '../utils/useWindowSize'
 import '../scss/screens/ProductsListScreen.scss'
 
 const ProductTableRow = ({ id, name, image, brand, categories, price, countInStock, isPublished, objectIDHandler, confirmHandler }) => {
 
-    const [showProductImage, setShowProductImage] = useState(false)
+    const size = useWindowSize()
+
+    const [show, setShow] = useState(false)
 
     return (
         <tr>
             <td>{id}</td>
             <td
-                onMouseEnter={() => setShowProductImage(true)}
-                onMouseLeave={() => setShowProductImage(false)}
+                onMouseEnter={() => size.width > 1024 && setShow(true)}
+                onMouseLeave={() => size.width > 1024 && setShow(false)}
             >
-                {showProductImage ?
+                {show ?
                     <div className='product-pic'>
                         <img src={image} alt={name} />
                     </div> :
@@ -163,7 +166,7 @@ const ProductsListScreen = ({ history }) => {
 
         } else if (products.length === 0 && touchedFilter) {
 
-            gsap.fromTo('.no-product-filter', {
+            gsap.fromTo('.no-result', {
                 opacity: 0,
                 y: 38
             }, {
@@ -178,7 +181,7 @@ const ProductsListScreen = ({ history }) => {
 
     }, [products, touchedFilter])
 
-    // Filter products handler
+    // Filter products handler // ugly
     const productsFilterHandler = useCallback((type, criteria) => {
         setTouchedFilter(true)
         if (type === 'Indifferent') {
@@ -265,7 +268,7 @@ const ProductsListScreen = ({ history }) => {
                             />
 
                             {products.length === 0 && touchedFilter ?
-                                <p className='no-product-filter'>- No product found matching your filter criterias -</p> :
+                                <p className='no-result'>- No product found matching your filter criterias -</p> :
                                 <table className='products-list-table'>
                                     <thead>
                                         <tr>

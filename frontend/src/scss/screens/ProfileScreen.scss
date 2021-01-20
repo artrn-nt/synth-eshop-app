@@ -1,17 +1,21 @@
-@import '../config.scss';
+@import '../config.module.scss';
+@import '../media-queries.module.scss';
 
 %input {
   width: 100%;
   height: 2.65rem;
-  padding: 0 42px 0 .8rem;
+  padding: 0 .8rem;
   border: 1.4px solid transparent;
-  // border: none;
   border-radius: 4px;
   background-color: $bright;
   font-family: $content-font;
-  font-size: 0.95rem;
+  font-size: .95rem;
   font-weight: 500;
   color: $main-theme;
+
+  @include sm-screen {
+    font-size: .875rem;
+  }
 }
 
 %col-title {
@@ -21,23 +25,26 @@
   &::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: -2.5px;
     left: 0;
     display: block;
     width: 100%;
     height: 2.1px;
-    background-color: brown;
+    background-color: $sub-theme;
+  }
+
+  @include sm-screen {
+    font-size: 1.095rem;
   }
 }
 
 .profile-section {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   align-items: center;
   width: 100%;
-  min-height: calc(100vh - (139.6px + 4.6rem));
-  // padding: 2.1rem 0;
-  padding: 2.1rem 0 3.15rem;
+  padding: $padding-screen;
   // background-color: cadetblue;
 
   .profile-main-row {
@@ -48,6 +55,12 @@
     width: 100%;
     height: 100%;
     margin-top: 3.15rem;
+    // background-color: cadetblue;
+
+    @include lg-screen {
+      flex-direction: column;
+      align-items: center;
+    }
     
     .profile-col-1 {
       display: flex;
@@ -59,7 +72,16 @@
       min-height: calc(758.4px - 39.6px - 4.2rem - 3.15rem);
       border-right: 1px solid $bright;
       color: $bright;
-      // flex-direction: column;
+
+      @include lg-screen {
+        width: 100%;
+        max-width: 420px;
+        align-items: center;
+        padding-right: unset;
+        // margin-bottom: 3.15rem;
+        margin-bottom: 4.3rem;
+        border-right: unset;
+      }
 
       h3 {
         @extend %col-title;
@@ -79,7 +101,6 @@
           align-items: flex-start;
           justify-content: center;
         }
-        // background-color: burlywood;
 
         .profile-form {
           display: flex;
@@ -96,7 +117,6 @@
             align-items: flex-start;
             width: 100%;
             min-height: 132.5px;
-            // min-height: 125px;
             // background-color: burlywood;
 
             &:nth-of-type(3) {
@@ -107,25 +127,29 @@
                 flex-direction: row;
                 align-items: center;
                 width: 100%;
-                margin-bottom: 0.75rem;
+                margin-bottom: .75rem;
               }
             }
     
             &:nth-of-type(4) {
-              margin-bottom: 2.1rem;
+              margin-bottom: 2.15rem;
             }
     
             label:nth-child(1) {
               margin-bottom: 0.75rem;
               font-size: 1.1rem;
               font-weight: 500;
+
+              @include sm-screen {
+                font-size: 1.025rem;
+              }
             }
 
             #username,
             #email,
             #confirmationPassword {
               @extend %input;
-              margin-bottom: 0.75rem;
+              margin-bottom: .75rem;
             }
 
             #password {
@@ -134,12 +158,15 @@
 
             .form-err-msg {
               width: 100%;
-              padding-left: 0.8rem;
               font-size: 0.85rem;
               font-weight: 600;
               text-align: left;
-              color: brown;
+              color: $sub-theme;
               animation: fadeIn 0.6s ease-in-out;
+
+              @include sm-screen {
+                font-size: 0.775rem;
+              }
             }
           }
 
@@ -150,6 +177,9 @@
             width: 100%;
             // background-color: slateblue;
 
+            @include sm-screen {
+              flex-direction: column;
+            }
           }
         }
       }
@@ -160,14 +190,24 @@
       flex-direction: column;
       align-items: flex-start;
       width: 60%;
-      height: 100%;
-      flex-grow: 1;
+      // flex-grow: 1;
       min-height: calc(758.4px - 39.6px - 4.2rem - 3.15rem);
       color: $bright;
+      // background-color: skyblue;
+
+      @include lg-screen {
+        width: 100%;
+        align-items: center;
+        min-height: unset;
+      }
 
       h3 {
         @extend %col-title;
         margin-left: 3.15rem;
+
+        @include lg-screen {
+          margin-left: unset;
+        }
       }
 
       .table-container {
@@ -188,6 +228,11 @@
           justify-content: center;
         }
 
+        @include lg-screen {
+          align-items: center;
+          padding-left: unset;
+        }
+
         p {
           display: flex;
           flex-flow: column;
@@ -198,6 +243,10 @@
           font-weight: 500;
           text-align: center;
           cursor: default;
+
+          @include sm-screen {
+            font-size: 1.075rem;
+          }
     
           .start-shop {
             margin-left: 0.5rem;
@@ -206,7 +255,11 @@
             transition: color 250ms ease-out;
     
             &:hover {
-              color: brown;
+              color: $sub-theme;
+            }
+
+            @include sm-screen {
+              font-size: 1.175rem;
             }
           }
         }
@@ -219,9 +272,21 @@
           opacity: 0;
           cursor: default;
 
+          @include lg-screen {
+            display: block;
+          }
+
           thead {
             height: 2.65rem;
             background-color: lighten($greyish, 9%);
+
+            @include lg-screen {
+              display: none;
+              // display: block;
+              // position: absolute;
+		          // top: -9999px;
+		          // left: -9999px;
+            }
 
             tr {
               height: 100%;
@@ -230,7 +295,10 @@
                 font-size: .925rem;
                 font-weight: 500;
 
-                &:nth-of-type(2), &:nth-of-type(3), &:nth-of-type(4), &:nth-of-type(5) {
+                &:nth-of-type(2), 
+                &:nth-of-type(3), 
+                &:nth-of-type(4), 
+                &:nth-of-type(5) {
                   position: relative;
 
                   &::before {
@@ -250,57 +318,83 @@
           }
 
           tbody {
+            @include lg-screen {
+              display: block;
+            }
 
             tr {
               font-size: .9rem;
               height: 2.65rem;
               text-align: center;
-              vertical-align: center;
               transition: background-color 280ms ease-out, color 280ms ease-out;
 
+              @include lg-screen {
+                display: block;
+                height: auto;
+                padding: .7875rem;
+              }
+
+              @include sm-screen {
+                font-size: .825rem;
+              }
+
+              td {
+
+                @include lg-screen {
+                  display: block;
+                  position: relative;
+                  padding-left: 50%;
+                  line-height: 20px;
+                  
+                  &:not(:last-of-type) {
+                    margin-bottom: .7875rem;
+                  }
+
+                  &::before {
+                    position: absolute;
+                    top: 0;
+                    left: 25%;
+                    height: 20px;
+                    transform: translateX(-50%);
+                    font-weight: 500;
+                    color: $greyish;
+
+                    @include md-screen {
+                      left: 0;
+                      transform: unset;
+                    }
+                  }
+
+                  &:nth-of-type(1)::before { content: 'ID'; }
+                  &:nth-of-type(2)::before { content: 'DATE'; }
+                  &:nth-of-type(3)::before { content: 'TOTAL'; }
+                  &:nth-of-type(4)::before { content: 'PAID'; }
+                  &:nth-of-type(5)::before { content: 'SHIPPED'; }
+                }
+              }
+
+              td:nth-of-type(1) {
+                a {
+                  word-wrap: break-word;
+                  overflow-wrap: break-word;
+                  color: $main-theme;
+                  transition: color 280ms ease-out;
+
+                  &:hover {
+                    color: $sub-theme;
+                  }
+                }
+              }
             }
 
             tr:nth-child(2n + 1) {
               background-color: $bright;
               color: $main-theme;
-
-              td:nth-of-type(1) {
-                a {
-                  width: 100%;
-                  height: 2.65rem;
-                  color: $main-theme;
-                  padding: .2rem .5rem;
-                  transition: color 280ms ease-out;
-
-                  &:hover {
-                    color: brown;
-                  }
-                }
-
-              }
             }
 
             tr:nth-child(2n) {
               background-color: lighten($greyish, 31.5%);
               color: $main-theme;
-
-              &:hover > td:nth-of-type(1) a {
-                color: $main-theme;
-              }
-
-              td:nth-of-type(1) {
-                a {
-                  width: 100%;
-                  height: 2.65rem;
-                  color: $main-theme;
-                  padding: .2rem .5rem;
-                  transition: color 280ms ease-out;
-
-                  &:hover {
-                    color: brown;
-                  }
-                }
-              }
             }
           }
         }

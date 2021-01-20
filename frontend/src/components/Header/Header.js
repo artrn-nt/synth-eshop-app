@@ -2,18 +2,24 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import gsap from 'gsap'
+import { logout } from '../../actions/userActions'
 import UserDropDownMenu from './UserDropDownMenu'
 import AdminDropDownMenu from './AdminDropDownMenu'
-import { logout } from '../../actions/userActions'
+import useWindowSize from '../../utils/useWindowSize'
+import config from '../../scss/config.module.scss'
+import breakpoints from '../../scss/media-queries.module.scss'
+
+const parseWidth = (str) => +str.slice(0, str.indexOf('p'))
 
 const Header = () => {
+
+    const size = useWindowSize()
 
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
-    // console.log(userInfo)
 
     const [indicatorValue, setIndicatorValue] = useState(null)
 
@@ -34,34 +40,39 @@ const Header = () => {
         }
     }, [cartItems, cartIndicatorRef])
 
-    // useEffect(() => {
-    //     if (!userInfo) {
-    //         cartLinkRef.current.style.marginRight = '1.4rem'
-    //     } else {
-    //         cartLinkRef.current.style.marginRight = `${cartLinkRef.current.nextSibling.clientWidth + 1.4 * 16}px`
-    //     }
-    // }, [userInfo])
-
     const logoutHandler = () => {
         dispatch(logout())
     }
 
     return (
         <header>
-            <h1>Synths Mini-Market</h1>
-            <nav className='menu' style={{ marginBottom: userInfo ? '.7875rem' : '.525rem' }}>
+            <h1>
+                <span>Synths</span>
+                <span>Mini-Market</span>
+                <span>we bring electric waves to you</span>
+            </h1>
+            <nav 
+                className='menu'
+                style={{ 
+                    marginBottom: size.width > parseWidth(breakpoints.mdScreen) ? userInfo ? '12.6px' : '8.4px' : '32px'
+                }}
+            >
 
-                <div className='left-menu'>
-                    <NavLink to='/' activeStyle={{ color: '#edf3f5' }} exact>PRODUCTS</NavLink>
-                    <NavLink activeStyle={{ color: '#edf3f5' }} to='/info'>INFO</NavLink>
-                    <NavLink activeStyle={{ color: '#edf3f5' }} to='/contact'>CONTACT</NavLink>
+                <div className='nav-menu'>
+                    <NavLink to='/' activeStyle={{ color: config.bright }} exact>PRODUCTS</NavLink>
+                    <NavLink activeStyle={{ color: config.bright }} to='/info'>INFO</NavLink>
                 </div>
 
-                <div className='right-menu' style={{ alignItems: userInfo ? 'flex-start' : 'center' }}>
+                <div 
+                    className='utils-menu'
+                    style={{ 
+                        alignItems: userInfo ? size.width > parseWidth(breakpoints.mdScreen) ? 'flex-start' : 'center' : 'center' 
+                    }}
+                >
                     <NavLink
                         to='/cart'
                         className='cart-link'
-                        activeStyle={{ color: '#edf3f5' }}
+                        activeStyle={{ color: config.bright }}
                         activeClassName='cart-link active'
                         ref={cartLinkRef}
                     >
@@ -71,8 +82,11 @@ const Header = () => {
                         CART
                     </NavLink>
                     {userInfo ?
-                        <UserDropDownMenu username={userInfo.name} logout={logoutHandler} /> :
-                        <NavLink activeStyle={{ color: '#edf3f5' }} to='/login'>
+                        <UserDropDownMenu
+                            admin={userInfo.isAdmin}
+                            username={userInfo.name.length > 15 ? `${userInfo.name.slice(0, 13)}...` : userInfo.name}
+                            logout={logoutHandler} /> :
+                        <NavLink activeStyle={{ color: config.bright }} to='/login'>
                             <i className='fas fa-user-alt' />
                             SIGN-IN
                         </NavLink>}

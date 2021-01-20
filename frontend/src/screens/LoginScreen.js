@@ -122,7 +122,7 @@ const LoginScreen = ({ history, location }) => {
                                 </div>
                             </div>
 
-                            <ActionBtn type='submit' className='login-btn' disabled={isSubmitting} text='Sign-in' />
+                            <ActionBtn type='submit' className='login-btn' disabled={isSubmitting}>Sign-in</ActionBtn>
 
                         </Form>
 

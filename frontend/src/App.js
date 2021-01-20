@@ -19,7 +19,6 @@ import PaymentMethodScreen from './screens/PaymentMethodScreen'
 import PlaceOrderScreen from './screens/PlaceOrderScreen'
 import OrderStatusScreen from './screens/OrderStatusScreen'
 import NotFoundScreen from './screens/NotFoundScreen'
-// import ContactScreen from './screens/ContactScreen'
 
 const App = () => {
 

@@ -13,7 +13,9 @@ import '../scss/screens/ProductsScreen.scss'
 
 const ProductsScreen = () => {
 
-    const [products, setProducts] = useState([])
+    const [allProducts, setAllProducts] = useState([])
+    const [carouselProducts, setCarouselProducts] = useState([])
+    const [mounted, setMounted] = useState(false)
     const [brands, setBrands] = useState([])
     const [touched, setTouched] = useState(null)
     const [productsContainerHeight, setProductsContainerHeight] = useState(null)
@@ -21,9 +23,7 @@ const ProductsScreen = () => {
     const dispatch = useDispatch()
 
     const productsList = useSelector(state => state.productsList)
-    const { loading, error, products: allProducts } = productsList
-
-    const [heroProducts, setHeroProducts] = useState([])
+    const { loading, error, products } = productsList
 
     const productsContainerRef = useRef(null)
     const productsGridRef = useRef(null)
@@ -53,32 +53,32 @@ const ProductsScreen = () => {
     }, [dispatch])
 
     useEffect(() => {
-        if (!loading && !error && allProducts && allProducts.length !== 0) {
-            setHeroProducts(allProducts.filter(p => p.brand === 'Moog'))
+        if (!loading && !error && typeof products !== 'undefined' && products.length !== 0) {
 
             const brandArr = []
 
-            for (let p of allProducts) {
+            for (const p of products) {
                 brandArr.push(Object.entries(p).filter(entry => entry[0] === 'brand').flat()[1])
             }
 
             setBrands([...new Set(brandArr)])
-            setProducts(sortProductsByName(allProducts))
+            setAllProducts(sortProductsByName(products))
+            setCarouselProducts(products.filter(p => p.brand === 'Moog'))
 
         }
-    }, [loading, error, allProducts])
+    }, [loading, error, products])
 
     useEffect(() => {
 
         if (productsGridRef.current !== null) {
             const productCards = Object.values(productsGridRef.current.children)
 
-            if (products.length !== 0 && touched === null) {
+            if (allProducts.length !== 0 && touched === null) {
                 gsap.fromTo(productCards, {
                     opacity: 0,
                     yPercent: 7
                 }, {
-                    delay: .15,
+                    delay: .75,
                     duration: .75,
                     ease: 'power3.out',
                     opacity: 1,
@@ -90,7 +90,7 @@ const ProductsScreen = () => {
                     setProductsContainerHeight(productsContainerRef.current.clientHeight)
                 }
 
-            } else if (products.length !== 0 && touched) {
+            } else if (allProducts.length !== 0 && touched) {
 
                 gsap.fromTo(productCards, {
                     opacity: 0
@@ -103,9 +103,9 @@ const ProductsScreen = () => {
             }
         }
 
-        if (products.length === 0 && touched) {
+        if (allProducts.length === 0 && touched) {
 
-            gsap.fromTo('.no-product-filter', {
+            gsap.fromTo('.no-result', {
                 opacity: 0,
                 y: 38
             }, {
@@ -117,17 +117,17 @@ const ProductsScreen = () => {
             })
 
         }
-    }, [products, touched])
+    }, [allProducts, touched])
 
-    // Filter products handler
+    // Filter products handler // ugly
     const productsFilterHandler = useCallback((type, criteria) => {
         setTouched(true)
         if (type === 'Indifferent') {
-            setProducts(sortProductsByName(allProducts))
+            setAllProducts(sortProductsByName(products))
         } else if (type === 'Brand') {
-            setProducts(allProducts.filter(p => p.brand === criteria))
+            setAllProducts(products.filter(p => p.brand === criteria))
         } else if (type === 'Categories') {
-            setProducts(allProducts.filter(p => {
+            setAllProducts(products.filter(p => {
                 if (criteria.synthesis !== null && criteria.voiceType === null) {
                     return JSON.stringify(p.categories) === JSON.stringify({
                         synthesis: criteria.synthesis,
@@ -156,26 +156,36 @@ const ProductsScreen = () => {
 
             }))
         } else if (type === 'Price') {
-            setProducts(sortProductsByPrice(allProducts))
+            setAllProducts(sortProductsByPrice(products))
         }
-    }, [allProducts])
+    }, [products])
 
     return (
         <section className={`products-section ${loading || error ? 'ctr' : 'str'}`}>
             {loading ? <Spinner /> :
                 error ? <ErrorMsg message={error} /> :
-                    <div className='products-container' style={{ minHeight: `${productsContainerHeight}px` }} ref={productsContainerRef}>
-                        {/* <Hero latestProducts={latestProducts} /> */}
+                    <div 
+                        className='products-container' 
+                        style={{ 
+                            minHeight: `${productsContainerHeight}px`,
+                            opacity:  mounted ? 1 : 0
+                        }}
+                        ref={productsContainerRef}
+                    >
+                        <Hero 
+                            carouselProducts={carouselProducts} 
+                            mounted={() => setMounted(true)}
+                        />
                         <ScreenTitle title='Our products' />
                         <ProductsFilter
                             brands={brands}
                             price
                             productsFilterHandler={productsFilterHandler}
                         />
-                        {products.length === 0 && touched ?
-                            <p className='no-product-filter'>- No product found matching your filter criterias -</p> :
+                        {allProducts.length === 0 && touched ?
+                            <p className='no-result'>- No product found matching your filter criterias -</p> :
                             <div className='products-grid' ref={productsGridRef}>
-                                {products.map((product) => product.isPublished && <ProductCard key={product._id} product={product} />)}
+                                {allProducts.map((product) => product.isPublished && <ProductCard key={product._id} product={product} />)}
                             </div>}
                     </div>}
         </section>

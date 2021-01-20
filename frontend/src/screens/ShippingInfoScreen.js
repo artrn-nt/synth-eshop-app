@@ -8,7 +8,7 @@ import * as yup from 'yup'
 import CheckOutSteps from '../components/utilities/CheckoutSteps'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import { ActionBtn, ActionLink } from '../components/utilities/ActionBtnLink'
-import '../scss/screens/ShippingScreen.scss'
+import '../scss/screens/ShippingInfoScreen.scss'
 
 const ShippingInfoScreen = ({ history }) => {
 
@@ -68,7 +68,7 @@ const ShippingInfoScreen = ({ history }) => {
             <CheckOutSteps step1 />
             <Formik
                 initialValues={{
-                    firstName,
+                    firstName: shippingInfo.firstName ? shippingInfo.firstName : '',
                     lastName: shippingInfo.lastName ? shippingInfo.lastName : '',
                     address: shippingInfo.address ? shippingInfo.address : '',
                     addressDetails,
@@ -78,6 +78,7 @@ const ShippingInfoScreen = ({ history }) => {
                     phone
                 }}
                 initialErrors={{
+                    firstName: '',
                     lastName: '',
                     address: '',
                     zipCode: '',
@@ -89,7 +90,8 @@ const ShippingInfoScreen = ({ history }) => {
                         .trim()
                         .min(2, 'Seems a bit short don\'t you think?')
                         .max(65, 'Seems a bit long don\'t you think?')
-                        .matches(/^[A-Za-z\s\-'éèàùç]+$/, 'First name is not valid'),
+                        .matches(/^[A-Za-z\s\-'éèàùç]+$/, 'First name is not valid')
+                        .required('First name is required'),
                     lastName: yup.string()
                         .trim()
                         .min(2, 'Seems a bit short don\'t you think?')
@@ -146,7 +148,7 @@ const ShippingInfoScreen = ({ history }) => {
                         >
 
                             <div className='field-control'>
-                                <label htmlFor='firstName'>First name<span>(optional)</span></label>
+                                <label htmlFor='firstName'>First name</label>
                                 <Field
                                     type='text'
                                     name='firstName'
@@ -305,8 +307,11 @@ const ShippingInfoScreen = ({ history }) => {
                                 />
                             </div>
 
-                            <ActionBtn type='submit' className='btn-checkout-step1' disabled={isSubmitting} text='Continue' />
-                            <ActionLink path='/cart' className='back-to-cart-link' text='Back to cart' />
+                            <ActionBtn type='submit' className='btn-checkout-step' disabled={isSubmitting}>Continue</ActionBtn>
+                            <ActionLink path='/cart' className='back-to-cart-link'>
+                                <i className='fas fa-shopping-cart' />
+                                Back to cart
+                            </ActionLink>
 
                         </Form>
 

@@ -1,0 +1,50 @@
+@import '../../config.module.scss';
+@import '../../media-queries.module.scss';
+
+.products-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 1440px;
+  min-height: 24px;
+  padding: 0 40px;
+  margin-top: 17.2px; // 1.075rem
+  opacity: 0;
+
+  @include sm-screen {
+    padding: 0 25.8px; // 1.6125rem
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+
+    span {
+      color: $greyish;
+      font-weight: 600;
+      cursor: default;
+    }
+
+    li:first-child {
+      margin: 0 8px 0 0;
+    }
+
+    li:last-child {
+      margin: 0 0 0 8px;
+    }
+
+    a {
+      color: $greyish;
+      transition: color 250ms ease-out;
+
+      &:hover {
+        color: $sub-theme;
+      }
+
+      @include sm-screen {
+        font-size: $sm-font-size;
+      }
+    }
+  }
+}

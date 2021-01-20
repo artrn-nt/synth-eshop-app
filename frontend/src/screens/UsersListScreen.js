@@ -29,8 +29,8 @@ const UsersListScreen = ({ history }) => {
     const { success: successDelete } = userDelete
 
     useEffect(() => {
-        if (users && users.length !== 0)
-            gsap.fromTo('.users-list-table', {
+        if (users && users.length !== 0) {
+            gsap.fromTo(['.users-list-table', '.stats-row'], {
                 opacity: 0,
                 y: 38
             }, {
@@ -40,6 +40,8 @@ const UsersListScreen = ({ history }) => {
                 y: 0,
                 ease: 'power3.out'
             })
+            console.log(users)
+        }
     }, [users])
 
     useEffect(() => {
@@ -72,51 +74,61 @@ const UsersListScreen = ({ history }) => {
 
                 {loading ? <Spinner /> :
                     error ? <ErrorMsg message={error} /> : (
-                        <table className='users-list-table'>
-                            <thead>
-                                <tr>
-                                    <th scope='col' width='25.667%'>USER ID</th>
-                                    <th scope='col' width='25.667%'>NAME</th>
-                                    <th scope='col' width='25.667%'>EMAIL</th>
-                                    <th scope='col' width='11.5%'>ADMIN</th>
-                                    <th scope='col' width='5.75%'>EDIT</th>
-                                    <th scope='col' width='5.75%'>DEL</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {users.map(user => (
-                                    <tr key={user._id}>
-                                        <td>{user._id}</td>
-                                        <td>{user.name}</td>
-                                        <td><a href={`mailto:${user.email}`}>{user.email}</a></td>
-                                        <td>{user.isAdmin ?
-                                            (<i className='fas fa-check-circle' style={{ color: 'seagreen' }} />) :
-                                            (<i className='fas fa-times-circle' style={{ color: 'tomato' }} />)}
-                                        </td>
-                                        <td>
-                                            <ActionLink
-                                                path={`/admin/user/${user._id}/edit`}
-                                                className='edit-user-link'
-                                            >
-                                                <i className='fas fa-edit' />
-                                            </ActionLink>
-                                        </td>
-                                        <td>
-                                            <ActionBtn
-                                                type='button'
-                                                className='delete-user-btn'
-                                                onClickHandler={() => {
-                                                    objectIDHandler(user._id)
-                                                    confirmHandler(true)
-                                                }}
-                                            >
-                                                <i className='fas fa-trash' />
-                                            </ActionBtn>
-                                        </td>
+                        <>
+                            {users.length !== 0 && <div className='stats-row'>
+                                <div className='stats-card'>
+                                    <i className='fas fa-users' />
+                                    <span>
+                                        Total number of users: {users.length}
+                                    </span>
+                                </div>
+                            </div>}
+                            <table className='users-list-table'>
+                                <thead>
+                                    <tr>
+                                        <th scope='col' width='25.667%'>USER ID</th>
+                                        <th scope='col' width='25.667%'>NAME</th>
+                                        <th scope='col' width='25.667%'>EMAIL</th>
+                                        <th scope='col' width='11.5%'>ADMIN</th>
+                                        <th scope='col' width='5.75%'>EDIT</th>
+                                        <th scope='col' width='5.75%'>DEL</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {users.map(user => (
+                                        <tr key={user._id}>
+                                            <td>{user._id}</td>
+                                            <td>{user.name}</td>
+                                            <td><a href={`mailto:${user.email}`}>{user.email}</a></td>
+                                            <td>{user.isAdmin ?
+                                                (<i className='fas fa-check-circle' style={{ color: 'seagreen' }} />) :
+                                                (<i className='fas fa-times-circle' style={{ color: 'tomato' }} />)}
+                                            </td>
+                                            <td>
+                                                <ActionLink
+                                                    path={`/admin/user/${user._id}/edit`}
+                                                    className='edit-user-link'
+                                                >
+                                                    <i className='fas fa-edit' />
+                                                </ActionLink>
+                                            </td>
+                                            <td>
+                                                <ActionBtn
+                                                    type='button'
+                                                    className='delete-user-btn'
+                                                    onClickHandler={() => {
+                                                        objectIDHandler(user._id)
+                                                        confirmHandler(true)
+                                                    }}
+                                                >
+                                                    <i className='fas fa-trash' />
+                                                </ActionBtn>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </>
                     )}
 
                 {objectID && <AdminConfirmAlert

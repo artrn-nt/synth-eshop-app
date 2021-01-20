@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import gsap from 'gsap'
 import { ActionBtn } from './ActionBtnLink'
+import useWindowSize from '../../utils/useWindowSize'
 import '../../scss/components/utilities/AdminConfirmAlert.scss'
 
 const AdminConfirmAlert = ({ objectID, confirm, objectIDHandler, confirmHandler, actionHandler, text }) => {
+
+    const size = useWindowSize()
 
     const [cancel, setCancel] = useState(null)
 
@@ -43,7 +46,13 @@ const AdminConfirmAlert = ({ objectID, confirm, objectIDHandler, confirmHandler,
     }, [cancel, objectID, objectIDHandler, actionHandler])
 
     return (
-        <div className={confirm ? 'confirm-alert fade-in' : 'confirm-alert fade-out'}>
+        <div
+            className={confirm ? 'confirm-alert fade-in' : 'confirm-alert fade-out'}
+            style={{
+                left: size.width < 320 && '1.6125rem',
+                transform: size.width < 320 && 'translate3d(0, -50%, 0)'
+            }}
+        >
             <span>{text}?</span>
             <div className='btns-row'>
                 <ActionBtn
@@ -53,7 +62,9 @@ const AdminConfirmAlert = ({ objectID, confirm, objectIDHandler, confirmHandler,
                         confirmHandler(false)
                         setCancel(true)
                     }}
-                    text='Cancel' />
+                >
+                    Cancel
+                </ActionBtn>
                 <ActionBtn
                     type='button'
                     className='confirm-btn-admin'
@@ -61,7 +72,9 @@ const AdminConfirmAlert = ({ objectID, confirm, objectIDHandler, confirmHandler,
                         confirmHandler(false)
                         setCancel(false)
                     }}
-                    text='Confirm' />
+                >
+                    Confirm
+                </ActionBtn>
             </div>
         </div>
     )

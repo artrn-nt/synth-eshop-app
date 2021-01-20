@@ -1,9 +1,10 @@
-@import '../config.scss';
+@import '../config.module.scss';
+@import '../media-queries.module.scss';
 
 %input {
   width: 100%;
   height: 2.65rem;
-  padding: 0 42px 0 .8rem;
+  padding: 0 .8rem;
   border: 1.4px solid transparent;
   border-radius: 4px;
   background-color: $bright;
@@ -11,6 +12,10 @@
   font-size: 0.95rem;
   font-weight: 500;
   color: $main-theme;
+
+  @include sm-screen {
+    font-size: .875rem;
+  }
 }
 
 .register-section {
@@ -18,7 +23,9 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 2.1rem 0;
+  padding: $padding-screen;
+  // background-color: slateblue;
+  // padding: 2.15rem 0;
 
   .register-form-container {
     display: flex;
@@ -31,6 +38,11 @@
     color: $bright;
     opacity: 0;
     cursor: default;
+
+    @include md-screen {
+      width: 100%;
+      max-width: 420px;
+    }
 
     form {
       display: flex;
@@ -78,6 +90,10 @@
             width: 70%;
             background-color: $sub-theme;
           }
+
+          @include sm-screen {
+            font-size: 1.025rem;
+          }
         }
 
         #username,
@@ -100,11 +116,15 @@
 
           .form-err-msg {
               width: 100%;
-              font-size: 0.85rem;
+              font-size: .85rem;
               font-weight: 600;
               text-align: left;
               color: $sub-theme;
               animation: fadeIn 0.6s ease-in-out;
+
+              @include sm-screen {
+                font-size: .775rem;
+              }
           }
         }
       }
@@ -113,11 +133,16 @@
 
   .login-link {
     margin-bottom: 2.1rem;
+    text-align: center;
     color: $greyish;
     font-size: 1rem;
     font-weight: 500;
     opacity: 0;
     cursor: default;
+
+    @include sm-screen {
+      font-size: .925rem;
+    }
 
     a {
       margin-left: 0.5rem;
@@ -137,6 +162,11 @@
     justify-content: center;
     width: 420px;
     min-height: 110px;
+
+    @include sm-screen {
+      width: 100%;
+      max-width: 420px;
+    }
   }
 }
 

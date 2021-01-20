@@ -1,4 +1,5 @@
-@import '../../config.scss';
+@import '../../config.module.scss';
+@import '../../media-queries.module.scss';
 
 .user-select-container {
   position: relative;
@@ -75,7 +76,7 @@
       transition: background-color 280ms ease-out, color 280ms ease-in-out;
 
       &:hover {
-        background-color: brown;
+        background-color: $sub-theme;
         color: $bright;
       }
 
