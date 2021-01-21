@@ -4,6 +4,9 @@ import { Transition } from 'react-transition-group'
 import gsap from 'gsap'
 import useWindowSize from '../../utils/useWindowSize'
 import '../../scss/components/Header/UserDropDownMenu.scss'
+import breakpoints from '../../scss/media-queries.module.scss'
+
+const parseWidth = (str) => +str.slice(0, str.indexOf('p'))
 
 const UserDropDownMenu = ({ admin, username, logout }) => {
 
@@ -12,10 +15,6 @@ const UserDropDownMenu = ({ admin, username, logout }) => {
     const [drop, setDrop] = useState(false)
     const selectContainerRef = useRef(null)
     const usernameSpanRef = useRef(null)
-
-    // useEffect(() => {
-    //     selectContainerRef.current.style.width = `${usernameSpanRef.current.clientWidth + 70}px`
-    // }, [])
 
     useEffect(() => {
         if (drop) {
@@ -28,7 +27,7 @@ const UserDropDownMenu = ({ admin, username, logout }) => {
             gsap.to(selectContainerRef.current, {
                 delay: .15,
                 duration: .6,
-                height: '2.1rem',
+                height: '33.6px',
                 ease: 'power3.out'
             })
         }
@@ -44,7 +43,7 @@ const UserDropDownMenu = ({ admin, username, logout }) => {
     return (
         <div
             className={drop ? 'user-select-container active' : 'user-select-container'}
-            style={{ marginBottom: size.width > 790 ? 'unset' : admin ? '.7875rem' : 'unset' }}
+            style={{ marginBottom: size.width > parseWidth(breakpoints.mdScreen) ? 'unset' : admin ? '12.6px' : 'unset' }}
             ref={selectContainerRef}
         >
             <div className='username-wrapper' onClick={() => setDrop(prevState => !prevState)}>

@@ -209,11 +209,16 @@
     flex-grow: 1;
     width: 100%;
     max-width: 1440px;
-    min-height: $min-height-screen;
+    min-height: $default-min-height-screen;
     padding: $default-layout-padding;
     // background-color: cadetblue;
 
+    @include md-screen {
+      min-height: $md-min-height-screen;
+    }
+
     @include sm-screen {
+      min-height: $sm-min-height-screen;
       padding: $sm-layout-padding;
     }
   }

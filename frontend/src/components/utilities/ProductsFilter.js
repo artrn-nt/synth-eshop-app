@@ -3,6 +3,7 @@ import { Transition } from 'react-transition-group'
 import gsap from 'gsap'
 import useWindowSize from '../../utils/useWindowSize'
 import '../../scss/components/utilities/ProductsFilter.scss'
+import breakpoints from '../../scss/media-queries.module.scss'
 
 const transitionStyles = {
     entering: { opacity: 0 },
@@ -10,6 +11,8 @@ const transitionStyles = {
     exiting: { opacity: 1 },
     exited: { opacity: 0 }
 }
+
+const parseWidth = (str) => +str.slice(0, str.indexOf('p'))
 
 const BrandSelector = ({ drop, dropHandler, shutHandler, brands, productsFilterHandler }) => {
 
@@ -19,14 +22,14 @@ const BrandSelector = ({ drop, dropHandler, shutHandler, brands, productsFilterH
         if (drop) {
             gsap.to('.brand-select-container', {
                 duration: .6,
-                height: `${(brands.length + 1) * 2.1 * 16}px`,
+                height: `${(brands.length + 1) * 33.6}px`,
                 ease: 'power3.out'
             })
         } else {
             gsap.to('.brand-select-container', {
                 delay: .15,
                 duration: .6,
-                height: '2.1rem',
+                height: '33.6px',
                 ease: 'power3.out'
             })
         }
@@ -99,14 +102,14 @@ const CategoriesSelector = ({ drop, dropHandler, productsFilterHandler }) => {
         if (drop) {
             gsap.to('.categories-select-container', {
                 duration: .6,
-                height: `${15 * 2.1 * 16}px`,
+                height: `${15 * 33.6}px`,
                 ease: 'power3.out'
             })
         } else {
             gsap.to('.categories-select-container', {
                 delay: .15,
                 duration: .6,
-                height: '2.1rem',
+                height: '33.6px',
                 ease: 'power3.out'
             })
         }
@@ -245,7 +248,7 @@ const ProductsFilter = ({ brands, productsFilterHandler, outOfStock, price }) =>
             gsap.to('.filter-select-container', {
                 delay: .15,
                 duration: .6,
-                height: '2.1rem',
+                height: '33.6px',
                 ease: 'power3.out'
             })
         }
@@ -271,9 +274,9 @@ const ProductsFilter = ({ brands, productsFilterHandler, outOfStock, price }) =>
             <div
                 className='filter-main-container'
                 style={{
-                    minHeight: size.width <= 790 ?
+                    minHeight: size.width <= parseWidth(breakpoints.mdScreen) ?
                         filterType === 'Brand' || filterType === 'Categories' ?
-                            `${4.2 + .7875}rem` : '2.1rem' : '2.1rem'
+                            `${67.2 + 12.6}px` : '33.6px' : '33.6px'
                 }}
             >
                 <div className='filter-sub-container'>
@@ -369,7 +372,7 @@ const ProductsFilter = ({ brands, productsFilterHandler, outOfStock, price }) =>
                         </Transition>
                     </div>
 
-                    {filterType === 'Brand' ? size.width > 790 ?
+                    {filterType === 'Brand' ? size.width > parseWidth(breakpoints.mdScreen) ?
                         <BrandSelector
                             drop={drop.isActive2}
                             dropHandler={dropHandler}
@@ -388,7 +391,7 @@ const ProductsFilter = ({ brands, productsFilterHandler, outOfStock, price }) =>
                         </div> : null
                     }
 
-                    {filterType === 'Categories' ? size.width > 790 ?
+                    {filterType === 'Categories' ? size.width > parseWidth(breakpoints.mdScreen) ?
                         <CategoriesSelector
                             drop={drop.isActive2}
                             dropHandler={dropHandler}

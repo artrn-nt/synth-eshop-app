@@ -23,6 +23,7 @@ body {
   background-color: $main-theme;
   font-family: $content-font;
   overflow-x: hidden;
+  overflow-y: hidden;
   overscroll-behavior-y: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

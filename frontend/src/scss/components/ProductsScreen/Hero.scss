@@ -109,7 +109,7 @@
 %carousel-btn-left {
   @extend %carousel-btn;
   left: -12.6px;
-  padding-right: 0.125rem;
+  padding-right: 2px;
   border-top-left-radius: 2.5px;
   border-bottom-left-radius: 2.5px;
 
@@ -120,7 +120,7 @@
 
 %carousel-btn-right {
   @extend %carousel-btn;
-  right: -0.7875rem;
+  right: -12.6px;
   padding-left: 2px; // 0.125rem
   border-top-right-radius: 2.5px;
   border-bottom-right-radius: 2.5px;

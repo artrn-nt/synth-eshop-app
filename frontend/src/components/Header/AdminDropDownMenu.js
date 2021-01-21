@@ -20,7 +20,7 @@ const AdminDropDownMenu = () => {
             gsap.to(selectContainerRef.current, {
                 duration: .6,
                 delay: .15,
-                height: '2.1rem',
+                height: '33.6px',
                 ease: 'power3.out'
             })
         }
