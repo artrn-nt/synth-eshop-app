@@ -3,18 +3,18 @@
 
 %input {
   width: 100%;
-  height: 2.65rem;
-  padding: 0 .8rem;
+  height: $default-form-height;
+  padding: $form-padding;
   border: 1.4px solid transparent;
   border-radius: 4px;
   background-color: $bright;
   font-family: $content-font;
-  font-size: 0.95rem;
+  font-size: $default-form-font-size;
   font-weight: 500;
   color: $main-theme;
 
   @include sm-screen {
-    font-size: .875rem;
+    font-size: $sm-form-font-size;
   }
 }
 
@@ -38,16 +38,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    margin-top: 3.15rem;
+    margin-top: 50.4px; // 3.15rem;
     flex-grow: 1;
-    width: 420px;
+    width: $default-form-width;
     color: $bright;
     opacity: 0;
     cursor: default;
 
     @include md-screen {
       width: 100%;
-      max-width: 420px;
+      max-width: $default-form-width;
     }
 
     form {
@@ -62,10 +62,10 @@
         flex-flow: column;
         align-items: flex-start;
         width: 100%;
-        margin-bottom: 1rem;
+        margin-bottom: 16px;
 
         &:nth-of-type(2) {
-          margin-bottom: 3.15rem;
+          margin-bottom: 50.4px;
 
           .password-input-wrap-login {
             position: relative;
@@ -73,15 +73,14 @@
             flex-direction: row;
             align-items: center;
             width: 100%;
-            margin-bottom: 0.75rem;
-            
+            margin-bottom: 12px;
           }
         }
 
         label:nth-child(1) {
           position: relative;
-          margin-bottom: 1rem;
-          font-size: 1.1rem;
+          margin-bottom: 16px;
+          font-size: $default-label-font-size;
           font-weight: 500;
 
           &::after {
@@ -96,13 +95,13 @@
           }
 
           @include sm-screen {
-            font-size: 1.025rem;
+            font-size: $sm-label-font-size;
           }
         }
 
         #email {
           @extend %input;
-          margin-bottom: 0.75rem;
+          margin-bottom: 12px;
         }
 
         #password {
@@ -118,14 +117,14 @@
 
           .form-err-msg {
             width: 100%;
-            font-size: 0.85rem;
+            font-size: $default-err-msg-font-size;
             font-weight: 600;
             text-align: left;
             color: $sub-theme;
             animation: fadeIn 0.6s ease-in-out;
 
             @include sm-screen {
-              font-size: .775rem;
+              font-size: $sm-err-msg-font-size;
             }
           }
         }
@@ -134,20 +133,20 @@
   }
 
   .register-link {
-    margin-bottom: 2.1rem;
+    margin-bottom: 33.6px;
     text-align: center;
     color: $greyish;
-    font-size: 1rem;
+    font-size: $default-font-size;
     font-weight: 500;
     opacity: 0;
     cursor: default;
 
     @include sm-screen {
-      font-size: .925rem;
+      font-size: $sm-font-size;
     }
 
     a {
-      margin-left: 0.5rem;
+      margin-left: 8px;
       color: $bright;
       transition: color 250ms ease-out;
 
@@ -162,12 +161,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 420px;
+    width: $default-form-width;
     min-height: 110px;
 
     @include sm-screen {
       width: 100%;
-      max-width: 420px;
+      max-width: $default-form-width;
     }
   }
 }
