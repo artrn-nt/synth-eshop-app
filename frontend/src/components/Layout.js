@@ -9,6 +9,7 @@ const Layout = ({ children }) => {
 
     const { pathname } = useLocation()
     const url = pathname.slice(0, pathname.lastIndexOf('/'))
+    console.log(pathname)
 
     return (
         <div className='container'>

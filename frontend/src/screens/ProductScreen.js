@@ -14,6 +14,8 @@ import '../scss/screens/ProductScreen.scss'
 
 const ProductScreen = ({ match }) => {
 
+    console.log('branch commit test')
+
     const dispatch = useDispatch()
 
     const productDetails = useSelector(state => state.productDetails)
@@ -30,6 +32,7 @@ const ProductScreen = ({ match }) => {
 
     useEffect(() => {
         dispatch(listProductDetails(match.params.id))
+        console.log(match)
         return () => {
             dispatch({ type: PRODUCT_DETAILS_RESET })
             dispatch({ type: CART_ADD_RESET })

@@ -6,6 +6,7 @@ import { listProductsIds, resetListProductsIds } from '../../actions/productActi
 import '../../scss/components/utilities/ProductsNav.scss'
 
 const ProductsNav = ({ pathname_id }) => {
+    console.log(pathname_id)
 
     const dispatch = useDispatch()
     const idsList = useSelector(state => state.idsList)
