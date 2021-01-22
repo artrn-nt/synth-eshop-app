@@ -43,7 +43,7 @@ const ProductScreen = ({ match }) => {
 
     useEffect(() => {
         if ((!loading && !loadingIds) && (!error && !errorIds) && isProduct) {
-            gsap.fromTo('.product-main-row.str', {
+            gsap.fromTo('.product-main-col', {
                 opacity: 0,
                 y: 38
             }, {
@@ -75,69 +75,73 @@ const ProductScreen = ({ match }) => {
     return (
         <section className='product-section'>
 
-            <ScreenTitle title={product.name} />
-
-            <div className={loading || loadingIds || error || errorIds ? 'product-main-row ctr' : 'product-main-row str'}>
+            <div className='product-main-col'>
 
                 {loading || loadingIds ? <Spinner /> :
                     error || errorIds ? <ErrorMsg message={error || errorIds} /> :
 
                         <>
 
-                            <div className='product-col-1'>
-                                <div className='img-wrapper'>
-                                    <img src={product.image} alt={product.name} />
-                                </div>
-                                <div className='add-row'>
-                                    <div className='info-wrapper'>
-                                        <span className='price'>Price: €{product.price.toFixed(2)}</span>
-                                        <span className='status'>Status: {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}</span>
-                                        {product.countInStock > 0 && <span className='count-in-stock'>{product.countInStock} remaining</span>}
+                            <ScreenTitle title={product.name} />   
+
+                            <div className='product-row'>
+                            
+                                <div className='product-col-1'>
+                                    <div className='img-wrapper'>
+                                        <img src={product.image} alt={product.name} />
                                     </div>
-                                    <ActionBtn
-                                        type='button'
-                                        className={product.countInStock === 0 || compareStockToCartQtyHandler() ? 'btn-add-cart disabled' : 'btn-add-cart active'}
-                                        onClickHandler={() => {
-                                            if (product.countInStock > 0) {
-                                                if (cartItems.length === 0) addToCartHandler()
-                                                else {
-                                                    const existItem = cartItems.find(item => item._id === product._id)
+                                    <div className='add-row'>
+                                        <div className='info-wrapper'>
+                                            <span className='price'>Price: €{product.price.toFixed(2)}</span>
+                                            <span className='status'>Status: {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}</span>
+                                            {product.countInStock > 0 && <span className='count-in-stock'>{product.countInStock} remaining</span>}
+                                        </div>
+                                        <ActionBtn
+                                            type='button'
+                                            className={product.countInStock === 0 || compareStockToCartQtyHandler() ? 'btn-add-cart disabled' : 'btn-add-cart active'}
+                                            onClickHandler={() => {
+                                                if (product.countInStock > 0) {
+                                                    if (cartItems.length === 0) addToCartHandler()
+                                                    else {
+                                                        const existItem = cartItems.find(item => item._id === product._id)
 
-                                                    if (existItem) {
-                                                        if (existItem.qty < product.countInStock) addToCartHandler()
-                                                        else return
-                                                    } else addToCartHandler()
+                                                        if (existItem) {
+                                                            if (existItem.qty < product.countInStock) addToCartHandler()
+                                                            else return
+                                                        } else addToCartHandler()
+                                                    }
                                                 }
-                                            }
-                                        }}
-                                    >
-                                        Add To Cart
-                                    </ActionBtn>
-                                </div>
-                                <div className={cart.loading || cart.error ? 'alert-row-product ctr' : 'alert-row-product str'}>
-                                    {cart.loading && <Spinner />}
-                                    {!cart.loading && !cart.error && added !== null ? added ?
-                                        (<p className={compareStockToCartQtyHandler() ? 'add-cart-alert margin' : 'add-cart-alert'}>
-                                            <span>Item added to your cart</span><br />
-                                            <span>View <Link to='/cart'>your cart</Link> or <Link to='/'>continue shopping</Link></span>
-                                        </p>) :
-                                        <span className='error-alert-add-cart'>Something went wrong. Please refresh and retry to add this product to your cart</span> : null}
-                                    {compareStockToCartQtyHandler() &&
-                                        <span className='stock-alert-product'>Not enough stock to add more than {product.countInStock} {product.name} to your cart</span>}
-                                </div>
-                            </div>
+                                            }}
+                                        >
+                                            Add To Cart
+                                        </ActionBtn>
+                                    </div>
 
-                            <div className='product-col-2'>
-                                <div className='description-wrapper'>
-                                    <span>{product.description_m}</span>
-                                    <ul className='details-list-wrapper'>
-                                        {product.features.map((detail, index) => {
-                                            return <li key={product._id + index.toString()}>{detail}</li>
-                                        })}
-                                    </ul>
+                                    <div className={cart.loading || cart.error ? 'alert-row-product ctr' : 'alert-row-product str'}>
+                                        {cart.loading && <Spinner />}
+                                        {!cart.loading && !cart.error && added !== null ? added ?
+                                            (<p className={compareStockToCartQtyHandler() ? 'add-cart-alert margin' : 'add-cart-alert'}>
+                                                <span>Item added to your cart</span><br />
+                                                <span>View <Link to='/cart'>your cart</Link> or <Link to='/'>continue shopping</Link></span>
+                                            </p>) :
+                                            <span className='error-alert-add-cart'>Something went wrong. Please refresh and retry to add this product to your cart</span> : null}
+                                        {compareStockToCartQtyHandler() &&
+                                            <span className='stock-alert-product'>Not enough stock to add more than {product.countInStock} {product.name} to your cart</span>}
+                                    </div>
                                 </div>
-                            </div>
 
+                                <div className='product-col-2'>
+                                    <div className='description-wrapper'>
+                                        <span>{product.description_m}</span>
+                                        <ul className='details-list-wrapper'>
+                                            {product.features.map((detail, index) => {
+                                                return <li key={product._id + index.toString()}>{detail}</li>
+                                            })}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div> 
                         </>}
 
             </div>

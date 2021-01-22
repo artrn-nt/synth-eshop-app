@@ -4,9 +4,9 @@
 .cart-section {
   display: flex;
   flex-direction: column;
-  // flex-grow: 1;
   align-items: center;
   justify-content: flex-start;
+  flex-grow: 1;
   width: 100%;
   padding: $padding-screen;
 

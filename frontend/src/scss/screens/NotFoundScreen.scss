@@ -1,0 +1,42 @@
+@import '../config.module.scss';
+@import '../media-queries.module.scss';
+
+.not-found-section {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  cursor: default;
+  //   background-color: orangered;
+
+  p {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    color: $greyish;
+    font-size: 18.4px;
+    font-weight: 500;
+    cursor: default;
+
+    @include sm-screen {
+      font-size: 17.2px;
+    }
+
+    a {
+      margin-top: 8px;
+      color: $bright;
+      font-size: 20px;
+      transition: color 250ms ease-out;
+
+      &:hover {
+        color: $sub-theme;
+      }
+
+      @include sm-screen {
+        font-size: 18.8px;
+      }
+    }
+  }
+}

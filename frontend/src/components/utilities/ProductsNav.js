@@ -22,7 +22,7 @@ const ProductsNav = ({ pathname_id }) => {
     }, [dispatch])
 
     useEffect(() => {
-        if (ids && ids.length !== 0) {
+        if (!loading && !error && ids.length !== 0) {
             gsap.fromTo(linksRowRef.current, {
                 opacity: 0
             }, {
@@ -32,7 +32,7 @@ const ProductsNav = ({ pathname_id }) => {
                 ease: 'power3.out'
             })
         }
-    }, [ids])    
+    }, [loading, error, ids])    
 
     useEffect(() => {
         if (ids) {
