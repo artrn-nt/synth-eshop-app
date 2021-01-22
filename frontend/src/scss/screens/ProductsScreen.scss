@@ -20,6 +20,10 @@
 
   &.str {
     justify-content: flex-start;
+
+    @include sm-screen {
+      padding-top: 34.4px;
+    }
   }
 
   .products-container {

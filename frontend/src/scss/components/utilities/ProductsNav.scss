@@ -19,6 +19,11 @@
   ul {
     display: flex;
     align-items: center;
+    font-size: $default-font-size;
+
+    @include sm-screen {
+      font-size: $sm-font-size;
+    }
 
     span {
       color: $greyish;
@@ -40,10 +45,6 @@
 
       &:hover {
         color: $sub-theme;
-      }
-
-      @include sm-screen {
-        font-size: $sm-font-size;
       }
     }
   }

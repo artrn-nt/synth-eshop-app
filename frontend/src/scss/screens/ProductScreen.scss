@@ -7,16 +7,13 @@
   flex-grow: 1;
   align-items: center;
   width: 100%;
-  // padding: $padding-screen;
   padding-bottom: 68.8px;
-  // min-height: $min-height-screen;
-  // padding: 1.075rem 0 2.15rem;
 
   .product-main-row {
     display: flex;
     flex-grow: 1;
     width: 100%;
-    margin-top: 33.6px;
+    margin-top: 68.8px;
     color: $greyish;
 
     &.ctr {
@@ -77,10 +74,11 @@
           align-items: flex-start;
           justify-content: space-between;
           color: $bright;
+          font-size: $default-font-size;
           font-weight: 500;
 
           @include sm-screen {
-            font-size: 0.925rem;
+            font-size: $sm-font-size;
           }
 
           .price,
@@ -95,8 +93,8 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        min-height: calc(100px + 1.05rem);
-        font-size: 1.05rem;
+        min-height: calc(100px + 16.8px);
+        font-size: 16.8px;
 
         &.ctr {
           justify-content: center;
@@ -107,7 +105,7 @@
         }
 
         @include sm-screen {
-          font-size: 0.975rem;
+          font-size: 15.6px;
         }
 
         .add-cart-alert {
@@ -117,7 +115,7 @@
           animation: fadeIn 400ms ease-out;
 
           &.margin {
-            margin-bottom: 1.05rem;
+            margin-bottom: 16.8px;
           }
 
           a {
@@ -138,11 +136,11 @@
           text-align: center;
           animation: fadeIn 400ms ease-out;
           background-color: $bright;
-          padding: 0.35rem;
-          font-size: 0.9rem;
+          padding: 5.6px;
+          font-size: 14.4px;
 
           @include sm-screen {
-            font-size: 0.825rem;
+            font-size: 13.2px;
           }
         }
       }
@@ -154,7 +152,7 @@
       align-items: flex-start;
       justify-content: flex-start;
       width: 50%;
-      margin-left: 3.15rem;
+      margin-left: 50.4px; // 3.15rem
       cursor: default;
 
       @include md-screen {
@@ -178,17 +176,17 @@
         }
 
         li {
-          font-size: 0.95rem;
+          font-size: 0.975rem;
           list-style: circle outside;
           text-align: left;
-          margin-left: 0.825rem;
+          margin-left: 0.85rem;
 
           &:not(:last-of-type) {
-            margin-bottom: 0.1875rem;
+            margin-bottom: 0.2rem;
           }
 
           @include sm-screen {
-            font-size: 0.875rem;
+            font-size: 0.9rem;
           }
         }
       }

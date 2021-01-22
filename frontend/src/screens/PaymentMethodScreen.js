@@ -5,7 +5,7 @@ import { savePaymentMethod } from '../actions/cartActions'
 import { Formik, Form } from 'formik'
 import CheckOutSteps from '../components/utilities/CheckoutSteps'
 import ScreenTitle from '../components/utilities/ScreenTitle'
-import RadioInput from '../components/PaymentScreen/RadioInput'
+import RadioInputField from '../components/utilities/RadioInputField'
 import { ActionBtn, ActionLink } from '../components/utilities/ActionBtnLink'
 import '../scss/screens/PaymentMethodScreen.scss'
 
@@ -66,19 +66,21 @@ const PaymentMethodScreen = ({ history }) => {
 
                             <div className='payment-group'>
 
-                                <RadioInput
-                                    paymentMethod='paypal'
+                                <RadioInputField
+                                    id='paypal'
+                                    name='paymentMethod'
                                     value='paypal'
                                     checked={values.paymentMethod === 'paypal'}
                                     onChangeHandler={ev => {
                                         handleChange(ev)
                                         setPaymentMethod(ev.target.value)
                                     }}
-                                    text='PayPal or credit card'
+                                    text='Paypal or credit card'
                                 />
 
-                                <RadioInput
-                                    paymentMethod='stripe'
+                                <RadioInputField
+                                    id='stripe'
+                                    name='paymentMethod'
                                     value='stripe'
                                     checked={values.paymentMethod === 'stripe'}
                                     onChangeHandler={ev => {

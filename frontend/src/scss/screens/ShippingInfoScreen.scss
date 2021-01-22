@@ -3,19 +3,19 @@
 
 %input {
   width: 100%;
-  height: 2.65rem;
-  padding: 0 .8rem;
-  margin-bottom: .75rem;
+  height: $default-form-height;
+  padding: $form-padding;
+  margin-bottom: 12px;
   border: 1.4px solid transparent;
   border-radius: 4px;
   background-color: $bright;
   font-family: $content-font;
-  font-size: 0.95rem;
+  font-size: $default-form-font-size;
   font-weight: 500;
   color: $main-theme;
-  
+
   @include sm-screen {
-    font-size: .875rem;
+    font-size: $sm-form-font-size;
   }
 }
 
@@ -32,16 +32,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    margin-top: 3.15rem;
+    margin-top: 50.4px;
     flex-grow: 1;
-    width: 420px;
+    width: $default-form-width;
     color: $bright;
     opacity: 0;
     cursor: default;
 
     @include md-screen {
       width: 100%;
-      max-width: 420px;
+      max-width: $default-form-width;
     }
 
     form {
@@ -60,26 +60,26 @@
         // background-color: burlywood;
 
         &:nth-of-type(8) {
-          margin-bottom: 2.1rem;
+          margin-bottom: 33.6px;
         }
 
         label {
-          margin-bottom: 0.75rem;
-          font-size: 1.1rem;
+          margin-bottom: 12px;
+          font-size: $default-label-font-size;
           font-weight: 500;
 
           @include sm-screen {
-            font-size: 1.025rem;
+            font-size: $sm-label-font-size;
           }
 
           span {
-            margin-left: .5rem;
-            font-size: .9rem;
+            margin-left: 8px;
+            font-size: 14.4px;
             font-weight: 400;
             color: $greyish;
 
             @include sm-screen {
-              font-size: .825rem;
+              font-size: 13.2px;
             }
           }
         }
@@ -97,15 +97,15 @@
 
         .form-alert {
           width: 100%;
-          padding-left: .8rem;
-          font-size: .85rem;
+          padding-left: 12.8px;
+          font-size: $default-err-msg-font-size;
           font-weight: 600;
           text-align: left;
           color: $sub-theme;
-          animation: fadeIn .6s ease-in-out;
+          animation: fadeIn 0.6s ease-in-out;
 
           @include sm-screen {
-            font-size: .775rem;
+            font-size: $sm-err-msg-font-size;
           }
         }
       }

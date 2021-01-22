@@ -2,195 +2,197 @@
 @import '../media-queries.module.scss';
 
 .place-order-section {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  width: 100%;
+  padding: $padding-screen;
+
+  .place-order-main-row {
     display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex: 1;
     width: 100%;
-    padding: $padding-screen;
+    margin: 50.4px 0 68.8px;
+    opacity: 0;
+    // background-color: cadetblue;
 
-    .place-order-main-row {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        flex: 1;
-        width: 100%;
-        margin: 3.15rem 0 4.3rem;
-        opacity: 0;
-        // background-color: cadetblue;
-
-        @include lg-screen {
-            flex-direction: column-reverse;
-            align-items: center;
-            justify-content: flex-start;
-        }
-
-        .place-order-col-1 {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            // background-color: darkcyan;
-
-            @include md-screen {
-                width: 100%;
-                max-width: 375px;
-            }
-            
-            .place-order-row {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: center;
-                width: 100%;
-                color: $bright;
-                
-                &:nth-of-type(1), &:nth-of-type(2) {
-                    margin-bottom: 1.6125rem;
-                }
-
-                h3 {
-                    padding: 0 0.35rem;
-                    margin-bottom: 1.6125rem;
-                    font-size: 1.15rem;
-                    font-weight: 500;
-                    background-color: $sub-theme;
-
-                    @include sm-screen {
-                        font-size: 1.075rem;
-                    }
-                }
-
-                .data {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    justify-content: center;
-                    width: 100%;
-                    padding-left: 1.05rem;
-
-                    h4 {
-                        margin-bottom: .75rem;
-                        font-weight: 500;
-                        font-size: 1rem;
-
-                        @include sm-screen {
-                            font-size: .925rem;
-                        }
-                    }
-
-                    span {
-                        @include sm-screen {
-                            font-size: .925rem;
-                        }
-                    }
-
-                    span:not(:last-of-type) {
-                        margin-bottom: .75rem;
-                    }
-                }
-
-                .order-items {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    justify-content: flex-start;
-                    padding-left: 1.05rem;
-                    cursor: default;
-            
-                    @include md-screen {
-                        padding-left: unset;
-                        width: 100%;
-                        min-width: calc(320px - 1.6125rem * 2);
-                        max-width: 375px;
-                    }
-                }
-            }
-        }
-
-        .order-summary {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-around;
-            min-width: 375px;
-            min-height: 375px;
-            padding: 1.05rem 2.1rem;
-            // padding: 1.05rem;
-            border: 1px solid $bright;
-            border-radius: 4px;
-            color: $bright;
-            cursor: default;
-
-            @include lg-screen {
-                width: 100%;
-                min-width: calc(320px - 1.6125rem * 2);
-                max-width: 375px;
-                margin-bottom: 3.15rem;
-            }
-            
-            h3 {
-                font-size: 1.2rem;
-                font-weight: 600;
-                padding-bottom: 0.175rem;
-                border-bottom: 1px solid $bright;
-
-                @include sm-screen {
-                    font-size: 1.125rem;
-                }
-            }
-
-            .place-order-infos {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: center;
-                width: 100%;
-
-                p {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    width: 100%;
-                    padding: .6rem 0;
-                    font-size: 1rem;
-                    font-weight: 600;
-
-                    @include sm-screen {
-                        font-size: .925rem;
-                    }
-
-                    small {
-                        font-size: .8rem;
-                        font-weight: 500;
-
-                        @include sm-screen {
-                            font-size: .725rem;
-                        }
-                    }
-                }
-
-                p:not(:last-of-type) {
-                    border-bottom: 1px solid $bright;
-                }
-
-                p:last-of-type {
-                    span {
-                        position: relative;
-
-                        &::after {
-                            content: '';
-                            position: absolute;
-                            bottom: -2.5px;
-                            left: 0;
-                            display: block;
-                            width: 100%;
-                            height: 2px;
-                            background-color: $sub-theme;
-                        }
-                    }
-                }
-            }
-        }
+    @include lg-screen {
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: flex-start;
     }
+
+    .place-order-col-1 {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      // background-color: darkcyan;
+
+      @include md-screen {
+        width: 100%;
+        max-width: 375px;
+      }
+
+      .place-order-row {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        color: $bright;
+
+        &:nth-of-type(1),
+        &:nth-of-type(2) {
+          margin-bottom: 25.8px;
+        }
+
+        h3 {
+          padding: 0 5.6px;
+          margin-bottom: 25.8px;
+          font-size: 18.4px;
+          font-weight: 500;
+          background-color: $sub-theme;
+
+          @include sm-screen {
+            font-size: 17.2px;
+          }
+        }
+
+        .data {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          width: 100%;
+          padding-left: 16.8px;
+
+          h4 {
+            margin-bottom: 12px;
+            font-weight: 500;
+            font-size: 16px;
+
+            @include sm-screen {
+              font-size: $sm-font-size;
+            }
+          }
+
+          span {
+            font-size: $default-font-size;
+
+            @include sm-screen {
+              font-size: $sm-font-size;
+            }
+          }
+
+          span:not(:last-of-type) {
+            margin-bottom: 12px;
+          }
+        }
+
+        .order-items {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
+          padding-left: 16.8px;
+          cursor: default;
+
+          @include md-screen {
+            padding-left: unset;
+            width: 100%;
+            min-width: calc(320px - 25.8px * 2);
+            max-width: 375px;
+          }
+        }
+      }
+    }
+
+    .order-summary {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      min-width: 375px;
+      min-height: 375px;
+      padding: 16.8px 33.6px;
+      border: 1px solid $bright;
+      border-radius: 4px;
+      color: $bright;
+      cursor: default;
+
+      @include lg-screen {
+        width: 100%;
+        min-width: calc(320px - 25.8px * 2);
+        max-width: 375px;
+        margin-bottom: 50.4px;
+      }
+
+      h3 {
+        font-size: 19.2px;
+        font-weight: 600;
+        padding-bottom: 2.8px;
+        border-bottom: 1px solid $bright;
+
+        @include sm-screen {
+          font-size: 18px;
+        }
+      }
+
+      .place-order-infos {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+
+        p {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          padding: 9.6px 0;
+          font-size: 16px;
+          font-weight: 600;
+
+          @include sm-screen {
+            font-size: $sm-font-size;
+          }
+
+          small {
+            font-size: 12.8px;
+            font-weight: 500;
+
+            @include sm-screen {
+              font-size: 11.6px;
+            }
+          }
+        }
+
+        p:not(:last-of-type) {
+          border-bottom: 1px solid $bright;
+        }
+
+        p:last-of-type {
+          span {
+            position: relative;
+
+            &::after {
+              content: '';
+              position: absolute;
+              bottom: -2.5px;
+              left: 0;
+              display: block;
+              width: 100%;
+              height: 2px;
+              background-color: $sub-theme;
+            }
+          }
+        }
+      }
+    }
+  }
 }

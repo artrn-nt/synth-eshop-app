@@ -117,7 +117,7 @@ const Hero = ({ carouselProducts, mounted }) => {
             timeOut_2.current = null
         }
 
-    }, [carouselProducts])
+    }, [carouselProducts, mounted])
 
     useEffect(() => {
         if (count !== null) {

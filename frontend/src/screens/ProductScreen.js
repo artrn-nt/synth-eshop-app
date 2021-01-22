@@ -12,15 +12,12 @@ import Spinner from '../components/utilities/Spinner'
 import { ErrorMsg } from '../components/utilities/Messages'
 import '../scss/screens/ProductScreen.scss'
 
-import * as colors from '../scss/config.module.scss'
-
 const ProductScreen = ({ match }) => {
 
     const dispatch = useDispatch()
 
     const productDetails = useSelector(state => state.productDetails)
     const { loading, error, product } = productDetails
-    console.log(colors)
 
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
@@ -29,6 +26,7 @@ const ProductScreen = ({ match }) => {
     const { loading: loadingIds, error: errorIds } = idsList
 
     const [added, setAdded] = useState(null)
+    const [isProduct, setIsProduct] = useState(null)
 
     useEffect(() => {
         dispatch(listProductDetails(match.params.id))
@@ -39,8 +37,13 @@ const ProductScreen = ({ match }) => {
     }, [dispatch, match])
 
     useEffect(() => {
-        if (!loading && !error && product) {
-            gsap.fromTo('.product-main-row', {
+        if (typeof product === 'undefined' || (Object.entries(product).length === 0 && product.constructor === Object)) setIsProduct(false)
+        else setIsProduct(true)
+    }, [product])
+
+    useEffect(() => {
+        if ((!loading && !loadingIds) && (!error && !errorIds) && isProduct) {
+            gsap.fromTo('.product-main-row.str', {
                 opacity: 0,
                 y: 38
             }, {
@@ -51,7 +54,7 @@ const ProductScreen = ({ match }) => {
                 ease: 'power3.out'
             })
         }
-    }, [loading, error, product])
+    }, [loading, loadingIds, error, errorIds, isProduct])
 
     useEffect(() => {
         if (cart.error !== undefined) {
@@ -67,7 +70,7 @@ const ProductScreen = ({ match }) => {
 
     const addToCartHandler = () => dispatch(addToCart(match.params.id))
 
-    if (product === undefined || (Object.entries(product).length === 0 && product.constructor === Object)) return null
+    if (!isProduct) return null
 
     return (
         <section className='product-section'>

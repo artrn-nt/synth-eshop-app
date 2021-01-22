@@ -9,15 +9,12 @@
   justify-content: flex-start;
   width: 100%;
   padding: $padding-screen;
-  // min-height: $min-height-screen;
-  // padding: 2.15rem 0;
-  // background-color: orange;
 
   .cart-container {
     display: flex;
     flex-grow: 1;
     width: 100%;
-    margin-top: 2.15rem;
+    margin-top: 34.4px;
     opacity: 0;
 
     &.empty {
@@ -43,18 +40,18 @@
       justify-content: center;
       text-align: center;
       color: $greyish;
-      font-size: 1.15rem;
+      font-size: 18.4px;
       font-weight: 500;
       cursor: default;
 
       @include sm-screen {
-        font-size: 1.075rem;
+        font-size: 17.2px;
       }
 
       .start-shop {
-        margin-left: 0.5rem;
+        margin-left: 8px;
         color: $bright;
-        font-size: 1.25rem;
+        font-size: 20px;
         transition: color 250ms ease-out;
 
         &:hover {
@@ -62,7 +59,7 @@
         }
 
         @include sm-screen {
-          font-size: 1.175rem;
+          font-size: 18.8px;
         }
       }
     }
@@ -101,9 +98,8 @@
 
         @include md-screen {
           width: 100%;
-          min-width: calc(320px - 1.6125rem * 2);
+          min-width: calc(320px - 25.8px * 2);
           max-width: 375px;
-          // min-width: 375px;
         }
 
         .items-header {
@@ -111,15 +107,15 @@
           align-items: center;
           justify-content: space-between;
           width: 100%;
-          margin-bottom: 0.5rem;
+          margin-bottom: 8px;
           color: $greyish;
-          font-size: 0.85rem;
+          font-size: 13.6px;
           font-weight: 500;
-          padding: 0 0.525rem;
+          padding: 0 8.4px;
 
           p:nth-of-type(1) {
             flex: 2;
-            margin-right: calc(2.15rem + 1.075rem);
+            margin-right: calc(34.4px + 17.2px);
           }
 
           p:nth-of-type(2) {
@@ -133,7 +129,7 @@
 
             span:nth-of-type(1) {
               position: absolute;
-              left: -1.3rem;
+              left: -20.8px;
               bottom: 0;
               grid-column: 1;
             }
@@ -152,7 +148,7 @@
           width: 100%;
           max-width: 790px;
           height: 150px;
-          padding: 1.05rem 0.525rem;
+          padding: 16.8px 8.4px;
           border-top: 0.8px solid $greyish;
 
           &:last-of-type {
@@ -162,7 +158,7 @@
           @include md-screen {
             flex-direction: column;
             height: auto;
-            padding: 1.05rem 0.525rem calc(1.05rem + 2px) 0.525rem;
+            padding: 16.8px 8.4px calc(16.8px + 2px) 8.4px;
           }
 
           .cart-it-col-1 {
@@ -171,13 +167,13 @@
             justify-content: flex-start;
             flex: 2;
             height: 100%;
-            margin-right: calc(2.15rem + 1.075rem);
+            margin-right: calc(34.4px + 17.2px);
 
             @include md-screen {
               flex-direction: column;
               flex: unset;
               margin-right: unset;
-              margin-bottom: 1.05rem;
+              margin-bottom: 16.8px;
               width: 100%;
             }
 
@@ -188,7 +184,7 @@
               min-width: 120px;
               max-width: 120px;
               height: 100%;
-              margin-right: 1.5rem;
+              margin-right: 24px;
               border-radius: 4px;
               overflow: hidden;
 
@@ -198,7 +194,7 @@
               }
 
               @include md-screen {
-                margin-bottom: 1.05rem;
+                margin-bottom: 16.8px;
                 margin-right: unset;
               }
 
@@ -221,44 +217,49 @@
 
               a {
                 color: $bright;
-                margin-bottom: 0.45rem;
+                margin-bottom: 7.2px;
+                font-size: $default-font-size;
 
                 &:hover > .c-i-name {
                   background-color: $bright;
                   color: $sub-theme;
                 }
 
+                @include sm-screen {
+                  font-size: $sm-font-size;
+                }
+
                 .c-i-name {
-                  font-size: 1.1rem;
+                  font-size: 17.6px;
                   position: relative;
-                  padding: 0 0.35rem;
+                  padding: 0 5.6px;
                   font-weight: 500;
                   background-color: $sub-theme;
                   transition: background-color 250ms ease-out,
                     color 250ms ease-out;
 
                   @include sm-screen {
-                    font-size: 1.025rem;
+                    font-size: 16.4px;
                   }
                 }
               }
 
               .c-i-description_m {
-                margin-bottom: 0.3rem;
-                font-size: 1.05rem;
+                margin-bottom: 4.8px;
+                font-size: 16.8px;
                 font-weight: 400;
 
                 @include sm-screen {
-                  font-size: 0.975rem;
+                  font-size: 15.6px;
                 }
               }
 
               .c-i-price {
-                font-size: 1.05rem;
+                font-size: 16.8px;
                 font-weight: 400;
 
                 @include sm-screen {
-                  font-size: 0.975rem;
+                  font-size: 15.6px;
                 }
               }
             }
@@ -282,9 +283,6 @@
             }
 
             .cart-it-row-1 {
-              // display: flex;
-              // align-items: center;
-              // justify-content: space-between;
               display: grid;
               grid-template-columns: repeat(3, 1fr);
               width: 100%;
@@ -302,40 +300,41 @@
 
                 .qty-sub-wrap {
                   position: relative;
-                  min-width: 1rem;
+                  min-width: 16px;
                   text-align: center;
 
                   .qty-btn {
                     display: inline-block;
-                    padding-bottom: 0.25rem;
+                    padding-bottom: 4px;
                     min-width: 12px;
                     background-color: transparent;
                     border: none;
                     color: $bright;
-                    font-size: 1.2rem;
+                    font-size: 19.2px;
                     font-weight: 400;
                     transition: transform 75ms ease-in, color 250ms ease-out;
                     cursor: pointer;
 
                     &:first-of-type {
                       position: absolute;
-                      left: -1.3rem;
+                      left: -20.8px;
+                      top: 0;
 
                       @include md-screen {
                         position: relative;
                         left: unset;
-                        margin-right: 0.725rem;
+                        margin-right: 11.6px;
                       }
                     }
 
                     &:last-of-type {
                       position: absolute;
-                      right: -1.3rem;
+                      right: -20.8px;
 
                       @include md-screen {
                         position: relative;
                         right: unset;
-                        margin-left: 0.725rem;
+                        margin-left: 11.6px;
                       }
                     }
 
@@ -350,16 +349,16 @@
                     }
 
                     @include sm-screen {
-                      font-size: 1.125rem;
+                      font-size: 18px;
                     }
                   }
 
                   .qty {
-                    font-size: 1.1rem;
+                    font-size: 17.6px;
                     font-weight: 500;
 
                     @include sm-screen {
-                      font-size: 1.025rem;
+                      font-size: 16.4px;
                     }
                   }
                 }
@@ -375,7 +374,7 @@
                   display: flex;
                   align-items: center;
                   justify-content: center;
-                  font-size: 1.1rem;
+                  font-size: 17.6px;
                   font-weight: 500;
 
                   &::after {
@@ -397,7 +396,7 @@
                   }
 
                   @include sm-screen {
-                    font-size: 1.025rem;
+                    font-size: 16.4px;
                   }
                 }
               }
@@ -409,7 +408,7 @@
 
                 i {
                   color: $bright;
-                  font-size: 1.1rem;
+                  font-size: 17.6px;
                   transition: color 250ms ease-out, transform 75ms ease-in;
                   cursor: pointer;
 
@@ -424,7 +423,7 @@
                   }
 
                   @include sm-screen {
-                    font-size: 1.025rem;
+                    font-size: 16.4px;
                   }
                 }
               }
@@ -436,10 +435,10 @@
               bottom: 0;
               transform: translate3d(-50%, 0, 0);
               color: $sub-theme;
-              font-size: 0.8rem;
+              font-size: 12.8px;
               font-weight: 600;
               background-color: $bright;
-              padding: 0 0.35rem;
+              padding: 0 5.6px;
               text-align: center;
               white-space: nowrap;
               animation: fadeIn 400ms ease-out;
@@ -449,11 +448,11 @@
                 left: unset;
                 bottom: unset;
                 transform: unset;
-                margin-top: 1.05rem;
+                margin-top: 16.8px;
               }
 
               @include sm-screen {
-                font-size: 0.725rem;
+                font-size: 11.6px;
               }
             }
           }
@@ -467,9 +466,10 @@
       align-items: center;
       justify-content: space-around;
       min-width: 375px;
+      // max-width: 375px;
       min-height: 375px;
-      padding: 1.05rem;
-      margin-left: 2.15rem;
+      padding: 16.8px;
+      margin-left: 34.4px;
       border: 1px solid $bright;
       border-radius: 4px;
       color: $bright;
@@ -478,48 +478,48 @@
       @include lg-screen {
         margin-left: unset;
         width: 100%;
-        min-width: calc(320px - 1.6125rem * 2);
+        min-width: calc(320px - 25.8px * 2);
         max-width: 375px;
-        margin-bottom: 3.15rem;
+        margin-bottom: 50.4px;
       }
 
       .subtotal {
-        font-size: 1.15rem;
+        font-size: 18.4px;
         font-weight: 600;
 
         @include sm-screen {
-          font-size: 1.075rem;
+          font-size: 17.2px;
         }
       }
 
       .total {
-        font-size: 1.2rem;
+        font-size: 19.2px;
         font-weight: 600;
-        padding-bottom: 0.175rem;
+        padding-bottom: 2.8px;
         border-bottom: 2px solid $sub-theme;
 
         @include sm-screen {
-          font-size: 1.125rem;
+          font-size: 18px;
         }
 
         small {
-          font-size: 0.8rem;
+          font-size: 12.8px;
           font-weight: 500;
 
           @include sm-screen {
-            font-size: 0.725rem;
+            font-size: 11.6px;
           }
         }
       }
 
       span:nth-of-type(3) {
-        font-size: 0.9rem;
+        font-size: 14.4px;
         font-weight: 400;
         text-align: center;
         color: $greyish;
 
         @include sm-screen {
-          font-size: 0.825rem;
+          font-size: 13.2px;
         }
       }
     }

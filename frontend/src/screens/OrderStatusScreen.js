@@ -10,7 +10,6 @@ import ScreenTitle from '../components/utilities/ScreenTitle'
 import CheckoutSteps from '../components/utilities/CheckoutSteps'
 import { ErrorMsg } from '../components/utilities/Messages'
 import Spinner from '../components/utilities/Spinner'
-// import { ActionLink } from '../components/utilities/ActionBtnLink'
 import '../scss/screens/OrderStatusScreen.scss'
 
 const OrderStatusScreen = ({ match, history }) => {

@@ -2,260 +2,266 @@
 @import '../media-queries.module.scss';
 
 .order-status-section {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  width: 100%;
+  padding: $padding-screen;
+
+  .order-status-main-row {
     display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    align-items: center;
+    flex: 1;
     width: 100%;
-    padding: $padding-screen;
+    margin: 50.4px 0 68.8px;
 
-    .order-status-main-row {
-        display: flex;
-        flex: 1;
+    &.ctr {
+      align-items: center;
+      justify-content: center;
+    }
+
+    &.str {
+      align-items: flex-start;
+      justify-content: space-between;
+      opacity: 0;
+
+      @include lg-screen {
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: flex-start;
+      }
+    }
+
+    .order-status-col-1 {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+
+      @include md-screen {
         width: 100%;
-        margin: 3.15rem 0 4.3rem;
-        
-        &.ctr {
-            align-items: center;
-            justify-content: center;
-        }
+        max-width: 375px;
+      }
 
-        &.str {
-            align-items: flex-start;
-            justify-content: space-between;
-            opacity: 0;
+      .order-status-row {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        color: $bright;
 
-            @include lg-screen {
-                flex-direction: column-reverse;
-                align-items: center;
-                justify-content: flex-start;
-            }
-        }
-        
-        .order-status-col-1 {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
+        &:nth-of-type(1) {
+          h3 {
+            margin-bottom: 25.8px;
+            text-align: center;
+            background-color: $bright;
+            color: $sub-theme;
 
             @include md-screen {
-                width: 100%;
-                max-width: 375px;
+              margin: 0 auto 25.8px auto;
             }
-            
-            .order-status-row {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: center;
-                width: 100%;
-                color: $bright;
-
-                &:nth-of-type(1) {
-                    h3 {
-                        margin-bottom: 1.6125rem;
-                        text-align: center;
-                        background-color: $bright;  
-                        color: $sub-theme;
-
-                        @include md-screen {
-                            margin: 0 auto 1.6125rem auto;
-                        }
-                    }
-                }
-
-                &:nth-of-type(2), 
-                &:nth-of-type(3),
-                &:nth-of-type(4) {
-                    margin-bottom: 1.6125rem;
-                }
-
-                h3 {
-                    padding: 0 .35rem;
-                    margin-bottom: 1.6125rem;
-                    font-size: 1.15rem;
-                    font-weight: 500;
-                    background-color: $sub-theme;
-                    cursor: default;
-
-                    @include sm-screen {
-                        font-size: 1.075rem;
-                    }
-                }
-
-                .data {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    justify-content: center;
-                    padding-left: 1.05rem;
-
-                    h4 {
-                        margin-bottom: .75rem;
-                        font-weight: 500;
-                        font-size: 1rem;
-
-                        @include sm-screen {
-                            font-size: .925rem;
-                        }
-                    }
-
-                    span {
-                        margin-bottom: .75rem;
-
-                        @include sm-screen {
-                            font-size: .925rem;
-                        }
-                    }
-
-                    a {
-                        color: $bright;
-                        transition: color 280ms ease-out;
-
-                        &:hover {
-                            color: $sub-theme;
-                        }
-                    }
-
-                    .shipped-status,
-                    .paid-status,
-                    .unshipped-status,
-                    .unpaid-status {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        min-width: 200px;
-                        padding: .55rem .725rem;
-                        margin: .8625rem 0 0 0;
-                        border-radius: 4px;
-                        border: 1.1px solid $bright;
-                        font-size: 1.05rem;
-                        font-weight: 500;
-                        color: $bright;
-                        background-color: $main-theme;
-                        cursor: default;
-
-                        @include sm-screen {
-                            font-size: .975rem;
-                        }
-                        
-                        .fas.fa-times-circle, 
-                        .fas.fa-check-circle {
-                            color: $bright;
-                            margin-right: .7rem;
-                        }
-                    }
-                }
-
-                .order-items {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    justify-content: flex-start;
-                    padding-left: 1.05rem;
-                    cursor: default;
-            
-                    @include md-screen {
-                        padding-left: unset;
-                        width: 100%;
-                        min-width: calc(320px - 1.6125rem * 2);
-                        max-width: 375px;
-                    }
-                }
-            }
+          }
         }
 
-        .order-status-summary {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-around;
-            min-width: 375px;
-            min-height: 425px;
-            padding: 1.05rem 2.1rem;
-            border: 1px solid $bright;
-            border-radius: 4px;
+        &:nth-of-type(2),
+        &:nth-of-type(3),
+        &:nth-of-type(4) {
+          margin-bottom: 25.8px;
+        }
+
+        h3 {
+          padding: 0 5.6px;
+          margin-bottom: 25.8px;
+          font-size: 18.4px;
+          font-weight: 500;
+          background-color: $sub-theme;
+          cursor: default;
+
+          @include sm-screen {
+            font-size: 17.2px;
+          }
+        }
+
+        .data {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          padding-left: 16.8px;
+
+          h4 {
+            margin-bottom: 12px;
+            font-weight: 500;
+            font-size: $default-font-size;
+
+            @include sm-screen {
+              font-size: $sm-font-size;
+            }
+          }
+
+          span {
+            font-size: $default-font-size;
+            margin-bottom: 12px;
+
+            @include sm-screen {
+              font-size: $sm-font-size;
+            }
+          }
+
+          a {
+            font-size: $default-font-size;
             color: $bright;
+            transition: color 280ms ease-out;
+
+            &:hover {
+              color: $sub-theme;
+            }
+
+            @include sm-screen {
+              font-size: $sm-font-size;
+            }
+          }
+
+          .shipped-status,
+          .paid-status,
+          .unshipped-status,
+          .unpaid-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 200px;
+            padding: 8.8px 11.6px;
+            margin: 13.8px 0 0 0;
+            border-radius: 4px;
+            border: 1.1px solid $bright;
+            font-size: 16.8px;
+            font-weight: 500;
+            color: $bright;
+            background-color: $main-theme;
             cursor: default;
 
-            @include lg-screen {
-                width: 100%;
-                min-width: calc(320px - 1.6125rem * 2);
-                max-width: 375px;
-                margin-bottom: 3.15rem;
+            @include sm-screen {
+              font-size: 15.6px;
             }
 
-            h3 {
-                font-size: 1.2rem;
-                font-weight: 600;
-                padding-bottom: 0.175rem;
-                border-bottom: 1px solid $bright;
-
-                @include sm-screen {
-                    font-size: 1.125rem;
-                }
+            .fas.fa-times-circle,
+            .fas.fa-check-circle {
+              color: $bright;
+              margin-right: 11.2px;
             }
-
-            .order-status-infos {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: center;
-                width: 100%;
-
-                p {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    width: 100%;
-                    padding: .6rem 0;
-                    font-size: 1rem;
-                    font-weight: 600;
-
-                    @include sm-screen {
-                        font-size: .925rem;
-                    }
-
-                    small {
-                        font-size: .8rem;
-                        font-weight: 500;
-
-                        @include sm-screen {
-                            font-size: .725rem;
-                        }
-                    }
-                }
-
-                p:not(:last-of-type) {
-                    border-bottom: 1px solid $bright;
-                }
-
-                p:last-of-type {
-                    span {
-                        position: relative;
-
-                        &::after {
-                            content: '';
-                            position: absolute;
-                            bottom: -2.5px;
-                            left: 0;
-                            display: block;
-                            width: 100%;
-                            height: 2px;
-                            background-color: $sub-theme;
-                        }
-                    }
-                }
-            }
-
-            .payment-btn-wrap {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                min-height: 156px;
-                padding: 1.05rem;
-                border-radius: 4px;
-            }
+          }
         }
+
+        .order-items {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
+          padding-left: 16.8px;
+          cursor: default;
+
+          @include md-screen {
+            padding-left: unset;
+            width: 100%;
+            min-width: calc(320px - 25.8px * 2);
+            max-width: 375px;
+          }
+        }
+      }
     }
+
+    .order-status-summary {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      min-width: 375px;
+      min-height: 425px;
+      padding: 16.8px 33.6px;
+      border: 1px solid $bright;
+      border-radius: 4px;
+      color: $bright;
+      cursor: default;
+
+      @include lg-screen {
+        width: 100%;
+        min-width: calc(320px - 25.8px * 2);
+        max-width: 375px;
+        margin-bottom: 50.4px;
+      }
+
+      h3 {
+        font-size: 19.2px;
+        font-weight: 600;
+        padding-bottom: 2.8px;
+        border-bottom: 1px solid $bright;
+
+        @include sm-screen {
+          font-size: 18px;
+        }
+      }
+
+      .order-status-infos {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+
+        p {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          padding: 9.6px 0;
+          font-size: $default-font-size;
+          font-weight: 600;
+
+          @include sm-screen {
+            font-size: $sm-font-size;
+          }
+
+          small {
+            font-size: 12.8px;
+            font-weight: 500;
+
+            @include sm-screen {
+              font-size: 11.6px;
+            }
+          }
+        }
+
+        p:not(:last-of-type) {
+          border-bottom: 1px solid $bright;
+        }
+
+        p:last-of-type {
+          span {
+            position: relative;
+
+            &::after {
+              content: '';
+              position: absolute;
+              bottom: -2.5px;
+              left: 0;
+              display: block;
+              width: 100%;
+              height: 2px;
+              background-color: $sub-theme;
+            }
+          }
+        }
+      }
+
+      .payment-btn-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 156px;
+        padding: 16.8px;
+        border-radius: 4px;
+      }
+    }
+  }
 }

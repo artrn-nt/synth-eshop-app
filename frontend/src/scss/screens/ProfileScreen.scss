@@ -3,24 +3,25 @@
 
 %input {
   width: 100%;
-  height: 2.65rem;
-  padding: 0 .8rem;
+  height: $default-form-height;
+  padding: $form-padding;
   border: 1.4px solid transparent;
   border-radius: 4px;
   background-color: $bright;
   font-family: $content-font;
-  font-size: .95rem;
+  font-size: $default-form-font-size;
   font-weight: 500;
   color: $main-theme;
 
   @include sm-screen {
-    font-size: .875rem;
+    font-size: $sm-form-font-size;
   }
 }
 
 %col-title {
   position: relative;
-  margin-bottom: 2.1rem;
+  margin-bottom: 17.6px;
+  font-size: 18.72px;
 
   &::after {
     content: '';
@@ -34,7 +35,7 @@
   }
 
   @include sm-screen {
-    font-size: 1.095rem;
+    font-size: 17.52px;
   }
 }
 
@@ -54,32 +55,31 @@
     flex-grow: 1;
     width: 100%;
     height: 100%;
-    margin-top: 3.15rem;
+    margin-top: 50.4px;
     // background-color: cadetblue;
 
     @include lg-screen {
       flex-direction: column;
       align-items: center;
     }
-    
+
     .profile-col-1 {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       flex-grow: 1;
-      padding-right: 3.15rem;
+      padding-right: 50.4px;
       width: 40%;
-      min-height: calc(758.4px - 39.6px - 4.2rem - 3.15rem);
+      min-height: calc(758.4px - 39.6px - 67.2px - 50.4px); // ?
       border-right: 1px solid $bright;
       color: $bright;
 
       @include lg-screen {
         width: 100%;
-        max-width: 420px;
+        max-width: $default-form-width;
         align-items: center;
         padding-right: unset;
-        // margin-bottom: 3.15rem;
-        margin-bottom: 4.3rem;
+        margin-bottom: 68.8px;
         border-right: unset;
       }
 
@@ -91,7 +91,7 @@
         width: 100%;
         flex-grow: 1;
         display: flex;
-        
+
         &.ctr {
           align-items: center;
           justify-content: center;
@@ -120,28 +120,27 @@
             // background-color: burlywood;
 
             &:nth-of-type(3) {
-
               .password-input-wrap-profile {
                 position: relative;
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 width: 100%;
-                margin-bottom: .75rem;
+                margin-bottom: 12px;
               }
             }
-    
+
             &:nth-of-type(4) {
-              margin-bottom: 2.15rem;
+              margin-bottom: 34.4px;
             }
-    
+
             label:nth-child(1) {
-              margin-bottom: 0.75rem;
-              font-size: 1.1rem;
+              margin-bottom: 12px;
+              font-size: $default-label-font-size;
               font-weight: 500;
 
               @include sm-screen {
-                font-size: 1.025rem;
+                font-size: $sm-label-font-size;
               }
             }
 
@@ -149,7 +148,7 @@
             #email,
             #confirmationPassword {
               @extend %input;
-              margin-bottom: .75rem;
+              margin-bottom: 12px;
             }
 
             #password {
@@ -158,14 +157,14 @@
 
             .form-err-msg {
               width: 100%;
-              font-size: 0.85rem;
+              font-size: 13.6px;
               font-weight: 600;
               text-align: left;
               color: $sub-theme;
               animation: fadeIn 0.6s ease-in-out;
 
               @include sm-screen {
-                font-size: 0.775rem;
+                font-size: 12.4px;
               }
             }
           }
@@ -190,10 +189,8 @@
       flex-direction: column;
       align-items: flex-start;
       width: 60%;
-      // flex-grow: 1;
-      min-height: calc(758.4px - 39.6px - 4.2rem - 3.15rem);
+      min-height: calc(758.4px - 39.6px - 67.2px - 50.4px); // ?
       color: $bright;
-      // background-color: skyblue;
 
       @include lg-screen {
         width: 100%;
@@ -203,7 +200,7 @@
 
       h3 {
         @extend %col-title;
-        margin-left: 3.15rem;
+        margin-left: 50.4px;
 
         @include lg-screen {
           margin-left: unset;
@@ -216,7 +213,7 @@
         justify-content: center;
         flex-grow: 1;
         width: 100%;
-        padding-left: 3.15rem;
+        padding-left: 50.4px;
 
         &.ctr {
           align-items: center;
@@ -239,27 +236,27 @@
           align-items: center;
           justify-content: center;
           color: $greyish;
-          font-size: 1.15rem;
+          font-size: 18.4px;
           font-weight: 500;
           text-align: center;
           cursor: default;
 
           @include sm-screen {
-            font-size: 1.075rem;
+            font-size: 17.2px;
           }
-    
+
           .start-shop {
-            margin-left: 0.5rem;
+            margin-left: 8px;
             color: $bright;
-            font-size: 1.25rem;
+            font-size: 20px;
             transition: color 250ms ease-out;
-    
+
             &:hover {
               color: $sub-theme;
             }
 
             @include sm-screen {
-              font-size: 1.175rem;
+              font-size: 18.8px;
             }
           }
         }
@@ -277,27 +274,27 @@
           }
 
           thead {
-            height: 2.65rem;
+            height: 42.4px; // 42.4px
             background-color: lighten($greyish, 9%);
 
             @include lg-screen {
               display: none;
               // display: block;
               // position: absolute;
-		          // top: -9999px;
-		          // left: -9999px;
+              // top: -9999px;
+              // left: -9999px;
             }
 
             tr {
               height: 100%;
 
               th {
-                font-size: .925rem;
+                font-size: 14.8px;
                 font-weight: 500;
 
-                &:nth-of-type(2), 
-                &:nth-of-type(3), 
-                &:nth-of-type(4), 
+                &:nth-of-type(2),
+                &:nth-of-type(3),
+                &:nth-of-type(4),
                 &:nth-of-type(5) {
                   position: relative;
 
@@ -323,31 +320,30 @@
             }
 
             tr {
-              font-size: .9rem;
-              height: 2.65rem;
+              font-size: 14.4px;
+              height: 42.4px;
               text-align: center;
               transition: background-color 280ms ease-out, color 280ms ease-out;
 
               @include lg-screen {
                 display: block;
                 height: auto;
-                padding: .7875rem;
+                padding: 12.6px;
               }
 
               @include sm-screen {
-                font-size: .825rem;
+                font-size: 13.2px;
               }
 
               td {
-
                 @include lg-screen {
                   display: block;
                   position: relative;
                   padding-left: 50%;
                   line-height: 20px;
-                  
+
                   &:not(:last-of-type) {
-                    margin-bottom: .7875rem;
+                    margin-bottom: 12.6px;
                   }
 
                   &::before {
@@ -365,11 +361,21 @@
                     }
                   }
 
-                  &:nth-of-type(1)::before { content: 'ID'; }
-                  &:nth-of-type(2)::before { content: 'DATE'; }
-                  &:nth-of-type(3)::before { content: 'TOTAL'; }
-                  &:nth-of-type(4)::before { content: 'PAID'; }
-                  &:nth-of-type(5)::before { content: 'SHIPPED'; }
+                  &:nth-of-type(1)::before {
+                    content: 'ID';
+                  }
+                  &:nth-of-type(2)::before {
+                    content: 'DATE';
+                  }
+                  &:nth-of-type(3)::before {
+                    content: 'TOTAL';
+                  }
+                  &:nth-of-type(4)::before {
+                    content: 'PAID';
+                  }
+                  &:nth-of-type(5)::before {
+                    content: 'SHIPPED';
+                  }
                 }
               }
 
