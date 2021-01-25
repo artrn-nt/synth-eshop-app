@@ -39,21 +39,6 @@ export const productsListReducer = (state = { products: [] }, action) => {
     }
 }
 
-export const idsListReducer = (state = { ids: [] }, action) => {
-    switch (action.type) {
-        case PRODUCTS_IDS_LIST_REQUEST:
-            return { loading: true, ...state }
-        case PRODUCTS_IDS_LIST_SUCCESS:
-            return { loading: false, ids: action.payload }
-        case PRODUCTS_IDS_LIST_FAIL:
-            return { loading: false, error: action.payload }
-        case PRODUCTS_IDS_LIST_RESET:
-            return { loading: false, ids: [] }
-        default:
-            return state
-    }
-}
-
 export const productDetailsReducer = (state = { product: {} }, action) => {
     switch (action.type) {
         case PRODUCT_DETAILS_REQUEST:
