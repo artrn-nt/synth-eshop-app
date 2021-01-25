@@ -1,22 +1,23 @@
-import React, { useRef } from 'react'
-// import React, { useEffect, useRef } from 'react'
-// import { useLocation } from 'react-router-dom'
-// import gsap from 'gsap'
+import React, { useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
+import gsap from 'gsap'
 
 const Footer = () => {
 
-    // const location = useLocation()
+    const { pathname } = useLocation()
     const footerRef = useRef(null)
 
-    // useEffect(() => {
-    //     gsap.fromTo(footerRef.current, {
-    //         opacity: 0
-    //     }, {
-    //         delay: .5,
-    //         duration: .15,
-    //         opacity: 1
-    //     })
-    // }, [location])
+    useEffect(() => {
+        gsap.set(footerRef.current, { autoAlpha: 0 })
+        gsap.fromTo(footerRef.current, {
+            autoAlpha: 0,
+        }, {
+            delay: .75,
+            duration: .35,
+            autoAlpha: 1,
+            ease: 'power2.out'
+        })
+    }, [pathname])
 
     return (
         <footer ref={footerRef}>

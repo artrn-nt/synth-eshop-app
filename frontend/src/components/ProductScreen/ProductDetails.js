@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,9 +8,17 @@ import ScreenTitle from '../utilities/ScreenTitle'
 import { ActionBtn } from '../utilities/ActionBtnLink'
 import '../../scss/components/ProductScreen/ProductDetails.scss'
 
+const usePrevious = (val) => {
+    const ref = useRef()
+    useEffect(() => {
+        ref.current = val
+    })
+    return ref.current
+}
+
 const ProductDetails = ({ match, products }) => {
 
-    const dispatch = useDispatch( )
+    const dispatch = useDispatch()
 
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
@@ -18,17 +26,20 @@ const ProductDetails = ({ match, products }) => {
     const [product, setProduct] = useState({})
     const [added, setAdded] = useState(null)
 
+    const prevParamId = usePrevious(match.params.id)
+
     useEffect(() => {
         setProduct(products.find(p => p._id === match.params.id))
 
-        if (Object.entries(product).length !== 0 && product.constructor === Object) {
-            gsap.set('.product-details', { autoAlpha: 0 })
+        if (match.params.id !== prevParamId &&
+            Object.entries(product).length !== 0 && product.constructor === Object) {
+                gsap.set('.product-details', { autoAlpha: 0 })
         }
 
         return () => {
             setProduct({})
         }
-    }, [match, products, product])
+    }, [match, products, prevParamId, product])
 
     useEffect(() => {
         if (Object.entries(product).length !== 0 && product.constructor === Object) {
@@ -36,7 +47,7 @@ const ProductDetails = ({ match, products }) => {
                 autoAlpha: 0,
                 y: 38
             }, {
-                delay: .15,
+                delay: .1,
                 duration: .9,
                 autoAlpha: 1,
                 y: 0,

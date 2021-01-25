@@ -235,6 +235,7 @@
     background-color: $sub-theme;
     color: $bright;
     font-weight: 600;
+    opacity: 0;
     cursor: default;
 
     @include md-screen {

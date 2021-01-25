@@ -180,7 +180,15 @@ const OrderStatusScreen = ({ match, history }) => {
                                         {loadingPay && <Spinner />}
                                         {!sdkReady ?
                                             <Spinner /> :
-                                            <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} currency='EUR' locale='en_US' />}
+                                            <PayPalButton 
+                                                amount={order.totalPrice} 
+                                                onSuccess={successPaymentHandler} 
+                                                currency='EUR' 
+                                                locale='en_US'
+                                                style={{
+                                                    color: 'blue'   // gold, blue, silver, black, white
+                                                }}
+                                            />}
                                     </div>
                                 )}
 

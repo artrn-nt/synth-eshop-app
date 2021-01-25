@@ -13,6 +13,7 @@ const ProductsNav = ({ ids }) => {
     const [lastIndex, setLastIndex] = useState(null)
 
     const [disabled, setDisabled] = useState(false)
+    // console.log(disabled)
 
     const linksRowRef = useRef(null)
     const timeout = useRef(null)
@@ -59,8 +60,8 @@ const ProductsNav = ({ ids }) => {
                 <li>
                     <Link
                         onClick={() => setDisabled(true)} 
-                        to={disabled ? `/product/${ids[currentIndex]}`: 
-                            `/product/${currentIndex - 1 < 0 ? ids[lastIndex] : ids[currentIndex - 1]}`}
+                        // to={`/product/${currentIndex - 1 < 0 ? ids[lastIndex] : ids[currentIndex - 1]}`}
+                        to={disabled ? `/product/${ids[currentIndex]}` : `/product/${currentIndex - 1 < 0 ? ids[lastIndex] : ids[currentIndex - 1]}`}
                     >
                         Previous
                     </Link>
@@ -69,8 +70,7 @@ const ProductsNav = ({ ids }) => {
                 <li>
                     <Link
                         onClick={() => setDisabled(true)} 
-                        to={disabled ? `/product/${ids[currentIndex]}`:
-                            `/product/${currentIndex + 1 > lastIndex ? ids[0] : ids[currentIndex + 1]}`}
+                        to={disabled ? `/product/${ids[currentIndex]}` : `/product/${currentIndex + 1 > lastIndex ? ids[0] : ids[currentIndex + 1]}`}
                     >
                         Next
                     </Link>
