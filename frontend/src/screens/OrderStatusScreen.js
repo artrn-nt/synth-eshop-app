@@ -10,6 +10,7 @@ import ScreenTitle from '../components/utilities/ScreenTitle'
 import CheckoutSteps from '../components/utilities/CheckoutSteps'
 import { ErrorMsg } from '../components/utilities/Messages'
 import Spinner from '../components/utilities/Spinner'
+import config from '../scss/config.module.scss'
 import '../scss/screens/OrderStatusScreen.scss'
 
 const OrderStatusScreen = ({ match, history }) => {
@@ -57,7 +58,7 @@ const OrderStatusScreen = ({ match, history }) => {
             const { data: clientId } = await axios.get('/api/config/paypal')
             const script = document.createElement('script')
             script.type = 'text/javascript'
-            script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
+            script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=EUR&locale=en_US`
             script.async = true
             script.onload = () => {
                 setSdkReady(true)
@@ -175,11 +176,11 @@ const OrderStatusScreen = ({ match, history }) => {
                                 </div>
 
                                 {!order.isPaid && (
-                                    <div className='payment-btn-wrap' style={{ backgroundColor: loadingPay || !sdkReady ? '#292d2f' : '#edf3f5' }}>
+                                    <div className='payment-btn-wrap' style={{ backgroundColor: loadingPay || !sdkReady ? config.mainTheme : config.bright }}>
                                         {loadingPay && <Spinner />}
                                         {!sdkReady ?
                                             <Spinner /> :
-                                            <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} />}
+                                            <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} currency='EUR' locale='en_US' />}
                                     </div>
                                 )}
 
