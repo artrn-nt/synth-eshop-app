@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getOrderDetails, payOrder } from '../actions/orderActions'
 import { ORDER_PAY_RESET, ORDER_CREATE_RESET } from '../constants/orderConstants'
 import OrderItem from '../components/utilities/OrderItem'
+import StripePaymentIntent from '../components/OrderStatusScreen/StripePaymentIntent'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import CheckoutSteps from '../components/utilities/CheckoutSteps'
 import { ErrorMsg } from '../components/utilities/Messages'
@@ -70,10 +71,14 @@ const OrderStatusScreen = ({ match, history }) => {
             dispatch({ type: ORDER_PAY_RESET })
             dispatch(getOrderDetails(orderId))
         } else if (!order.isPaid) {
-            if (!window.paypal) {
-                addPaypalScript()
-            } else {
-                setSdkReady(true)
+            if (order.paymentMethod === 'paypal') {
+                if (!window.paypal) {
+                    addPaypalScript()
+                } else {
+                    setSdkReady(true)
+                }
+            } else if (order.paymentMethod === 'stripe') {
+                console.log('Stripe payment choice')
             }
         }
 
@@ -176,8 +181,9 @@ const OrderStatusScreen = ({ match, history }) => {
                                 </div>
 
                                 {!order.isPaid && (
-                                    <div className='payment-btn-wrap' style={{ backgroundColor: loadingPay || !sdkReady ? config.mainTheme : config.bright }}>
-                                        {loadingPay && <Spinner />}
+                                    // <div className='payment-container' style={{ backgroundColor: loadingPay || !sdkReady ? config.mainTheme : config.bright }}>
+                                    <div className='payment-container' style={{ backgroundColor: config.bright }}>
+                                        {/* {loadingPay && <Spinner />}
                                         {!sdkReady ?
                                             <Spinner /> :
                                             <PayPalButton 
@@ -188,7 +194,8 @@ const OrderStatusScreen = ({ match, history }) => {
                                                 style={{
                                                     color: 'blue'   // gold, blue, silver, black, white
                                                 }}
-                                            />}
+                                            />} */}
+                                            <StripePaymentIntent />
                                     </div>
                                 )}
 

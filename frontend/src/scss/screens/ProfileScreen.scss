@@ -264,7 +264,10 @@
         .my-orders-table {
           width: 100%;
           border-collapse: collapse;
-          border-radius: 2.5px;
+          border-top-left-radius: 2.5px;
+          border-top-right-radius: 2.5px;
+          border-bottom-left-radius: 2.5px;
+          border-bottom-right-radius: 2.5px;
           overflow: hidden;
           opacity: 0;
           cursor: default;
@@ -275,7 +278,8 @@
 
           thead {
             height: 42.4px; // 42.4px
-            background-color: lighten($greyish, 9%);
+            // background-color: lighten($greyish, 9%);
+            overflow: hidden;
 
             @include lg-screen {
               display: none;
@@ -286,7 +290,8 @@
             }
 
             tr {
-              height: 100%;
+              height: inherit;
+              background-color: lighten($greyish, 9%);
 
               th {
                 font-size: 14.8px;

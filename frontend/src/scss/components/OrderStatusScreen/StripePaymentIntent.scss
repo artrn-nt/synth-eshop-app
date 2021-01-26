@@ -1,0 +1,69 @@
+@import '../../config.module.scss';
+@import '../../media-queries.module.scss';
+
+.stripe-form {
+  //   background-color: teal;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  min-height: calc(156px - 2 * 16.8px);
+
+  .card-el-container {
+    display: block;
+    // flex-direction: column;
+    // align-items: center;
+    // justify-content: flex-start;
+    width: 100%;
+    padding: 10px 5px;
+    // border: 1.2px solid rgba(92, 124, 250, 1);
+    // border-radius: 4px;
+    // height: 38px;
+    // margin-bottom: 16px;
+    // background-color: steelblue;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(92, 124, 250, 1);
+    width: 200px;
+    height: 35px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(88, 117, 235);
+    }
+
+    i {
+      color: $bright;
+      font-size: 35px;
+    }
+  }
+
+  p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    line-height: 32px;
+    color: $greyish;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 600;
+
+    span {
+      margin-left: 3px;
+      color: rgba(92, 124, 250, 1);
+      font-size: 32px;
+
+      i {
+        font-style: inherit;
+      }
+    }
+  }
+}

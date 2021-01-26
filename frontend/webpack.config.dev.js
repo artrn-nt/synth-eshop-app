@@ -1,7 +1,7 @@
 const webpack = require('webpack')
+const dotenv = require('dotenv')
 
 module.exports = {
-
     entry: './src/index.js',
     module: {
         rules: [
@@ -26,4 +26,5 @@ module.exports = {
             }
         ],
     },
+
 }

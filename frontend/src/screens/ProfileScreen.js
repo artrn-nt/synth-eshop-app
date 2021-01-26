@@ -299,7 +299,6 @@ const ProfileScreen = ({ history }) => {
                                             <th scope='col' width='15.625%'>TOTAL</th>
                                             <th scope='col' width='15.625%'>PAID</th>
                                             <th scope='col' width='15.625%'>SHIPPED</th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
