@@ -1,4 +1,5 @@
 import asyncHandler from 'express-async-handler'
+import Stripe from 'stripe'
 import Order from '../models/orderModel.js'
 
 // @descr   Create new order
@@ -58,15 +59,46 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id)
 
     if (order) {
-        order.isPaid = true
-        order.paidAt = Date.now()
-        // Added from Paypal
-        order.paymentResult = {
-            id: req.body.id,
-            status: req.body.status,
-            update_time: req.body.update_time,
-            email_address: req.body.payer.email_address
+        const paymentMethod = order.paymentMethod
+
+        switch(paymentMethod) {
+            case 'paypal':
+                order.isPaid = true
+                order.paidAt = Date.now()
+                order.paymentResult = {
+                    id: req.body.id,    // Paypal id
+                    status: req.body.status,
+                    update_time: req.body.update_time,
+                    email_address: req.body.payer.email_address
+                }
+                break
+            case 'stripe':
+                const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+
+                const { id, amount, description, email } = req.body
+
+                try {
+                    const payment = await stripe.paymentIntents.create({
+                        payment_method: id,
+                        amount,
+                        currency: 'eur',
+                        description,
+                        confirm: true,
+                        // receipt_email: email
+                        // pm_1IEBTHE72yJLmAQuoA66HHM6
+                    })
+                    console.log(payment)
+
+                    return res.status(200).json({ message: 'Stripe payment confirmed' })
+
+                } catch (error) {
+                    return res.status(400).json({ message: error.raw.message })
+                }
+
+            default:
+                return
         }
+        
 
         const updatedOrder = await order.save()
 

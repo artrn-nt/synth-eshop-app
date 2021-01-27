@@ -1,14 +1,13 @@
 import React from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import { useDispatch } from 'react-redux'
-import { payOrder } from '../../actions/orderActions'
 import '../../scss/components/OrderStatusScreen/StripePaymentIntent.scss'
 
-const StripePaymentIntent = ({ orderDetails }) => {
+const StripePaymentIntent = ({ paymentHandler, orderDetails }) => {
 
     const stripe = useStripe()
     const elements = useElements()
-    const dispatch = useDispatch()
+
+    console.log(orderDetails)
 
     const onSubmitHandler = async (ev) => {
         ev.preventDefault()
@@ -20,17 +19,14 @@ const StripePaymentIntent = ({ orderDetails }) => {
         })
 
         if (!error) {
-            console.log(paymentMethod)
-            // const { id } = paymentMethod
-
-            try {
-                // const response = await axios.post('/api/')
-            } catch (error) {
-                console.log(error)
+            const paymentResult = {
+                ...orderDetails,
+                id: paymentMethod.id
             }
+            console.log(paymentResult)
+            paymentHandler(paymentResult)
         }
-
-
+        // else setError dans le front-end - error handler
     }
 
     return (

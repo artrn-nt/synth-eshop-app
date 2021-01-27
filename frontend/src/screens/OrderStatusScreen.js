@@ -22,7 +22,8 @@ const OrderStatusScreen = ({ match, history }) => {
     const { order, loading: loadingDetails, error: errorDetails } = orderDetails
 
     const orderPay = useSelector(state => state.orderPay)
-    const { loading: loadingPay, success: successPay } = orderPay
+    const { loading: loadingPay, error: errorPay, success: successPay } = orderPay
+    console.log(errorPay)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -55,6 +56,7 @@ const OrderStatusScreen = ({ match, history }) => {
     }, [userInfo, history])
 
     useEffect(() => {
+        // console.log(order)
         const addPaypalScript = async () => {
             const { data: clientId } = await axios.get('/api/config/paypal')
             const script = document.createElement('script')
@@ -84,7 +86,7 @@ const OrderStatusScreen = ({ match, history }) => {
 
     }, [dispatch, order, orderId, successPay])
 
-    const successPaymentHandler = (paymentResult) => {
+    const paymentHandler = (paymentResult) => {
         console.log(paymentResult)
         dispatch(payOrder(orderId, paymentResult))
     }
@@ -188,14 +190,22 @@ const OrderStatusScreen = ({ match, history }) => {
                                             <Spinner /> :
                                             <PayPalButton 
                                                 amount={order.totalPrice} 
-                                                onSuccess={successPaymentHandler} 
+                                                onSuccess={paymentHandler} 
                                                 currency='EUR' 
                                                 locale='en_US'
                                                 style={{
                                                     color: 'blue'   // gold, blue, silver, black, white
                                                 }}
                                             />} */}
-                                            <StripePaymentIntent />
+                                            {order.paymentMethod === 'stripe' && 
+                                                <StripePaymentIntent 
+                                                    paymentHandler={paymentHandler} 
+                                                    orderDetails={{ 
+                                                        amount: order.totalPrice * 100,
+                                                        description: order.orderItems.reduce((acc, curr) => [...acc, curr.name], []).join(' / '),
+                                                        email: order.user.email
+                                                    }} 
+                                                />}
                                     </div>
                                 )}
 
