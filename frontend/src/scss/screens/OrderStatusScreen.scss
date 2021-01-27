@@ -177,7 +177,8 @@
       align-items: center;
       justify-content: space-around;
       min-width: 375px;
-      min-height: 425px;
+      // min-height: 425px;
+      min-height: 500px;
       padding: 16.8px 33.6px;
       border: 1px solid $bright;
       border-radius: 4px;
@@ -257,11 +258,19 @@
       .payment-container {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        flex-direction: column;
         width: 100%;
-        min-height: 156px;
+        // min-height: 156px;
         padding: 16.8px;
         border-radius: 4px;
+
+        h4 {
+          color: $greyish;
+          font-weight: 500;
+          margin-bottom: 16.8px;
+          border-bottom: 1px solid $greyish;
+        }
       }
     }
   }

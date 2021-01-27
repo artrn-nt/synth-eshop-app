@@ -77,23 +77,40 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 
                 const { id, amount, description, email } = req.body
 
-                try {
-                    const payment = await stripe.paymentIntents.create({
-                        payment_method: id,
-                        amount,
-                        currency: 'eur',
-                        description,
-                        confirm: true,
-                        // receipt_email: email
-                        // pm_1IEBTHE72yJLmAQuoA66HHM6
-                    })
-                    console.log(payment)
+                const payment = await stripe.paymentIntents.create({
+                    payment_method: id,
+                    amount,
+                    currency: 'eur',
+                    description,
+                    confirm: true,
+                    receipt_email: email
+                })
+                console.log(payment)
 
-                    return res.status(200).json({ message: 'Stripe payment confirmed' })
-
-                } catch (error) {
-                    return res.status(400).json({ message: error.raw.message })
+                if (!payment) {
+                    res.status(400).json({ message: payment.error.raw.message })
                 }
+
+                res.status(200).json({ message: 'Stripe payment confirmed' })
+
+
+                // try {
+                //     const payment = await stripe.paymentIntents.create({
+                //         payment_method: id,
+                //         amount,
+                //         currency: 'eur',
+                //         description,
+                //         confirm: true,
+                //         // receipt_email: email
+                //         // pm_1IEBTHE72yJLmAQuoA66HHM6
+                //     })
+                //     console.log(payment)
+
+                //     return res.status(200).json({ message: 'Stripe payment confirmed' })
+
+                // } catch (error) {
+                //     return res.status(400).json({ message: error.raw.message })
+                // }
 
             default:
                 return

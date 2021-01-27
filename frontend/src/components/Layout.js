@@ -5,7 +5,9 @@ import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import '../scss/components/Layout.scss'
 
-const stripPromise = loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY)
+const stripPromise = loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY, {
+    locale: 'en'
+})
 
 const Layout = ({ children }) => {
 

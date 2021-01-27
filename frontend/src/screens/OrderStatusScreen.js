@@ -23,7 +23,7 @@ const OrderStatusScreen = ({ match, history }) => {
 
     const orderPay = useSelector(state => state.orderPay)
     const { loading: loadingPay, error: errorPay, success: successPay } = orderPay
-    console.log(errorPay)
+    console.log(orderPay)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -87,7 +87,7 @@ const OrderStatusScreen = ({ match, history }) => {
     }, [dispatch, order, orderId, successPay])
 
     const paymentHandler = (paymentResult) => {
-        console.log(paymentResult)
+        // console.log(paymentResult)
         dispatch(payOrder(orderId, paymentResult))
     }
 
@@ -185,6 +185,7 @@ const OrderStatusScreen = ({ match, history }) => {
                                 {!order.isPaid && (
                                     // <div className='payment-container' style={{ backgroundColor: loadingPay || !sdkReady ? config.mainTheme : config.bright }}>
                                     <div className='payment-container' style={{ backgroundColor: config.bright }}>
+                                        <h4>Payment</h4>
                                         {/* {loadingPay && <Spinner />}
                                         {!sdkReady ?
                                             <Spinner /> :
@@ -197,15 +198,16 @@ const OrderStatusScreen = ({ match, history }) => {
                                                     color: 'blue'   // gold, blue, silver, black, white
                                                 }}
                                             />} */}
-                                            {order.paymentMethod === 'stripe' && 
+                                            {loadingPay ? <Spinner /> : 
+                                                order.paymentMethod === 'stripe' && 
                                                 <StripePaymentIntent 
                                                     paymentHandler={paymentHandler} 
                                                     orderDetails={{ 
                                                         amount: order.totalPrice * 100,
                                                         description: order.orderItems.reduce((acc, curr) => [...acc, curr.name], []).join(' / '),
                                                         email: order.user.email
-                                                    }} 
-                                                />}
+                                                    }}
+                                            />}
                                     </div>
                                 )}
 
