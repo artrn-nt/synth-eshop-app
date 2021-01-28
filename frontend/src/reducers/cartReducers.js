@@ -78,8 +78,8 @@ export const cartReducer = (state = { cartItems: [], prevCartQty: 0, shippingInf
             return {
                 cartItems: [],
                 prevCartQty: 0,
-                shippingInfo: state.shippingInfo,
-                paymentMethod: state.paymentMethod
+                shippingInfo: {},
+                paymentMethod: ''
             }
         default:
             return state

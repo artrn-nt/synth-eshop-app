@@ -4,7 +4,7 @@ import gsap from 'gsap'
 import { PayPalButton } from 'react-paypal-button-v2'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOrderDetails, payOrder } from '../actions/orderActions'
-import { ORDER_PAY_RESET, ORDER_CREATE_RESET } from '../constants/orderConstants'
+import { ORDER_PAY_RESET, ORDER_CREATE_RESET, ORDER_DETAILS_RESET } from '../constants/orderConstants'
 import OrderItem from '../components/utilities/OrderItem'
 import StripePaymentIntent from '../components/OrderStatusScreen/StripePaymentIntent'
 import ScreenTitle from '../components/utilities/ScreenTitle'
@@ -29,71 +29,87 @@ const OrderStatusScreen = ({ match, history }) => {
     const { userInfo } = userLogin
 
     const [sdkReady, setSdkReady] = useState(false)
-
-    const orderId = match.params.id
-
-    useEffect(() => {
-        if (!loadingDetails && !errorDetails) {
-            gsap.fromTo('.order-status-main-row', {
-                opacity: 0,
-                y: 38
-            }, {
-                delay: .15,
-                duration: 1.1,
-                opacity: 1,
-                y: 0,
-                ease: 'power3.out'
-            })
-        }
-    }, [loadingDetails, errorDetails])
-
-    useEffect(() => {
-        return () => dispatch({ type: ORDER_CREATE_RESET })
-    }, [dispatch])
+    const [orderId, setOrderId] = useState(null)
 
     useEffect(() => {
         if (!userInfo) history.push('/login')
+        return () => dispatch({ type: ORDER_DETAILS_RESET })
     }, [userInfo, history])
 
     useEffect(() => {
-        // console.log(order)
-        const addPaypalScript = async () => {
-            const { data: clientId } = await axios.get('/api/config/paypal')
-            const script = document.createElement('script')
-            script.type = 'text/javascript'
-            script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=EUR&locale=en_US`
-            script.async = true
-            script.onload = () => {
-                setSdkReady(true)
-            }
-            document.body.appendChild(script)
-        }
+        setOrderId(match.params.id)
+    }, [match])
 
-        // if ((typeof order === 'undefined' || order._id !== orderId) || successPay) {
-        if (typeof order === 'undefined' || order._id !== orderId) {
-            console.log('entered')
-            dispatch({ type: ORDER_PAY_RESET })
+    useEffect(() => {
+        if (orderId !== null) {
+            // console.log('rerendered')
             dispatch(getOrderDetails(orderId))
-        } else if (!order.isPaid) {
-            if (order.paymentMethod === 'paypal') {
-                if (!window.paypal) {
-                    addPaypalScript()
-                } else {
-                    setSdkReady(true)
-                }
-            } else if (order.paymentMethod === 'stripe') {
-                console.log('Stripe payment choice')
-            }
         }
+    }, [dispatch, orderId])
 
-    }, [dispatch, order, orderId])
+    // useEffect(() => {
+    //     if (Object.entries(order).length !== 0 && order.constructor === Object) {
+    //         console.log(order.paymentMethod === "stripe")
+    //     }
+    // }, [order])
+
+    // useEffect(() => {
+    //     if (!loadingDetails && !errorDetails) {
+    //         gsap.fromTo('.order-status-main-row', {
+    //             opacity: 0,
+    //             y: 38
+    //         }, {
+    //             delay: .15,
+    //             duration: 1.1,
+    //             opacity: 1,
+    //             y: 0,
+    //             ease: 'power3.out'
+    //         })
+    //     }
+    // }, [loadingDetails, errorDetails])
+
+    // useEffect(() => {
+    //     return () => dispatch({ type: ORDER_CREATE_RESET })
+    // }, [dispatch])
+
+    // useEffect(() => {
+    //     const addPaypalScript = async () => {
+    //         const { data: clientId } = await axios.get('/api/config/paypal')
+    //         const script = document.createElement('script')
+    //         script.type = 'text/javascript'
+    //         script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=EUR&locale=en_US`
+    //         script.async = true
+    //         script.onload = () => {
+    //             setSdkReady(true)
+    //         }
+    //         document.body.appendChild(script)
+    //     }
+
+    //     // if ((typeof order === 'undefined' || order._id !== orderId) || successPay) {
+    //     if (typeof order === 'undefined' || order._id !== orderId) {
+    //         console.log('entered')
+    //         dispatch({ type: ORDER_PAY_RESET })
+    //         dispatch(getOrderDetails(orderId))
+    //     } else if (!order.isPaid) {
+    //         if (order.paymentMethod === 'paypal') {
+    //             if (!window.paypal) {
+    //                 addPaypalScript()
+    //             } else {
+    //                 setSdkReady(true)
+    //             }
+    //         } else if (order.paymentMethod === 'stripe') {
+    //             // console.log('Stripe payment choice')
+    //         }
+    //     }
+
+    // }, [dispatch, order, orderId])
 
     const paymentHandler = (paymentResult) => {
-        // console.log(paymentResult)
         dispatch(payOrder(orderId, paymentResult))
     }
 
-    if (!userInfo) return null
+    if (!userInfo || typeof order === 'undefined') return null
+    if (Object.entries(order).length === 0 && order.constructor === Object) return null
 
     return (
         <section className='order-status-section'>
@@ -200,8 +216,7 @@ const OrderStatusScreen = ({ match, history }) => {
                                                     color: 'blue'   // gold, blue, silver, black, white
                                                 }}
                                             />} */}
-                                            {loadingPay ? <Spinner /> : 
-                                                order.paymentMethod === 'stripe' && 
+                                            {order.paymentMethod === 'stripe' &&
                                                 <StripePaymentIntent 
                                                     paymentHandler={paymentHandler} 
                                                     orderDetails={{ 
@@ -209,7 +224,7 @@ const OrderStatusScreen = ({ match, history }) => {
                                                         description: order.orderItems.reduce((acc, curr) => [...acc, curr.name], []).join(' / '),
                                                         email: order.user.email
                                                     }}
-                                            />}
+                                                />}
                                     </div>
                                 )}
 

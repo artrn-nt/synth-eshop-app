@@ -23,7 +23,7 @@
     &.str {
       align-items: flex-start;
       justify-content: space-between;
-      opacity: 0;
+      // opacity: 0;
 
       @include lg-screen {
         flex-direction: column-reverse;

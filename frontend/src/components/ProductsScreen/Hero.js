@@ -5,7 +5,6 @@ import '../../scss/components/ProductsScreen/Hero.scss'
 import config from '../../scss/config.module.scss'
 
 const CarouselTitle = ({ count, mod, state, carouselProducts, countInit, delayInit }) => {
-
     const elClassName = 'carousel-link'
     const tl = useRef(null)
 
@@ -177,7 +176,7 @@ const Hero = ({ carouselProducts, mounted }) => {
             setCount(prevState => ++prevState)
         } else {
             setForwards(false)
-            setCount(prevState => prevState === 0 ? carouselProducts.length : --prevState)
+            setCount(prevState => prevState === 0 || prevState === null ? carouselProducts.length - 1 : --prevState)
         }
     }
 

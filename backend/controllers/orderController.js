@@ -19,7 +19,6 @@ const createOrder = asyncHandler(async (req, res) => {
     if (orderItems && orderItems.length === 0) {
         res.status(404)
         throw new Error('No order items')
-        return
     } else {
         const order = new Order({
             orderItems,
@@ -74,7 +73,6 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
                 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
                 const { id, amount, description, email } = req.body
-
                 const payment = await stripe.paymentIntents.create({
                     payment_method: id,
                     amount,
@@ -83,37 +81,23 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
                     confirm: true,
                     receipt_email: email
                 })
-                console.log(payment)
 
                 if (!payment) {
                     res.status(400).json({ message: payment.error.raw.message })
                 }
+                // console.log(payment);
+                // res.status(200).json({ message: 'Stripe payment confirmed' })
 
-                res.status(200).json({ message: 'Stripe payment confirmed' })
-
-
-                // try {
-                //     const payment = await stripe.paymentIntents.create({
-                //         payment_method: id,
-                //         amount,
-                //         currency: 'eur',
-                //         description,
-                //         confirm: true,
-                //         // receipt_email: email
-                //         // pm_1IEBTHE72yJLmAQuoA66HHM6
-                //     })
-                //     console.log(payment)
-
-                //     return res.status(200).json({ message: 'Stripe payment confirmed' })
-
-                // } catch (error) {
-                //     return res.status(400).json({ message: error.raw.message })
-                // }
-
+                order.isPaid = true
+                order.paidAt = Date.now()
+                order.paymentResult = {
+                    id: payment.id,    // Stripe payment obj id 
+                    email_address: email
+                }
+                break
             default:
                 return
         }
-        
 
         const updatedOrder = await order.save()
 

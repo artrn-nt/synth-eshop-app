@@ -14,12 +14,25 @@ const PaymentMethodScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const cart = useSelector(state => state.cart)
-    const { shippingInfo } = cart
+    const { shippingInfo, paymentMethod } = cart
+    console.log(paymentMethod)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
-    const [paymentMethod, setPaymentMethod] = useState('paypal')
+    const [payment, setPayment] = useState('')
+    console.log(payment)
+
+    useEffect(() => {
+        if (!userInfo) history.push('/login')
+    }, [userInfo, history])
+
+    useEffect(() => {
+        if (!shippingInfo || Object.entries(shippingInfo).length === 0) {
+            history.push('/shipping')
+        }
+        setPayment(paymentMethod)
+    }, [shippingInfo, paymentMethod])
 
     useEffect(() => {
         gsap.fromTo('.payment-form-container', {
@@ -34,14 +47,6 @@ const PaymentMethodScreen = ({ history }) => {
         })
     }, [])
 
-    useEffect(() => {
-        if (!userInfo) history.push('/login')
-    }, [userInfo, history])
-
-    if (Object.entries(shippingInfo).length === 0 || !shippingInfo) {
-        history.push('/shipping')
-    }
-
     if (!userInfo) return null
 
     return (
@@ -49,9 +54,9 @@ const PaymentMethodScreen = ({ history }) => {
             <ScreenTitle title='Payment method' />
             <CheckOutSteps step1 step2 />
             <Formik
-                initialValues={{ paymentMethod: cart.paymentMethod ? cart.paymentMethod : paymentMethod }}
+                initialValues={{ payment: payment }}
                 onSubmit={() => {
-                    dispatch(savePaymentMethod(paymentMethod))
+                    dispatch(savePaymentMethod(payment))
                     history.push('/placeorder')
                 }}
             >
@@ -70,10 +75,10 @@ const PaymentMethodScreen = ({ history }) => {
                                     id='paypal'
                                     name='paymentMethod'
                                     value='paypal'
-                                    checked={values.paymentMethod === 'paypal'}
+                                    checked={values.payment === 'paypal'}
                                     onChangeHandler={ev => {
                                         handleChange(ev)
-                                        setPaymentMethod(ev.target.value)
+                                        setPayment(ev.target.value)
                                     }}
                                     text='Paypal or credit card'
                                 />
@@ -82,10 +87,10 @@ const PaymentMethodScreen = ({ history }) => {
                                     id='stripe'
                                     name='paymentMethod'
                                     value='stripe'
-                                    checked={values.paymentMethod === 'stripe'}
+                                    checked={values.payment === 'stripe'}
                                     onChangeHandler={ev => {
                                         handleChange(ev)
-                                        setPaymentMethod(ev.target.value)
+                                        setPayment(ev.target.value)
                                     }}
                                     text='Stripe'
                                 />

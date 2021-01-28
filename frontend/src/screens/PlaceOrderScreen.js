@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import gsap from 'gsap'
 import { useDispatch, useSelector } from 'react-redux'
 import { createOrder } from '../actions/orderActions'
-import { CART_RESET } from '../constants/cartConstants'
+import { resetCart } from '../actions/cartActions'
+import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 import CheckOutSteps from '../components/utilities/CheckoutSteps'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import OrderItem from '../components/utilities/OrderItem'
@@ -66,8 +67,11 @@ const PlaceOrderScreen = ({ history }) => {
     useEffect(() => {
         if (success) {
             history.push(`/orders/${order._id}`)
+            return () => {
+                dispatch({ type: ORDER_CREATE_RESET })
+                dispatch(resetCart())
+            }
         }
-        // eslint-disable-next-line 
     }, [success, history])
 
     const placeOrderHandler = () => {
@@ -80,7 +84,6 @@ const PlaceOrderScreen = ({ history }) => {
             taxPrice,
             totalPrice
         }))
-        dispatch({ type: CART_RESET })
     }
 
     if (!userInfo) return null
