@@ -23,7 +23,7 @@ const OrderStatusScreen = ({ match, history }) => {
 
     const orderPay = useSelector(state => state.orderPay)
     const { loading: loadingPay, error: errorPay, success: successPay } = orderPay
-    console.log(orderPay)
+    // console.log(orderPay)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -69,7 +69,9 @@ const OrderStatusScreen = ({ match, history }) => {
             document.body.appendChild(script)
         }
 
-        if ((!order || order._id !== orderId) || successPay) {
+        // if ((typeof order === 'undefined' || order._id !== orderId) || successPay) {
+        if (typeof order === 'undefined' || order._id !== orderId) {
+            console.log('entered')
             dispatch({ type: ORDER_PAY_RESET })
             dispatch(getOrderDetails(orderId))
         } else if (!order.isPaid) {
@@ -84,7 +86,7 @@ const OrderStatusScreen = ({ match, history }) => {
             }
         }
 
-    }, [dispatch, order, orderId, successPay])
+    }, [dispatch, order, orderId])
 
     const paymentHandler = (paymentResult) => {
         // console.log(paymentResult)

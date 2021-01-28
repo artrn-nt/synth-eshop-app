@@ -10,18 +10,6 @@
   width: 100%;
   // min-height: calc(156px - 2 * 16.8px);
 
-  fieldset {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-flow: column;
-    width: 100%;
-
-    .form-row {
-      width: 100%;
-    }
-  }
-
   .stripe-btn {
     display: flex;
     align-items: center;
@@ -35,6 +23,10 @@
 
     &:hover {
       background-color: rgb(83, 95, 202);
+    }
+
+    @include sm-screen {
+      width: calc(200px - 2 * 16.8px);
     }
 
     i {

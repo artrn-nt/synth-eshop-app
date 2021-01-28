@@ -6,6 +6,7 @@ import { addToCart } from '../../actions/cartActions'
 import Spinner from '../utilities/Spinner'
 import ScreenTitle from '../utilities/ScreenTitle'
 import { ActionBtn } from '../utilities/ActionBtnLink'
+import { ErrorMsg } from '../utilities/Messages'
 import '../../scss/components/ProductScreen/ProductDetails.scss'
 
 const usePrevious = (val) => {
@@ -24,6 +25,8 @@ const ProductDetails = ({ match, products }) => {
     const { cartItems } = cart
 
     const [product, setProduct] = useState({})
+    const [notFound, setNotFound] = useState(false)
+    console.log(notFound)
     const [added, setAdded] = useState(null)
 
     const prevParamId = usePrevious(match.params.id)
@@ -32,17 +35,18 @@ const ProductDetails = ({ match, products }) => {
         setProduct(products.find(p => p._id === match.params.id))
 
         if (match.params.id !== prevParamId &&
-            Object.entries(product).length !== 0 && product.constructor === Object) {
+            (typeof product !== 'undefined' && (Object.entries(product).length !== 0 && product.constructor === Object))) {
                 gsap.set('.product-details', { autoAlpha: 0 })
         }
 
         return () => {
             setProduct({})
+            setNotFound(false)
         }
     }, [match, products, prevParamId, product])
 
     useEffect(() => {
-        if (Object.entries(product).length !== 0 && product.constructor === Object) {
+        if (typeof product !== 'undefined' && (Object.entries(product).length !== 0 && product.constructor === Object)) {
             gsap.fromTo('.product-details', {
                 autoAlpha: 0,
                 y: 38
@@ -53,6 +57,8 @@ const ProductDetails = ({ match, products }) => {
                 y: 0,
                 ease: 'power2.out'
             })
+        } else {
+            setNotFound(true)
         }
     }, [product])
 
@@ -83,7 +89,11 @@ const ProductDetails = ({ match, products }) => {
         return existItem ? existItem.qty === product.countInStock : false
     }
 
-    if (Object.entries(product).length === 0 && product.constructor === Object) return null
+    if (typeof product === 'undefined' || (Object.entries(product).length === 0 && product.constructor === Object)) return (
+        <div className='product-details' style={{ opacity: 1 }}>
+            <ErrorMsg message={'Product not found'} />
+        </div>
+    )
 
     return (
         <div className='product-details'>
