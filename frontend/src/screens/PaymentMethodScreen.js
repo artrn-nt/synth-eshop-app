@@ -15,13 +15,11 @@ const PaymentMethodScreen = ({ history }) => {
 
     const cart = useSelector(state => state.cart)
     const { shippingInfo, paymentMethod } = cart
-    console.log(paymentMethod)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
     const [payment, setPayment] = useState('')
-    console.log(payment)
 
     useEffect(() => {
         if (!userInfo) history.push('/login')
@@ -32,7 +30,7 @@ const PaymentMethodScreen = ({ history }) => {
             history.push('/shipping')
         }
         setPayment(paymentMethod)
-    }, [shippingInfo, paymentMethod])
+    }, [shippingInfo, history, paymentMethod])
 
     useEffect(() => {
         gsap.fromTo('.payment-form-container', {
@@ -54,7 +52,7 @@ const PaymentMethodScreen = ({ history }) => {
             <ScreenTitle title='Payment method' />
             <CheckOutSteps step1 step2 />
             <Formik
-                initialValues={{ payment: payment }}
+                initialValues={{ paymentMethod }}
                 onSubmit={() => {
                     dispatch(savePaymentMethod(payment))
                     history.push('/placeorder')
@@ -75,7 +73,7 @@ const PaymentMethodScreen = ({ history }) => {
                                     id='paypal'
                                     name='paymentMethod'
                                     value='paypal'
-                                    checked={values.payment === 'paypal'}
+                                    checked={values.paymentMethod === 'paypal'}
                                     onChangeHandler={ev => {
                                         handleChange(ev)
                                         setPayment(ev.target.value)
@@ -87,7 +85,7 @@ const PaymentMethodScreen = ({ history }) => {
                                     id='stripe'
                                     name='paymentMethod'
                                     value='stripe'
-                                    checked={values.payment === 'stripe'}
+                                    checked={values.paymentMethod === 'stripe'}
                                     onChangeHandler={ev => {
                                         handleChange(ev)
                                         setPayment(ev.target.value)

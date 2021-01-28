@@ -4,7 +4,8 @@ import gsap from 'gsap'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
-import { login, loginReset } from '../actions/userActions'
+import { login } from '../actions/userActions'
+import { USER_LOGOUT } from '../constants/userConstants'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import ShowPassword from '../components/utilities/ShowPassword'
 import Spinner from '../components/utilities/Spinner'
@@ -41,7 +42,7 @@ const LoginScreen = ({ history, location }) => {
         if (userInfo) {
             history.push(redirect)
         }
-        return () => error && dispatch(loginReset())
+        return () => error && dispatch({ type: USER_LOGOUT })
     }, [userInfo, history, redirect, error, dispatch])
 
     return (

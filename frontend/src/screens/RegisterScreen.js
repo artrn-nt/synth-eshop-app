@@ -4,7 +4,8 @@ import gsap from 'gsap'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
-import { register, registerReset } from '../actions/userActions'
+import { register } from '../actions/userActions'
+import { USER_REGISTER_RESET } from '../constants/userConstants'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import ShowPassword from '../components/utilities/ShowPassword'
 import { ActionBtn } from '../components/utilities/ActionBtnLink'
@@ -43,7 +44,7 @@ const RegisterScreen = ({ history, location }) => {
         if (userInfo) {
             history.push(redirect)
         }
-        return () => error && dispatch(registerReset())
+        return () => error && dispatch({ type: USER_REGISTER_RESET })
     }, [userInfo, history, redirect, error, dispatch])
 
     return (

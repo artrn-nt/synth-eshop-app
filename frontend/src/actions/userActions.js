@@ -3,12 +3,10 @@ import {
     USER_LOGIN_REQUEST,
     USER_LOGIN_SUCCESS,
     USER_LOGIN_FAIL,
-    USER_LOGIN_RESET,
     USER_LOGOUT,
     USER_REGISTER_REQUEST,
     USER_REGISTER_SUCCESS,
     USER_REGISTER_FAIL,
-    USER_REGISTER_RESET,
     USER_DETAILS_REQUEST,
     USER_DETAILS_SUCCESS,
     USER_DETAILS_FAIL,
@@ -59,10 +57,6 @@ export const login = (email, password) => async (dispatch) => {
     }
 }
 
-export const loginReset = () => (dispatch) => {
-    dispatch({ type: USER_LOGIN_RESET })
-}
-
 export const logout = () => (dispatch) => {
     localStorage.removeItem('userInfo')
     localStorage.removeItem('cartItems')
@@ -108,10 +102,6 @@ export const register = (name, email, password) => async (dispatch) => {
                     error.message
         })
     }
-}
-
-export const registerReset = () => (dispatch) => {
-    dispatch({ type: USER_REGISTER_RESET })
 }
 
 export const getUserDetails = (id) => async (dispatch, getState) => {

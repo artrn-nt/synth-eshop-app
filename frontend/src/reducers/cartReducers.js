@@ -10,7 +10,7 @@ import {
     CART_RESET
 } from '../constants/cartConstants'
 
-export const cartReducer = (state = { cartItems: [], prevCartQty: 0, shippingInfo: {}, paymentMethod: '' }, action) => {
+export const cartReducer = (state = { cartItems: [], prevCartQty: 0, shippingInfo: {}, paymentMethod: 'paypal' }, action) => {
     switch (action.type) {
         case CART_ADD_REQUEST:
             return { ...state, loading: true }
@@ -79,7 +79,7 @@ export const cartReducer = (state = { cartItems: [], prevCartQty: 0, shippingInf
                 cartItems: [],
                 prevCartQty: 0,
                 shippingInfo: {},
-                paymentMethod: ''
+                paymentMethod: 'paypal'
             }
         default:
             return state

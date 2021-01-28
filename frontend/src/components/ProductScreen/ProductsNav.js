@@ -4,6 +4,24 @@ import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import '../../scss/components/ProductScreen/ProductsNav.scss'
 
+const ProductIndicator = ({ indicator }) => {
+
+    useEffect(() => {
+        gsap.fromTo('.indicator', {
+            autoAlpha: 0
+        }, {
+            delay: .1,
+            duration: .8,
+            autoAlpha: 1,
+            ease: 'power2.out'
+        })
+    }, [indicator])
+
+    return <span className='indicator'>{indicator}</span>
+
+}
+
+
 const ProductsNav = ({ ids }) => {
 
     const { pathname } = useLocation()
@@ -13,7 +31,6 @@ const ProductsNav = ({ ids }) => {
     const [lastIndex, setLastIndex] = useState(null)
 
     const [disabled, setDisabled] = useState(false)
-    // console.log(disabled)
 
     const linksRowRef = useRef(null)
     const timeout = useRef(null)
@@ -56,11 +73,15 @@ const ProductsNav = ({ ids }) => {
 
     return (
         <nav className='products-nav' ref={linksRowRef}>
+            <p className='nav-indic'>
+                <ProductIndicator indicator={currentIndex + 1} />
+                <span>/</span>
+                <span>{ids.length}</span>
+            </p>
             <ul>
                 <li>
                     <Link
                         onClick={() => setDisabled(true)} 
-                        // to={`/product/${currentIndex - 1 < 0 ? ids[lastIndex] : ids[currentIndex - 1]}`}
                         to={disabled ? `/product/${ids[currentIndex]}` : `/product/${currentIndex - 1 < 0 ? ids[lastIndex] : ids[currentIndex - 1]}`}
                     >
                         Previous

@@ -59,7 +59,7 @@ const shippingInfoFromStorage = localStorage.getItem('shippingInfo') ?
     JSON.parse(localStorage.getItem('shippingInfo')) : {}
 
 const paymentMethodFromStorage = localStorage.getItem('paymentMethod') ?
-    JSON.parse(localStorage.getItem('paymentMethod')) : ''
+    JSON.parse(localStorage.getItem('paymentMethod')) : 'paypal'
 
 const initialState = {
     cart: {

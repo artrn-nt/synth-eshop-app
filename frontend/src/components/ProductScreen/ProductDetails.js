@@ -25,8 +25,6 @@ const ProductDetails = ({ match, products }) => {
     const { cartItems } = cart
 
     const [product, setProduct] = useState({})
-    const [notFound, setNotFound] = useState(false)
-    console.log(notFound)
     const [added, setAdded] = useState(null)
 
     const prevParamId = usePrevious(match.params.id)
@@ -41,7 +39,7 @@ const ProductDetails = ({ match, products }) => {
 
         return () => {
             setProduct({})
-            setNotFound(false)
+            setAdded(null)
         }
     }, [match, products, prevParamId, product])
 
@@ -57,8 +55,6 @@ const ProductDetails = ({ match, products }) => {
                 y: 0,
                 ease: 'power2.out'
             })
-        } else {
-            setNotFound(true)
         }
     }, [product])
 
@@ -89,11 +85,13 @@ const ProductDetails = ({ match, products }) => {
         return existItem ? existItem.qty === product.countInStock : false
     }
 
-    if (typeof product === 'undefined' || (Object.entries(product).length === 0 && product.constructor === Object)) return (
+    if (typeof product === 'undefined') return (
         <div className='product-details' style={{ opacity: 1 }}>
             <ErrorMsg message={'Product not found'} />
         </div>
     )
+
+    if (Object.entries(product).length === 0 && product.constructor === Object) return null
 
     return (
         <div className='product-details'>

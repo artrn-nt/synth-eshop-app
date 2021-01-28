@@ -7,12 +7,36 @@
   right: 0;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   width: 100%;
   max-width: 1440px;
   min-height: 24px;
   // margin-bottom: 34.4px;
   opacity: 0;
+
+  .nav-indic {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 65px;
+    height: 100%;
+    color: $greyish;
+    font-size: $default-font-size;
+    font-weight: 600;
+    cursor: default;
+
+    @include sm-screen {
+      font-size: $sm-font-size;
+    }
+
+    span:nth-of-type(2) {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+    }
+  }
 
   ul {
     display: flex;

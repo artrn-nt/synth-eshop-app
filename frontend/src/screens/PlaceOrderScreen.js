@@ -72,7 +72,7 @@ const PlaceOrderScreen = ({ history }) => {
                 dispatch(resetCart())
             }
         }
-    }, [success, history])
+    }, [success, history, order, dispatch])
 
     const placeOrderHandler = () => {
         dispatch(createOrder({
