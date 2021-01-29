@@ -56,13 +56,25 @@ const InfoScreen = () => {
                             <a href='https://malekkoheavyindustry.com/'>Malekko Heavy Industry</a>
                         </li>
                         <li>
+                            <a href='https://www.modalelectronics.com/'>Modal Electronics</a>
+                        </li>
+                        <li>
                             <a href='https://www.moogmusic.com/'>Moog</a>
                         </li>
                         <li>
                             <a href='https://novationmusic.com/'>Novation</a>
                         </li>
                         <li>
-                            <a href='https://www.sequential.com//'>Sequential</a>
+                            <a href='https://www.roland.com/'>Roland</a>
+                        </li>
+                        <li>
+                            <a href='https://www.sequential.com/'>Sequential</a>
+                        </li>
+                        <li>
+                            <a href='https://teenage.engineering/'>Teenage Engineering</a>
+                        </li>
+                        <li>
+                            <a href='https://www.waldorfmusic.com/'>Waldorf</a>
                         </li>
                     </ul>
                 </div>

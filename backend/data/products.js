@@ -144,6 +144,43 @@ const products = [
     isPublished: true
   },
   {
+    name: 'Behringer Neutron',
+    brand: 'Behringer',
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Paraphonic',
+      semiModular: true,
+      desktop: true
+    },
+    price: 280,
+    countInStock: 5,
+    description_m: 'Semi-Modular Desktop Synthesiser',
+    features: [
+      'Analogue signal path',
+      '2 VCOs with CEM3340 chips',
+      'Continuous transition between 5 waveforms',
+      'Paraphony mode for two-part sounds',
+      'Multimode VCF with resonance',
+      '2 Analogue ADSR envelopes for VCF and VCA',
+      'Flexible LFO with 5 waveforms and MIDI sync',
+      'Analog BBD delay',
+      'Noise generator',
+      'Overdrive circuit',
+      '43 Control elements for direct access',
+      'Jack matrix with 32 inputs, 24 outputs for enhanced sound and connectivity with other modular synthesisers & sequencers',
+      'Can be used as a complete Eurorack synthesiser voice (width: 80 HP)',
+      'MIDI In / Thru and USB-MIDI',
+      '6.3 mm audio input for sound processing from external sources',
+      '6.3 mm headphone output',
+      '6.3 mm line output',
+      'Dimensions: 94 x 424 x 136 mm',
+      'Weight: 2.0 kg',
+      'Power adapter included (12 V DC, 1000 mA)'
+    ],
+    image: '/images/behringer_neutron.jpg',
+    isPublished: true
+  },
+  {
     name: 'Behringer Pro-1',
     brand: 'Behringer',
     categories: {
@@ -795,6 +832,49 @@ const products = [
     isPublished: true
   },
   {
+    name: 'Modal Argon8M',
+    brand: 'Modal Electronics',
+    categories: {
+      synthesis: 'FM / Digital',
+      voiceType: 'Polyphonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 565,
+    countInStock: 2,
+    description_m: 'Desktop Wavetable Synthesiser',
+    features: [
+      '8-Voice polyphonic',
+      '120 Wavetables divided into 24 banks of 5 morphable waveform sets',
+      '28 Static wavetable processors',
+      '32 Wavetable oscillators - 4 per voice with 8 types such as Phase Mod (FM), Ring Mod, Amp Mod, Hard Sync',
+      '3 Stereo effect processors for delay, reverb, flanger, phaser and chorus',
+      'Mod matrix with 8 assignable slots, 4 fixed routings, 11 mod sources and 52 destinations',
+      'Programmable arpeggiator with 32 steps',
+      'Sequencer with 512 steps (real time)',
+      '300 Factory presets + 200 storage spaces for user presets',
+      'Keyboard modes: Mono, Poly, Unison 2, Unison 4, Unison 8, Stack 2 and Stack 4',
+      'OLED display',
+      '4-Axis joystick',
+      'Free app (download) for Mac, PC, iOS, Android',
+      'VST3 and AU',
+      '2x Line outputs: 6.3 mm jack',
+      'Line input: 3.5 mm mini jack',
+      'Stereo headphone output: 6.3 mm jack',
+      'Sync input and output: 3.5 mm mini jack',
+      'MIDI input and output',
+      'USB (class compliant USB MIDI)',
+      'Sustain and expression pedal inputs',
+      'Input for external power supply: 9 V 1.5 A',
+      'Shape: Desktop',
+      'Dimensions (W x H x D): 384 x 127 mm / 19" 3U',
+      '19" Rack bracket included'
+    ],
+    image: '/images/modal_argon8m.jpg',
+    image_c: '/images/moog_mother_latest.jpg',
+    isPublished: true
+  },
+  {
     name: 'Moog Mother-32',
     brand: 'Moog',
     categories: {
@@ -917,6 +997,105 @@ const products = [
     isPublished: true
   },
   {
+    name: 'Roland SE-02',
+    brand: 'Roland',
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 470,
+    countInStock: 1,
+    description_m: 'Analogue Synthesizer',
+    features: [
+      '3 Oscillators',
+      '1 Voice',
+      'Preset Patches: 384 (128 x 3 banks)',
+      'User memory: 128 Patches',
+      '128 Patterns',
+      '16 Songs',
+      '16-Step sequencer',
+      'Cooperation between Studio Electronics and Roland',
+      'Input for routing external sound sources through the filter section of the SE-02',
+      'Standard MIDI and USB MIDI',
+      'Plus USB audio for A/D signal processing',
+      'MIDI synchronisation of LFO, Delay and Sequencer timing',
+      'C/V inputs for pitch and filter frequency',
+      'Gate input for connecting a hardware sequencer',
+      'Trigger input and output',
+      'FX: Delay',
+      'Dimensions (W x D x H): 300 x 128 x 46 mm',
+      'Weight (without power adapter): 950 g',
+      'Manual and power supply unit PSB-1U included'
+    ],
+    image: '/images/roland_se_02.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Roland SH-01A',
+    brand: 'Roland',
+    categories: {
+      synthesis: 'Hybrid',
+      voiceType: 'Polyphonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 400,
+    countInStock: 2,
+    description_m: 'Synthesizer',
+    features: [
+      'The sound of the legendary SH-101 synthesiser thanks to ACB technology',
+      'Unison, Chord and 4-voice polyphony expand the possibilities of the original',
+      'Built-in sequencer with 64 patterns',
+      'Arpeggiator with 3 playback modes, note hold, 3-way transpose switch',
+      'CV / Gate output',
+      'Versatile sync options: MIDI internal, external, MIDI via USB, LFO clock, trigger input',
+      '64 Rewritable preset patches',
+      'Enhanced LFO with new waveforms and advanced clock rate range',
+      'Sends and receives MIDI control via MIDI IN/OUT or USB MIDI',
+      'Solid metal construction',
+      'Power supply with 4 AA batteries or USB power',
+      'Dimensions (W x D x H): 300 x 128 x 46 mm',
+      'Weight including batteries: 965 g',
+      'Colour: Grey'
+    ],
+    image: '/images/roland_sh_01a.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Roland TB-03',
+    brand: 'Roland',
+    categories: {
+      synthesis: 'FM / Digital',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 385,
+    countInStock: 3,
+    description_m: 'Bass Line Synthesizer',
+    features: [
+      'Realistic recreation of the legendary TB-303 bassline synths',
+      'Sound, character and panel of the original TB-303',
+      'Direct control of many parameters such as: cutoff, resonance, envelope mod, Decay, Accent',
+      'New possibilities that did not exist in the original TB-303: 4-digit LED display, overdrive, delay effects, MIDI, "fine tempo control"',
+      'Additional options for creating patterns, programmable via the classic Pitch, Time and Step Write Modes',
+      'Uninterrupted play even when you switch between the "write" and "play" mode',
+      'CV / Gate outputs to drive old vintage analog equipment and Modular Synthesizer',
+      'Trigger input for controlling the internal sequencer',
+      'User interface of metal',
+      'Works with 4 x AA batteries or via USB Power',
+      '24 bit / 96 kHz stereo in / out USB audio interface',
+      'Control data can be sent and received via MIDI and USB',
+      'Built-in mini speaker',
+      'Dimensions (W x D x H): 308 x 130 x 52 mm',
+      'Weight: (incl. Batteries, without dock): 940 g'
+    ],
+    image: '/images/roland_tb03.jpg',
+    isPublished: true
+  },
+  {
     name: 'Sequential Prophet 10',
     brand: 'Sequential',
     categories: {
@@ -948,6 +1127,266 @@ const products = [
       'Weight: 14.06 kg'
     ],
     image: '/images/sequential_prophet_10.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Teenage Engineering PO-14 sub',
+    brand: 'Teenage Engineering',
+    categories: {
+      synthesis: 'FM / Digital',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 55,
+    countInStock: 8,
+    description_m: 'Bass Synthesizer',
+    features: [
+      '16 Step sequencer',
+      '15 Sounds plus micro drum machine including 16 samples',
+      'Pitch and note length per step',
+      '16 Effects',
+      '16 Patterns',
+      'Parameter lock (2 Parameters per sound)',
+      'Line in and output 3.5 mm jack',
+      'Power supply via 2 standard AAA batteries',
+      'LCD Display',
+      'Integrated speaker',
+      'Integrated alarm',
+      'Sync'
+    ],
+    image: '/images/teenage_engineering_po_14.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Teenage Engineering PO-16 factory',
+    brand: 'Teenage Engineering',
+    categories: {
+      synthesis: 'FM / Digital',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 65,
+    countInStock: 2,
+    description_m: 'Lead Synthesizer',
+    features: [
+      '16 Step pattern sequencer',
+      '15 Sounds plus micro drum machine including 16 samples',
+      'Pitch and note length per step',
+      '16 Effects',
+      '16 Patterns',
+      'Parameter lock (2 Parameters per sound)',
+      'Line in and output 3.5 mm jack',
+      'Power supply via 2 standard AAA batteries',
+      'LCD Display',
+      'Integrated speaker',
+      'Integrated alarm',
+      'Sync'
+    ],
+    image: '/images/teenage_engineering_po_16.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Teenage Engineering PO-20 arcade',
+    brand: 'Teenage Engineering',
+    categories: {
+      synthesis: 'FM / Digital',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 65,
+    countInStock: 6,
+    description_m: 'Arcade Synthesizer and Sequencer',
+    features: [
+      'Chord control and punch-in effects',
+      'Fast beat creation and Chiptune improvisation',
+      'Synthesized Arcade sounds',
+      '128 Chord chaining',
+      '128 Pattern chaining',
+      '16 Sounds',
+      '16 Punch-in effects',
+      'Step multiplier',
+      '16 Patterns',
+      '16 Pattern chains',
+      '16 Global effects',
+      'Parameter Lock: 2 parameters per sound',
+      'Sync',
+      'LCD',
+      'Integrated speaker',
+      'Line input and output: 3.5 mm jack',
+      'Integrated alarm',
+      'Power supply via 2x standard AAA batteries'
+    ],
+    image: '/images/teenage_engineering_po_20.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Teenage Engineering PO-28 robot',
+    brand: 'Teenage Engineering',
+    categories: {
+      synthesis: 'FM / Digital',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 65,
+    countInStock: 4,
+    description_m: 'Live Synthesiser and Sequencer',
+    features: [
+      'With parameter lock',
+      'Glide control and punch-in effects',
+      'Real 8-bit synthesiser engines for live melodies and leads',
+      '15 Sounds + Micro Drum',
+      'Live-Play + sequencer combo',
+      '128 Pattern Chaining',
+      'Step multiplier',
+      '16 Patterns',
+      '16 Pattern chains',
+      '16 Global effects',
+      'Parameters Lock: 2 Parameters per sound',
+      'Line in and output 3.5 mm jack',
+      'Power supply via 2 standard AAA batteries',
+      'LC-Display',
+      'Integrated speaker',
+      'Integrated alarm',
+      'Sync'
+    ],
+    image: '/images/teenage_engineering_po_28.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Teenage Engineering PO-128 Mega Man',
+    brand: 'Teenage Engineering',
+    categories: {
+      synthesis: 'FM / Digital',
+      voiceType: 'Monophonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 95,
+    countInStock: 1,
+    description_m: 'Combination of Synthesizer and Sequencer',
+    features: [
+      'Sounds based on the Mega-Man video game series',
+      'Synthesizer engine with 9 sounds',
+      '16 Step pattern sequencer with 3 tracks',
+      '16 Effects',
+      'Parameter Lock (2 parameters per sound)',
+      'Line input and output: 3.5 mm jack',
+      'Built-in speaker',
+      'Animated LC display',
+      'Automatic shutdown',
+      'Jam Sync',
+      'Integrated alarm clock',
+      'Power supply via 2 standard micro batteries (AAA)'
+    ],
+    image: '/images/teenage_engineering_po_128.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Waldorf Blofeld Black',
+    brand: 'Waldorf',
+    categories: {
+      synthesis: 'Hybrid',
+      voiceType: 'Polyphonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 490,
+    countInStock: 3,
+    description_m: 'Desktop Synthesiser',
+    features: [
+      'Up to 25 voice polyphony',
+      '16-Part multitimbral',
+      '3 Oscillators per voice',
+      'Frequency modulation between the oscillators',
+      '2 Independent multimode filters per voice',
+      '3 LFOs with sine, triangle, rectangle and sawtooth, plus sample & hold and noise',
+      '4 Fast envelopes',
+      'Over 1000 sounds',
+      'Multimode with 128 memory locations',
+      '5 Endless rotary encoders',
+      '5 Buttons',
+      '1 Volume control',
+      'White backlit graphic display with 128 x 64 pixels',
+      'Freely programmable arpeggiator pattern per sound with up to 16 steps',
+      '2 Effect slots per part',
+      'Stereo output',
+      'Headphone output',
+      'MIDI In',
+      'USB for MIDI In / Out',
+      'Robust housing',
+      'Aluminium controller',
+      'External power supply unit',
+      'Dimensions (W x H x D): 304 x 54 x 132 mm',
+      'Weight: 1.3 kg',
+      'Colour: Black'
+    ],
+    image: '/images/waldorf_blofeld_black.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Waldorf Kyra',
+    brand: 'Waldorf',
+    categories: {
+      synthesis: 'Hybrid',
+      voiceType: 'Polyphonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 1820,
+    countInStock: 1,
+    description_m: 'Virtual Analogue Desktop Synthesiser',
+    features: [
+      '128-Voice virtual analog synth with 8 parts',
+      '2 Primary virtual oscillator groups per voice: Saw, Pulse, Noise and Wave with 4,096 waveforms',
+      '2 Independently tunable SUB oscillators with 4 waveforms and 2 selectable octaves',
+      'Hard sync, ring modulation and FM between oscillator groups 1 and 2 possible',
+      '3 LFOs with 128 Waveforms',
+      'LFOs can be synchronized to the MIDI clock',
+      'Arpeggiator with 128 preset patterns and the modes Up, Down, Random and Chords',
+      '2 Filters with 12 or 24 dB each as LP / BP / HP configurable',
+      '3 Fast-response ADSR envelope generators',
+      'Memory management: 26 banks of 128 memories each, Bank 1-7 can be used to store your own sounds',
+      'Audio interface transmits up to 24bit / 96kHz all 8 parts (16 tracks)',
+      '256 x 64 pixel OLED',
+      '8 Balanced outputs: 6.3 mm jack',
+      'Stereo headphone output',
+      'MIDI In / Out / Thru: 5-pin DIN',
+      'USB 2.0 for MIDI and audio',
+      'Dimensions (W x D x H): 440 x 305 x 85 mm',
+      'Weight: 5.7 kg'
+    ],
+    image: '/images/waldorf_kyra.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Waldorf Streichfett',
+    brand: 'Waldorf',
+    categories: {
+      synthesis: 'FM / Digital',
+      voiceType: 'Polyphonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 250,
+    countInStock: 2,
+    description_m: 'Desktop Synthesizer',
+    features: [
+      '128 Voice polyphonic string section',
+      'Continuous morphing of violin, viola, cello, brass, organ and choir sounds',
+      'Ensemble effect for strings',
+      '8-voice polyphonic solo section with layer/split function',
+      'Continuous morphing of bass, electric piano, clavi, synth, and pluto for solo tone',
+      'Tremolo for solo section',
+      'Phaser and reverb effects',
+      '12 programmable patches',
+      'Connections: Line out 2 x 6.3 mm jack, headphone output, MIDI I/O, USB-MIDI',
+      'Dimensions (W x D x H): 185 x 185 x 65 mm'
+    ],
+    image: '/images/waldorf_streichfett.jpg',
     isPublished: true
   }
 ]
