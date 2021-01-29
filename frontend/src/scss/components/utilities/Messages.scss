@@ -55,12 +55,35 @@
   color: $sub-theme;
   background-color: $bright;
   text-align: center;
-  font-size: 1.05rem;
+  font-size: 16.8px;
   font-weight: 600;
   animation: fadeIn 0.9s ease-in-out;
 
   @include sm-screen {
-    font-size: 0.975rem;
+    font-size: 15.6px;
+  }
+
+  .fade-out {
+    animation: fadeIn 0.9s ease-out;
+  }
+}
+
+.payment-error-msg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12.8px 20px;
+  margin-top: 50.4px;
+  border-radius: 2px;
+  color: $sub-theme;
+  background-color: $bright;
+  text-align: center;
+  font-size: 14.5px;
+  font-weight: 600;
+  animation: fadeIn 0.9s ease-in-out;
+
+  @include sm-screen {
+    font-size: 13.3px;
   }
 
   .fade-out {

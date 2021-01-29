@@ -92,6 +92,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
                 order.paidAt = Date.now()
                 order.paymentResult = {
                     id: payment.id,    // Stripe payment obj id 
+                    status: 'completed',
                     email_address: email
                 }
                 break

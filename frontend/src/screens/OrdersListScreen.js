@@ -157,14 +157,6 @@ const OrdersListScreen = ({ history }) => {
                                                         <i className='fas fa-truck' />
                                                     </ActionBtn>}
                                                 </td>
-                                                {/* <td>
-                                                    <ActionLink
-                                                        path={`/orders/${order._id}`}
-                                                        className='order-details-link'
-                                                    >
-                                                        Order details
-                                                    </ActionLink>
-                                                </td> */}
                                             </tr>
                                         ))}
                                     </tbody>
@@ -174,7 +166,7 @@ const OrdersListScreen = ({ history }) => {
 
                         ) :
 
-                            <p>No order to display</p>}
+                            <p>No orders to display</p>}
 
                 {objectID && <AdminConfirmAlert
                     objectID={objectID}

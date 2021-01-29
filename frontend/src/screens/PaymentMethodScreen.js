@@ -78,7 +78,7 @@ const PaymentMethodScreen = ({ history }) => {
                                         handleChange(ev)
                                         setPayment(ev.target.value)
                                     }}
-                                    text='Paypal or credit card'
+                                    text='Paypal'
                                 />
 
                                 <RadioInputField

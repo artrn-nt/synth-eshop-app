@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js'
 import styled from '@emotion/styled'
+import Spinner from '../utilities/Spinner'
 import useWindowSize from '../../utils/useWindowSize'
 import '../../scss/components/OrderStatusScreen/StripePaymentIntent.scss'
 import config from '../../scss/config.module.scss'
@@ -50,18 +51,34 @@ const CardElementsContainer = styled.div`
 
 `
 
-const StripePaymentIntent = ({ paymentHandler, orderDetails }) => {
+const StripePaymentIntent = ({
+    orderDetails, 
+    isReady, 
+    paymentHandler, 
+    paymentReadyHandler, 
+    loadingPay, 
+    errorPay, 
+    paymentErrorStripeHandler
+}) => {
 
     const stripe = useStripe()
     const elements = useElements()
     const size = useWindowSize()
     
-    const [disabled, setDisabled] = useState(false)
+    const [isDisabled, setIsDisabled] = useState(false)
     const [isFocused, setIsFocused] = useState({
         cardNumber: false,
         cardExpiry: false,
         cardCvc: false
     })
+
+    useEffect(() => {
+        if (typeof stripe !== 'undefined' && typeof elements !== 'undefined') paymentReadyHandler(true)
+    }, [stripe, elements, paymentReadyHandler])
+
+    useEffect(() => {
+        if (errorPay) setIsDisabled(false)
+    }, [errorPay])
 
     const iframeStyles = {
         base: {
@@ -84,6 +101,7 @@ const StripePaymentIntent = ({ paymentHandler, orderDetails }) => {
 
     const onSubmitHandler = async (ev) => {
         ev.preventDefault()
+        setIsDisabled(true)
         const cardNumberElement = elements.getElement('cardNumber')
 
         const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -97,45 +115,54 @@ const StripePaymentIntent = ({ paymentHandler, orderDetails }) => {
                 id: paymentMethod.id
             }
             paymentHandler(paymentResult)
+        } else {
+            paymentErrorStripeHandler()
+            setIsDisabled(false)
         }
-        // else setError dans le front-end - error handler
     }
 
     return (
-        <form className='stripe-form' onSubmit={onSubmitHandler}>
-            <CardElementsContainer focus={isFocused} size={size.width}>
-                <CardNumberElement 
-                    options={{
-                        showIcon: true,
-                        iconStyle: 'solid',
-                        placeholder: 'Card Number',
-                        style: iframeStyles
-                    }}
-                    onFocus={() => setIsFocused(prev => ({...prev, cardNumber: true}))}
-                    onBlur={() => setIsFocused(prev => ({...prev, cardNumber: false}))}
-                />
-                <CardExpiryElement 
-                    options={{
-                        placeholder: 'MM / YY',
-                        style: iframeStyles
-                    }}
-                    onFocus={() => setIsFocused(prev => ({...prev, cardExpiry: true}))}
-                    onBlur={() => setIsFocused(prev => ({...prev, cardExpiry: false}))}
-                />
-                <CardCvcElement
-                    options={{
-                        placeholder: 'CVC',
-                        style: iframeStyles
-                    }}
-                    onFocus={() => setIsFocused(prev => ({...prev, cardCvc: true}))}
-                    onBlur={() => setIsFocused(prev => ({...prev, cardCvc: false}))}
-                />
-            </CardElementsContainer>
-            <button className='stripe-btn' disabled={!stripe || !elements}>
-                <i className='fab fa-stripe'/>
-            </button>
-            <p>Powered by <span><i className='fab fa-stripe'/></span></p>
-        </form> 
+        <>
+            {!isReady || loadingPay ?
+                <Spinner /> :
+                <>
+                    <h4>Payment</h4>
+                    <form className='stripe-form' onSubmit={onSubmitHandler}>
+                        <CardElementsContainer focus={isFocused} size={size.width}>
+                            <CardNumberElement 
+                                options={{
+                                    showIcon: true,
+                                    iconStyle: 'solid',
+                                    placeholder: 'Card Number',
+                                    style: iframeStyles
+                                }}
+                                onFocus={() => setIsFocused(prev => ({...prev, cardNumber: true}))}
+                                onBlur={() => setIsFocused(prev => ({...prev, cardNumber: false}))}
+                            />
+                            <CardExpiryElement 
+                                options={{
+                                    placeholder: 'MM / YY',
+                                    style: iframeStyles
+                                }}
+                                onFocus={() => setIsFocused(prev => ({...prev, cardExpiry: true}))}
+                                onBlur={() => setIsFocused(prev => ({...prev, cardExpiry: false}))}
+                            />
+                            <CardCvcElement
+                                options={{
+                                    placeholder: 'CVC',
+                                    style: iframeStyles
+                                }}
+                                onFocus={() => setIsFocused(prev => ({...prev, cardCvc: true}))}
+                                onBlur={() => setIsFocused(prev => ({...prev, cardCvc: false}))}
+                            />
+                        </CardElementsContainer>
+                        <button className='stripe-btn' disabled={!stripe || !elements || isDisabled}>
+                            <i className='fab fa-stripe'/>
+                        </button>
+                        <p>Powered by <span><i className='fab fa-stripe'/></span></p>
+                    </form>
+                </>} 
+        </>
     ) 
 
 }

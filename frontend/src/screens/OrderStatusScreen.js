@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOrderDetails, payOrder } from '../actions/orderActions'
@@ -7,7 +7,7 @@ import OrderItem from '../components/utilities/OrderItem'
 import StripePaymentIntent from '../components/OrderStatusScreen/StripePaymentIntent'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import CheckoutSteps from '../components/utilities/CheckoutSteps'
-import { ErrorMsg } from '../components/utilities/Messages'
+import { ErrorMsg, PaymentErrorMsg } from '../components/utilities/Messages'
 import Spinner from '../components/utilities/Spinner'
 import config from '../scss/config.module.scss'
 import '../scss/screens/OrderStatusScreen.scss'
@@ -29,11 +29,16 @@ const OrderStatusScreen = ({ match, history }) => {
 
     const [isReady, setIsReady] = useState(false)
     const [orderId, setOrderId] = useState(null)
+    const [stripePaymentError, setStripePaymentError] = useState(false)
+
+    const [orderSummaryHeight, setOrderSummaryHeight] = useState(null)
+    const orderSummaryRef = useRef(null)
 
     useEffect(() => {
         if (!userInfo) history.push('/login')
         return () => {
             dispatch({ type: ORDER_DETAILS_RESET })
+            dispatch({ type: ORDER_PAY_RESET })
             console.log('order status unmount')
         }
     }, [userInfo, history, dispatch])
@@ -49,11 +54,11 @@ const OrderStatusScreen = ({ match, history }) => {
         }
     }, [dispatch, orderId])
 
-    // useEffect(() => {
-    //     if (Object.entries(order).length !== 0 && order.constructor === Object) {
-    //         console.log(order.paymentMethod === "stripe")
-    //     }
-    // }, [order])
+    useEffect(() => {
+        if (orderSummaryRef.current !== null && isReady) {
+            setOrderSummaryHeight(orderSummaryRef.current.clientHeight)
+        }
+    }, [isReady])
 
     // useEffect(() => {
     //     if (!loadingDetails && !errorDetails) {
@@ -70,16 +75,12 @@ const OrderStatusScreen = ({ match, history }) => {
     //     }
     // }, [loadingDetails, errorDetails])
 
-    // useEffect(() => {
-    //     return () => dispatch({ type: ORDER_CREATE_RESET })
-    // }, [dispatch])
-
-    // useEffect(() => {
-    //     // if ((typeof order === 'undefined' || order._id !== orderId) || successPay) {
-    //         console.log('entered')
-    //         dispatch({ type: ORDER_PAY_RESET })
-    //         dispatch(getOrderDetails(orderId))
-    // }, [dispatch, order, orderId])
+    useEffect(() => {
+        if (successPay) {
+            dispatch({ type: ORDER_DETAILS_RESET })
+            dispatch(getOrderDetails(orderId))
+        }
+    }, [successPay, dispatch, orderId])
 
     const paymentHandler = (paymentResult) => {
         dispatch(payOrder(orderId, paymentResult))
@@ -87,6 +88,10 @@ const OrderStatusScreen = ({ match, history }) => {
 
     const paymentReadyHandler = () => {
         setIsReady(true)
+    }
+
+    const paymentErrorStripeHandler = () => {
+        setStripePaymentError(true)
     }
 
     if (!userInfo || typeof order === 'undefined') return null
@@ -103,9 +108,9 @@ const OrderStatusScreen = ({ match, history }) => {
                 {loadingDetails ? <Spinner /> :
                     errorDetails ? <ErrorMsg message={errorDetails} /> :
 
-                        <>
+                        <div className='order-status-grid'>
 
-                            <div className='order-status-col-1'>
+                            <div className='order-status-grid-col-1'>
 
                                 <div className='order-status-row'>
                                     <h3>Order ID: {order._id}</h3>
@@ -156,7 +161,7 @@ const OrderStatusScreen = ({ match, history }) => {
                                 </div>
 
                                 <div className='order-status-row'>
-                                    <h3>Order items</h3>
+                                    <h3>Order item(s)</h3>
                                     <ul className='order-items'>
                                         {order.orderItems.map(item => <OrderItem
                                             key={item._id}
@@ -172,53 +177,75 @@ const OrderStatusScreen = ({ match, history }) => {
 
                             </div>
 
-                            <div className='order-status-summary'>
-                                <h3>Order summary</h3>
-                                <div className='order-status-infos'>
-                                    <p><span>Items <small>(incl. VAT)</small>:</span><span>€{order.itemsPrice}</span></p>
-                                    <p>Shipping:<span>€{order.shippingPrice}</span></p>
-                                    <p><span>VAT <small>(tax)</small>:</span><span>€{order.taxPrice}</span></p>
-                                    <p>Total:<span>€{order.totalPrice}</span></p>
-                                </div>
+                            <div className='order-status-grid-col-2'>
 
-                                {!order.isPaid && (
+                                <div className='order-status-grid-col-2-inner'>
+
                                     <div 
-                                        className='payment-container'
-                                        style={{ 
-                                            backgroundColor: loadingPay || !isReady ? config.mainTheme : config.bright 
+                                        className='order-status-summary' 
+                                        style={{
+                                            minHeight: successPay ? 'unset' : `${orderSummaryHeight}px`
                                         }}
+                                        ref={orderSummaryRef}
                                     >
+                                        <h3>Order summary</h3>
+                                        <div className='order-status-infos'>
+                                            <p><span>Items <small>(incl. VAT)</small>:</span><span>€{order.itemsPrice}</span></p>
+                                            <p>Shipping:<span>€{order.shippingPrice}</span></p>
+                                            <p><span>VAT <small>(tax)</small>:</span><span>€{order.taxPrice}</span></p>
+                                            <p>Total:<span>€{order.totalPrice}</span></p>
+                                        </div>
 
-                                        {order.paymentMethod === 'paypal' &&
-                                            <PaypalPaymentIntents 
-                                                orderDetails={{
-                                                    amount: order.totalPrice
+                                        {!order.isPaid && (
+                                            <div 
+                                                className='payment-container'
+                                                style={{ 
+                                                    backgroundColor: !isReady || loadingPay ? config.mainTheme : config.bright 
                                                 }}
-                                                isReady={isReady}
-                                                paymentHandler={paymentHandler}
-                                                paymentReadyHandler={paymentReadyHandler}
-                                            />
-                                        }
+                                            >
 
-                                        {order.paymentMethod === 'stripe' && 
-                                            <StripePaymentIntent  
-                                                orderDetails={{ 
-                                                    amount: order.totalPrice * 100,
-                                                    description: order.orderItems.reduce((acc, curr) => [...acc, curr.name], []).join(' / '),
-                                                    email: order.user.email
-                                                }}
-                                                isReady={isReady}
-                                                paymentHandler={paymentHandler}
-                                                paymentReadyHandler={paymentReadyHandler}
-                                            />
-                                        }
-                                        
+                                                {order.paymentMethod === 'paypal' &&
+                                                    <PaypalPaymentIntents 
+                                                        orderDetails={{
+                                                            amount: order.totalPrice
+                                                        }}
+                                                        isReady={isReady}
+                                                        paymentHandler={paymentHandler}
+                                                        paymentReadyHandler={paymentReadyHandler}
+                                                        loadingPay={loadingPay}
+                                                    />
+                                                }
+
+                                                {order.paymentMethod === 'stripe' && 
+                                                    <StripePaymentIntent  
+                                                        orderDetails={{ 
+                                                            amount: order.totalPrice * 100,
+                                                            description: order.orderItems.reduce((acc, curr) => [...acc, curr.name], []).join(' / '),
+                                                            email: order.user.email
+                                                        }}
+                                                        isReady={isReady}
+                                                        paymentHandler={paymentHandler}
+                                                        paymentReadyHandler={paymentReadyHandler}
+                                                        loadingPay={loadingPay}
+                                                        errorPay={errorPay}
+                                                        paymentErrorStripeHandler={paymentErrorStripeHandler}
+                                                    />
+                                                }
+                                                
+                                            </div>
+                                        )}
+
+                                        {successPay && <span>Successfull payment</span>}
+
                                     </div>
-                                )}
+
+                                    {errorPay || stripePaymentError ? <PaymentErrorMsg message={errorPay || 'Something went wrong'} /> : null}
+
+                                </div>
 
                             </div>
 
-                        </>}
+                        </div>}
 
             </div>
 

@@ -17,5 +17,13 @@ const ErrorMsg = ({ message }) => {
     )
 }
 
-export { Alert, ErrorMsg }
+const PaymentErrorMsg = ({ message }) => {
+    return (
+        <span className='payment-error-msg'>
+            {message}
+        </span>
+    )
+}
+
+export { Alert, ErrorMsg, PaymentErrorMsg }
 

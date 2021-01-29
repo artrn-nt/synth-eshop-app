@@ -74,40 +74,32 @@ const ProductsScreen = () => {
 
     useEffect(() => {
 
-        if (productsGridRef.current !== null) {
-            const productCards = Object.values(productsGridRef.current.children)
-
-            if (allProducts.length !== 0 && touched === null) {
-
-                ScrollTrigger.batch(productCards, {
-                    start: 'top 60%',
-                    onEnter: batch => gsap.to(batch, {
-                        autoAlpha: 1, 
-                        transform: 'translate3d(0, 0, 0)',
-                        duration: .75,
-                        ease: 'power3.out',
-                        stagger: .125
-                    })
-                })
-
-                if (productsContainerRef.current !== null) {
-                    setProductsContainerHeight(productsContainerRef.current.clientHeight)
-                }
-
-            } else if (allProducts.length !== 0 && touched) {
-
-                gsap.fromTo(productCards, {
-                    opacity: 0
-                }, {
-                    opacity: 1,
-                    duration: .75,
-                    ease: 'power2.inOut',
-                })
-            }
+        if (productsContainerRef.current !== null) {
+            setProductsContainerHeight(productsContainerRef.current.clientHeight)
         }
 
-        if (allProducts.length === 0 && touched) {
-
+        if (allProducts.length !== 0 && touched === null) {
+            ScrollTrigger.batch('.product-card', {
+                start: 'top 60%',
+                interval: .125,
+                batchMax: 4,
+                onEnter: batch => gsap.to(batch, {
+                    autoAlpha: 1, 
+                    transform: 'translate3d(0, 0, 0)',
+                    duration: .75,
+                    ease: 'power3.out',
+                    stagger: .125
+                })
+            })
+        } else if (allProducts.length !== 0 && touched) {
+            gsap.fromTo('.product-card', {
+                opacity: 0
+            }, {
+                opacity: 1,
+                duration: .75,
+                ease: 'power2.inOut',
+            })
+        } else if (allProducts.length === 0 && touched) {
             gsap.fromTo('.no-result', {
                 opacity: 0,
                 y: 38
@@ -118,8 +110,8 @@ const ProductsScreen = () => {
                 y: 0,
                 ease: 'power3.out'
             })
-
         }
+        
     }, [allProducts, touched])
 
     // Filter products handler // ugly
