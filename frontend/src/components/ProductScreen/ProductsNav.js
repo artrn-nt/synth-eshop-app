@@ -21,7 +21,6 @@ const ProductIndicator = ({ indicator }) => {
 
 }
 
-
 const ProductsNav = ({ ids }) => {
 
     const { pathname } = useLocation()

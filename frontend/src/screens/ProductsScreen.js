@@ -37,6 +37,7 @@ const ProductsScreen = () => {
             return 0
         })
     }
+    
     const sortProductsByPrice = (productsArr) => {
         const productsArrCopy = [...productsArr]
         return productsArrCopy.sort((p1, p2) => {
