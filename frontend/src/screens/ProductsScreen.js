@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions'
 import { PRODUCTS_LIST_RESET } from '../constants/productConstants'
@@ -10,6 +11,8 @@ import Spinner from '../components/utilities/Spinner'
 import { ErrorMsg } from '../components/utilities/Messages'
 import ProductCard from '../components/ProductsScreen/ProductCard'
 import '../scss/screens/ProductsScreen.scss'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const ProductsScreen = () => {
 
@@ -75,16 +78,16 @@ const ProductsScreen = () => {
             const productCards = Object.values(productsGridRef.current.children)
 
             if (allProducts.length !== 0 && touched === null) {
-                gsap.fromTo(productCards, {
-                    opacity: 0,
-                    yPercent: 7
-                }, {
-                    delay: .75,
-                    duration: .75,
-                    ease: 'power3.out',
-                    opacity: 1,
-                    yPercent: 0,
-                    stagger: .125
+
+                ScrollTrigger.batch(productCards, {
+                    start: 'top 60%',
+                    onEnter: batch => gsap.to(batch, {
+                        autoAlpha: 1, 
+                        transform: 'translate3d(0, 0, 0)',
+                        duration: .75,
+                        ease: 'power3.out',
+                        stagger: .125
+                    })
                 })
 
                 if (productsContainerRef.current !== null) {
@@ -100,7 +103,6 @@ const ProductsScreen = () => {
                     duration: .75,
                     ease: 'power2.inOut',
                 })
-
             }
         }
 

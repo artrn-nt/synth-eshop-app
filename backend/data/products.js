@@ -1361,33 +1361,6 @@ const products = [
     ],
     image: '/images/waldorf_kyra.jpg',
     isPublished: true
-  },
-  {
-    name: 'Waldorf Streichfett',
-    brand: 'Waldorf',
-    categories: {
-      synthesis: 'FM / Digital',
-      voiceType: 'Polyphonic',
-      semiModular: false,
-      desktop: true
-    },
-    price: 250,
-    countInStock: 2,
-    description_m: 'Desktop Synthesizer',
-    features: [
-      '128 Voice polyphonic string section',
-      'Continuous morphing of violin, viola, cello, brass, organ and choir sounds',
-      'Ensemble effect for strings',
-      '8-voice polyphonic solo section with layer/split function',
-      'Continuous morphing of bass, electric piano, clavi, synth, and pluto for solo tone',
-      'Tremolo for solo section',
-      'Phaser and reverb effects',
-      '12 programmable patches',
-      'Connections: Line out 2 x 6.3 mm jack, headphone output, MIDI I/O, USB-MIDI',
-      'Dimensions (W x D x H): 185 x 185 x 65 mm'
-    ],
-    image: '/images/waldorf_streichfett.jpg',
-    isPublished: true
   }
 ]
 
