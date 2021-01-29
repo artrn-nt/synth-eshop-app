@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import gsap from 'gsap'
-import { PayPalButton } from 'react-paypal-button-v2'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOrderDetails, payOrder } from '../actions/orderActions'
-import { ORDER_PAY_RESET, ORDER_CREATE_RESET, ORDER_DETAILS_RESET } from '../constants/orderConstants'
+import { ORDER_PAY_RESET, ORDER_DETAILS_RESET } from '../constants/orderConstants'
 import OrderItem from '../components/utilities/OrderItem'
 import StripePaymentIntent from '../components/OrderStatusScreen/StripePaymentIntent'
 import ScreenTitle from '../components/utilities/ScreenTitle'
@@ -13,6 +11,7 @@ import { ErrorMsg } from '../components/utilities/Messages'
 import Spinner from '../components/utilities/Spinner'
 import config from '../scss/config.module.scss'
 import '../scss/screens/OrderStatusScreen.scss'
+import PaypalPaymentIntents from '../components/OrderStatusScreen/PaypalPaymentIntents'
 
 const OrderStatusScreen = ({ match, history }) => {
 
@@ -28,13 +27,16 @@ const OrderStatusScreen = ({ match, history }) => {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
-    const [sdkReady, setSdkReady] = useState(false)
+    const [isReady, setIsReady] = useState(false)
     const [orderId, setOrderId] = useState(null)
 
     useEffect(() => {
         if (!userInfo) history.push('/login')
-        return () => dispatch({ type: ORDER_DETAILS_RESET })
-    }, [userInfo, history])
+        return () => {
+            dispatch({ type: ORDER_DETAILS_RESET })
+            console.log('order status unmount')
+        }
+    }, [userInfo, history, dispatch])
 
     useEffect(() => {
         setOrderId(match.params.id)
@@ -73,39 +75,18 @@ const OrderStatusScreen = ({ match, history }) => {
     // }, [dispatch])
 
     // useEffect(() => {
-    //     const addPaypalScript = async () => {
-    //         const { data: clientId } = await axios.get('/api/config/paypal')
-    //         const script = document.createElement('script')
-    //         script.type = 'text/javascript'
-    //         script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=EUR&locale=en_US`
-    //         script.async = true
-    //         script.onload = () => {
-    //             setSdkReady(true)
-    //         }
-    //         document.body.appendChild(script)
-    //     }
-
     //     // if ((typeof order === 'undefined' || order._id !== orderId) || successPay) {
-    //     if (typeof order === 'undefined' || order._id !== orderId) {
     //         console.log('entered')
     //         dispatch({ type: ORDER_PAY_RESET })
     //         dispatch(getOrderDetails(orderId))
-    //     } else if (!order.isPaid) {
-    //         if (order.paymentMethod === 'paypal') {
-    //             if (!window.paypal) {
-    //                 addPaypalScript()
-    //             } else {
-    //                 setSdkReady(true)
-    //             }
-    //         } else if (order.paymentMethod === 'stripe') {
-    //             // console.log('Stripe payment choice')
-    //         }
-    //     }
-
     // }, [dispatch, order, orderId])
 
     const paymentHandler = (paymentResult) => {
         dispatch(payOrder(orderId, paymentResult))
+    }
+
+    const paymentReadyHandler = () => {
+        setIsReady(true)
     }
 
     if (!userInfo || typeof order === 'undefined') return null
@@ -201,30 +182,37 @@ const OrderStatusScreen = ({ match, history }) => {
                                 </div>
 
                                 {!order.isPaid && (
-                                    // <div className='payment-container' style={{ backgroundColor: loadingPay || !sdkReady ? config.mainTheme : config.bright }}>
-                                    <div className='payment-container' style={{ backgroundColor: config.bright }}>
-                                        <h4>Payment</h4>
-                                        {/* {loadingPay && <Spinner />}
-                                        {!sdkReady ?
-                                            <Spinner /> :
-                                            <PayPalButton 
-                                                amount={order.totalPrice} 
-                                                onSuccess={paymentHandler} 
-                                                currency='EUR' 
-                                                locale='en_US'
-                                                style={{
-                                                    color: 'blue'   // gold, blue, silver, black, white
+                                    <div 
+                                        className='payment-container'
+                                        style={{ 
+                                            backgroundColor: loadingPay || !isReady ? config.mainTheme : config.bright 
+                                        }}
+                                    >
+
+                                        {order.paymentMethod === 'paypal' &&
+                                            <PaypalPaymentIntents 
+                                                orderDetails={{
+                                                    amount: order.totalPrice
                                                 }}
-                                            />} */}
-                                            {order.paymentMethod === 'stripe' &&
-                                                <StripePaymentIntent 
-                                                    paymentHandler={paymentHandler} 
-                                                    orderDetails={{ 
-                                                        amount: order.totalPrice * 100,
-                                                        description: order.orderItems.reduce((acc, curr) => [...acc, curr.name], []).join(' / '),
-                                                        email: order.user.email
-                                                    }}
-                                                />}
+                                                isReady={isReady}
+                                                paymentHandler={paymentHandler}
+                                                paymentReadyHandler={paymentReadyHandler}
+                                            />
+                                        }
+
+                                        {order.paymentMethod === 'stripe' && 
+                                            <StripePaymentIntent  
+                                                orderDetails={{ 
+                                                    amount: order.totalPrice * 100,
+                                                    description: order.orderItems.reduce((acc, curr) => [...acc, curr.name], []).join(' / '),
+                                                    email: order.user.email
+                                                }}
+                                                isReady={isReady}
+                                                paymentHandler={paymentHandler}
+                                                paymentReadyHandler={paymentReadyHandler}
+                                            />
+                                        }
+                                        
                                     </div>
                                 )}
 
