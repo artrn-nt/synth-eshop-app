@@ -32,6 +32,9 @@ const InfoScreen = () => {
                     <span>Synth Mini-Market works in partnership with:</span>
                     <ul>
                         <li>
+                            <a href='https://www.analoguesolutions.com/'>Analogue Solutions</a>
+                        </li>
+                        <li>
                             <a href='https://www.ashunsoundmachines.com/'>Ashun Sound Machines (ASM)</a>
                         </li>
                         <li>

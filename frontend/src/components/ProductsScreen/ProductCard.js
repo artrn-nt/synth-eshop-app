@@ -5,7 +5,7 @@ import '../../scss/components/ProductsScreen/ProductCard.scss'
 const ProductCard = ({ product }) => {
 
     return (
-        <div className='product-card'>
+        <div className='product-card' style={{ transform: 'translateY(7%)' }}>
             <Link className='img-link' to={`/product/${product._id}`}>
                 <img src={product.image} alt={product.name} />
             </Link>

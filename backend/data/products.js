@@ -1,5 +1,35 @@
 const products = [
   {
+    name: 'Analogue Solutions Impulse Command',
+    brand: 'Analogue Solutions',
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: true,
+      desktop: true
+    },
+    price: 1250,
+    countInStock: 1,
+    description_m: 'Semi-Modular Analogue Synthesiser',
+    features: [
+      'Analogue signal path',
+      'Stereo / Dual 24 db low-pass filter',
+      'Analogue sequencer with 16 steps',
+      '16 Step MIDI sequencer',
+      'Reorder function for fast re-arrangements of the sequencer',
+      '2 Analogue VCOs, 2 LFOs, 2 ADSR envelopes, 1 sub oscillator, 4 VCAs, noise generator',
+      'Stereo output',
+      'Digital stereo effects incl. delay & reverb',
+      'CV patch points',
+      'MIDI IN / THRU',
+      'External 24 volt power supply (included)',
+      'Dimensions: 270 x 310 x 70 mm',
+      'Weight: 0.34 kg'
+    ],
+    image: '/images/analogue_solutions_impulse_command.jpg',
+    isPublished: true
+  },
+  {
     name: 'ASM Hydrasynth',
     brand: 'ASM',
     categories: {
@@ -41,6 +71,49 @@ const products = [
       'Weight: 10 kg'
     ],
     image: '/images/asm_hydrasynth.jpg',
+    isPublished: true
+  },
+  {
+    name: 'ASM Hydrasynth Desktop',
+    brand: 'ASM',
+    categories: {
+      synthesis: 'FM / Digital',
+      voiceType: 'Polyphonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 940,
+    countInStock: 1,
+    description_m: 'Digital Wave-Morphing Synthesizer',
+    features: [
+      '24 Touch- and velocity-sensitive pads',
+      '8 Voice polyphony - monotimbral',
+      'Fully polyphonic aftertouch',
+      'Arpeggiator includes Ratchet, Chance, Gate and Swing (8 modes in total)',
+      '3 Oscillators with 219 single-cycle waveforms',
+      'WaveScan parameters for modulating via wavetables',
+      'Wavelist mode for blending up to 8 wavetables',
+      '8 Custom Wavelists per oscillator',
+      'Mixer includes Noise Generator and Ring Modulator',
+      '2 Filters: series or parallel',
+      'Filter 1 includes 11 different filter models (12 & 24 dB Ladder, Ladder Vintage, HP, LP, Vocal, etc.)',
+      'Filter 2: 12 dB (SEM-style) per octave, includes Continuous Sweep from lowpass, bandpass, up to highpass)',
+      'Modulation matrix',
+      '5 DAHDSR envelopes',
+      '5 LFOs',
+      'LFOs include Delay, Fade In, 3 Trigger Modes, Smoothing, Start Phase, One Shot Mode',
+      '5 Banks with 128 patches each - 256 of which are factory patches',
+      'CV-Gate inputs and outputs',
+      'Supports all common CV/GATE standards',
+      'Clock input and output',
+      '8 High-resolution encoders, including LED rings',
+      'USB (USB MIDI In/Out)',
+      'MIDI: In/Out/Thru',
+      'Pre- and post effects for unique sound editing possibilites',
+      'Dimensions: 440 x 223 x 70 mm',
+      'Weight: 3.6 kg'
+    ],
+    image: '/images/asm_hydrasynth_desktop.jpg',
     isPublished: true
   },
   {
@@ -875,6 +948,67 @@ const products = [
     isPublished: true
   },
   {
+    name: 'Moog DFAM',
+    brand: 'Moog',
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: true,
+      desktop: true
+    },
+    price: 725,
+    countInStock: 3,
+    description_m: 'Semi-modular analogue percussion synthesizer',
+    features: [
+      'Two oscillators with square and triangle waveforms and white noise generator',
+      'Switchable low pass / high pass 4-pole transistor ladder filter, 20 - 20,000 Hz',
+      'Analog 8-step sequencer',
+      'Integrated patchbay 24x 3.5 mm mini jack',
+      'Patchbay Inputs: Trigger, VCA CV, Velocity, VCA Decay, external audio, VCF decay, noise level, VCO decay, VCF mod, VCO 1 CV, 1-2 FM amount, VCO 2 CV, tempo, run / stop, advance / clock',
+      'Patchbay outputs: VCA, VCA EG, VCF EG, EC VCO, VCO 1, VCO 2, trigger, velocity, pitch',
+      'Line output via 6.3 mm jack',
+      'Headphone output via 6.3 mm jack',
+      'Dimensions (W x H x D): 319 x 107 x 133 mm',
+      'Format: Eurorack 60 HP x 26 mm (W x D)',
+      'Weight: Approx. 1.59 kg',
+      'Includes external power supply and a set of Moog patch cables'
+    ],
+    image: '/images/moog_dfam.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Moog Grandmother Dark',
+    brand: 'Moog',
+    categories: {
+      synthesis: 'Analogue',
+      voiceType: 'Monophonic',
+      semiModular: true,
+      desktop: false
+    },
+    price: 1175,
+    countInStock: 1,
+    description_m: 'Semi-Modular Analogue Synthesizer',
+    features: [
+      '32-Key Fatar keyboard',
+      'Saves up to 3 sequences with up to 256 notes',
+      'Arpeggiator',
+      'Integrated hardware spring reverb based on Moog 905 (can also be used for external signals)',
+      '2 Analog oscillators with selectable waveform and hard sync',
+      'Classic 4-pole 10 Hz - 20 kHz ladder filter',
+      'Patchable 1-pole high pass filter',
+      'Analog ADSR envelope generator',
+      'Patchable bipolar attenuator',
+      'Compatible with Mother-32, DFAM and other modular systems',
+      'Pitch and modulation wheel',
+      'Dimensions (WxDxH): 58 x 36.2 x 13.9 cm',
+      'Weight: 7.25 kg',
+      'Colour: Black',
+      'Includes 12V power supply (100-240V)'
+    ],
+    image: '/images/moog_grandmother_dark.jpg',
+    isPublished: true
+  },
+  {
     name: 'Moog Mother-32',
     brand: 'Moog',
     categories: {
@@ -997,6 +1131,40 @@ const products = [
     isPublished: true
   },
   {
+    name: 'Roland JU-06A',
+    brand: 'Roland',
+    categories: {
+      synthesis: 'FM / Digital',
+      voiceType: 'Polyphonic',
+      semiModular: false,
+      desktop: true
+    },
+    price: 400,
+    countInStock: 3,
+    description_m: 'Synthesizer module',
+    features: [
+      'Digital replica of the Juno-60 and Juno-106 synthesizers',
+      '4-Voice polyphony',
+      'Based on ACB technology',
+      'Switchable between Juno-60 / Juno-106 mode',
+      'Arpeggiator and 16-step sequencer',
+      'Chord memory function',
+      'Analog clock input (3.5 mm Jack)',
+      'Integrated USB audio interface: 24-Bit / 44.1 kHz',
+      'DCO with sawtooth and pulse waveforms, suboscillator and noise',
+      'Static high-pass filter',
+      'Resonant low-pass filter',
+      'LFO and ADSR envelope',
+      'Chorus and delay effect',
+      '64 Memories per sound mode',
+      'Power supply via 4x AA battery or USB',
+      'Dimensions (W x D x H): 300 x 128 x 49 mm',
+      'Weight: 995 g'
+    ],
+    image: '/images/roland_ju_06a.jpg',
+    isPublished: true
+  },
+  {
     name: 'Roland SE-02',
     brand: 'Roland',
     categories: {
@@ -1030,6 +1198,36 @@ const products = [
       'Manual and power supply unit PSB-1U included'
     ],
     image: '/images/roland_se_02.jpg',
+    isPublished: true
+  },
+  {
+    name: 'Roland SH-01 Gaia',
+    brand: 'Roland',
+    categories: {
+      synthesis: 'Hybrid',
+      voiceType: 'Polyphonic',
+      semiModular: false,
+      desktop: false
+    },
+    price: 600,
+    countInStock: 2,
+    description_m: 'Synthesizer',
+    features: [
+      'With 37 full-size keys',
+      '64-Note polyphony',
+      'Three virtual-analog tone generators, each with its own oscillator, filter, amplifier, envelope and LFO',
+      'Up to five simultaneously layerable effects such as distortion, flanger, delay, reverb, low boost',
+      'Direct access to functions',
+      'Battery or mains operation',
+      'D Beam, arpeggiator and phrase recorder',
+      '64 Presets + 64 User memory',
+      'USB ports for external storage of user data and for an audio / MIDI connection with a computer',
+      'Connections: 6.3 mm Jack output (L/MONO, R), headphone output, pedal, MIDI I/O, stereo input 3.5 mm mini jack',
+      'Dimensions (WxHxD): 689 x 100 x 317 mm',
+      'Weight: 4.2 kg',
+      'Incl. power supply (PSB-1U)'
+    ],
+    image: '/images/roland_sh_01_gaia.jpg',
     isPublished: true
   },
   {

@@ -67,7 +67,7 @@ const ProductsScreen = () => {
 
             setBrands([...new Set(brandArr)])
             setAllProducts(sortProductsByName(products))
-            setCarouselProducts(products.filter(p => p.brand === 'Moog'))
+            setCarouselProducts(products.filter(p => p.name === 'Moog Mother-32' || p.name === 'Moog Subharmonicon' || p.name === 'Moog Werkstatt-01'))
 
         }
     }, [loading, error, products])
@@ -85,13 +85,16 @@ const ProductsScreen = () => {
                 batchMax: 4,
                 onEnter: batch => gsap.to(batch, {
                     autoAlpha: 1, 
-                    transform: 'translate3d(0, 0, 0)',
+                    // transform: 'translate3d(0, 0, 0)',;
+                    transform: 'translateY(0)',
+                    // yPercent: 0,
                     duration: .75,
                     ease: 'power3.out',
                     stagger: .125
                 })
             })
         } else if (allProducts.length !== 0 && touched) {
+            ScrollTrigger.kill()
             gsap.fromTo('.product-card', {
                 opacity: 0
             }, {
@@ -110,6 +113,13 @@ const ProductsScreen = () => {
                 y: 0,
                 ease: 'power3.out'
             })
+        }
+
+        return () => {
+            if (touched) {
+                console.log('touched')
+                ScrollTrigger.kill()
+            }
         }
         
     }, [allProducts, touched])

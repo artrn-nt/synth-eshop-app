@@ -8,10 +8,11 @@
   justify-content: flex-start;
   min-width: 152.5px;
   opacity: 0;
-  -moz-transform-origin: 'center';
-  -webkit-transform-origin: 'center';
-  transform-origin: 'center';
-  transform: translate3d(0, 7%, 0);
+  // -moz-transform-origin: 'center';
+  // -webkit-transform-origin: 'center';
+  // transform-origin: 'center';
+  // transform: translate3d(0, 7%, 0);
+  // transform: translateY(7%);
 
   @include md-screen {
     min-width: 122.5px;
