@@ -123,7 +123,7 @@ const StripePaymentIntent = ({
 
     return (
         <>
-            {!isReady || loadingPay ?
+            {!isReady ?
                 <Spinner /> :
                 <>
                     <h4>Payment</h4>

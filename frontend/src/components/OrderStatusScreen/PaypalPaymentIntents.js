@@ -3,7 +3,7 @@ import axios from 'axios'
 import { PayPalButton } from 'react-paypal-button-v2'
 import Spinner from '../utilities/Spinner'
 
-const PaypalPaymentIntents = ({ orderDetails, isReady, paymentHandler, paymentReadyHandler, loadingPay }) => {
+const PaypalPaymentIntents = ({ orderDetails, isReady, paymentHandler, paymentReadyHandler }) => {
 
     useEffect(() => {
 
@@ -30,7 +30,7 @@ const PaypalPaymentIntents = ({ orderDetails, isReady, paymentHandler, paymentRe
 
     return (
         <>
-            {!isReady || loadingPay ?
+            {!isReady ? 
                 <Spinner /> :
                 <>
                     <h4>Payment</h4>

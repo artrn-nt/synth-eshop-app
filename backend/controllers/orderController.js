@@ -85,14 +85,12 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
                 if (!payment) {
                     res.status(400).json({ message: payment.error.raw.message })
                 }
-                // console.log(payment);
-                // res.status(200).json({ message: 'Stripe payment confirmed' })
 
                 order.isPaid = true
                 order.paidAt = Date.now()
                 order.paymentResult = {
                     id: payment.id,    // Stripe payment obj id 
-                    status: 'completed',
+                    status: 'COMPLETED',
                     email_address: email
                 }
                 break
@@ -101,12 +99,11 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
         }
 
         const updatedOrder = await order.save()
-
         res.json(updatedOrder)
 
     } else {
         res.status(404)
-        throw new Error('Order not found')
+        throw new Error('An issue occured. Payment failed.')
     }
 })
 

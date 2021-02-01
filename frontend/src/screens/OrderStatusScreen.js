@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import gsap from 'gsap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOrderDetails, payOrder } from '../actions/orderActions'
@@ -13,6 +13,7 @@ import config from '../scss/config.module.scss'
 import '../scss/screens/OrderStatusScreen.scss'
 import PaypalPaymentIntents from '../components/OrderStatusScreen/PaypalPaymentIntents'
 
+
 const OrderStatusScreen = ({ match, history }) => {
 
     const dispatch = useDispatch()
@@ -22,7 +23,6 @@ const OrderStatusScreen = ({ match, history }) => {
 
     const orderPay = useSelector(state => state.orderPay)
     const { loading: loadingPay, error: errorPay, success: successPay } = orderPay
-    // console.log(orderPay)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -31,15 +31,11 @@ const OrderStatusScreen = ({ match, history }) => {
     const [orderId, setOrderId] = useState(null)
     const [stripePaymentError, setStripePaymentError] = useState(false)
 
-    const [orderSummaryHeight, setOrderSummaryHeight] = useState(null)
-    const orderSummaryRef = useRef(null)
-
     useEffect(() => {
         if (!userInfo) history.push('/login')
         return () => {
             dispatch({ type: ORDER_DETAILS_RESET })
             dispatch({ type: ORDER_PAY_RESET })
-            console.log('order status unmount')
         }
     }, [userInfo, history, dispatch])
 
@@ -49,36 +45,34 @@ const OrderStatusScreen = ({ match, history }) => {
 
     useEffect(() => {
         if (orderId !== null) {
-            // console.log('rerendered')
             dispatch(getOrderDetails(orderId))
         }
     }, [dispatch, orderId])
 
     useEffect(() => {
-        if (orderSummaryRef.current !== null && isReady) {
-            setOrderSummaryHeight(orderSummaryRef.current.clientHeight)
-        }
-    }, [isReady])
+        if (userInfo) {
+            if (typeof order !== 'undefined' && Object.entries(order).length !== 0 && order.constructor === Object) {
+                gsap.fromTo('.order-status-grid', {
+                    autoAlpha: 0,
+                    y: 38
+                }, {
+                    delay: .15,
+                    duration: 1.1,
+                    autoAlpha: 1,
+                    y: 0,
+                    ease: 'power3.out'
+                })
+            }
 
-    // useEffect(() => {
-    //     if (!loadingDetails && !errorDetails) {
-    //         gsap.fromTo('.order-status-main-row', {
-    //             opacity: 0,
-    //             y: 38
-    //         }, {
-    //             delay: .15,
-    //             duration: 1.1,
-    //             opacity: 1,
-    //             y: 0,
-    //             ease: 'power3.out'
-    //         })
-    //     }
-    // }, [loadingDetails, errorDetails])
+        }
+    }, [userInfo, order])
 
     useEffect(() => {
         if (successPay) {
+            dispatch({ type: ORDER_PAY_RESET })
             dispatch({ type: ORDER_DETAILS_RESET })
             dispatch(getOrderDetails(orderId))
+            setStripePaymentError(false)
         }
     }, [successPay, dispatch, orderId])
 
@@ -183,10 +177,6 @@ const OrderStatusScreen = ({ match, history }) => {
 
                                     <div 
                                         className='order-status-summary' 
-                                        style={{
-                                            minHeight: successPay ? 'unset' : `${orderSummaryHeight}px`
-                                        }}
-                                        ref={orderSummaryRef}
                                     >
                                         <h3>Order summary</h3>
                                         <div className='order-status-infos'>
@@ -196,46 +186,64 @@ const OrderStatusScreen = ({ match, history }) => {
                                             <p>Total:<span>€{order.totalPrice}</span></p>
                                         </div>
 
-                                        {!order.isPaid && (
-                                            <div 
-                                                className='payment-container'
-                                                style={{ 
-                                                    backgroundColor: !isReady || loadingPay ? config.mainTheme : config.bright 
-                                                }}
-                                            >
-
-                                                {order.paymentMethod === 'paypal' &&
-                                                    <PaypalPaymentIntents 
-                                                        orderDetails={{
-                                                            amount: order.totalPrice
-                                                        }}
-                                                        isReady={isReady}
-                                                        paymentHandler={paymentHandler}
-                                                        paymentReadyHandler={paymentReadyHandler}
-                                                        loadingPay={loadingPay}
-                                                    />
-                                                }
-
-                                                {order.paymentMethod === 'stripe' && 
-                                                    <StripePaymentIntent  
-                                                        orderDetails={{ 
-                                                            amount: order.totalPrice * 100,
-                                                            description: order.orderItems.reduce((acc, curr) => [...acc, curr.name], []).join(' / '),
-                                                            email: order.user.email
-                                                        }}
-                                                        isReady={isReady}
-                                                        paymentHandler={paymentHandler}
-                                                        paymentReadyHandler={paymentReadyHandler}
-                                                        loadingPay={loadingPay}
-                                                        errorPay={errorPay}
-                                                        paymentErrorStripeHandler={paymentErrorStripeHandler}
-                                                    />
-                                                }
+                                        {!order.isPaid ? (
+                                            <>
                                                 
-                                            </div>
-                                        )}
+                                                <div 
+                                                    className='payment-container'
+                                                    style={{ 
+                                                        backgroundColor: !isReady ? config.mainTheme : config.bright 
+                                                    }}
+                                                >
 
-                                        {successPay && <span>Successfull payment</span>}
+                                                    {order.paymentMethod === 'paypal' &&
+                                                        <PaypalPaymentIntents 
+                                                            orderDetails={{
+                                                                amount: order.totalPrice
+                                                            }}
+                                                            isReady={isReady}
+                                                            paymentHandler={paymentHandler}
+                                                            paymentReadyHandler={paymentReadyHandler}
+                                                        />
+                                                    }
+
+                                                    {order.paymentMethod === 'stripe' &&
+                                                        <StripePaymentIntent  
+                                                            orderDetails={{ 
+                                                                amount: order.totalPrice * 100,
+                                                                description: order.orderItems.reduce((acc, curr) => [...acc, curr.name], []).join(' / '),
+                                                                email: order.user.email
+                                                            }}
+                                                            isReady={isReady}
+                                                            paymentHandler={paymentHandler}
+                                                            paymentReadyHandler={paymentReadyHandler}
+                                                            loadingPay={loadingPay}
+                                                            errorPay={errorPay}
+                                                            paymentErrorStripeHandler={paymentErrorStripeHandler}
+                                                        />
+                                                    }
+                                                    
+                                                </div>
+
+                                                {loadingPay && 
+                                                    <div className='loading-pay-container'>
+                                                        <Spinner />
+                                                    </div>
+                                                }
+
+                                            </>
+                                        ) :
+                                        
+                                        <div 
+                                            className='payment-container'
+                                            style={{ backgroundColor: config.bright }}
+                                        >
+                                            <span className='success-pay'>
+                                                Order successfully paid
+                                            </span>
+                                        </div>
+                                        
+                                        }
 
                                     </div>
 

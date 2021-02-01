@@ -11,8 +11,7 @@
   // -moz-transform-origin: 'center';
   // -webkit-transform-origin: 'center';
   // transform-origin: 'center';
-  // transform: translate3d(0, 7%, 0);
-  // transform: translateY(7%);
+  transform: translate3d(0, 7%, 0);
 
   @include md-screen {
     min-width: 122.5px;

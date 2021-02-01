@@ -16,6 +16,11 @@ gsap.registerPlugin(ScrollTrigger)
 
 const ProductsScreen = () => {
 
+    const dispatch = useDispatch()
+
+    const productsList = useSelector(state => state.productsList)
+    const { loading, error, products } = productsList
+
     const [allProducts, setAllProducts] = useState([])
     const [carouselProducts, setCarouselProducts] = useState([])
     const [mounted, setMounted] = useState(false)
@@ -23,13 +28,9 @@ const ProductsScreen = () => {
     const [touched, setTouched] = useState(null)
     const [productsContainerHeight, setProductsContainerHeight] = useState(null)
 
-    const dispatch = useDispatch()
-
-    const productsList = useSelector(state => state.productsList)
-    const { loading, error, products } = productsList
-
     const productsContainerRef = useRef(null)
     const productsGridRef = useRef(null)
+    const scrollTrigger = useRef(null)
 
     const sortProductsByName = (productsArr) => {
         const productsArrCopy = [...productsArr]
@@ -53,7 +54,9 @@ const ProductsScreen = () => {
 
     useEffect(() => {
         dispatch(listProducts())
-        return () => dispatch({ type: PRODUCTS_LIST_RESET })
+        return () => {
+            dispatch({ type: PRODUCTS_LIST_RESET })
+        }
     }, [dispatch])
 
     useEffect(() => {
@@ -74,35 +77,41 @@ const ProductsScreen = () => {
 
     useEffect(() => {
 
-        if (productsContainerRef.current !== null) {
-            setProductsContainerHeight(productsContainerRef.current.clientHeight)
+        if (productsGridRef.current !== null) {
+            const productCards = Object.values(productsGridRef.current.children)
+
+            if (allProducts.length !== 0 && touched === null) {
+                scrollTrigger.current = ScrollTrigger.batch(productCards, {
+                    start: 'top 60%',
+                    interval: .125,
+                    batchMax: 4,
+                    onEnter: batch => gsap.to(batch, {
+                        autoAlpha: 1, 
+                        transform: 'translate3d(0, 0, 0)',
+                        duration: .75,
+                        ease: 'power3.out',
+                        stagger: .125
+                    })
+                })
+
+                if (productsContainerRef.current !== null) {
+                    setProductsContainerHeight(productsContainerRef.current.clientHeight)
+                }
+    
+            } else if (allProducts.length !== 0 && touched) {
+                gsap.set(productCards, { transform: 'translate3d(0, 0, 0)' })
+                gsap.fromTo('.product-card', {
+                    opacity: 0
+                }, {
+                    opacity: 1,
+                    duration: .75,
+                    ease: 'power2.inOut',
+                })
+            } 
+
         }
 
-        if (allProducts.length !== 0 && touched === null) {
-            ScrollTrigger.batch('.product-card', {
-                start: 'top 60%',
-                interval: .125,
-                batchMax: 4,
-                onEnter: batch => gsap.to(batch, {
-                    autoAlpha: 1, 
-                    // transform: 'translate3d(0, 0, 0)',;
-                    transform: 'translateY(0)',
-                    // yPercent: 0,
-                    duration: .75,
-                    ease: 'power3.out',
-                    stagger: .125
-                })
-            })
-        } else if (allProducts.length !== 0 && touched) {
-            ScrollTrigger.kill()
-            gsap.fromTo('.product-card', {
-                opacity: 0
-            }, {
-                opacity: 1,
-                duration: .75,
-                ease: 'power2.inOut',
-            })
-        } else if (allProducts.length === 0 && touched) {
+        if (allProducts.length === 0 && touched) {
             gsap.fromTo('.no-result', {
                 opacity: 0,
                 y: 38
@@ -114,19 +123,18 @@ const ProductsScreen = () => {
                 ease: 'power3.out'
             })
         }
-
-        return () => {
-            if (touched) {
-                console.log('touched')
-                ScrollTrigger.kill()
-            }
-        }
         
     }, [allProducts, touched])
 
     // Filter products handler // ugly
     const productsFilterHandler = useCallback((type, criteria) => {
         setTouched(true)
+
+        if (scrollTrigger.current !== null) {
+            // ScrollTrigger.kill()
+            scrollTrigger.current = null
+        }
+
         if (type === 'Indifferent') {
             setAllProducts(sortProductsByName(products))
         } else if (type === 'Brand') {
