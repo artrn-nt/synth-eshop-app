@@ -85,6 +85,7 @@ const ProductsScreen = () => {
                     start: 'top 60%',
                     interval: .125,
                     batchMax: 4,
+                    once: true,
                     onEnter: batch => gsap.to(batch, {
                         autoAlpha: 1, 
                         transform: 'translate3d(0, 0, 0)',

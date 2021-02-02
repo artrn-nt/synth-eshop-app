@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import axios from 'axios'
 import { PayPalButton } from 'react-paypal-button-v2'
 import Spinner from '../utilities/Spinner'
 
 const PaypalPaymentIntents = ({ orderDetails, isReady, paymentHandler, paymentReadyHandler }) => {
+
+    const ref = useRef(null)
 
     useEffect(() => {
 
@@ -28,11 +30,20 @@ const PaypalPaymentIntents = ({ orderDetails, isReady, paymentHandler, paymentRe
 
     }, [paymentReadyHandler])
 
+    useEffect(() => {
+        if (isReady) {
+            ref.current.children[1].firstChild.style.minWidth = '175px'
+        }
+    }, [isReady])
+
     return (
         <>
             {!isReady ? 
                 <Spinner /> :
-                <>
+                <div
+                    className='payment-container-inner-paypal' 
+                    ref={ref}
+                >
                     <h4>Payment</h4>
                     <PayPalButton 
                         amount={orderDetails.amount} 
@@ -40,10 +51,11 @@ const PaypalPaymentIntents = ({ orderDetails, isReady, paymentHandler, paymentRe
                         currency='EUR' 
                         locale='en_US'
                         style={{
-                            color: 'blue'   // gold, blue, silver, black or white
+                            color: 'blue',   // gold, blue, silver, black or white
+                            height: 34
                         }}
                     />
-                </>
+                </div>
             }
         </>
     )

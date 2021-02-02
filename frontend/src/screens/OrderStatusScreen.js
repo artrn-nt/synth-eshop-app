@@ -4,15 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getOrderDetails, payOrder } from '../actions/orderActions'
 import { ORDER_PAY_RESET, ORDER_DETAILS_RESET } from '../constants/orderConstants'
 import OrderItem from '../components/utilities/OrderItem'
+import PaypalPaymentIntents from '../components/OrderStatusScreen/PaypalPaymentIntents'
 import StripePaymentIntent from '../components/OrderStatusScreen/StripePaymentIntent'
-import ScreenTitle from '../components/utilities/ScreenTitle'
 import CheckoutSteps from '../components/utilities/CheckoutSteps'
-import { ErrorMsg, PaymentErrorMsg } from '../components/utilities/Messages'
+import ScreenTitle from '../components/utilities/ScreenTitle'
 import Spinner from '../components/utilities/Spinner'
+import { ErrorMsg, PaymentErrorMsg } from '../components/utilities/Messages'
 import config from '../scss/config.module.scss'
 import '../scss/screens/OrderStatusScreen.scss'
-import PaypalPaymentIntents from '../components/OrderStatusScreen/PaypalPaymentIntents'
-
 
 const OrderStatusScreen = ({ match, history }) => {
 

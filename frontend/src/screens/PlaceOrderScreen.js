@@ -34,13 +34,13 @@ const PlaceOrderScreen = ({ history }) => {
 
     useEffect(() => {
         if (!loading && !error) {
-            gsap.fromTo('.place-order-main-row', {
-                opacity: 0,
+            gsap.fromTo('.place-order-grid', {
+                autoAlpha: 0,
                 y: 38
             }, {
                 delay: .15,
                 duration: 1.1,
-                opacity: 1,
+                autoAlpha: 1,
                 y: 0,
                 ease: 'power3.out'
             })
@@ -90,11 +90,13 @@ const PlaceOrderScreen = ({ history }) => {
 
     return (
         <section className='place-order-section'>
+
             <ScreenTitle title='Place order' />
             <CheckOutSteps step1 step2 step3 />
-            <div className='place-order-main-row'>
 
-                <div className='place-order-col-1'>
+            <div className='place-order-grid'>
+
+                <div className='place-order-grid-col-1'>
 
                     <div className='place-order-row'>
                         <h3>Shipping info</h3>
@@ -141,26 +143,29 @@ const PlaceOrderScreen = ({ history }) => {
 
                 </div>
 
+                <div className='place-order-grid-col-2'>
 
-                <div className='order-summary'>
-                    <h3>Order summary</h3>
-                    <div className='place-order-infos'>
-                        <p><span>Items <small>(incl. VAT)</small>:</span><span>€{itemsPrice}</span></p>
-                        <p>Shipping:<span>€{shippingPrice}</span></p>
-                        <p><span>VAT <small>(tax)</small>:</span><span>€{taxPrice}</span></p>
-                        <p>Total:<span>€{totalPrice}</span></p>
+                    <div className='order-summary'>
+                        <h3>Order summary</h3>
+                        <div className='place-order-infos'>
+                            <p><span>Items <small>(incl. VAT)</small>:</span><span>€{itemsPrice}</span></p>
+                            <p>Shipping:<span>€{shippingPrice}</span></p>
+                            <p><span>VAT <small>(tax)</small>:</span><span>€{taxPrice}</span></p>
+                            <p>Total:<span>€{totalPrice}</span></p>
+                        </div>
+                        <ActionBtn
+                            type='button'
+                            className='btn-place-order'
+                            disabled={cart.cartItems.length === 0}
+                            onClickHandler={placeOrderHandler}
+                            text='Place order'
+                        >
+                            Place order
+                        </ActionBtn>
+
+                        {error && <ErrorMsg message={error} />}
+
                     </div>
-                    <ActionBtn
-                        type='button'
-                        className='btn-place-order'
-                        disabled={cart.cartItems.length === 0}
-                        onClickHandler={placeOrderHandler}
-                        text='Place order'
-                    >
-                        Place order
-                    </ActionBtn>
-
-                    {error && <ErrorMsg message={error} />}
 
                 </div>
 

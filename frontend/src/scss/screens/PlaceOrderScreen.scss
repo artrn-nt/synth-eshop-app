@@ -9,28 +9,30 @@
   width: 100%;
   padding: $padding-screen;
 
-  .place-order-main-row {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex: 1;
+  .place-order-grid {
+    display: grid;
     width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
     margin: 50.4px 0 68.8px;
     opacity: 0;
-    // background-color: cadetblue;
 
     @include lg-screen {
+      display: flex;
       flex-direction: column-reverse;
       align-items: center;
       justify-content: flex-start;
     }
 
-    .place-order-col-1 {
+    .place-order-grid-col-1 {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      // background-color: darkcyan;
+
+      @include lg-screen {
+        align-items: center;
+      }
 
       @include md-screen {
         width: 100%;
@@ -111,84 +113,96 @@
       }
     }
 
-    .order-summary {
+    .place-order-grid-col-2 {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: space-around;
-      min-width: 375px;
-      min-height: 375px;
-      padding: 16.8px 33.6px;
-      border: 1px solid $bright;
-      border-radius: 4px;
-      color: $bright;
-      cursor: default;
+      align-items: flex-end;
+      justify-content: flex-start;
 
       @include lg-screen {
+        align-items: center;
         width: 100%;
-        min-width: calc(320px - 25.8px * 2);
-        max-width: 375px;
         margin-bottom: 50.4px;
       }
 
-      h3 {
-        font-size: 19.2px;
-        font-weight: 600;
-        padding-bottom: 2.8px;
-        border-bottom: 1px solid $bright;
-
-        @include sm-screen {
-          font-size: 18px;
-        }
-      }
-
-      .place-order-infos {
+      .order-summary {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        width: 100%;
+        align-items: center;
+        justify-content: space-around;
+        min-width: 375px;
+        min-height: 375px;
+        padding: 16.8px 33.6px;
+        border: 1px solid $bright;
+        border-radius: 4px;
+        color: $bright;
+        cursor: default;
 
-        p {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
+        @include lg-screen {
           width: 100%;
-          padding: 9.6px 0;
-          font-size: 16px;
+          min-width: calc(320px - 25.8px * 2);
+          max-width: 375px;
+        }
+
+        h3 {
+          font-size: 19.2px;
           font-weight: 600;
+          padding-bottom: 2.8px;
+          border-bottom: 1px solid $bright;
 
           @include sm-screen {
-            font-size: $sm-font-size;
+            font-size: 18px;
           }
+        }
 
-          small {
-            font-size: 12.8px;
-            font-weight: 500;
+        .place-order-infos {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          width: 100%;
+
+          p {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 9.6px 0;
+            font-size: 16px;
+            font-weight: 600;
 
             @include sm-screen {
-              font-size: 11.6px;
+              font-size: $sm-font-size;
+            }
+
+            small {
+              font-size: 12.8px;
+              font-weight: 500;
+
+              @include sm-screen {
+                font-size: 11.6px;
+              }
             }
           }
-        }
 
-        p:not(:last-of-type) {
-          border-bottom: 1px solid $bright;
-        }
+          p:not(:last-of-type) {
+            border-bottom: 1px solid $bright;
+          }
 
-        p:last-of-type {
-          span {
-            position: relative;
+          p:last-of-type {
+            span {
+              position: relative;
 
-            &::after {
-              content: '';
-              position: absolute;
-              bottom: -2.5px;
-              left: 0;
-              display: block;
-              width: 100%;
-              height: 2px;
-              background-color: $sub-theme;
+              &::after {
+                content: '';
+                position: absolute;
+                bottom: -2.5px;
+                left: 0;
+                display: block;
+                width: 100%;
+                height: 2px;
+                background-color: $sub-theme;
+              }
             }
           }
         }
