@@ -294,7 +294,10 @@ const ProfileScreen = ({ history }) => {
 
                     {loadingOrders ? <Spinner /> : 
                         errorOrders ? <ErrorMsg message={errorOrders} /> :
-                            <div className='table-container'>
+                            <div 
+                                className='table-container' 
+                                style={{ alignItems: orders.length !== 0 ? 'flex-start' : 'center' }}
+                            >
                                 {orders.length !== 0 ?
                                     (<table className='my-orders-table'>
                                         <thead>
