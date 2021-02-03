@@ -9,7 +9,6 @@ import CheckoutTotal from '../components/CartScreen/CheckoutTotal'
 import ScreenTitle from '../components/utilities/ScreenTitle'
 import { ActionBtn } from '../components/utilities/ActionBtnLink'
 import useWindowSize from '../utils/useWindowSize'
-// import Message from '../components/utilities/Message'
 import '../scss/screens/CartScreen.scss'
 
 const CartScreen = ({ history }) => {
@@ -18,8 +17,8 @@ const CartScreen = ({ history }) => {
 
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
-    const { loading, error, cartItems, prevCartQty } = cart
-    // console.log(cart)
+    const { cartItems, prevCartQty } = cart
+    
     const cartItemsListRef = useRef(null)
     const tl = useRef(null)
 
@@ -80,8 +79,9 @@ const CartScreen = ({ history }) => {
 
     return (
         <section className='cart-section'>
-            <ScreenTitle title={'Shopping Cart'} />
+            <ScreenTitle title='Shopping Cart' />
             {cartItems.length === 0 ?
+
                 (<div className='cart-container empty'>
                     <p className='empty-msg'>
                         <span>Your cart is empty</span>
@@ -96,9 +96,9 @@ const CartScreen = ({ history }) => {
                         </span>
                     </p>
                 </div>) :
-                (<div className='cart-container filled'>
 
-                    <div className='customer-selection'>
+                (<div className='cart-container filled'>
+                    <div className='cart-container-col-1'>
                         <span className='cart-header'>Your selection:</span>
                         <ul className='cart-items' ref={cartItemsListRef}>
                             {size.width > 790 && <div className='items-header'>
@@ -124,19 +124,21 @@ const CartScreen = ({ history }) => {
                         </ul>
                     </div>
 
-                    <div className='subtotal-container'>
-                        <CheckoutTotal
-                            totalQty={cartItems.reduce((acc, item) => acc + item.qty, 0)}
-                            totalPrice={cartItems.reduce((acc, item) => acc + (item.qty * item.price), 0).toFixed(2)}
-                        />
-                        <span>Shipping calculated at checkout</span>
-                        <ActionBtn
-                            type='button'
-                            className='btn-cart'
-                            onClickHandler={checkoutMemberHandler}
-                        >
-                            Checkout
-                        </ActionBtn>
+                    <div className='cart-container-col-2'>
+                        <div className='cart-summary'>
+                            <CheckoutTotal
+                                totalQty={cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                                totalPrice={cartItems.reduce((acc, item) => acc + (item.qty * item.price), 0).toFixed(2)}
+                            />
+                            <span>Shipping calculated at checkout</span>
+                            <ActionBtn
+                                type='button'
+                                className='btn-cart'
+                                onClickHandler={checkoutMemberHandler}
+                            >
+                                Checkout
+                            </ActionBtn>
+                        </div>
                     </div>
                 </div>)
             }

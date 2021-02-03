@@ -45,36 +45,6 @@ const ProfileScreen = ({ history }) => {
     const timeOut2 = useRef(null)
 
     useEffect(() => {
-        if (!loadingDetails && !errorDetails) {
-            gsap.fromTo('.profile-form', {
-                opacity: 0,
-                y: 38
-            }, {
-                delay: .15,
-                duration: 1.1,
-                opacity: 1,
-                y: 0,
-                ease: 'power3.out'
-            })
-        }
-    }, [loadingDetails, errorDetails])
-
-    useEffect(() => {
-        if (!loadingOrders && !errorOrders && orders.length !== 0) {
-            gsap.fromTo('.my-orders-table', {
-                opacity: 0,
-                y: 38
-            }, {
-                delay: .15,
-                duration: 1.1,
-                opacity: 1,
-                y: 0,
-                ease: 'power3.out'
-            })
-        }
-    }, [loadingOrders, errorOrders, orders])
-
-    useEffect(() => {
         if (!userInfo) {
             history.push('/login')
         } else {
@@ -84,6 +54,13 @@ const ProfileScreen = ({ history }) => {
             }
         }
     }, [userInfo, history, loadingDetails, errorDetails, user, dispatch])
+
+    useEffect(() => {
+        return () => {
+            dispatch({ type: USER_DETAILS_RESET })
+            dispatch({ type: ORDER_USER_RESET })
+        }
+    }, [dispatch])
 
     useEffect(() => {
         if (!loadingDetails && !errorDetails && Object.entries(user).length !== 0 && user.constructor === Object) {
@@ -117,11 +94,36 @@ const ProfileScreen = ({ history }) => {
     }, [userUpdateProfile, dispatch, updateSuccess])
 
     useEffect(() => {
-        return () => {
-            dispatch({ type: USER_DETAILS_RESET })
-            dispatch({ type: ORDER_USER_RESET })
+        if (!loadingDetails && !errorDetails) {
+            gsap.fromTo('.profile-form', {
+                autoAlpha: 0,
+                y: 38
+            }, {
+                delay: .15,
+                duration: 1.1,
+                autoAlpha: 1,
+                y: 0,
+                ease: 'power3.out'
+            })
         }
-    }, [dispatch])
+    }, [loadingDetails, errorDetails])
+
+    useEffect(() => {
+        if (!loadingOrders && !errorOrders && orders.length !== 0) {
+            gsap.fromTo('.my-orders-table', {
+                autoAlpha: 0,
+                y: 38
+            }, {
+                delay: .15,
+                duration: 1.1,
+                autoAlpha: 1,
+                y: 0,
+                ease: 'power3.out'
+            })
+        } else if (!loadingOrders && !errorOrders && orders.length === 0) {
+            gsap.set('.no-orders', { autoAlpha: 1 })
+        }
+    }, [loadingOrders, errorOrders, orders])
 
     if (!userInfo) return null
 
@@ -130,7 +132,7 @@ const ProfileScreen = ({ history }) => {
 
             <ScreenTitle title='My profile' />
 
-            <div className='profile-main-row'>
+            <div className='profile-grid'>
 
                 <div className='profile-col-1'>
 
@@ -292,9 +294,9 @@ const ProfileScreen = ({ history }) => {
 
                     {loadingOrders ? <Spinner /> : 
                         errorOrders ? <ErrorMsg message={errorOrders} /> :
-                            orders.length !== 0 ?
-                                (<div className='table-container'>
-                                    <table className='my-orders-table'>
+                            <div className='table-container'>
+                                {orders.length !== 0 ?
+                                    (<table className='my-orders-table'>
                                         <thead>
                                             <tr>
                                                 <th scope='col' width='37.5%'>ID</th>
@@ -323,25 +325,26 @@ const ProfileScreen = ({ history }) => {
                                                 </tr>
                                             ))}
                                         </tbody>
-                                    </table> 
-                                </div>) :
-                                (<p>
-                                    <span>You didn't make any order from us</span>
-                                    <span>
-                                        Sounds like a good time
-                                    <Link
-                                            className='start-shop'
-                                            to='/'
-                                        >
-                                            to make one
-                                    </Link>
-                                    </span>
-                                </p>)
+                                    </table>) :
+                                    (<p className='no-orders'>
+                                        <span>You didn't make any order from us</span>
+                                        <span>
+                                            Sounds like a good time
+                                        <Link
+                                                className='start-shop'
+                                                to='/'
+                                            >
+                                                to make one
+                                        </Link>
+                                        </span>
+                                    </p>)
+                                } 
+                            </div>
                     }
                     
                 </div>
             </div>
-            
+
         </section>
     )
 

@@ -66,7 +66,6 @@ const CartItem = (props) => {
                                 onClick={() => {
                                     if (props.countInStock !== props.qty) props.addToCartHandler(props._id)
                                 }}
-                            // disabled={countInStock === qty}
                             >
                                 +
                             </button>
@@ -86,7 +85,7 @@ const CartItem = (props) => {
 
                 </div>
 
-                {qtyUnavailable && <span className='stock-alert-cs'>Not enough stock to add more</span>}
+                {qtyUnavailable && <span className='stock-alert-cs'>Can't add more</span>}
 
             </div>
 

@@ -24,13 +24,9 @@ $lg-vertical-space: 68.8px; // 4.3rem
 $lg-space: 68.8px; // 4.3rem
 $sm-space: 12.6px; // .7875rem
 
-// 100vh - header height + footer height
-// $default-min-height-screen: calc(100vh - (254.8px + 67.8px)); // > md-screen
-// $default-min-height-screen: 1150px; // > md-screen
-// $default-min-height-screen: calc(100vh - 254.8px); // > md-screen
-$default-min-height-screen: 100vh; // > md-screen
-$md-min-height-screen: calc(100vh - 369.8px); // md-screen
-$sm-min-height-screen: calc(100vh - 342.8px); // sm-screen
+$default-min-height-screen: 105vh; // > md-screen
+$md-min-height-screen: 130vh; // md-screen
+$sm-min-height-screen: 155vh; // sm-screen
 
 // layout
 $default-layout-padding: 40px; // 2.5rem
