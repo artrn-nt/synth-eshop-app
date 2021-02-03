@@ -93,168 +93,165 @@ const OrderStatusScreen = ({ match, history }) => {
     return (
         <section className='order-status-section'>
 
-            <ScreenTitle title='Order status' />
-            <CheckoutSteps step1 step2 step3 step4 />
+            {loadingDetails ? <Spinner /> :
+                errorDetails ? <ErrorMsg message={errorDetails} /> :
 
-            <div className={loadingDetails || errorDetails ? 'order-status-main-row ctr' : 'order-status-main-row str'}>
+                <>
+                    <ScreenTitle title='Order status' />
+                    <CheckoutSteps step1 step2 step3 step4 />
 
-                {loadingDetails ? <Spinner /> :
-                    errorDetails ? <ErrorMsg message={errorDetails} /> :
+                    <div className='order-status-grid'>
+                        <div className='order-status-grid-col-1'>
 
-                        <div className='order-status-grid'>
-
-                            <div className='order-status-grid-col-1'>
-
-                                <div className='order-status-row'>
-                                    <h3>Order ID: {order._id}</h3>
-                                </div>
-
-                                <div className='order-status-row'>
-                                    <h3>User account</h3>
-                                    <div className='data'>
-                                        <h4>Username:</h4>
-                                        <span>{order.user.name}</span>
-                                        <h4>Email:</h4>
-                                        <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
-                                    </div>
-                                </div>
-
-                                <div className='order-status-row'>
-                                    <h3>Shipping info</h3>
-                                    <div className='data'>
-                                        <h4>Name:</h4>
-                                        <span>{order.shippingInfo.firstName && `${order.shippingInfo.firstName}, `}{order.shippingInfo.lastName}</span>
-
-                                        <h4>Address:</h4>
-                                        <span>{order.shippingInfo.address},{' '}{order.shippingInfo.addressDetails && order.shippingInfo.addressDetails}</span>
-                                        <span>{order.shippingInfo.zipCode},{' '}{order.shippingInfo.city}, {' '}{order.shippingInfo.country}</span>
-
-                                        {order.shippingInfo.phone && (
-                                            <>
-                                                <h4>Phone:</h4>
-                                                <span>{order.shippingInfo.phone}</span>
-                                            </>
-                                        )}
-
-                                        {order.isShipped ?
-                                            <span className='shipped-status'><i className='fas fa-check-circle' />Shipped on {order.shippedAt.substring(0, 10)}</span> :
-                                            <span className='unshipped-status'><i className='fas fa-times-circle' />Not shipped yet</span>}
-                                    </div>
-                                </div>
-
-                                <div className='order-status-row'>
-                                    <h3>Payment</h3>
-                                    <div className='data'>
-                                        <h4>Method:</h4>
-                                        <span>{order.paymentMethod}</span>
-                                        {order.isPaid ?
-                                            <span className='paid-status'><i className='fas fa-check-circle' />Paid on {order.paidAt.substring(0, 10)}</span> :
-                                            <span className='unpaid-status'><i className='fas fa-times-circle' />Not paid yet</span>}
-                                    </div>
-                                </div>
-
-                                <div className='order-status-row'>
-                                    <h3>Order item(s)</h3>
-                                    <ul className='order-items'>
-                                        {order.orderItems.map(item => <OrderItem
-                                            key={item._id}
-                                            _id={item._id}
-                                            image={item.image}
-                                            name={item.name}
-                                            description_m={item.description_m}
-                                            price={item.price}
-                                            qty={item.qty} />
-                                        )}
-                                    </ul>
-                                </div>
-
+                            <div className='order-status-row'>
+                                <h3>Order ID: {order._id}</h3>
                             </div>
 
-                            <div className='order-status-grid-col-2'>
+                            <div className='order-status-row'>
+                                <h3>User account</h3>
+                                <div className='data'>
+                                    <h4>Username:</h4>
+                                    <span>{order.user.name}</span>
+                                    <h4>Email:</h4>
+                                    <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+                                </div>
+                            </div>
 
-                                <div className='order-status-grid-col-2-inner'>
+                            <div className='order-status-row'>
+                                <h3>Shipping info</h3>
+                                <div className='data'>
+                                    <h4>Name:</h4>
+                                    <span>{order.shippingInfo.firstName && `${order.shippingInfo.firstName}, `}{order.shippingInfo.lastName}</span>
 
-                                    <div 
-                                        className='order-status-summary' 
-                                    >
-                                        <h3>Order summary</h3>
-                                        <div className='order-status-infos'>
-                                            <p><span>Items <small>(incl. VAT)</small>:</span><span>€{order.itemsPrice}</span></p>
-                                            <p>Shipping:<span>€{order.shippingPrice}</span></p>
-                                            <p><span>VAT <small>(tax)</small>:</span><span>€{order.taxPrice}</span></p>
-                                            <p>Total:<span>€{order.totalPrice}</span></p>
-                                        </div>
+                                    <h4>Address:</h4>
+                                    <span>{order.shippingInfo.address},{' '}{order.shippingInfo.addressDetails && order.shippingInfo.addressDetails}</span>
+                                    <span>{order.shippingInfo.zipCode},{' '}{order.shippingInfo.city}, {' '}{order.shippingInfo.country}</span>
 
-                                        {!order.isPaid ? (
-                                            <>
-                                                
-                                                <div 
-                                                    className='payment-container'
-                                                    style={{ 
-                                                        backgroundColor: !isReady ? config.mainTheme : config.bright 
-                                                    }}
-                                                >
+                                    {order.shippingInfo.phone && (
+                                        <>
+                                            <h4>Phone:</h4>
+                                            <span>{order.shippingInfo.phone}</span>
+                                        </>
+                                    )}
 
-                                                    {order.paymentMethod === 'paypal' &&
-                                                        <PaypalPaymentIntents 
-                                                            orderDetails={{
-                                                                amount: order.totalPrice
-                                                            }}
-                                                            isReady={isReady}
-                                                            paymentHandler={paymentHandler}
-                                                            paymentReadyHandler={paymentReadyHandler}
-                                                        />
-                                                    }
+                                    {order.isShipped ?
+                                        <span className='shipped-status'><i className='fas fa-check-circle' />Shipped on {order.shippedAt.substring(0, 10)}</span> :
+                                        <span className='unshipped-status'><i className='fas fa-times-circle' />Not shipped yet</span>}
+                                </div>
+                            </div>
 
-                                                    {order.paymentMethod === 'stripe' &&
-                                                        <StripePaymentIntent  
-                                                            orderDetails={{ 
-                                                                amount: order.totalPrice * 100,
-                                                                description: order.orderItems.reduce((acc, curr) => [...acc, curr.name], []).join(' / '),
-                                                                email: order.user.email
-                                                            }}
-                                                            isReady={isReady}
-                                                            paymentHandler={paymentHandler}
-                                                            paymentReadyHandler={paymentReadyHandler}
-                                                            loadingPay={loadingPay}
-                                                            errorPay={errorPay}
-                                                            paymentErrorStripeHandler={paymentErrorStripeHandler}
-                                                        />
-                                                    }
-                                                    
-                                                </div>
+                            <div className='order-status-row'>
+                                <h3>Payment</h3>
+                                <div className='data'>
+                                    <h4>Method:</h4>
+                                    <span>{order.paymentMethod}</span>
+                                    {order.isPaid ?
+                                        <span className='paid-status'><i className='fas fa-check-circle' />Paid on {order.paidAt.substring(0, 10)}</span> :
+                                        <span className='unpaid-status'><i className='fas fa-times-circle' />Not paid yet</span>}
+                                </div>
+                            </div>
 
-                                                {loadingPay && 
-                                                    <div className='loading-pay-container'>
-                                                        <Spinner />
-                                                    </div>
+                            <div className='order-status-row'>
+                                <h3>Order item(s)</h3>
+                                <ul className='order-items'>
+                                    {order.orderItems.map(item => <OrderItem
+                                        key={item._id}
+                                        _id={item._id}
+                                        image={item.image}
+                                        name={item.name}
+                                        description_m={item.description_m}
+                                        price={item.price}
+                                        qty={item.qty} />
+                                    )}
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div className='order-status-grid-col-2'>
+
+                            <div className='order-status-grid-col-2-inner'>
+
+                                <div 
+                                    className='order-status-summary' 
+                                >
+                                    <h3>Order summary</h3>
+                                    <div className='order-status-infos'>
+                                        <p><span>Items <small>(incl. VAT)</small>:</span><span>€{order.itemsPrice}</span></p>
+                                        <p>Shipping:<span>€{order.shippingPrice}</span></p>
+                                        <p><span>VAT <small>(tax)</small>:</span><span>€{order.taxPrice}</span></p>
+                                        <p>Total:<span>€{order.totalPrice}</span></p>
+                                    </div>
+
+                                    {!order.isPaid ? (
+                                        <>
+                                            
+                                            <div 
+                                                className='payment-container'
+                                                style={{ 
+                                                    backgroundColor: !isReady ? config.mainTheme : config.bright 
+                                                }}
+                                            >
+
+                                                {order.paymentMethod === 'paypal' &&
+                                                    <PaypalPaymentIntents 
+                                                        orderDetails={{
+                                                            amount: order.totalPrice
+                                                        }}
+                                                        isReady={isReady}
+                                                        paymentHandler={paymentHandler}
+                                                        paymentReadyHandler={paymentReadyHandler}
+                                                    />
                                                 }
 
-                                            </>
-                                        ) :
-                                        
-                                        <div 
-                                            className='payment-container'
-                                            style={{ backgroundColor: config.bright }}
-                                        >
-                                            <span className='success-pay'>
-                                                Order successfully paid
-                                            </span>
-                                        </div>
-                                        
-                                        }
+                                                {order.paymentMethod === 'stripe' &&
+                                                    <StripePaymentIntent  
+                                                        orderDetails={{ 
+                                                            amount: order.totalPrice * 100,
+                                                            description: order.orderItems.reduce((acc, curr) => [...acc, curr.name], []).join(' / '),
+                                                            email: order.user.email
+                                                        }}
+                                                        isReady={isReady}
+                                                        paymentHandler={paymentHandler}
+                                                        paymentReadyHandler={paymentReadyHandler}
+                                                        loadingPay={loadingPay}
+                                                        errorPay={errorPay}
+                                                        paymentErrorStripeHandler={paymentErrorStripeHandler}
+                                                    />
+                                                }
+                                                
+                                            </div>
 
+                                            {loadingPay && 
+                                                <div className='loading-pay-container'>
+                                                    <Spinner />
+                                                </div>
+                                            }
+
+                                        </>
+                                    ) :
+                                    
+                                    <div 
+                                        className='payment-container'
+                                        style={{ backgroundColor: config.bright }}
+                                    >
+                                        <span className='success-pay'>
+                                            Order successfully paid
+                                        </span>
                                     </div>
-
-                                    {errorPay || stripePaymentError ? <PaymentErrorMsg message={errorPay || 'Something went wrong'} /> : null}
+                                    
+                                    }
 
                                 </div>
 
+                                {errorPay || stripePaymentError ? <PaymentErrorMsg message={errorPay || 'Something went wrong'} /> : null}
+
                             </div>
 
-                        </div>}
-
-            </div>
+                        </div>
+                    </div>
+                </>
+            }
 
         </section>
     )

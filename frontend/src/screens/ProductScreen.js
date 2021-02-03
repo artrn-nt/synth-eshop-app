@@ -46,7 +46,12 @@ const ProductScreen = () => {
     }, [products])
 
     return (
-        <section className='product-section'>
+        <section 
+            className='product-section'
+            style={{
+                paddingTop: loading || error ? '34.4px' : null
+            }}
+        >
             {loading || productsIds.length === 0 ? <Spinner /> :
                 error ? <ErrorMsg message={error} /> :
                 <>

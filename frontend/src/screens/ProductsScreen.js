@@ -175,7 +175,7 @@ const ProductsScreen = () => {
     }, [products])
 
     return (
-        <section className={`products-section ${loading || error ? 'ctr' : 'str'}`}>
+        <section className='products-section'>
             {loading ? <Spinner /> :
                 error ? <ErrorMsg message={error} /> :
                     <div 

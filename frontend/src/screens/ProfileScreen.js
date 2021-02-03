@@ -123,11 +123,6 @@ const ProfileScreen = ({ history }) => {
         }
     }, [dispatch])
 
-    // const handleSubmit = (ev) => {
-    //     ev.preventDefault()
-    //     dispatch(updateUserProfile({ id: user._id, name: username, email, password }))
-    // }
-
     if (!userInfo) return null
 
     return (
@@ -138,206 +133,215 @@ const ProfileScreen = ({ history }) => {
             <div className='profile-main-row'>
 
                 <div className='profile-col-1'>
-                    <h3>My info</h3>
 
-                    <div className={loadingDetails || errorDetails ? 'profile-form-container ctr' : 'profile-form-container str'}>
-                        {loadingDetails ? <Spinner /> :
-                            errorDetails ? <ErrorMsg message={errorDetails} /> :
-                                <Formik
-                                    initialValues={{
-                                        username: user.name ? user.name : '',
-                                        email: user.email ? user.email : '',
-                                        password: '',
-                                        confirmationPassword: '',
-                                        showPassword: false
-                                    }}
-                                    initialErrors={{ username: '', email: '', password: '', confirmationPassword: '' }}
-                                    validationSchema={yup.object({
-                                        username: yup.string()
-                                            .trim()
-                                            .min(5, 'Username must be at least 5 characters long')
-                                            .max(24, 'Username must be less than 25 characters long')
-                                            .matches(/^[A-Za-z0-9\-_]+$/, 'Username is not valid, special characters (except hyphen and underscore) and spaces are not allowed')
-                                            .required('Username is required'),
-                                        email: yup.string()
-                                            .trim()
-                                            .lowercase()
-                                            .email('Invalid email address')
-                                            .required('Email is required'),
-                                        password: yup.string()
-                                            .trim()
-                                            .min(9, 'Password must be at least 8 characters long')
-                                            .max(24, 'Password must be less than 25 characters long')
-                                            .matches(/(?=(?:\D*\d){2}\D*$)(?=.*[A-Z])(?=.*[@&€+\-*/=:;.#!%?_])/, 'Password must include two numbers, one uppercase letter and one special character @&€+-*/=:;.#!%?_')
-                                            .required('Password is required'),
-                                        confirmationPassword: yup.string()
-                                            .trim()
-                                            .oneOf([yup.ref('password'), null], 'Passwords must match')
-                                            .required('Password is required'),
-                                    })}
-                                    onSubmit={() => {
-                                        dispatch(updateUserProfile({ id: user._id, name: username, email, password }))
-                                    }}
-                                >
-                                    {({ isSubmitting, values, handleChange, handleSubmit }) => (
+                    <div className='outer-col-title'>
+                        <h3>My info</h3>
+                    </div>
 
-                                        <Form
-                                            name='profile'
-                                            method='post'
-                                            className='profile-form'
-                                            onSubmit={handleSubmit}
-                                        >
-                                            <div className='field-control'>
-                                                <label htmlFor='username'>Username</label>
-                                                <Field
-                                                    type='text'
-                                                    name='username'
-                                                    id='username'
-                                                    autoComplete='off'
-                                                    placeholder='Enter your (new) username'
-                                                    value={username}
-                                                    onChange={ev => {
-                                                        handleChange(ev)
-                                                        setUsername(ev.target.value)
-                                                    }}
-                                                />
-                                                <ErrorMessage
-                                                    name='username'
-                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                                />
-                                            </div>
+                    {loadingDetails ? <Spinner /> :
+                        errorDetails ? <ErrorMsg message={errorDetails} /> :
 
-                                            <div className='field-control'>
-                                                <label htmlFor='email'>Email address</label>
-                                                <Field
-                                                    type='text'
-                                                    name='email'
-                                                    id='email'
-                                                    autoComplete='off'
-                                                    placeholder='Enter your (new) email'
-                                                    value={email}
-                                                    onChange={ev => {
-                                                        handleChange(ev)
-                                                        setEmail(ev.target.value)
-                                                    }}
-                                                />
-                                                <ErrorMessage
-                                                    name='email'
-                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                                />
-                                            </div>
+                        <div className='profile-form-container'>
+                            <Formik
+                                initialValues={{
+                                    username: user.name ? user.name : '',
+                                    email: user.email ? user.email : '',
+                                    password: '',
+                                    confirmationPassword: '',
+                                    showPassword: false
+                                }}
+                                initialErrors={{ username: '', email: '', password: '', confirmationPassword: '' }}
+                                validationSchema={yup.object({
+                                    username: yup.string()
+                                        .trim()
+                                        .min(5, 'Username must be at least 5 characters long')
+                                        .max(24, 'Username must be less than 25 characters long')
+                                        .matches(/^[A-Za-z0-9\-_]+$/, 'Username is not valid, special characters (except hyphen and underscore) and spaces are not allowed')
+                                        .required('Username is required'),
+                                    email: yup.string()
+                                        .trim()
+                                        .lowercase()
+                                        .email('Invalid email address')
+                                        .required('Email is required'),
+                                    password: yup.string()
+                                        .trim()
+                                        .min(9, 'Password must be at least 8 characters long')
+                                        .max(24, 'Password must be less than 25 characters long')
+                                        .matches(/(?=(?:\D*\d){2}\D*$)(?=.*[A-Z])(?=.*[@&€+\-*/=:;.#!%?_])/, 'Password must include two numbers, one uppercase letter and one special character @&€+-*/=:;.#!%?_')
+                                        .required('Password is required'),
+                                    confirmationPassword: yup.string()
+                                        .trim()
+                                        .oneOf([yup.ref('password'), null], 'Passwords must match')
+                                        .required('Password is required'),
+                                })}
+                                onSubmit={() => {
+                                    dispatch(updateUserProfile({ id: user._id, name: username, email, password }))
+                                }}
+                            >
+                                {({ isSubmitting, values, handleChange, handleSubmit }) => (
 
-                                            <div className='field-control'>
-                                                <label htmlFor='password'>Password</label>
-                                                <div className='password-input-wrap-profile'>
+                                    <Form
+                                        name='profile'
+                                        method='post'
+                                        className='profile-form'
+                                        onSubmit={handleSubmit}
+                                    >
+                                        <div className='field-control'>
+                                            <label htmlFor='username'>Username</label>
+                                            <Field
+                                                type='text'
+                                                name='username'
+                                                id='username'
+                                                autoComplete='off'
+                                                placeholder='Enter your (new) username'
+                                                value={username}
+                                                onChange={ev => {
+                                                    handleChange(ev)
+                                                    setUsername(ev.target.value)
+                                                }}
+                                            />
+                                            <ErrorMessage
+                                                name='username'
+                                                render={msg => <span className='form-err-msg'>{msg}</span>}
+                                            />
+                                        </div>
 
-                                                    <Field
-                                                        type={show ? 'text' : 'password'}
-                                                        name='password'
-                                                        id='password'
-                                                        autoComplete='off'
-                                                        placeholder='Enter your (new) password'
-                                                        value={password}
-                                                        onChange={ev => {
-                                                            handleChange(ev)
-                                                            setPassword(ev.target.value)
-                                                        }}
-                                                    />
+                                        <div className='field-control'>
+                                            <label htmlFor='email'>Email address</label>
+                                            <Field
+                                                type='text'
+                                                name='email'
+                                                id='email'
+                                                autoComplete='off'
+                                                placeholder='Enter your (new) email'
+                                                value={email}
+                                                onChange={ev => {
+                                                    handleChange(ev)
+                                                    setEmail(ev.target.value)
+                                                }}
+                                            />
+                                            <ErrorMessage
+                                                name='email'
+                                                render={msg => <span className='form-err-msg'>{msg}</span>}
+                                            />
+                                        </div>
 
-                                                    <ShowPassword checked={values.showPassword} onClickHandler={() => setShow(prevState => !prevState)} />
+                                        <div className='field-control'>
+                                            <label htmlFor='password'>Password</label>
+                                            <div className='password-input-wrap-profile'>
 
-                                                </div>
-
-                                                <ErrorMessage
-                                                    name='password'
-                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                                />
-
-                                            </div>
-
-                                            <div className='field-control'>
-                                                <label htmlFor='confirmationPassword'>Confirm password</label>
                                                 <Field
                                                     type={show ? 'text' : 'password'}
-                                                    name='confirmationPassword'
-                                                    id='confirmationPassword'
+                                                    name='password'
+                                                    id='password'
                                                     autoComplete='off'
-                                                    placeholder='Confirm your (new) password'
+                                                    placeholder='Enter your (new) password'
+                                                    value={password}
+                                                    onChange={ev => {
+                                                        handleChange(ev)
+                                                        setPassword(ev.target.value)
+                                                    }}
                                                 />
-                                                <ErrorMessage
-                                                    name='confirmationPassword'
-                                                    render={msg => <span className='form-err-msg'>{msg}</span>}
-                                                />
+
+                                                <ShowPassword checked={values.showPassword} onClickHandler={() => setShow(prevState => !prevState)} />
+
                                             </div>
 
-                                            <div className='bottom-row'>
-                                                <ActionBtn type='submit' className='btn-update' disabled={isSubmitting}>Update profile</ActionBtn>
-                                                {updateSuccess && <Alert className={!fadeOut ? 'alert-update fade-in' : 'alert-update fade-out'} message='Profile updated' />}
-                                            </div>
+                                            <ErrorMessage
+                                                name='password'
+                                                render={msg => <span className='form-err-msg'>{msg}</span>}
+                                            />
+
+                                        </div>
+
+                                        <div className='field-control'>
+                                            <label htmlFor='confirmationPassword'>Confirm password</label>
+                                            <Field
+                                                type={show ? 'text' : 'password'}
+                                                name='confirmationPassword'
+                                                id='confirmationPassword'
+                                                autoComplete='off'
+                                                placeholder='Confirm your (new) password'
+                                            />
+                                            <ErrorMessage
+                                                name='confirmationPassword'
+                                                render={msg => <span className='form-err-msg'>{msg}</span>}
+                                            />
+                                        </div>
+
+                                        <div className='bottom-row'>
+                                            <ActionBtn type='submit' className='btn-update' disabled={isSubmitting}>Update profile</ActionBtn>
+                                            {updateSuccess && <Alert className={!fadeOut ? 'alert-update fade-in' : 'alert-update fade-out'} message='Profile updated' />}
+                                        </div>
 
 
-                                        </Form>
-                                    )}
+                                    </Form>
+                                )}
 
-                                </Formik>}
-                    </div>
+                            </Formik>
+                        </div>
+                    }
 
                 </div>
 
                 <div className='profile-col-2'>
-                    <h3>My orders</h3>
-
-                    <div className={loadingOrders || errorOrders || orders.length === 0 ? 'table-container ctr' : 'table-container str'}>
-                        {loadingOrders ?
-                            <Spinner /> : errorOrders ?
-                                <ErrorMsg message={errorOrders} /> :
-                                orders.length !== 0 ? <table className='my-orders-table'>
-                                    <thead>
-                                        <tr>
-                                            <th scope='col' width='37.5%'>ID</th>
-                                            <th scope='col' width='15.625%'>DATE</th>
-                                            <th scope='col' width='15.625%'>TOTAL</th>
-                                            <th scope='col' width='15.625%'>PAID</th>
-                                            <th scope='col' width='15.625%'>SHIPPED</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {orders.map(order => (
-                                            <tr key={order._id}>
-                                                <td>
-                                                    <Link to={`/orders/${order._id}`}>{order._id}</Link>
-                                                </td>
-                                                <td>{order.createdAt.substring(0, 10)}</td>
-                                                <td>€{(order.totalPrice).toFixed(2)}</td>
-                                                <td>
-                                                    {order.isPaid ? order.paidAt.substring(0, 10) :
-                                                        (<i className='fas fa-times-circle' style={{ color: 'tomato' }} />)}
-                                                </td>
-                                                <td>
-                                                    {order.isShipped ? order.shippedAt.substring(0, 10) :
-                                                        (<i className='fas fa-times-circle' style={{ color: 'tomato' }} />)}
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table> :
-                                    <p>
-                                        <span>You didn't make any order from us</span>
-                                        <span>
-                                            Sounds like a good time
-                                        <Link
-                                                className='start-shop'
-                                                to='/'
-                                            >
-                                                to make one
-                                        </Link>
-                                        </span>
-                                    </p>}
+                    
+                    <div className='outer-col-title'>
+                        <h3>My orders</h3>
                     </div>
+
+                    {loadingOrders ? <Spinner /> : 
+                        errorOrders ? <ErrorMsg message={errorOrders} /> :
+                            orders.length !== 0 ?
+                                (<div className='table-container'>
+                                    <table className='my-orders-table'>
+                                        <thead>
+                                            <tr>
+                                                <th scope='col' width='37.5%'>ID</th>
+                                                <th scope='col' width='15.625%'>DATE</th>
+                                                <th scope='col' width='15.625%'>TOTAL</th>
+                                                <th scope='col' width='15.625%'>PAID</th>
+                                                <th scope='col' width='15.625%'>SHIPPED</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {orders.map(order => (
+                                                <tr key={order._id}>
+                                                    <td>
+                                                        <Link to={`/orders/${order._id}`}>{order._id}</Link>
+                                                    </td>
+                                                    <td>{order.createdAt.substring(0, 10)}</td>
+                                                    <td>€{(order.totalPrice).toFixed(2)}</td>
+                                                    <td>
+                                                        {order.isPaid ? order.paidAt.substring(0, 10) :
+                                                            (<i className='fas fa-times-circle' style={{ color: 'tomato' }} />)}
+                                                    </td>
+                                                    <td>
+                                                        {order.isShipped ? order.shippedAt.substring(0, 10) :
+                                                            (<i className='fas fa-times-circle' style={{ color: 'tomato' }} />)}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table> 
+                                </div>) :
+                                (<p>
+                                    <span>You didn't make any order from us</span>
+                                    <span>
+                                        Sounds like a good time
+                                    <Link
+                                            className='start-shop'
+                                            to='/'
+                                        >
+                                            to make one
+                                    </Link>
+                                    </span>
+                                </p>)
+                    }
+                    
                 </div>
-
             </div>
-
+            
         </section>
     )
 

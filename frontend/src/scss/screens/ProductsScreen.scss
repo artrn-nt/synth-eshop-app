@@ -6,24 +6,13 @@
   flex-direction: column;
   flex-grow: 1;
   align-items: center;
+  justify-content: flex-start;
   width: 100%;
   padding: $padding-screen;
   transition: opacity 250ms ease-out;
 
   @include sm-screen {
-    padding-top: 0;
-  }
-
-  &.ctr {
-    justify-content: center;
-  }
-
-  &.str {
-    justify-content: flex-start;
-
-    @include sm-screen {
-      padding-top: 34.4px;
-    }
+    padding-top: 34.4px;
   }
 
   .products-container {
