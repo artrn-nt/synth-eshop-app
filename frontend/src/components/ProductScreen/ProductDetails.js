@@ -102,6 +102,7 @@ const ProductDetails = ({ match, products }) => {
             
                 <div className='product-col-1'>
                     <div className='img-wrapper'>
+                        {/* <img src={product.image} alt={product.name} /> */}
                         <img src={product.image} alt={product.name} />
                     </div>
                     <div className='add-row'>

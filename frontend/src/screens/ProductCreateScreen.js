@@ -15,6 +15,8 @@ import { ErrorMsg } from '../components/utilities/Messages'
 import { ActionBtn, ActionLink } from '../components/utilities/ActionBtnLink'
 import '../scss/screens/ProductCreateScreen.scss'
 
+console.log(window.location)
+
 const ProductCreateScreen = ({ history }) => {
 
     const [state, setState] = useState({
@@ -35,7 +37,7 @@ const ProductCreateScreen = ({ history }) => {
         isPublished: false,
         uploading: false
     })
-    // console.log(state)
+    // console.log(state.imageURL)
 
     const dispatch = useDispatch()
 
@@ -110,6 +112,7 @@ const ProductCreateScreen = ({ history }) => {
 
     const uploadFileHandler = async (ev) => {
         const file = ev.target.files[0]
+        console.log(file)
         const formData = new FormData()
 
         formData.append('image', file)
@@ -126,11 +129,14 @@ const ProductCreateScreen = ({ history }) => {
                 }
             }
 
-            const { data } = await axios.post('/api/uploads', formData, config)
+            // const { data } = await axios.post('/api/upload', formData, config)
+            const data = await axios.post('/api/upload', formData, config)
+            console.log(data)
 
             setState(prevState => ({
                 ...prevState,
-                imageURL: data,
+                // imageURL: `/${data}`,
+                imageURL: data.data,
                 uploading: false
             }))
 
@@ -184,8 +190,8 @@ const ProductCreateScreen = ({ history }) => {
                                     .required('Product main description is required'),
                                 features: yup.array()
                                     .of(yup.string().required()),
-                                imageURL: yup.string()
-                                    .required('Product image url is required')
+                                // imageURL: yup.string()
+                                //     .required('Product image url is required')
                             })}
                             onSubmit={() => dispatch(createProduct({
                                 user: state.userID,
@@ -567,7 +573,7 @@ const ProductCreateScreen = ({ history }) => {
                                                     uploadFileHandler(ev)
                                                 }}
                                             />
-                                            <label for='imageFile'>Choose a file</label>
+                                            <label htmlFor='imageFile'>Choose a file</label>
                                             {state.uploading && <Spinner />}
                                             <div className='form-err-msg-wrap'>
                                                 <ErrorMessage
