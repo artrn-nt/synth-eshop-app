@@ -10,7 +10,10 @@ import { ActionBtn, ActionLink } from '../components/utilities/ActionBtnLink'
 import Spinner from '../components/utilities/Spinner'
 import { ErrorMsg } from '../components/utilities/Messages'
 import useWindowSize from '../utils/useWindowSize'
+import breakpoints from '../scss/media-queries.module.scss'
 import '../scss/screens/ProductsListScreen.scss'
+
+const parseWidth = (str) => +str.slice(0, str.indexOf('p'))
 
 const ProductTableRow = ({ id, name, image, brand, categories, price, countInStock, isPublished, objectIDHandler, confirmHandler }) => {
 
@@ -22,8 +25,8 @@ const ProductTableRow = ({ id, name, image, brand, categories, price, countInSto
         <tr>
             <td>{id}</td>
             <td
-                onMouseEnter={() => size.width > 1024 && setShow(true)}
-                onMouseLeave={() => size.width > 1024 && setShow(false)}
+                onMouseEnter={() => size.width > parseWidth(breakpoints.lgScreen) && setShow(true)}
+                onMouseLeave={() => size.width > parseWidth(breakpoints.lgScreen) && setShow(false)}
             >
                 {show ?
                     <div className='product-pic'>
@@ -240,69 +243,69 @@ const ProductsListScreen = ({ history }) => {
     return (
         <section className='products-list-section'>
 
-            <ScreenTitle title='Admin - Products list' />
+            {loading || loadingDelete ? <Spinner /> :
+                error || errorDelete ? <ErrorMsg message={error || errorDelete} /> :
 
-            <div className={!userInfo || !userInfo.isAdmin ||
-                loading || loadingDelete ||
-                error || errorDelete ? 'products-list-main-col ctr' : 'products-list-main-col str'}>
+                <>
+                    <ScreenTitle title='Admin - Products list' />
 
-                {loading || loadingDelete ? <Spinner /> :
-                    error || errorDelete ? <ErrorMsg message={error || errorDelete} /> :
+                    <div className='products-list-container' style={{ minHeight: `${productsListContainerHeight}px` }} ref={productsListContainerRef}>
 
-                        <div className='products-list-container' style={{ minHeight: `${productsListContainerHeight}px` }} ref={productsListContainerRef}>
+                        <div className='create-link-row'>
+                            <ActionLink
+                                path={`/admin/product/create`}
+                                className='create-product-link'
+                            >
+                                <i className='fas fa-plus-circle' />
+                                Create product
+                            </ActionLink>
+                        </div>
 
-                            <div className='create-link-row'>
-                                <ActionLink
-                                    path={`/admin/product/create`}
-                                    className='create-product-link'
-                                >
-                                    <i className='fas fa-plus-circle' />
-                                    Create product
-                                </ActionLink>
-                            </div>
+                        <ProductsFilter
+                            brands={brands}
+                            outOfStock
+                            productsFilterHandler={productsFilterHandler}
+                        />
 
-                            <ProductsFilter
-                                brands={brands}
-                                outOfStock
-                                productsFilterHandler={productsFilterHandler}
-                            />
-
-                            {products.length === 0 && touchedFilter ?
-                                <p className='no-result'>- No product found matching your filter criterias -</p> :
-                                <table className='products-list-table'>
-                                    <thead>
-                                        <tr>
-                                            <th scope='col' width='11%'>PRODUCT ID</th>
-                                            <th scope='col' width='18%'>NAME</th>
-                                            <th scope='col' width='13%'>BRAND</th>
-                                            <th scope='col' width='13%'>CATEGORIES</th>
-                                            <th scope='col' width='11.5%'>PRICE</th>
-                                            <th scope='col' width='11.5%'>STOCK</th>
-                                            <th scope='col' width='11.5%'>PUBLISHED</th>
-                                            <th scope='col' width='5.25%'>EDIT</th>
-                                            <th scope='col' width='5.25%'>DEL</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {products.map(product => (
-                                            <ProductTableRow
-                                                key={product._id}
-                                                id={product._id}
-                                                name={product.name}
-                                                image={product.image}
-                                                brand={product.brand}
-                                                categories={product.categories}
-                                                price={product.price}
-                                                countInStock={product.countInStock}
-                                                isPublished={product.isPublished}
-                                                objectIDHandler={objectIDHandler}
-                                                confirmHandler={confirmHandler}
-                                            />
-                                        ))}
-                                    </tbody>
-                                </table>}
-
-                        </div>}
+                        {products.length === 0 && touchedFilter ?
+                            <p className='no-result'>- No product found matching your filter criterias -</p> :
+                            <table className='products-list-table'>
+                                <thead>
+                                    <tr>
+                                        <th scope='col' width='11%'>PRODUCT ID</th>
+                                        <th scope='col' width='18%'>NAME</th>
+                                        <th scope='col' width='13%'>BRAND</th>
+                                        <th scope='col' width='13%'>CATEGORIES</th>
+                                        <th scope='col' width='11.5%'>PRICE</th>
+                                        <th scope='col' width='11.5%'>STOCK</th>
+                                        <th scope='col' width='11.5%'>PUBLISHED</th>
+                                        <th scope='col' width='5.25%'>EDIT</th>
+                                        <th scope='col' width='5.25%'>DEL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {products.map(product => (
+                                        <ProductTableRow
+                                            key={product._id}
+                                            id={product._id}
+                                            name={product.name}
+                                            image={product.image}
+                                            brand={product.brand}
+                                            categories={product.categories}
+                                            price={product.price}
+                                            countInStock={product.countInStock}
+                                            isPublished={product.isPublished}
+                                            objectIDHandler={objectIDHandler}
+                                            confirmHandler={confirmHandler}
+                                        />
+                                    ))}
+                                </tbody>
+                            </table>
+                        }
+                        
+                    </div>
+                </>
+            }
 
                 {objectID && <AdminConfirmAlert
                     objectID={objectID}
@@ -312,8 +315,6 @@ const ProductsListScreen = ({ history }) => {
                     actionHandler={actionHandler}
                     text='Delete product'
                 />}
-
-            </div>
 
         </section>
     )

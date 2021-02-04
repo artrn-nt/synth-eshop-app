@@ -114,7 +114,6 @@ const OrdersListScreen = ({ history }) => {
                                                     <Link to={`/orders/${order._id}`}>{order._id}</Link>
                                                 </td>
                                                 <td>Created on: <br />{order.createdAt.substring(0, 10)}</td>
-                                                {/* <td>{order.user.hasOwnProperty('name') && order.user.name}</td> */}
                                                 <td>{order.user !== null ? order.user.name : 'Deleted user'}</td>
                                                 <td>
                                                     <ul>

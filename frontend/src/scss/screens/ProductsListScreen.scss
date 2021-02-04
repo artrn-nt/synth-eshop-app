@@ -2,237 +2,238 @@
 @import '../media-queries.module.scss';
 
 .products-list-section {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  width: 100%;
+  padding: $padding-screen;
+
+  .products-list-container {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    align-items: center;
     width: 100%;
-    padding: $padding-screen;
+    margin-top: 50.4px;
+    opacity: 0;
 
-    .products-list-main-col {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        flex-grow: 1;
-        margin-top: 3.15rem;
-        // background-color: orange;
-        
-        &.ctr {
-            justify-content: center;
+    .create-link-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .no-result {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 3.15rem;
+      text-align: center;
+      color: $bright;
+      font-weight: 400;
+      font-size: 1.1rem;
+      opacity: 0;
+      cursor: default;
+
+      @include sm-screen {
+        font-size: 1.025rem;
+      }
+    }
+
+    .products-list-table {
+      width: 100%;
+      border-radius: 2.5px;
+      border-collapse: collapse;
+      overflow: hidden;
+      opacity: 0;
+      cursor: default;
+
+      @include lg-screen {
+        display: block;
+      }
+
+      thead {
+        height: 3.15rem;
+        background-color: lighten($greyish, 9%);
+
+        @include lg-screen {
+          display: none;
         }
 
-        &.str {
-            justify-content: flex-start;
-        }
+        tr {
+          color: $bright;
 
-        .products-list-container {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            opacity: 0;
+          th {
+            font-size: 1rem;
+            font-weight: 500;
 
-            .create-link-row {
-                display: flex;
-                align-items: center;
-                justify-content: center;
+            &:nth-of-type(2),
+            &:nth-of-type(3),
+            &:nth-of-type(4),
+            &:nth-of-type(5),
+            &:nth-of-type(6),
+            &:nth-of-type(7),
+            &:nth-of-type(8) {
+              position: relative;
+
+              &::before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                width: 1.2px;
+                height: 65%;
+                background-color: $bright;
+              }
             }
+          }
+        }
+      }
 
-            .no-result {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                height: 3.15rem;
-                text-align: center;
-                color: $bright;
-                font-weight: 400;
-                font-size: 1.1rem;
-                opacity: 0;
-                cursor: default;
+      tbody {
+        @include lg-screen {
+          display: block;
+        }
 
-                @include sm-screen {
-                    font-size: 1.025rem;
+        tr {
+          font-size: 0.95rem;
+          height: 96px;
+          text-align: center;
+          transition: background-color 280ms ease-out;
+
+          @include lg-screen {
+            display: block;
+            height: auto;
+            padding: 0.7875rem;
+          }
+
+          @include sm-screen {
+            font-size: 0.875rem;
+          }
+
+          td {
+            padding: 0 0.75rem;
+
+            @include lg-screen {
+              display: block;
+              position: relative;
+              padding: 0 0 0 50%;
+              line-height: 20px;
+
+              &:not(:last-of-type) {
+                margin-bottom: 0.7875rem;
+              }
+
+              &::before {
+                position: absolute;
+                top: 0;
+                left: 25%;
+                height: 20px;
+                transform: translateX(-50%);
+                font-weight: 500;
+                color: $greyish;
+
+                @include md-screen {
+                  left: 0;
+                  transform: unset;
                 }
+              }
+
+              &:nth-of-type(1)::before {
+                content: 'PRODUCT ID';
+              }
+              &:nth-of-type(2)::before {
+                content: 'NAME';
+              }
+              &:nth-of-type(3)::before {
+                content: 'BRAND';
+              }
+              &:nth-of-type(4)::before {
+                content: 'CATEGORIES';
+              }
+              &:nth-of-type(5)::before {
+                content: 'PRICE';
+              }
+              &:nth-of-type(6)::before {
+                content: 'STOCK';
+              }
+              &:nth-of-type(7)::before {
+                content: 'PUBLISHED';
+              }
+              &:nth-of-type(8)::before {
+                content: 'EDIT';
+              }
+              &:nth-of-type(9)::before {
+                content: 'DEL';
+              }
             }
-                
-            .products-list-table {
+          }
+
+          td:nth-of-type(1),
+          td:nth-of-type(2),
+          td:nth-of-type(3) {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+          }
+
+          td:nth-of-type(2) {
+            position: relative;
+            min-width: 196px;
+
+            @include lg-screen {
+              min-width: unset;
+            }
+
+            .product-pic {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate3d(-50%, -50%, 0);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 85px;
+              height: 100%;
+              pointer-events: none;
+              z-index: 1;
+
+              @include lg-screen {
+                display: none;
+              }
+
+              img {
                 width: 100%;
                 border-radius: 2.5px;
-                border-collapse: collapse;
-                overflow: hidden;
-                opacity: 0;
-                cursor: default;
-
-                @include lg-screen {
-                    display: block;
-                }
-        
-                thead {
-                    height: 3.15rem;
-                    background-color: lighten($greyish, 9%);
-
-                    @include lg-screen {
-                        display: none;
-                    }
-                
-                    tr {
-                        color: $bright;
-    
-                        th {
-                            font-size: 1rem;
-                            font-weight: 500;
-
-                            &:nth-of-type(2), 
-                            &:nth-of-type(3),
-                            &:nth-of-type(4),
-                            &:nth-of-type(5),
-                            &:nth-of-type(6),
-                            &:nth-of-type(7),
-                            &:nth-of-type(8) {
-                                position: relative;
-    
-                                &::before {
-                                    content: '';
-                                    display: block;
-                                    position: absolute;
-                                    top: 50%;
-                                    left: 0;
-                                    transform: translateY(-50%);
-                                    width: 1.2px;
-                                    height: 65%;
-                                    background-color: $bright;
-                                }
-                            }
-                        }
-                    }
-                }
-        
-                tbody {
-                    @include lg-screen {
-                        display: block;
-                    }
-                    
-                    tr {
-                        font-size: .95rem;
-                        height: 96px;
-                        text-align: center;
-                        transition: background-color 280ms ease-out;
-
-                        @include lg-screen {
-                            display: block;
-                            height: auto;
-                            padding: .7875rem;
-                        }
-
-                        @include sm-screen {
-                            font-size: .875rem;
-                        }
-
-                        td {
-                            padding: 0 .75rem;
-
-                            @include lg-screen {
-                                display: block;
-                                position: relative;
-                                padding: 0 0 0 50%; 
-                                line-height: 20px;
-                              
-                                &:not(:last-of-type) {
-                                    margin-bottom: .7875rem;
-                                }
-                
-                                &::before {
-                                    position: absolute;
-                                    top: 0;
-                                    left: 25%;
-                                    height: 20px;
-                                    transform: translateX(-50%);
-                                    font-weight: 500;
-                                    color: $greyish;
-                
-                                    @include md-screen {
-                                        left: 0;
-                                        transform: unset;
-                                    }
-                                }
-            
-                                &:nth-of-type(1)::before { content: 'PRODUCT ID'; }
-                                &:nth-of-type(2)::before { content: 'NAME'; }
-                                &:nth-of-type(3)::before { content: 'BRAND'; }
-                                &:nth-of-type(4)::before { content: 'CATEGORIES'; }
-                                &:nth-of-type(5)::before { content: 'PRICE'; }
-                                &:nth-of-type(6)::before { content: 'STOCK'; }
-                                &:nth-of-type(7)::before { content: 'PUBLISHED'; }
-                                &:nth-of-type(8)::before { content: 'EDIT'; }
-                                &:nth-of-type(9)::before { content: 'DEL'; }
-                            }
-                        }
-
-                        td:nth-of-type(1),
-                        td:nth-of-type(2),
-                        td:nth-of-type(3) {
-                            word-wrap: break-word;
-                            overflow-wrap: break-word;
-                        }
-    
-                        td:nth-of-type(2) {
-                            position: relative;
-                            min-width: 196px;
-
-                            @include lg-screen {
-                                min-width: unset;
-                            }
-
-                            .product-pic {
-                                position: absolute;
-                                top: 50%;
-                                left: 50%;
-                                transform: translate3d(-50%, -50%, 0);
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                width: 85px;
-                                height: 100%;
-                                pointer-events: none;
-                                z-index: 1;
-
-                                @include lg-screen {
-                                    display: none;
-                                }
-
-                                img {
-                                    width: 100%;
-                                    border-radius: 2.5px;
-                                    border: 1.2px solid $main-theme;
-                                }
-                            }
-                        }
-    
-                        td:nth-of-type(4) {
-                            font-size: .85rem;
-
-                            @include lg-screen {
-                                font-size: .95rem;
-                            }
-
-                            @include sm-screen {
-                                font-size: .875rem;
-                            }
-                        }
-                    }
-    
-                    tr:nth-child(2n + 1) {
-                        background-color: $bright;
-                        color: $main-theme;
-                    }
-    
-                    tr:nth-child(2n) {
-                        background-color: lighten($greyish, 31.5%);
-                        color: $main-theme;
-                    }
-                }
+                border: 1.2px solid $main-theme;
+              }
             }
+          }
+
+          td:nth-of-type(4) {
+            font-size: 0.85rem;
+
+            @include lg-screen {
+              font-size: 0.95rem;
+            }
+
+            @include sm-screen {
+              font-size: 0.875rem;
+            }
+          }
         }
+
+        tr:nth-child(2n + 1) {
+          background-color: $bright;
+          color: $main-theme;
+        }
+
+        tr:nth-child(2n) {
+          background-color: lighten($greyish, 31.5%);
+          color: $main-theme;
+        }
+      }
     }
+  }
 }

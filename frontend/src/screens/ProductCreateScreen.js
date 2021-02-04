@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import gsap from 'gsap'
-// import axios from 'axios'
+import axios from 'axios'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
@@ -108,41 +108,41 @@ const ProductCreateScreen = ({ history }) => {
         })
     }
 
-    // const uploadFileHandler = async (ev) => {
-    //     const file = ev.target.files[0]
-    //     const formData = new FormData()
+    const uploadFileHandler = async (ev) => {
+        const file = ev.target.files[0]
+        const formData = new FormData()
 
-    //     formData.append('image', file)
+        formData.append('image', file)
 
-    //     setState(prevState => ({
-    //         ...prevState,
-    //         uploading: true
-    //     }))
+        setState(prevState => ({
+            ...prevState,
+            uploading: true
+        }))
 
-    //     try {
-    //         const config = {
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data'
-    //             }
-    //         }
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
 
-    //         const { data } = await axios.post('/api/uploads', formData, config)
+            const { data } = await axios.post('/api/uploads', formData, config)
 
-    //         setState(prevState => ({
-    //             ...prevState,
-    //             imageURL: data,
-    //             uploading: false
-    //         }))
+            setState(prevState => ({
+                ...prevState,
+                imageURL: data,
+                uploading: false
+            }))
 
-    //     } catch (error) {
-    //         console.error(error)
+        } catch (error) {
+            console.error(error)
 
-    //         setState(prevState => ({
-    //             ...prevState,
-    //             uploading: false
-    //         }))
-    //     }
-    // }
+            setState(prevState => ({
+                ...prevState,
+                uploading: false
+            }))
+        }
+    }
 
     return (
         <section className='product-create-section'>
@@ -538,7 +538,10 @@ const ProductCreateScreen = ({ history }) => {
                                             errorMsg='Each feature must be fullfilled'
                                         />
 
-                                        <div className='field-control'>
+                                        <div 
+                                            className='field-control'
+                                            id='img-field-control'
+                                        >
                                             <label htmlFor='imageURL'>Image URL</label>
                                             <Field
                                                 type='text'
@@ -555,6 +558,17 @@ const ProductCreateScreen = ({ history }) => {
                                                     }))
                                                 }}
                                             />
+                                            <input
+                                                type='file'
+                                                name='imageFile'
+                                                id='imageFile'
+                                                onChange={(ev) => {
+                                                    handleChange(ev)
+                                                    uploadFileHandler(ev)
+                                                }}
+                                            />
+                                            <label for='imageFile'>Choose a file</label>
+                                            {state.uploading && <Spinner />}
                                             <div className='form-err-msg-wrap'>
                                                 <ErrorMessage
                                                     name='imageURL'
@@ -562,22 +576,6 @@ const ProductCreateScreen = ({ history }) => {
                                                 />
                                             </div>
                                         </div>
-
-                                        {/* <div className='field-control'>
-                                                <label htmlFor='imageFile'>Choose a file</label>
-                                                <Field
-                                                    type='file'
-                                                    name='imageFile'
-                                                    id='image-file'
-                                                    onChange={(ev) => {
-                                                        handleChange(ev)
-                                                        // setFieldValue('file', ev.currentTarget.files[0])
-                                                        // setFieldValue('file', ev.currentTarget.files[0])
-                                                        uploadFileHandler(ev)
-                                                    }}
-                                                />
-                                            </div> */}
-                                        {/* </div> */}
 
                                         <SingleCheckboxField
                                             value='isPublished'
