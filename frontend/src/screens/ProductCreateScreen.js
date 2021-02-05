@@ -15,8 +15,6 @@ import { ErrorMsg } from '../components/utilities/Messages'
 import { ActionBtn, ActionLink } from '../components/utilities/ActionBtnLink'
 import '../scss/screens/ProductCreateScreen.scss'
 
-console.log(window.location)
-
 const ProductCreateScreen = ({ history }) => {
 
     const [state, setState] = useState({
@@ -112,7 +110,6 @@ const ProductCreateScreen = ({ history }) => {
 
     const uploadFileHandler = async (ev) => {
         const file = ev.target.files[0]
-        console.log(file)
         const formData = new FormData()
 
         formData.append('image', file)
@@ -129,14 +126,11 @@ const ProductCreateScreen = ({ history }) => {
                 }
             }
 
-            // const { data } = await axios.post('/api/upload', formData, config)
-            const data = await axios.post('/api/upload', formData, config)
-            console.log(data)
+            const { data } = await axios.post('/api/upload', formData, config)
 
             setState(prevState => ({
                 ...prevState,
-                // imageURL: `/${data}`,
-                imageURL: data.data,
+                imageURL: data,
                 uploading: false
             }))
 
@@ -153,12 +147,15 @@ const ProductCreateScreen = ({ history }) => {
     return (
         <section className='product-create-section'>
 
-            <ScreenTitle title='Admin - Create product' />
+            {loadingCreate ? <Spinner /> :
+                errorCreate ? <ErrorMsg message={errorCreate} /> :
 
-            <div className={loadingCreate || errorCreate ? 'product-create-main-col ctr' : 'product-create-main-col str'}>
+                <>
+            
+                    <ScreenTitle title='Admin - Create product' />
 
-                {loadingCreate ? <Spinner /> :
-                    errorCreate ? <ErrorMsg message={errorCreate} /> :
+                    <div className='product-create-main-col'>
+
                         <Formik
                             initialValues={{
                                 userID: state.userID,
@@ -176,8 +173,6 @@ const ProductCreateScreen = ({ history }) => {
                                 isPublished: state.isPublished
                             }}
                             validationSchema={yup.object().shape({
-                                // userID: yup.string()
-                                //     .required('User ID is required'),
                                 name: yup.string()
                                     .required('Product name is required'),
                                 brand: yup.string()
@@ -554,24 +549,14 @@ const ProductCreateScreen = ({ history }) => {
                                                 name='imageURL'
                                                 id='imageURL'
                                                 autoComplete='off'
-                                                placeholder='Enter product image URL'
+                                                placeholder='Choose a product image'
                                                 value={state.imageURL}
-                                                onChange={ev => {
-                                                    handleChange(ev)
-                                                    setState(prevState => ({
-                                                        ...prevState,
-                                                        imageURL: ev.target.value
-                                                    }))
-                                                }}
                                             />
                                             <input
                                                 type='file'
                                                 name='imageFile'
                                                 id='imageFile'
-                                                onChange={(ev) => {
-                                                    handleChange(ev)
-                                                    uploadFileHandler(ev)
-                                                }}
+                                                onChange={ev => uploadFileHandler(ev)}
                                             />
                                             <label htmlFor='imageFile'>Choose a file</label>
                                             {state.uploading && <Spinner />}
@@ -617,9 +602,10 @@ const ProductCreateScreen = ({ history }) => {
                                 </div>
                             )}
 
-                        </Formik>}
-
-            </div>
+                        </Formik>
+                    </div>
+                </>
+            }
 
         </section>
     )

@@ -12,8 +12,7 @@ const storage = multer.diskStorage({
         cb(null, 'uploads/')
     },
     filename(req, file, cb) {
-        console.log(file)
-        cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`)
+        cb(null, `${file.originalname}`)
     }
 })
 
@@ -36,16 +35,11 @@ const upload = multer({
     }
 })
 
-// router.post('/', upload.single('image'), (req, res) => {
-//     console.log(req.file.path)
-//     res.send(`${req.file.path}`)
-// })
-
 router.post('/', upload.single('image'), asyncHandler(async (req, res) => {
-    const uploadPhoto = await cloudinary.uploader.upload(`${req.file.path}`)
-    console.log(uploadPhoto)
-    console.log(uploadPhoto.url)
-    // res.send(`${req.file.path}`)
+    const uploadPhoto = await cloudinary.v2.uploader.upload(`${req.file.path}`, {
+        folder: 'synth_eshop',
+        use_filename: true
+    })
     res.send(uploadPhoto.url)
 }))
 

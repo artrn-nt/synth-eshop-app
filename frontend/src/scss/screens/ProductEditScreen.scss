@@ -2,206 +2,234 @@
 @import '../media-queries.module.scss';
 
 %input {
-    width: 100%;
-    height: 2.65rem;
-    padding: 0 .8rem;
-    border: none;
-    border-radius: 4px;
-    background-color: $bright;
-    font-family: $content-font;
-    font-size: .95rem;
-    font-weight: 500;
-    color: $main-theme;
+	width: 100%;
+	height: $default-form-height;
+	padding: $form-padding;
+	border: none;
+	border-radius: 4px;
+	background-color: $bright;
+	font-family: $content-font;
+	font-size: $default-form-font-size;
+	font-weight: 500;
+	color: $main-theme;
 
-    @include sm-screen {
-        font-size: 0.875rem;
-    }
+	@include sm-screen {
+		font-size: $sm-form-font-size;
+	}
 }
 
 .product-edit-section {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    align-items: center;
-    width: 100%;
-    padding: $padding-screen;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	align-items: center;
+	width: 100%;
+	padding: $padding-screen;
 
-    .product-edit-main-col {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex-grow: 1;
-        width: 100%;
+	.product-edit-main-col {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+		flex-grow: 1;
+		width: 100%;
 
-        &.ctr {
-            justify-content: center;
-        }
+		.product-edit-form-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: flex-start;
+			margin-top: 50.4px;
+			width: $default-form-width;
+			color: $bright;
+			opacity: 0;
+			cursor: default;
 
-        &.str {
-            justify-content: flex-start;
-        }
+			@include md-screen {
+				width: 100%;
+				max-width: $default-form-width;
+			}
 
-        .product-edit-form-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            margin-top: 3.15rem;
-            width: 420px;
-            color: $bright;
-            opacity: 0;
-            cursor: default;
+			form {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: flex-start;
+				width: 100%;
 
-            @include md-screen {
-                width: 100%;
-                max-width: 420px;
-            }
+				.field-control {
+					display: flex;
+					flex-flow: column;
+					align-items: flex-start;
+					width: 100%;
+					min-height: 120px;
+					margin-bottom: 16px;
 
-            form {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                width: 100%;
-           
-                .field-control {
-                    display: flex;
-                    flex-flow: column;
-                    align-items: flex-start;
-                    width: 100%;
-                    min-height: 120px;
-                    margin-bottom: 1rem;
-          
-                    label {
-                        position: relative;
-                        margin-bottom: 1rem;
-                        font-size: 1.1rem;
-                        font-weight: 500;
+					label {
+						position: relative;
+						margin-bottom: 16px;
+						font-size: $default-label-font-size;
+						font-weight: 500;
 
-                        &::after {
-                            content: '';
-                            position: absolute;
-                            bottom: -2.1px;
-                            left: 0;
-                            display: block;
-                            height: 1.4px;
-                            width: 70%;
-                            background-color: $sub-theme;
-                        }
+						&::after {
+							content: '';
+							position: absolute;
+							bottom: -2.1px;
+							left: 0;
+							display: block;
+							height: 1.4px;
+							width: 70%;
+							background-color: $sub-theme;
+						}
 
-                        @include sm-screen {
-                            font-size: 1.025rem;
-                        }
-                    }
-          
-                    #userID,
-                    #name,
-                    #brand,
-                    #price,
-                    #countInStock,
-                    #description_m,
-                    #imageURL {
-                        @extend %input;
-                        margin-bottom: .75rem;
-                    }
+						@include sm-screen {
+							font-size: $sm-label-font-size;
+						}
+					}
 
-                    .form-err-msg-wrap {
-                        display: flex;
-                        align-items: flex-start;
-                        justify-content: flex-start;
-                        height: 25px;
-                        width: 100%;
-              
-                        .form-err-msg {
-                            width: 100%;
-                            font-size: 0.85rem;
-                            font-weight: 600;
-                            text-align: left;
-                            color: $sub-theme;
-                            animation: fadeIn 0.6s ease-in-out;
+					#userID,
+					#name,
+					#brand,
+					#price,
+					#countInStock,
+					#description_m,
+					#imageURL {
+						@extend %input;
+						margin-bottom: 12px;
+					}
 
-                            @include sm-screen {
-                                font-size: .775rem;
-                            }
-                        }
-                    }
-                }
+					.form-err-msg-wrap {
+						display: flex;
+						align-items: flex-start;
+						justify-content: flex-start;
+						height: 25px;
+						width: 100%;
 
-                .form-group {
-                    display: flex;
-                    flex-flow: column;
-                    align-items: flex-start;
-                    width: 100%;
-                    margin-bottom: calc(.75rem + 25px);
+						.form-err-msg {
+							width: 100%;
+							font-size: $default-err-msg-font-size;
+							font-weight: 600;
+							text-align: left;
+							color: $sub-theme;
+							animation: fadeIn 0.6s ease-in-out;
 
-                    .form-group-label {
-                        position: relative;
-                        margin-bottom: .75rem;
-                        font-size: 1.1rem;
-                        font-weight: 500;
+							@include sm-screen {
+								font-size: $sm-err-msg-font-size;
+							}
+						}
+					}
+				}
 
-                        &::after {
-                            content: '';
-                            position: absolute;
-                            bottom: -2.1px;
-                            left: 0;
-                            display: block;
-                            height: 1.4px;
-                            width: 70%;
-                            background-color: $sub-theme;
-                        }
+				#img-field-control {
+					input:nth-of-type(2) {
+						display: none;
+					}
 
-                        @include sm-screen {
-                            font-size: 1.025rem;
-                        }
-                    }
+					label:nth-of-type(2) {
+						display: flex;
+						align-items: center;
+						width: auto;
+						height: 30.4px;
+						padding: 0 15.2px;
+						margin-bottom: 16px;
+						background-color: transparent;
+						border: 1.2px solid;
+						border-radius: 4px;
+						color: $bright;
+						font-family: $content-font;
+						font-size: 15.2px;
+						font-weight: 500;
+						transition: transform 75ms ease-in, background-color 280ms ease-out;
+						cursor: pointer;
 
-                    .form-group-row {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        width: 100%;
+						&::after {
+							display: none;
+						}
 
-                        &:nth-of-type(1) {
-                            margin-bottom: 1rem;
-                        }
+						&:hover {
+							background-color: $sub-theme;
+						}
 
-                        @include sm-screen {
-                            flex-direction: column;
-                            align-items: flex-start;
-                        }
+						@include sm-screen {
+							font-size: 14px;
+						}
+					}
+				}
 
-                        .form-group-sub-col {
-                            display: flex;
-                            flex-direction: column;
-                            width: 50%;
+				.form-group {
+					display: flex;
+					flex-flow: column;
+					align-items: flex-start;
+					width: 100%;
+					margin-bottom: calc(12px + 25px);
 
-                            @include sm-screen {
-                                width: 100%;
-                                
-                                &:nth-child(2n + 1) {
-                                    margin-bottom: .75rem;
-                                }
-                            }
+					.form-group-label {
+						position: relative;
+						margin-bottom: 12px;
+						font-size: 17.6px;
+						font-weight: 500;
 
-                            .col-title {
-                                margin-bottom: .25rem;
-                                font-size: 1.1rem;
-                                font-weight: 500;
+						&::after {
+							content: '';
+							position: absolute;
+							bottom: -2.1px;
+							left: 0;
+							display: block;
+							height: 1.4px;
+							width: 70%;
+							background-color: $sub-theme;
+						}
 
-                                @include sm-screen {
-                                    font-size: 1.025rem;
-                                }
-                            }
+						@include sm-screen {
+							font-size: 16.4px;
+						}
+					}
 
-                            .checkbox-wrap {
-                                padding-left: 1.5rem;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+					.form-group-row {
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						width: 100%;
+
+						&:nth-of-type(1) {
+							margin-bottom: 16px;
+						}
+
+						@include sm-screen {
+							flex-direction: column;
+							align-items: flex-start;
+						}
+
+						.form-group-sub-col {
+							display: flex;
+							flex-direction: column;
+							width: 50%;
+
+							@include sm-screen {
+								width: 100%;
+
+								&:nth-child(2n + 1) {
+									margin-bottom: 12px;
+								}
+							}
+
+							.col-title {
+								margin-bottom: 4px;
+								font-size: 17.6px;
+								font-weight: 500;
+
+								@include sm-screen {
+									font-size: 16.4px;
+								}
+							}
+
+							.checkbox-wrap {
+								padding-left: 24px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
-
