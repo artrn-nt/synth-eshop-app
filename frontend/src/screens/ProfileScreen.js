@@ -30,14 +30,12 @@ const ProfileScreen = ({ history }) => {
 
     const userDetails = useSelector(state => state.userDetails)
     const { loading: loadingDetails, error: errorDetails, user } = userDetails
-    // console.log(user)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
     const orderList = useSelector(state => state.orderList)
     const { loading: loadingOrders, error: errorOrders, orders } = orderList
-    // console.log(orders)
 
     const userUpdateProfile = useSelector(state => state.userUpdateProfile)
 

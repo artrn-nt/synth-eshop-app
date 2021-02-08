@@ -19,11 +19,9 @@ const UsersListScreen = ({ history }) => {
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
-    // console.log(userLogin)
 
     const usersList = useSelector(state => state.usersList)
     const { loading, error, users } = usersList
-    // console.log(users)
 
     const userDelete = useSelector(state => state.userDelete)
     const { success: successDelete } = userDelete
@@ -40,7 +38,6 @@ const UsersListScreen = ({ history }) => {
                 y: 0,
                 ease: 'power3.out'
             })
-            console.log(users)
         }
     }, [users])
 

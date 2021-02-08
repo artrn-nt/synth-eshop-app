@@ -24,7 +24,6 @@ const OrdersListScreen = ({ history }) => {
 
     const ordersList = useSelector(state => state.ordersList)
     const { loading, error, orders } = ordersList
-    console.log(orders)
 
     const orderShip = useSelector(state => state.orderShip)
     const { error: errorShip, success: successShip } = orderShip

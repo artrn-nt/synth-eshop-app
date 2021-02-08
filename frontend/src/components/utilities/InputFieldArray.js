@@ -9,9 +9,6 @@ const InputFieldArray = ({ value, currentValue, handleChange, onChangeHandler, o
         text: ''
     })
 
-    // console.log(errors)
-    // console.log(touched)
-
     return (
         <div className='field-array-control'>
             <label htmlFor={value}>{value[0].toUpperCase() + value.slice(1)}</label>
