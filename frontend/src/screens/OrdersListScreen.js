@@ -79,8 +79,7 @@ const OrdersListScreen = ({ history }) => {
 
             <ScreenTitle title='Admin - Orders list' />
 
-            <div className={!userInfo || !userInfo.isAdmin ||
-                loading || error || errorShip || orders.length === 0 ? 'orders-list-main-row ctr' : 'orders-list-main-row str'}>
+            <div className='orders-list-main-row'>
 
                 {loading ? <Spinner /> :
                     error || errorShip ? <ErrorMsg message={error || errorShip} /> :

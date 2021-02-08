@@ -2,207 +2,211 @@
 @import '../media-queries.module.scss';
 
 .users-list-section {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    align-items: center;
-    width: 100%;
-    padding: $padding-screen;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	align-items: center;
+	width: 100%;
+	padding: $padding-screen;
 
-    .users-list-main-row {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 100%;
-        flex-grow: 1;
-        margin-top: 2.15rem;
-        
-        &.ctr {
-            align-items: center;
-        }
+	.users-list-main-row {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+		width: 100%;
+		flex-grow: 1;
+		margin-top: 2.15rem;
 
-        &.str {
-            align-items: flex-start;
-        }
+		.stats-row {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			padding: 1rem 0;
+			margin-bottom: 2.15rem;
+			opacity: 0;
 
-        .stats-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 1rem 0;
-            margin-bottom: 2.15rem;
-            opacity: 0;
-            
-            .stats-card {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: .925rem;
-                border: 1.2px solid $bright;
-                border-radius: 4px;
-                color: $bright;
-                font-size: 1.05rem;
-                font-weight: 500;
-                text-align: center;
-                cursor: default;
+			.stats-card {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0.925rem;
+				border: 1.2px solid $bright;
+				border-radius: 4px;
+				color: $bright;
+				font-size: 1.05rem;
+				font-weight: 500;
+				text-align: center;
+				cursor: default;
 
-                @include sm-screen {
-                    padding: .775rem;
-                    max-width: calc(320px - 2 * 1.6125rem);
-                    font-size: .975rem;
-                }
+				@include sm-screen {
+					padding: 0.775rem;
+					max-width: calc(320px - 2 * 1.6125rem);
+					font-size: 0.975rem;
+				}
 
-                i {
-                    margin-right: .625rem;
-                }
-            }
-        }
+				i {
+					margin-right: 0.625rem;
+				}
+			}
+		}
 
-        .users-list-table {
-            width: 100%;
-            border-collapse: collapse;
-            border-radius: 2.5px;
-            overflow: hidden;
-            opacity: 0;
-            cursor: default;
+		.users-list-table {
+			width: 100%;
+			border-collapse: collapse;
+			border-radius: 2.5px;
+			overflow: hidden;
+			opacity: 0;
+			cursor: default;
 
-            @include lg-screen {
-                display: block;
-            }
-  
-            thead {
-              height: 3.15rem;
-              background-color: lighten($greyish, 9%);
+			@include lg-screen {
+				display: block;
+			}
 
-              @include lg-screen {
-                  display: none;
-              }
-  
-                tr {
-                    color: $bright;
+			thead {
+				height: 3.15rem;
+				background-color: lighten($greyish, 9%);
 
-                    th {
-                        font-size: 1rem;
-                        font-weight: 500;
+				@include lg-screen {
+					display: none;
+				}
 
-                        &:nth-of-type(2), 
-                        &:nth-of-type(3),
-                        &:nth-of-type(4),
-                        &:nth-of-type(5) {
-                            position: relative;
+				tr {
+					color: $bright;
 
-                            &::before {
-                                content: '';
-                                display: block;
-                                position: absolute;
-                                top: 50%;
-                                left: 0;
-                                transform: translateY(-50%);
-                                width: 1.2px;
-                                height: 65%;
-                                background-color: $bright;
-                            }
-                        }
-                    }
-                }
-            }
-  
-            tbody {
-                @include lg-screen {
-                    display: block;
-                }
-  
-                tr {
-                    font-size: .95rem;
-                    height: 3.15rem;
-                    text-align: center;
-                    vertical-align: center;
-                    transition: background-color 280ms ease-out;
+					th {
+						font-size: 1rem;
+						font-weight: 500;
 
-                    @include lg-screen {
-                        display: block;
-                        height: auto;
-                        padding: .7875rem;
-                    }
+						&:nth-of-type(2),
+						&:nth-of-type(3),
+						&:nth-of-type(4),
+						&:nth-of-type(5) {
+							position: relative;
 
-                    @include sm-screen {
-                        font-size: .875rem;
-                    }
+							&::before {
+								content: '';
+								display: block;
+								position: absolute;
+								top: 50%;
+								left: 0;
+								transform: translateY(-50%);
+								width: 1.2px;
+								height: 65%;
+								background-color: $bright;
+							}
+						}
+					}
+				}
+			}
 
-                    td {
-                        @include lg-screen {
-                            display: block;
-                            position: relative;
-                            padding-left: 50%; 
-                            line-height: 20px;
-                          
-                            &:not(:last-of-type) {
-                                margin-bottom: .7875rem;
-                            }
-            
-                            &::before {
-                                position: absolute;
-                                top: 0;
-                                left: 25%;
-                                height: 20px;
-                                transform: translateX(-50%);
-                                font-weight: 500;
-                                color: $greyish;
-            
-                                @include md-screen {
-                                    left: 0;
-                                    transform: unset;
-                                }
-                            }
-        
-                            &:nth-of-type(1)::before { content: 'USER ID'; }
-                            &:nth-of-type(2)::before { content: 'NAME'; }
-                            &:nth-of-type(3)::before { content: 'EMAIL'; }
-                            &:nth-of-type(4)::before { content: 'ADMIN'; }
-                            &:nth-of-type(5)::before { content: 'EDIT'; }
-                            &:nth-of-type(6)::before { content: 'DEL'; }
-                        }
-                    }
+			tbody {
+				@include lg-screen {
+					display: block;
+				}
 
-                    td:nth-of-type(1),
-                    td:nth-of-type(2) {
-                        word-wrap: break-word;
-                        overflow-wrap: break-word;
-                    }
+				tr {
+					font-size: 0.95rem;
+					height: 3.15rem;
+					text-align: center;
+					vertical-align: center;
+					transition: background-color 280ms ease-out;
 
-                    td:nth-of-type(3) {
-                        a {
-                            word-wrap: break-word;
-                            overflow-wrap: break-word;
-                            width: 100%;
-                            height: 2.65rem;
-                            color: $main-theme;
-                            // padding: .2rem .5rem;
-                            transition: color 280ms ease-out;
+					@include lg-screen {
+						display: block;
+						height: auto;
+						padding: 0.7875rem;
+					}
 
-                            &:hover {
-                                color: $sub-theme;
-                            }
-                        }
-                    }
+					@include sm-screen {
+						font-size: 0.875rem;
+					}
 
-                    td:nth-of-type(5) {
-                        height: 100%;
-                    }
+					td {
+						@include lg-screen {
+							display: block;
+							position: relative;
+							padding-left: 50%;
+							line-height: 20px;
 
-                }
+							&:not(:last-of-type) {
+								margin-bottom: 0.7875rem;
+							}
 
-                tr:nth-child(2n + 1) {
-                    background-color: $bright;
-                    color: $main-theme;
-                }
+							&::before {
+								position: absolute;
+								top: 0;
+								left: 25%;
+								height: 20px;
+								transform: translateX(-50%);
+								font-weight: 500;
+								color: $greyish;
 
-                tr:nth-child(2n) {
-                    background-color: lighten($greyish, 31.5%);
-                    color: $main-theme;
-                }
-            }
-        }
-    }
+								@include md-screen {
+									left: 0;
+									transform: unset;
+								}
+							}
+
+							&:nth-of-type(1)::before {
+								content: 'USER ID';
+							}
+							&:nth-of-type(2)::before {
+								content: 'NAME';
+							}
+							&:nth-of-type(3)::before {
+								content: 'EMAIL';
+							}
+							&:nth-of-type(4)::before {
+								content: 'ADMIN';
+							}
+							&:nth-of-type(5)::before {
+								content: 'EDIT';
+							}
+							&:nth-of-type(6)::before {
+								content: 'DEL';
+							}
+						}
+					}
+
+					td:nth-of-type(1),
+					td:nth-of-type(2) {
+						word-wrap: break-word;
+						overflow-wrap: break-word;
+					}
+
+					td:nth-of-type(3) {
+						a {
+							word-wrap: break-word;
+							overflow-wrap: break-word;
+							width: 100%;
+							height: 2.65rem;
+							color: $main-theme;
+							// padding: .2rem .5rem;
+							transition: color 280ms ease-out;
+
+							&:hover {
+								color: $sub-theme;
+							}
+						}
+					}
+
+					td:nth-of-type(5) {
+						height: 100%;
+					}
+				}
+
+				tr:nth-child(2n + 1) {
+					background-color: $bright;
+					color: $main-theme;
+				}
+
+				tr:nth-child(2n) {
+					background-color: lighten($greyish, 31.5%);
+					color: $main-theme;
+				}
+			}
+		}
+	}
 }

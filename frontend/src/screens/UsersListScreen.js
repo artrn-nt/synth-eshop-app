@@ -67,7 +67,7 @@ const UsersListScreen = ({ history }) => {
 
             <ScreenTitle title='Admin - Users list' />
 
-            <div className={!userInfo || !userInfo.isAdmin || loading || error ? 'users-list-main-row ctr' : 'users-list-main-row str'}>
+            <div className='users-list-main-row'>
 
                 {loading ? <Spinner /> :
                     error ? <ErrorMsg message={error} /> : (
